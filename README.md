@@ -1,5 +1,9 @@
 # Rhino
 
+<!-- badges: start -->
+[![R build status](https://github.com/Appsilon/rhino/workflows/R-CMD-check/badge.svg)](https://github.com/Appsilon/rhino/actions)
+<!-- badges: end -->
+
 ## Development Process
 1. We follow [Scrum](https://scrumguides.org/).
 2. All changes are introduced in pull requests, which must be peer-reviewed.
