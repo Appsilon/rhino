@@ -20,3 +20,12 @@ increment the version number and tag a new release on GitHub.
 1. The PR has at least 1 approval and 0 change requests.
 2. The CI passes (`R CMD check`, linter, unit tests).
 3. The change is thoroughly documented.
+
+### Development Tools
+#### Unit Tests
+Unit tests can be run using `devtools::test()`.
+
+Alternatively, the package can be installed, and then tested with `testthat::test_package("rhino")`.
+
+#### Linter
+Linter can be run using either `lintr::lint_package()` or `devtools::lint()`.
