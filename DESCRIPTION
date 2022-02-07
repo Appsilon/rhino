@@ -18,7 +18,8 @@ Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.2
 Imports:
-    fs
+    fs,
+    usethis
 Suggests:
     lintr (>= 2.0.0),
     testthat (>= 3.0.0)
