@@ -1,3 +1,0 @@
-#!/usr/bin/env Rscript
-
-styler::style_dir("app/r")
