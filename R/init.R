@@ -1,4 +1,4 @@
-#' @importFrom fs dir_create file_create path
+#' @importFrom fs dir_create file_create file_delete path
 #' @importFrom usethis use_template proj_set
 #' @export
 init <- function(dir = ".") {
@@ -12,4 +12,6 @@ init <- function(dir = ".") {
     save_as = "app.R",
     package = "rhino"
   )
+
+  file_delete(path(dir, ".here"))
 }

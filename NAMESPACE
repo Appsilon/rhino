@@ -3,6 +3,7 @@
 export(init)
 importFrom(fs,dir_create)
 importFrom(fs,file_create)
+importFrom(fs,file_delete)
 importFrom(fs,path)
 importFrom(usethis,proj_set)
 importFrom(usethis,use_template)
