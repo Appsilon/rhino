@@ -1,0 +1,11 @@
+__pycache__
+.Renviron
+.Rproj.user
+.Rhistory
+TODO.txt
+
+# IDE directories
+/.idea/
+
+# Coverage report
+/coverage/

@@ -1,0 +1,9 @@
+files:
+  - app.R
+directories:
+  - app
+  - tests
+linters:
+  infix_spaces_linter: null # Looks bad with box.
+  line_length_linter: !expr lintr::line_length_linter(100)
+  object_usage_linter: null # Doesn't work with box.

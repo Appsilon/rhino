@@ -1,0 +1,62 @@
+name: Test
+on: push
+jobs:
+  main:
+    name: Run linters and tests
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v2
+
+      - name: Setup R
+        uses: r-lib/actions/setup-r@v1
+        with:
+          r-version: '4.1.0'
+
+      - name: Restore renv from cache
+        uses: actions/cache@v2
+        with:
+          path: renv/library
+          key: renv-${{ hashFiles('renv.lock') }}
+          restore-keys: renv-
+
+      - name: Sync renv with lockfile
+        shell: Rscript {0}
+        run: |
+          options(renv.config.cache.symlinks = FALSE)
+          renv::restore(clean = TRUE)
+
+      - name: Setup Node
+        uses: actions/setup-node@v2
+        with:
+          node-version: 16
+          cache: yarn
+          cache-dependency-path: tools/node/yarn.lock
+
+      - name: Sync yarn with lockfile
+        run: yarn
+        working-directory: tools/node
+
+      - name: Lint R
+        if: always()
+        run: tools/lint-r
+
+      - name: Lint JavaScript
+        if: always()
+        run: tools/lint-js
+
+      - name: Lint Sass
+        if: always()
+        run: tools/lint-sass
+
+      - name: Run unit tests
+        if: always()
+        run: tools/unit-test
+
+      - name: Run E2E tests
+        if: always()
+        uses: cypress-io/github-action@v2
+        with:
+          working-directory: tools/node
+          start: yarn run-app
+          project: root/tests
