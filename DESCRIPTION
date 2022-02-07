@@ -1,0 +1,24 @@
+Package: rhino
+Title: A framework for enterprise Shiny applications
+Version: 0.1.0
+Authors@R:
+  c(
+    person(given = "Kamil", family = "Zyla", role = "aut", email = "kamil@appsilon.com"),
+    person(given = "Jakub", family = "Nowicki", role = "aut", email = "kuba@appsilon.com"),
+    person(given = "Tymoteusz", family = "Makowski", role = "aut", email = "tymoteusz@appsilon.com"),
+    person(given = "Marek", family = "Rogala", role = "aut", email = "marek@appsilon.com"),
+    person("Developers", "Appsilon", email = "support+opensource@appsilon.com", role = "cre"),
+    person(family = "Appsilon Sp. z o.o.", role = "cph")
+  )
+Description: A framework that supports creating and extending enterprise Shiny applications using best practices.
+URL: https://github.com/Appsilon/rhino
+BugReports: https://github.com/Appsilon/rhino/issues
+License: MIT + file LICENSE
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.1.2
+Suggests:
+    lintr (>= 2.0.0),
+    testthat (>= 3.0.0)
+Config/testthat/edition: 3
+Config/testthat/parallel: true

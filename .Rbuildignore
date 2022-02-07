@@ -1,0 +1,8 @@
+^.*\.Rproj$
+^README\.md$
+^\.Rproj\.user$
+^\.git$
+^\.github$
+^\.gitignore$
+^\.lintr$
+^\.whitesource$
