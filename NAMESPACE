@@ -2,3 +2,4 @@
 
 export(format_r)
 export(lint_r)
+export(sync)
