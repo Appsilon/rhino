@@ -1,9 +1,9 @@
 if (file.exists("renv")) {
   source("renv/activate.R")
+  capture.output(renv::restore(packages = "rhino", prompt = FALSE), file = nullfile())
 } else {
   # The `renv` directory is automatically skipped when deploying with rsconnect.
   message("No 'renv' directory found; renv won't be activated.")
 }
 
-# Allow absolute module imports (relative to the app root).
-options(box.path = file.path(getwd(), "app"))
+rhino:::rprofile_init()
