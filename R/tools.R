@@ -18,3 +18,17 @@ lint_r <- function() {
 
 #' @export
 format_r <- function() styler::style_dir("app/r")
+
+#' @export
+build_sass <- function() {
+  config <- read_config()$features$sass
+  if (config == "node") {
+    run_yarn("build-sass")
+  } else if (config == "r_package") {
+    sass::sass(
+      input = sass::sass_file("app/styles/main.scss"),
+      output = "app/static/css/app.min.css",
+      cache = FALSE
+    )
+  }
+}
