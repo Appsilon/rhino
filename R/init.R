@@ -4,6 +4,7 @@ init <- function(dir = ".") {
 
   create_app_structure(dir)
   add_github_actions_cli(dir)
+  init_renv(dir)
 }
 
 #' @importFrom fs dir_create
@@ -65,6 +66,35 @@ add_github_actions_cli <- function(dir) {
   )
 
   cli_alert_success("Github Actions CI added")
+}
+
+#' @importFrom fs file_copy
+#' @importFrom renv init
+#' @importFrom withr with_dir
+#' @importFrom cli cli_alert_success
+init_renv <- function(dir) {
+  file_copy(
+    path = path_rhino(
+      "renv",
+      "renvignore"
+    ),
+    new_path = path(dir, ".renvignore")
+  )
+
+  file_copy(
+    path = path_rhino(
+      "renv",
+      "dependencies.R"
+    ),
+    new_path = path(dir)
+  )
+
+  with_dir(
+    dir,
+    renv::init()
+  )
+
+  cli_alert_success("renv initiated")
 }
 
 #' @importFrom  fs path_package

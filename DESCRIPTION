@@ -19,7 +19,9 @@ Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.2
 Imports:
     fs,
-    cli
+    cli,
+    renv,
+    withr
 Suggests:
     lintr (>= 2.0.0),
     testthat (>= 3.0.0)
