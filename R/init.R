@@ -1,9 +1,11 @@
 #' @export
-init <- function(dir = ".", ) {
+init <- function(dir = ".", github_actions_ci = TRUE) {
   init_setup(dir)
 
   create_app_structure(dir)
-  add_github_actions_ci(dir)
+
+  if (isTRUE(github_actions_ci)) add_github_actions_ci(dir)
+
   init_renv(dir)
 }
 
@@ -91,7 +93,7 @@ init_renv <- function(dir) {
 
   with_dir(
     dir,
-    renv::init()
+    renv::init(restart = FALSE)
   )
 
   cli_alert_success("renv initiated")
