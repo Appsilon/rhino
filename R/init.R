@@ -1,9 +1,9 @@
 #' @export
-init <- function(dir = ".") {
+init <- function(dir = ".", ) {
   init_setup(dir)
 
   create_app_structure(dir)
-  add_github_actions_cli(dir)
+  add_github_actions_ci(dir)
   init_renv(dir)
 }
 
@@ -54,7 +54,7 @@ create_app_structure <- function(dir) {
 
 #' @importFrom fs dir_create dir_copy path
 #' @importFrom cli cli_alert_success
-add_github_actions_cli <- function(dir) {
+add_github_actions_ci <- function(dir) {
   github_path <- path(dir, ".github")
   dir_create(github_path)
   dir_copy(
