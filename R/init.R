@@ -1,3 +1,8 @@
+#' Create Shiny application using `{rhino}`
+#'
+#' @param dir Name of the directory to create application in.
+#' @param github_actions_ci Should the Github Actions CI be added.
+#'
 #' @export
 init <- function(dir = ".", github_actions_ci = TRUE) {
   init_setup(dir)
