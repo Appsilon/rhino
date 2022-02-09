@@ -8,3 +8,4 @@ library(yaml) # Used to load config for lintr.
 library(box)
 library(logger)
 library(shiny)
+library(rhino)
