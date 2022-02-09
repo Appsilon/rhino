@@ -13,7 +13,7 @@ init_setup <- function(dir) {
   cli_alert_success("Application directory created")
 }
 
-#' @importFrom fs dir_copy file_copy
+#' @importFrom fs dir_copy file_copy path
 #' @importFrom cli cli_alert_success
 create_app_structure <- function(dir) {
   file_copy(
@@ -22,6 +22,22 @@ create_app_structure <- function(dir) {
       "app.R"
     ),
     new_path = dir
+  )
+
+  file_copy(
+    path = path_rhino(
+      "app_structure",
+      "Rprofile"
+    ),
+    new_path = path(dir, ".Rprofile")
+  )
+
+  file_copy(
+    path = path_rhino(
+      "app_structure",
+      "src.Rproj2"
+    ),
+    new_path = path(dir, "src.Rproj")
   )
 
   dir_copy(
