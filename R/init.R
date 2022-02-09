@@ -25,34 +25,22 @@ init_setup <- function(dir) {
 #' @importFrom cli cli_alert_success
 create_app_structure <- function(dir) {
   file_copy(
-    path = path_rhino(
-      "app_structure",
-      "app.R"
-    ),
+    path = path_rhino("app_structure", "app.R"),
     new_path = dir
   )
 
   file_copy(
-    path = path_rhino(
-      "app_structure",
-      "Rprofile"
-    ),
+    path = path_rhino("app_structure", "Rprofile"),
     new_path = path(dir, ".Rprofile")
   )
 
   file_copy(
-    path = path_rhino(
-      "app_structure",
-      "src.Rproj2"
-    ),
+    path = path_rhino("app_structure", "src.Rproj2"),
     new_path = path(dir, "src.Rproj")
   )
 
   dir_copy(
-    path = path_rhino(
-      "app_structure",
-      "app"
-    ),
+    path = path_rhino("app_structure", "app"),
     new_path = dir
   )
 
@@ -65,10 +53,7 @@ add_github_actions_ci <- function(dir) {
   github_path <- path(dir, ".github")
   dir_create(github_path)
   dir_copy(
-    path = path_rhino(
-      "github_ci",
-      "workflows"
-    ),
+    path = path_rhino("github_ci", "workflows"),
     new_path = github_path
   )
 
@@ -81,18 +66,12 @@ add_github_actions_ci <- function(dir) {
 #' @importFrom cli cli_alert_success
 init_renv <- function(dir) {
   file_copy(
-    path = path_rhino(
-      "renv",
-      "renvignore"
-    ),
+    path = path_rhino("renv", "renvignore"),
     new_path = path(dir, ".renvignore")
   )
 
   file_copy(
-    path = path_rhino(
-      "renv",
-      "dependencies.R"
-    ),
+    path = path_rhino("renv", "dependencies.R"),
     new_path = path(dir)
   )
 
