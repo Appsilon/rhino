@@ -65,13 +65,7 @@ jobs:
 
       - name: Lint
         run: |
-          lintr::lint_package(
-            linters = lintr::with_defaults(
-              infix_spaces_linter = NULL,
-              object_usage_linter = NULL,
-              line_length_linter = lintr::line_length_linter(100)
-            )
-          )
+          lintr::lint_package()
         shell: Rscript {0}
 
       - name: Upload lint results
