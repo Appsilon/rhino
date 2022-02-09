@@ -3,7 +3,7 @@ init <- function(dir = ".") {
   init_setup(dir)
 
   create_app_structure(dir)
-  create_tests_structure(dir)
+  add_github_actions_cli(dir)
 }
 
 #' @importFrom fs dir_create
@@ -13,7 +13,7 @@ init_setup <- function(dir) {
   cli_alert_success("Application directory created")
 }
 
-#' @importFrom fs dir_copy file_copy path
+#' @importFrom fs dir_copy file_copy
 #' @importFrom cli cli_alert_success
 create_app_structure <- function(dir) {
   file_copy(
@@ -24,14 +24,12 @@ create_app_structure <- function(dir) {
     new_path = dir
   )
 
-  app_path <- path(dir, "app")
-  dir_create(app_path)
   dir_copy(
     path = path_rhino(
       "app_structure",
       "app"
     ),
-    new_path = app_path
+    new_path = dir
   )
 
   cli_alert_success("Application structure created")
@@ -39,17 +37,18 @@ create_app_structure <- function(dir) {
 
 #' @importFrom fs dir_create dir_copy path
 #' @importFrom cli cli_alert_success
-create_tests_structure <- function(dir) {
-  tests_path <- path(dir, "tests")
-  dir_create(tests_path)
+add_github_actions_cli <- function(dir) {
+  github_path <- path(dir, ".github")
+  dir_create(github_path)
   dir_copy(
     path = path_rhino(
-      "tests_structure"
+      "github_ci",
+      "workflows"
     ),
-    new_path = tests_path
+    new_path = github_path
   )
 
-  cli_alert_success("Tests structure created")
+  cli_alert_success("Github Actions CI added")
 }
 
 #' @importFrom  fs path_package
