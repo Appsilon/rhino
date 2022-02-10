@@ -29,3 +29,7 @@ Alternatively, the package can be installed, and then tested with `testthat::tes
 
 #### Linter
 Linter can be run using either `lintr::lint_package()` or `devtools::lint()`.
+
+#### `pkgdown` site
+To create a `pkgdown` site locally run either `pkgdown::build_site()` or `devtools::build_site()`.
+If built successfully, the website will be in `docs` directory.
