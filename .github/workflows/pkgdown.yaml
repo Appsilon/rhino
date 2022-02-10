@@ -1,8 +1,7 @@
 on:
   push:
     branches:
-      - add-pkgdown-ci
-      # - main
+      - main
 
 name: pkgdown
 
