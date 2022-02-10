@@ -1,11 +1,5 @@
-__pycache__
+/.rhino/
+
 .Renviron
-.Rproj.user
 .Rhistory
-TODO.txt
-
-# IDE directories
-/.idea/
-
-# Coverage report
-/coverage/
+.Rproj.user
