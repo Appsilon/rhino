@@ -11,7 +11,7 @@ Authors@R:
     person(family = "Appsilon Sp. z o.o.", role = "cph")
   )
 Description: A framework that supports creating and extending enterprise Shiny applications using best practices.
-URL: https://github.com/Appsilon/rhino
+URL: https://appsilon.github.io/rhino, https://github.com/Appsilon/rhino
 BugReports: https://github.com/Appsilon/rhino/issues
 License: MIT + file LICENSE
 Encoding: UTF-8
