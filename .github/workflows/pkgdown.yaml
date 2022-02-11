@@ -27,13 +27,8 @@ jobs:
           extra-packages: any::pkgdown, local::.
           needs: website
 
-      - name: Build site
-        run: pkgdown::build_site_github_pages(new_process = FALSE, install = FALSE)
-        shell: Rscript {0}
-
-      - name: Deploy to GitHub pages 🚀
-        uses: JamesIves/github-pages-deploy-action@4.2.3
-        with:
-          branch: gh-pages
-          folder: .
-          clean: false
+      - name: Deploy to gh-pages branch
+        run: |
+          git config --local user.name "$GITHUB_ACTOR"
+          git config --local user.email "$GITHUB_ACTOR@users.noreply.github.com"
+          Rscript -e 'pkgdown::deploy_to_branch(new_process = FALSE)'
