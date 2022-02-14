@@ -1,0 +1,7 @@
+Binding: init
+Title: Shiny Application using rhino
+
+Parameter: github_actions_ci
+Widget: CheckboxInput
+Label: Github Actions CI
+Default: On
