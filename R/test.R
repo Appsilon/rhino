@@ -1,3 +1,5 @@
+#' Run unit tests
+#'
 #' @importFrom testthat test_dir
 #' @export
 test_r <- function() {
