@@ -3,6 +3,7 @@
 # Development
 library(lintr)
 library(yaml) # Used to load config for lintr.
+library(testthat)
 
 # Production
 library(box)

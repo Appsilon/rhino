@@ -9,6 +9,8 @@ init <- function(dir = ".", github_actions_ci = TRUE) {
 
   create_app_structure(dir)
 
+  create_unit_tests_structure(dir)
+
   if (isTRUE(github_actions_ci)) add_github_actions_ci(dir)
 
   init_renv(dir)
@@ -81,6 +83,20 @@ init_renv <- function(dir) {
   )
 
   cli_alert_success("renv initiated")
+}
+
+#' @importFrom fs dir_create dir_copy path
+#' @importFrom cli cli_alert_success
+create_unit_tests_structure <- function(dir) {
+  tests_path <- path(dir, "tests")
+  dir_create(tests_path)
+
+  dir_copy(
+    path = path_rhino("unit_tests", "testthat"),
+    new_path = tests_path
+  )
+
+  cli_alert_success("Unit tests structure created")
 }
 
 #' @importFrom  fs path_package
