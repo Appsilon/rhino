@@ -18,12 +18,14 @@ Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.2
 Imports:
-    fs,
-    cli,
-    renv,
-    withr,
-    testthat (>= 3.0.0)
+  cli,
+  fs,
+  renv,
+  sass,
+  testthat (>= 3.0.0),
+  withr,
+  yaml
 Suggests:
-    lintr (>= 2.0.0)
+  lintr (>= 2.0.0)
 Config/testthat/edition: 3
 Config/testthat/parallel: true
