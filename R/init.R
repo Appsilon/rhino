@@ -27,7 +27,7 @@ init_setup <- function(dir) {
 #' @importFrom cli cli_alert_success
 create_app_structure <- function(dir) {
   file_copy(
-    path = path_rhino("app_structure", "app.R"),
+    path = path_rhino("app_structure", c("app.R", "rhino.yml")),
     new_path = dir
   )
 
