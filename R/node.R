@@ -6,11 +6,7 @@ system_yarn <- function(...) {
 }
 
 add_node <- function() {
-  fs::dir_copy(
-    path = template_path("node"),
-    new_path = node_path(),
-    overwrite = TRUE
-  )
+  copy_template("node", node_path())
   fs::link_create(
     path = fs::path("..", ".."),
     new_path = fs::path(node_path(), "root")
