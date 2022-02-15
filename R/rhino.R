@@ -5,3 +5,7 @@ read_config <- function() {
 template_path <- function(...) {
   fs::path_package("rhino", "templates", ...)
 }
+
+node_path <- function(...) {
+  fs::path(".rhino", "node", ...)
+}
