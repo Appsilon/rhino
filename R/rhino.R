@@ -10,16 +10,21 @@ node_path <- function(...) {
   fs::path(".rhino", "node", ...)
 }
 
+rename_template_path <- function(path) {
+  path <- fs::path_split(path)[[1]]
+  path <- sub("^dot.", ".", path)
+  path <- sub(".template$", "", path)
+  fs::path_join(path)
+}
+
 copy_template <- function(src, dst) {
   src <- template_path(src)
-  target <- function(x) {
-    relative <- fs::path_rel(x, start = src)
-    relative <- fs::path_split(relative)[[1]]
-    relative <- sub("^dot.", ".", relative)
-    relative <- sub(".template$", "", relative)
-    relative <- fs::path_join(relative)
-    fs::path(dst, relative)
+  target <- function(path) {
+    path <- fs::path_rel(path, start = src)
+    path <- rename_template_path(path)
+    fs::path(dst, path)
   }
+
   fs::dir_create(dst)
   fs::dir_walk(
     path = src,
