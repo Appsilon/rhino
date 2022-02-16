@@ -6,6 +6,13 @@ test_r <- function() {
   testthat::test_dir(path("tests", "testthat"))
 }
 
+#' Run linter for R
+#'
+#' @export
+lint_r <- function() {
+  lintr::lint_dir("app")
+}
+
 #' Build Sass
 #'
 #' @importFrom fs dir_create path
