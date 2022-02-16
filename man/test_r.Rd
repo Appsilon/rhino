@@ -2,10 +2,10 @@
 % Please edit documentation in R/tools.R
 \name{test_r}
 \alias{test_r}
-\title{Run unit tests}
+\title{Run R unit tests}
 \usage{
 test_r()
 }
 \description{
-Run unit tests
+Run R unit tests
 }

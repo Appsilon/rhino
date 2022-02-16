@@ -3,6 +3,7 @@
 export(build_js)
 export(build_sass)
 export(init)
+export(lint_js)
 export(lint_sass)
 export(test_r)
 importFrom(fs,dir_create)
