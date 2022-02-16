@@ -2,6 +2,7 @@
 
 export(build_sass)
 export(init)
+export(lint_sass)
 export(test_r)
 importFrom(fs,dir_create)
 importFrom(fs,path)

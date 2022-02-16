@@ -24,3 +24,10 @@ build_sass <- function() {
     )
   }
 }
+
+#' Run linter for Sass
+#'
+#' @export
+lint_sass <- function() {
+  yarn("lint-sass")
+}
