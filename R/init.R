@@ -27,22 +27,22 @@ init_setup <- function(dir) {
 #' @importFrom cli cli_alert_success
 create_app_structure <- function(dir) {
   file_copy(
-    path = path_rhino("app_structure", "app.R"),
+    path = template_path("app_structure", c("app.R", "rhino.yml")),
     new_path = dir
   )
 
   file_copy(
-    path = path_rhino("app_structure", "Rprofile"),
+    path = template_path("app_structure", "Rprofile"),
     new_path = path(dir, ".Rprofile")
   )
 
   file_copy(
-    path = path_rhino("app_structure", "src.Rproj2"),
+    path = template_path("app_structure", "src.Rproj2"),
     new_path = path(dir, "src.Rproj")
   )
 
   dir_copy(
-    path = path_rhino("app_structure", "app"),
+    path = template_path("app_structure", "app"),
     new_path = dir
   )
 
@@ -55,7 +55,7 @@ add_github_actions_ci <- function(dir) {
   github_path <- path(dir, ".github")
   dir_create(github_path)
   dir_copy(
-    path = path_rhino("github_ci", "workflows"),
+    path = template_path("github_ci", "workflows"),
     new_path = github_path
   )
 
@@ -68,12 +68,12 @@ add_github_actions_ci <- function(dir) {
 #' @importFrom cli cli_alert_success
 init_renv <- function(dir) {
   file_copy(
-    path = path_rhino("renv", "renvignore"),
+    path = template_path("renv", "renvignore"),
     new_path = path(dir, ".renvignore")
   )
 
   file_copy(
-    path = path_rhino("renv", "dependencies.R"),
+    path = template_path("renv", "dependencies.R"),
     new_path = path(dir)
   )
 
@@ -92,18 +92,9 @@ create_unit_tests_structure <- function(dir) {
   dir_create(tests_path)
 
   dir_copy(
-    path = path_rhino("unit_tests", "testthat"),
+    path = template_path("unit_tests", "testthat"),
     new_path = tests_path
   )
 
   cli_alert_success("Unit tests structure created")
-}
-
-#' @importFrom  fs path_package
-path_rhino <- function(...) {
-  path_package(
-    "rhino",
-    "templates",
-    ...
-  )
 }
