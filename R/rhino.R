@@ -12,8 +12,8 @@ node_path <- function(...) {
 
 rename_template_path <- function(path) {
   path <- fs::path_split(path)[[1]]
-  path <- sub("^dot.", ".", path)
-  path <- sub(".template$", "", path)
+  path <- sub("^dot\\.", ".", path)
+  path <- sub("\\.template$", "", path)
   fs::path_join(path)
 }
 
