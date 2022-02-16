@@ -78,3 +78,10 @@ build_sass <- function() {
 lint_sass <- function() {
   yarn("lint-sass")
 }
+
+#' Run Cypress end-to-end tests
+#'
+#' @export
+test_e2e <- function() {
+  yarn("test-e2e")
+}
