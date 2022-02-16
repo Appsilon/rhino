@@ -13,6 +13,19 @@ lint_r <- function() {
   lintr::lint_dir("app")
 }
 
+#' Run styler for R
+#'
+#' @param path File or directory to format
+#'
+#' @export
+format_r <- function(path) {
+  if (fs::is_dir(path)) {
+    styler::style_dir(path)
+  } else {
+    styler::style_file(path)
+  }
+}
+
 #' Build Sass
 #'
 #' @importFrom fs dir_create path

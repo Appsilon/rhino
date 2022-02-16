@@ -25,6 +25,7 @@ Imports:
   testthat (>= 3.0.0),
   withr,
   yaml,
-  lintr (>= 2.0.0)
+  lintr (>= 2.0.0),
+  styler
 Config/testthat/edition: 3
 Config/testthat/parallel: true
