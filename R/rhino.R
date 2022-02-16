@@ -17,6 +17,10 @@ rename_template_path <- function(path) {
   fs::path_join(path)
 }
 
+# Copy template from source path (relative to `inst/templates`) to destination
+# with some renaming applied to the names of files and directories:
+# 1. Leading `dot.` is replaced with `.`.
+# 2. Trailing `.template` is removed.
 copy_template <- function(src, dst) {
   src <- template_path(src)
   target <- function(path) {
