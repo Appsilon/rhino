@@ -1,9 +1,23 @@
-#' Run unit tests
+#' Run R unit tests
 #'
 #' @importFrom fs path
 #' @export
 test_r <- function() {
   testthat::test_dir(path("tests", "testthat"))
+}
+
+#' Build JavaScript
+#'
+#' @export
+build_js <- function() {
+  yarn("build-js")
+}
+
+#' Lint JavaScript
+#'
+#' @export
+lint_js <- function() {
+  yarn("lint-js")
 }
 
 #' Build Sass
@@ -25,7 +39,7 @@ build_sass <- function() {
   }
 }
 
-#' Run linter for Sass
+#' Lint Sass
 #'
 #' @export
 lint_sass <- function() {
