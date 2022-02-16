@@ -6,6 +6,13 @@ test_r <- function() {
   testthat::test_dir(path("tests", "testthat"))
 }
 
+#' Build JavaScript
+#'
+#' @export
+build_js <- function() {
+  yarn("build-js")
+}
+
 #' Build Sass
 #'
 #' @importFrom fs dir_create path
