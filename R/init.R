@@ -7,6 +7,7 @@
 init <- function(dir = ".", github_actions_ci = TRUE) {
   create_app_structure(dir)
   create_unit_tests_structure(dir)
+  create_e2e_tests_structure(dir)
   if (isTRUE(github_actions_ci)) add_github_actions_ci(dir)
   init_renv(dir)
 }
@@ -30,4 +31,9 @@ init_renv <- function(dir) {
 create_unit_tests_structure <- function(dir) {
   copy_template("unit_tests", dir)
   cli::cli_alert_success("Unit tests structure created")
+}
+
+create_e2e_tests_structure <- function(dir) {
+  copy_template("e2e_tests", dir)
+  cli::cli_alert_success("E2E tests structure created")
 }
