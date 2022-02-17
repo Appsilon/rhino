@@ -7,5 +7,13 @@
 lint_js()
 }
 \description{
-Lint JavaScript
+Runs \href{https://eslint.org}{ESLint} on the JavaScript sources in the \code{app/js} directory.
+}
+\details{
+If your code uses global objects defined by other JS libraries or R packages,
+you'll need to let the linter know or it will complain about undefined objects.
+For example, the \code{{leaflet}} package defines a global object \code{L}.
+To access it without raising linter errors, add \verb{/* global L */} comment in your JS code.
+
+You don't need to define \code{Shiny} and \code{$} as these globals are defined by default.
 }
