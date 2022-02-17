@@ -20,12 +20,12 @@ RoxygenNote: 7.1.2
 Imports:
   cli,
   fs,
+  lintr (>= 2.0.0),
   renv,
   sass,
+  styler,
   testthat (>= 3.0.0),
   withr,
-  yaml,
-  lintr (>= 2.0.0),
-  styler
+  yaml
 Config/testthat/edition: 3
 Config/testthat/parallel: true

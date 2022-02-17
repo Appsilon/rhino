@@ -8,9 +8,22 @@ test_r <- function() {
 
 #' Run linter for R
 #'
+#' @param accepted_errors Number of accepted style errors.
+#'
 #' @export
-lint_r <- function() {
-  lintr::lint_dir("app")
+lint_r <- function(accepted_errors = 0) {
+  lints <- c(
+    lintr::lint("app.R"),
+    lintr::lint_dir("app"),
+    lintr::lint_dir(path("tests", "testthat"))
+  )
+
+  style_errors <- length(lints)
+
+  if (style_errors > accepted_errors) {
+    print(lints)
+    stop(sprintf("Number of style errors: %s", style_errors))
+  }
 }
 
 #' Run styler for R

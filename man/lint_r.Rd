@@ -4,7 +4,10 @@
 \alias{lint_r}
 \title{Run linter for R}
 \usage{
-lint_r()
+lint_r(accepted_errors = 0)
+}
+\arguments{
+\item{accepted_errors}{Number of accepted style errors.}
 }
 \description{
 Run linter for R
