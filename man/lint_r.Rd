@@ -2,7 +2,7 @@
 % Please edit documentation in R/tools.R
 \name{lint_r}
 \alias{lint_r}
-\title{Run linter for R}
+\title{Lint R}
 \usage{
 lint_r(accepted_errors = 0)
 }
@@ -10,5 +10,5 @@ lint_r(accepted_errors = 0)
 \item{accepted_errors}{Number of accepted style errors.}
 }
 \description{
-Run linter for R
+Lint R
 }

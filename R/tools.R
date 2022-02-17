@@ -1,4 +1,4 @@
-#' Run unit tests
+#' Run R unit tests
 #'
 #' @importFrom fs path
 #' @export
@@ -6,7 +6,7 @@ test_r <- function() {
   testthat::test_dir(path("tests", "testthat"))
 }
 
-#' Run linter for R
+#' Lint R
 #'
 #' @param accepted_errors Number of accepted style errors.
 #'
@@ -26,7 +26,7 @@ lint_r <- function(accepted_errors = 0) {
   }
 }
 
-#' Run styler for R
+#' Format R
 #'
 #' @param path File or directory to format
 #'
@@ -37,6 +37,20 @@ format_r <- function(path) {
   } else {
     styler::style_file(path)
   }
+}
+
+#' Build JavaScript
+#'
+#' @export
+build_js <- function() {
+  yarn("build-js")
+}
+
+#' Lint JavaScript
+#'
+#' @export
+lint_js <- function() {
+  yarn("lint-js")
 }
 
 #' Build Sass
@@ -58,7 +72,7 @@ build_sass <- function() {
   }
 }
 
-#' Run linter for Sass
+#' Lint Sass
 #'
 #' @export
 lint_sass <- function() {

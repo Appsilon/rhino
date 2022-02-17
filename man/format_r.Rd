@@ -2,7 +2,7 @@
 % Please edit documentation in R/tools.R
 \name{format_r}
 \alias{format_r}
-\title{Run styler for R}
+\title{Format R}
 \usage{
 format_r(path)
 }
@@ -10,5 +10,5 @@ format_r(path)
 \item{path}{File or directory to format}
 }
 \description{
-Run styler for R
+Format R
 }
