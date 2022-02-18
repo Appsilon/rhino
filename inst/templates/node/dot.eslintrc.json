@@ -8,5 +8,9 @@
     "$": "readonly",
     "Shiny": "readonly"
   },
-  "rules": {}
+  "rules": {
+    "import/prefer-default-export": "off",
+    "no-alert": "off",
+    "no-console": "off"
+  }
 }
