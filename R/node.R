@@ -1,8 +1,11 @@
 system_yarn <- function(...) {
-  system2(
+  status <- system2(
     command = "yarn",
     args = c("--cwd", shQuote(node_path()), ...)
   )
+  if (status != 0) {
+    stop(glue::glue("yarn failed with exit status {status}"), call. = FALSE)
+  }
 }
 
 add_node <- function() {
