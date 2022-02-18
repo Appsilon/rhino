@@ -71,6 +71,7 @@ build_js <- function() {
   yarn("build-js")
 }
 
+# nolint start
 #' Lint JavaScript
 #'
 #' Runs [ESLint](https://eslint.org) on the JavaScript sources in the `app/js` directory.
@@ -91,6 +92,7 @@ build_js <- function() {
 #' for full details.
 #'
 #' @export
+# nolint end
 lint_js <- function() {
   yarn("lint-js")
 }
