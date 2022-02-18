@@ -1,8 +1,8 @@
-name: Linter
+name: Rhino Test
 on: push
 jobs:
   main:
-    name: Run linter
+    name: Run linters and tests
     runs-on: ubuntu-20.04
     steps:
       - name: Checkout repo
@@ -26,8 +26,27 @@ jobs:
           options(renv.config.cache.symlinks = FALSE)
           renv::restore(clean = TRUE)
 
+      - name: Setup Node
+        uses: actions/setup-node@v2
+        with:
+          node-version: 16
+
       - name: Lint R
         if: always()
         shell: Rscript {0}
-        run: |
-          rhino::lint_r()
+        run: rhino::lint_r()
+
+      - name: Lint JavaScript
+        if: always()
+        shell: Rscript {0}
+        run: rhino::lint_js()
+
+      - name: Lint Sass
+        if: always()
+        shell: Rscript {0}
+        run: rhino::lint_sass()
+
+      - name: Run R unit tests
+        if: always()
+        shell: Rscript {0}
+        run: rhino::test_r()
