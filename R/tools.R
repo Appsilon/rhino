@@ -82,6 +82,14 @@ build_js <- function() {
 #'
 #' You don't need to define `Shiny` and `$` as these globals are defined by default.
 #'
+#' If you find a particular ESLint error unapplicable to your code,
+#' you can disable a specific rule for the next line of code with a comment like:
+#' ```js
+#'   // eslint-disable-next-line no-restricted-syntax
+#' ```
+#' See the [ESLint documentation](https://eslint.org/docs/user-guide/configuring/rules#using-configuration-comments-1)
+#' for full details.
+#'
 #' @export
 lint_js <- function() {
   yarn("lint-js")
