@@ -19,6 +19,7 @@ Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.2
 Imports:
   cli,
+  glue,
   fs,
   lintr (>= 2.0.0),
   renv,
