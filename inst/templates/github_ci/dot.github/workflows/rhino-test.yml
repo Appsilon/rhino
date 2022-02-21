@@ -7,6 +7,7 @@ jobs:
     name: Run linters and tests
     runs-on: ubuntu-20.04
     env:
+      R_VERSION: '4.1.0'
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
     steps:
       - name: Checkout repo
@@ -15,14 +16,16 @@ jobs:
       - name: Setup R
         uses: r-lib/actions/setup-r@v1
         with:
-          r-version: '4.1.0'
+          r-version: ${{ env.R_VERSION }}
 
       - name: Restore renv from cache
         uses: actions/cache@v2
+        env:
+          CACHE_KEY: renv-${{ runner.arch }}-${{ runner.os }}-${{ env.R_VERSION }}
         with:
           path: renv/library
-          key: renv-${{ hashFiles('renv.lock') }}
-          restore-keys: renv-
+          key: ${{ env.CACHE_KEY }}-${{ hashFiles('renv.lock') }}
+          restore-keys: ${{ env.CACHE_KEY }}-
 
       - name: Sync renv with lockfile
         shell: Rscript {0}
