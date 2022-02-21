@@ -16,9 +16,33 @@
     <loc>/pull_request_template.html</loc>
   </url>
   <url>
+    <loc>/reference/build_js.html</loc>
+  </url>
+  <url>
+    <loc>/reference/build_sass.html</loc>
+  </url>
+  <url>
+    <loc>/reference/format_r.html</loc>
+  </url>
+  <url>
     <loc>/reference/index.html</loc>
   </url>
   <url>
     <loc>/reference/init.html</loc>
+  </url>
+  <url>
+    <loc>/reference/lint_js.html</loc>
+  </url>
+  <url>
+    <loc>/reference/lint_r.html</loc>
+  </url>
+  <url>
+    <loc>/reference/lint_sass.html</loc>
+  </url>
+  <url>
+    <loc>/reference/test_e2e.html</loc>
+  </url>
+  <url>
+    <loc>/reference/test_r.html</loc>
   </url>
 </urlset>
