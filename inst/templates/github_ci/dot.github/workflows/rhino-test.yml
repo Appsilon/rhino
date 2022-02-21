@@ -1,0 +1,67 @@
+name: Rhino Test
+on: push
+permissions:
+  contents: read
+jobs:
+  main:
+    name: Run linters and tests
+    runs-on: ubuntu-20.04
+    env:
+      R_VERSION: '4.1.0'
+      GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v2
+
+      - name: Setup R
+        uses: r-lib/actions/setup-r@v1
+        with:
+          r-version: ${{ env.R_VERSION }}
+
+      - name: Restore renv from cache
+        uses: actions/cache@v2
+        env:
+          CACHE_KEY: renv-${{ runner.arch }}-${{ runner.os }}-${{ env.R_VERSION }}
+        with:
+          path: renv/library
+          key: ${{ env.CACHE_KEY }}-${{ hashFiles('renv.lock') }}
+          restore-keys: ${{ env.CACHE_KEY }}-
+
+      - name: Sync renv with lockfile
+        shell: Rscript {0}
+        run: |
+          options(renv.config.cache.symlinks = FALSE)
+          renv::restore(clean = TRUE)
+
+      - name: Setup Node
+        uses: actions/setup-node@v2
+        with:
+          node-version: 16
+
+      - name: Lint R
+        if: always()
+        shell: Rscript {0}
+        run: rhino::lint_r()
+
+      - name: Lint JavaScript
+        if: always()
+        shell: Rscript {0}
+        run: rhino::lint_js()
+
+      - name: Lint Sass
+        if: always()
+        shell: Rscript {0}
+        run: rhino::lint_sass()
+
+      - name: Run R unit tests
+        if: always()
+        shell: Rscript {0}
+        run: rhino::test_r()
+
+      - name: Run Cypress end-to-end tests
+        if: always()
+        uses: cypress-io/github-action@v2
+        with:
+          working-directory: .rhino/node # Created by earlier commands which use Node.js
+          start: yarn run-app
+          project: root/tests

@@ -1,0 +1,16 @@
+{
+  "parser": "@babel/eslint-parser",
+  "extends": ["airbnb-base"],
+  "env": {
+    "browser": true
+  },
+  "globals": {
+    "$": "readonly",
+    "Shiny": "readonly"
+  },
+  "rules": {
+    "import/prefer-default-export": "off",
+    "no-alert": "off",
+    "no-console": "off"
+  }
+}

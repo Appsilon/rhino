@@ -1,6 +1,6 @@
 Package: rhino
 Title: A framework for enterprise Shiny applications
-Version: 0.2.0
+Version: 0.3.0
 Authors@R:
   c(
     person(given = "Kamil", family = "Zyla", role = "aut", email = "kamil@appsilon.com"),
@@ -18,12 +18,15 @@ Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.2
 Imports:
-    fs,
-    cli,
-    renv,
-    withr
-Suggests:
-    lintr (>= 2.0.0),
-    testthat (>= 3.0.0)
+  cli,
+  glue,
+  fs,
+  lintr (>= 2.0.0),
+  renv,
+  sass,
+  styler,
+  testthat (>= 3.0.0),
+  withr,
+  yaml
 Config/testthat/edition: 3
 Config/testthat/parallel: true
