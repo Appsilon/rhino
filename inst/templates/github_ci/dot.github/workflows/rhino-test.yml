@@ -54,3 +54,11 @@ jobs:
         if: always()
         shell: Rscript {0}
         run: rhino::test_r()
+
+      - name: Run Cypress end-to-end tests
+        if: always()
+        uses: cypress-io/github-action@v2
+        with:
+          working-directory: .rhino/node # Created by earlier commands which use Node.js
+          start: yarn run-app
+          project: root/tests
