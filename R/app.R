@@ -4,6 +4,10 @@ configure_logger <- function() {
 
   logger::log_threshold(log_level)
   if (!is.na(log_file)) {
+    # Use an absolute path to avoid the effects of changing the working directory when the app runs.
+    if (!fs::is_absolute_path(log_file)) {
+      log_file <- fs::path_wd(log_file)
+    }
     logger::log_appender(logger::appender_file(log_file))
   }
 }
@@ -41,7 +45,7 @@ with_head_tags <- function(ui) {
 
 app <- function() {
   configure_logger()
-  shiny::addResourcePath("static", "app/static")
+  shiny::addResourcePath("static", fs::path_wd("app", "static"))
 
   entrypoint <- read_config()$legacy_entrypoint
   if (identical(entrypoint, "app_dir")) {
