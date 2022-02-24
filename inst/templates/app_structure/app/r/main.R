@@ -6,11 +6,6 @@ box::use(
 ui <- function(id) {
   ns <- NS(id)
   bootstrapPage(
-    tags$head(
-      tags$link(rel = "icon", href = "static/favicon.ico", sizes = "any"),
-      tags$link(rel = "stylesheet", type = "text/css", href = "static/css/app.min.css"),
-      tags$script(src = "static/js/app.min.js")
-    ),
     tags$h3(
       textOutput(ns("message"))
     )

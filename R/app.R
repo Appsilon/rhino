@@ -21,25 +21,44 @@ load_main_module <- function() {
   main
 }
 
+as_top_level <- function(shiny_module) {
+  list(
+    ui = shiny_module$ui("app"),
+    server = function(input, output) shiny_module$server("app")
+  )
+}
+
+with_head_tags <- function(ui) {
+  shiny::tagList(
+    shiny::tags$head(
+      shiny::tags$script(src = "static/js/app.min.js"),
+      shiny::tags$link(rel = "stylesheet", href = "static/css/app.min.css", type = "text/css"),
+      shiny::tags$link(rel = "icon", href = "static/favicon.ico", sizes = "any")
+    ),
+    ui
+  )
+}
+
 app <- function() {
   configure_logger()
   shiny::addResourcePath("static", "app/static")
 
   entrypoint <- read_config()$legacy_entrypoint
-  if (is.null(entrypoint)) {
-    main <- load_main_module()
-    shiny::shinyApp(
-      ui = main$ui("app"),
-      server = function(input, output) main$server("app")
-    )
-  } else if (entrypoint == "box_top_level") {
-    main <- load_main_module()
-    shiny::shinyApp(ui = main$ui, server = main$server)
-  } else if (entrypoint == "source") {
-    env <- new.env()
-    source(fs::path("app", "r", "main.R"), local = env)
-    shiny::shinyApp(ui = env$ui, server = env$server)
-  } else if (entrypoint == "app_dir") {
-    shiny::shinyAppDir("app")
+  if (identical(entrypoint, "app_dir")) {
+    return(shiny::shinyAppDir("app"))
   }
+
+  if (identical(entrypoint, "source")) {
+    main <- new.env()
+    source(fs::path("app", "r", "main.R"), local = main)
+  } else {
+    main <- load_main_module()
+    if (!identical(entrypoint, "box_top_level")) {
+      main <- as_top_level(main)
+    }
+  }
+  shiny::shinyApp(
+    ui = with_head_tags(main$ui),
+    server = main$server
+  )
 }
