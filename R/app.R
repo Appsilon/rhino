@@ -24,11 +24,22 @@ load_main_module <- function() {
 app <- function() {
   configure_logger()
   shiny::addResourcePath("static", "app/static")
-  main <- load_main_module()
-  shiny::shinyApp(
-    ui = main$ui("app"),
-    server = function(input, output) {
-      main$server("app")
-    }
-  )
+
+  entrypoint <- read_config()$legacy_entrypoint
+  if (is.null(entrypoint)) {
+    main <- load_main_module()
+    shiny::shinyApp(
+      ui = main$ui("app"),
+      server = function(input, output) main$server("app")
+    )
+  } else if (entrypoint == "box_top_level") {
+    main <- load_main_module()
+    shiny::shinyApp(ui = main$ui, server = main$server)
+  } else if (entrypoint == "source") {
+    env <- new.env()
+    source(fs::path("app", "r", "main.R"), local = env)
+    shiny::shinyApp(ui = env$ui, server = env$server)
+  } else if (entrypoint == "app_dir") {
+    shiny::shinyAppDir("app")
+  }
 }
