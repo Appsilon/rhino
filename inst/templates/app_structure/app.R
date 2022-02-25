@@ -1,1 +1,1 @@
-rhino:::app()
+rhino::app()
