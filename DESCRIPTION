@@ -24,6 +24,7 @@ Imports:
   glue,
   lintr (>= 2.0.0),
   logger,
+  purrr,
   renv,
   sass,
   shiny,

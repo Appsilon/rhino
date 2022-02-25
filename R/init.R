@@ -5,11 +5,34 @@
 #'
 #' @export
 init <- function(dir = ".", github_actions_ci = TRUE) {
+  init_renv(dir)
   create_app_structure(dir)
   create_unit_tests_structure(dir)
   create_e2e_tests_structure(dir)
   if (isTRUE(github_actions_ci)) add_github_actions_ci(dir)
-  init_renv(dir)
+}
+
+write_dependencies <- function() {
+  deps <- "rhino"
+  if (fs::file_exists("dependencies.R")) {
+    deps <- c(deps, renv::dependencies("dependencies.R")$Package)
+  } else if (fs::dir_exists("app")) {
+    deps <- c(deps, renv::dependencies("app")$Package)
+  }
+  deps <- sort(unique(deps))
+  deps <- purrr::map_chr(deps, function(name) glue::glue("library({name})"))
+  deps <- c(
+    "# This file allows packrat (used by rsconnect during deployment) to pick up dependencies.",
+    deps
+  )
+  writeLines(deps, "dependencies.R")
+}
+
+init_renv <- function(dir) {
+  write_dependencies()
+  copy_template("renv", dir)
+  withr::with_dir(dir, renv::init(restart = FALSE))
+  cli::cli_alert_success("renv initialized")
 }
 
 create_app_structure <- function(dir) {
@@ -20,12 +43,6 @@ create_app_structure <- function(dir) {
 add_github_actions_ci <- function(dir) {
   copy_template("github_ci", dir)
   cli::cli_alert_success("Github Actions CI added")
-}
-
-init_renv <- function(dir) {
-  copy_template("renv", dir)
-  withr::with_dir(dir, renv::init(restart = FALSE))
-  cli::cli_alert_success("renv initialized")
 }
 
 create_unit_tests_structure <- function(dir) {
