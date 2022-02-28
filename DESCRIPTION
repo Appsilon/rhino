@@ -24,6 +24,7 @@ Imports:
   config,
   fs,
   glue,
+  job,
   lintr (>= 2.0.0),
   logger,
   purrr,
