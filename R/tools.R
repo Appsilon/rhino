@@ -12,7 +12,6 @@ test_r <- function() {
 #' @export
 lint_r <- function(accepted_errors = 0) {
   lints <- c(
-    lintr::lint("app.R"),
     lintr::lint_dir("app"),
     lintr::lint_dir(fs::path("tests", "testthat"))
   )
