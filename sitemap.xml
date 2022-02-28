@@ -16,6 +16,9 @@
     <loc>/pull_request_template.html</loc>
   </url>
   <url>
+    <loc>/reference/app.html</loc>
+  </url>
+  <url>
     <loc>/reference/build_js.html</loc>
   </url>
   <url>
