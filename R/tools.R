@@ -1,9 +1,8 @@
 #' Run R unit tests
 #'
-#' @importFrom fs path
 #' @export
 test_r <- function() {
-  testthat::test_dir(path("tests", "testthat"))
+  testthat::test_dir(fs::path("tests", "testthat"))
 }
 
 #' Lint R
@@ -13,9 +12,8 @@ test_r <- function() {
 #' @export
 lint_r <- function(accepted_errors = 0) {
   lints <- c(
-    lintr::lint("app.R"),
     lintr::lint_dir("app"),
-    lintr::lint_dir(path("tests", "testthat"))
+    lintr::lint_dir(fs::path("tests", "testthat"))
   )
 
   style_errors <- length(lints)
@@ -99,18 +97,17 @@ lint_js <- function() {
 
 #' Build Sass
 #'
-#' @importFrom fs dir_create path
 #' @export
 build_sass <- function() {
   config <- read_config()$sass
   if (config == "node") {
     yarn("build-sass")
   } else if (config == "r") {
-    output_dir <- path("app", "static", "css")
-    dir_create(output_dir)
+    output_dir <- fs::path("app", "static", "css")
+    fs::dir_create(output_dir)
     sass::sass(
-      input = sass::sass_file(path("app", "styles", "main.scss")),
-      output = path(output_dir, "app.min.css"),
+      input = sass::sass_file(fs::path("app", "styles", "main.scss")),
+      output = fs::path(output_dir, "app.min.css"),
       cache = FALSE
     )
   }
