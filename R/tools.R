@@ -122,7 +122,11 @@ lint_sass <- function() {
 
 #' Run Cypress end-to-end tests
 #'
+#' @param interactive Should Cypress be run in the interactive mode?
+#'
 #' @export
-test_e2e <- function() {
-  yarn("test-e2e")
+test_e2e <- function(interactive = FALSE) {
+  command <- ifelse(isTRUE(interactive), "test-e2e-interactive", "test-e2e")
+
+  yarn(command)
 }

@@ -4,7 +4,10 @@
 \alias{test_e2e}
 \title{Run Cypress end-to-end tests}
 \usage{
-test_e2e()
+test_e2e(interactive = FALSE)
+}
+\arguments{
+\item{interactive}{Should Cypress be run in the interactive mode?}
 }
 \description{
 Run Cypress end-to-end tests
