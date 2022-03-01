@@ -2,10 +2,6 @@ read_config <- function() {
   yaml::read_yaml("rhino.yml")
 }
 
-template_path <- function(...) {
-  fs::path_package("rhino", "templates", ...)
-}
-
 node_path <- function(...) {
   fs::path(".rhino", "node", ...)
 }
@@ -21,8 +17,8 @@ rename_template_path <- function(path) {
 # with some renaming applied to the names of files and directories:
 # 1. Leading `dot.` is replaced with `.`.
 # 2. Trailing `.template` is removed.
-copy_template <- function(src, dst) {
-  src <- template_path(src)
+copy_template <- function(src, dst = ".") {
+  src <- fs::path_package("rhino", "templates", src)
   target <- function(path) {
     path <- fs::path_rel(path, start = src)
     path <- rename_template_path(path)

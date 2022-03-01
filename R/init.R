@@ -5,11 +5,14 @@
 #'
 #' @export
 init <- function(dir = ".", github_actions_ci = TRUE) {
-  init_renv(dir)
-  create_app_structure(dir)
-  create_unit_tests_structure(dir)
-  create_e2e_tests_structure(dir)
-  if (isTRUE(github_actions_ci)) add_github_actions_ci(dir)
+  fs::dir_create(dir)
+  withr::with_dir(dir, {
+    init_renv()
+    create_app_structure()
+    create_unit_tests_structure()
+    create_e2e_tests_structure()
+    if (isTRUE(github_actions_ci)) add_github_actions_ci()
+  })
 }
 
 write_dependencies <- function() {
@@ -28,9 +31,9 @@ write_dependencies <- function() {
   writeLines(deps, "dependencies.R")
 }
 
-init_renv <- function(dir) {
+init_renv <- function() {
   write_dependencies()
-  copy_template("renv", dir)
+  copy_template("renv")
   if (fs::file_exists("renv.lock")) {
     renv::load()
     renv::restore(prompt = FALSE, clean = TRUE)
@@ -42,22 +45,22 @@ init_renv <- function(dir) {
   cli::cli_alert_success("renv initialized")
 }
 
-create_app_structure <- function(dir) {
-  copy_template("app_structure", dir)
+create_app_structure <- function() {
+  copy_template("app_structure")
   cli::cli_alert_success("Application structure created")
 }
 
-add_github_actions_ci <- function(dir) {
-  copy_template("github_ci", dir)
+add_github_actions_ci <- function() {
+  copy_template("github_ci")
   cli::cli_alert_success("Github Actions CI added")
 }
 
-create_unit_tests_structure <- function(dir) {
-  copy_template("unit_tests", dir)
+create_unit_tests_structure <- function() {
+  copy_template("unit_tests")
   cli::cli_alert_success("Unit tests structure created")
 }
 
-create_e2e_tests_structure <- function(dir) {
-  copy_template("e2e_tests", dir)
+create_e2e_tests_structure <- function() {
+  copy_template("e2e_tests")
   cli::cli_alert_success("E2E tests structure created")
 }
