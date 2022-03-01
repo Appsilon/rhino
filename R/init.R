@@ -2,12 +2,17 @@
 #'
 #' @param dir Name of the directory to create application in.
 #' @param github_actions_ci Should the Github Actions CI be added.
+#' @param rhino_install_source Passed to `renv::install()` when using an existing `renv.lock`.
 #'
 #' @export
-init <- function(dir = ".", github_actions_ci = TRUE) {
+init <- function(
+  dir = ".",
+  github_actions_ci = TRUE,
+  rhino_install_source = "rhino"
+) {
   fs::dir_create(dir)
   withr::with_dir(dir, {
-    init_renv()
+    init_renv(rhino_install_source)
     create_app_structure()
     create_unit_tests_structure()
     create_e2e_tests_structure()
@@ -31,13 +36,13 @@ write_dependencies <- function() {
   writeLines(deps, "dependencies.R")
 }
 
-init_renv <- function() {
+init_renv <- function(rhino_install_source) {
   write_dependencies()
   copy_template("renv")
   if (fs::file_exists("renv.lock")) {
     renv::load()
     renv::restore(prompt = FALSE, clean = TRUE)
-    renv::install("~/git/rhino")
+    renv::install(rhino_install_source)
     renv::snapshot()
   } else {
     renv::init()
