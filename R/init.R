@@ -1,7 +1,26 @@
 #' Create Shiny application using `{rhino}`
 #'
+#' Generates the file structure of a Rhino application.
+#' Can be used to start a fresh project or to migrate an existing Shiny application
+#' created without Rhino.
+#'
+#' The recommended steps for migrating an existing application to Rhino:
+#' 1. Put all app files in the `app` directory,
+#' so that it can be run with `shiny::shinyAppDir("app")` (assuming all dependencies are installed).
+#' 2. If you have a list of dependencies in form of `library()` calls,
+#' put them in the `dependencies.R` file.
+#' If this file does not exist, Rhino will generate it based on `renv::dependencies("app")`.
+#' 3. If your project uses renv, put `renv.lock` and `renv` directory in the project root.
+#' Rhino will try to only add the necessary dependencies to your lockfile.
+#' 4. Run `rhino::init()` in the project root.
+#'
+#' When using an existing `renv.lock` file,
+#' Rhino will install itself using `renv::install("rhino")`.
+#' You can use the `rhino_install_source` argument to change this behavior,
+#' e.g. `Appsilon/rhino@v0.4.0` to install a specific version from GitHub.
+#'
 #' @param dir Name of the directory to create application in.
-#' @param github_actions_ci Should the Github Actions CI be added.
+#' @param github_actions_ci Should the Github Actions CI be added?
 #' @param rhino_install_source Passed to `renv::install()` when using an existing `renv.lock`.
 #'
 #' @export
