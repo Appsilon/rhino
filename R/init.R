@@ -31,7 +31,14 @@ write_dependencies <- function() {
 init_renv <- function(dir) {
   write_dependencies()
   copy_template("renv", dir)
-  withr::with_dir(dir, renv::init(restart = FALSE))
+  if (fs::file_exists("renv.lock")) {
+    renv::load()
+    renv::restore(prompt = FALSE, clean = TRUE)
+    renv::install("~/git/rhino")
+    renv::snapshot()
+  } else {
+    renv::init()
+  }
   cli::cli_alert_success("renv initialized")
 }
 
