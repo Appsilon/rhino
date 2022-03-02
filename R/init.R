@@ -61,7 +61,9 @@ init_renv <- function(rhino_version) {
     renv::install(rhino_version)
     renv::snapshot()
   } else {
-    renv::init()
+    # With `restart = TRUE`, RStudio fails to create a project
+    # with an "Unable to establish connection with R session" message.
+    renv::init(restart = FALSE)
   }
   cli::cli_alert_success("renv initialized")
 }
