@@ -36,11 +36,20 @@ init <- function(
   })
 }
 
+handle_old_renv <- function() {
+  if (fs::file_exists(".Rprofile")) {
+    cli::cli_alert_warning("Renaming existing '.Rprofile' to 'old.Rprofile'.")
+    fs::file_move(".Rprofile", "old.Rprofile")
+  }
+}
+
 write_dependencies <- function() {
   deps <- "rhino"
   if (fs::file_exists("dependencies.R")) {
+    cli::cli_alert_info("Updating existing 'dependencies.R'.")
     deps <- c(deps, renv::dependencies("dependencies.R")$Package)
   } else if (fs::dir_exists("app")) {
+    cli::cli_alert_info("Generating 'dependencies.R' based on 'app' directory.")
     deps <- c(deps, renv::dependencies("app")$Package)
   }
   deps <- sort(unique(deps))
@@ -53,6 +62,7 @@ write_dependencies <- function() {
 }
 
 init_renv <- function(rhino_version) {
+  handle_old_renv()
   write_dependencies()
   copy_template("renv")
   if (fs::file_exists("renv.lock")) {
@@ -65,25 +75,25 @@ init_renv <- function(rhino_version) {
     # with an "Unable to establish connection with R session" message.
     renv::init(restart = FALSE)
   }
-  cli::cli_alert_success("renv initialized")
+  cli::cli_alert_success("Initialized renv.")
 }
 
 create_app_structure <- function() {
   copy_template("app_structure")
-  cli::cli_alert_success("Application structure created")
+  cli::cli_alert_success("Application structure created.")
 }
 
 add_github_actions_ci <- function() {
   copy_template("github_ci")
-  cli::cli_alert_success("Github Actions CI added")
+  cli::cli_alert_success("Github Actions CI added.")
 }
 
 create_unit_tests_structure <- function() {
   copy_template("unit_tests")
-  cli::cli_alert_success("Unit tests structure created")
+  cli::cli_alert_success("Unit tests structure created.")
 }
 
 create_e2e_tests_structure <- function() {
   copy_template("e2e_tests")
-  cli::cli_alert_success("E2E tests structure created")
+  cli::cli_alert_success("E2E tests structure created.")
 }
