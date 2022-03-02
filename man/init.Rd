@@ -4,14 +4,16 @@
 \alias{init}
 \title{Create Shiny application using \code{{rhino}}}
 \usage{
-init(dir = ".", github_actions_ci = TRUE, rhino_install_source = "rhino")
+init(dir = ".", github_actions_ci = TRUE, rhino_version = "rhino")
 }
 \arguments{
 \item{dir}{Name of the directory to create application in.}
 
 \item{github_actions_ci}{Should the Github Actions CI be added?}
 
-\item{rhino_install_source}{Passed to \code{renv::install()} when using an existing \code{renv.lock}.}
+\item{rhino_version}{When using an existing \code{renv.lock} file,
+Rhino will install itself using \code{renv::install(rhino_version)}.
+You can provide this argument to use a specific version / source, e.g.`"Appsilon/rhino@v0.4.0".}
 }
 \description{
 Generates the file structure of a Rhino application.
@@ -30,9 +32,4 @@ If this file does not exist, Rhino will generate it based on \code{renv::depende
 Rhino will try to only add the necessary dependencies to your lockfile.
 \item Run \code{rhino::init()} in the project root.
 }
-
-When using an existing \code{renv.lock} file,
-Rhino will install itself using \code{renv::install("rhino")}.
-You can use the \code{rhino_install_source} argument to change this behavior,
-e.g. \code{Appsilon/rhino@v0.4.0} to install a specific version from GitHub.
 }

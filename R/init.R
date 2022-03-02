@@ -14,24 +14,21 @@
 #' Rhino will try to only add the necessary dependencies to your lockfile.
 #' 4. Run `rhino::init()` in the project root.
 #'
-#' When using an existing `renv.lock` file,
-#' Rhino will install itself using `renv::install("rhino")`.
-#' You can use the `rhino_install_source` argument to change this behavior,
-#' e.g. `Appsilon/rhino@v0.4.0` to install a specific version from GitHub.
-#'
 #' @param dir Name of the directory to create application in.
 #' @param github_actions_ci Should the Github Actions CI be added?
-#' @param rhino_install_source Passed to `renv::install()` when using an existing `renv.lock`.
+#' @param rhino_version When using an existing `renv.lock` file,
+#' Rhino will install itself using `renv::install(rhino_version)`.
+#' You can provide this argument to use a specific version / source, e.g.`"Appsilon/rhino@v0.4.0".
 #'
 #' @export
 init <- function(
   dir = ".",
   github_actions_ci = TRUE,
-  rhino_install_source = "rhino"
+  rhino_version = "rhino"
 ) {
   fs::dir_create(dir)
   withr::with_dir(dir, {
-    init_renv(rhino_install_source)
+    init_renv(rhino_version)
     create_app_structure()
     create_unit_tests_structure()
     create_e2e_tests_structure()
@@ -55,13 +52,13 @@ write_dependencies <- function() {
   writeLines(deps, "dependencies.R")
 }
 
-init_renv <- function(rhino_install_source) {
+init_renv <- function(rhino_version) {
   write_dependencies()
   copy_template("renv")
   if (fs::file_exists("renv.lock")) {
     renv::load()
     renv::restore(prompt = FALSE, clean = TRUE)
-    renv::install(rhino_install_source)
+    renv::install(rhino_version)
     renv::snapshot()
   } else {
     renv::init()
