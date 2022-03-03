@@ -30,10 +30,10 @@ rhino_config_definition <- list(
 validate_config <- function(definition, config) {
   stopifnot(is.list(config))
 
-  allowed_fields <- purrr::map_chr(definition, `[[`, "name")
+  known_fields <- purrr::map_chr(definition, `[[`, "name")
   for (field in names(config)) {
-    if (!(field %in% allowed_fields)) {
-      stop() # Unknown field.
+    if (!(field %in% known_fields)) {
+      cli::cli_abort("Unknown config field '{field}'.")
     }
   }
 
@@ -41,10 +41,15 @@ validate_config <- function(definition, config) {
     if (field$name %in% names(config)) {
       value <- config[[field$name]]
       if (!(value %in% field$options)) {
-        stop() # Invalid value.
+        cli::cli_abort(c(
+          "Invalid value '{value}' for field '{field$name}'.",
+          i = "Allowed values: {field$options}."
+        ))
       }
     } else if (field$required) {
-      stop() # Missing required field.
+      cli::cli_abort(
+        "Missing required field '{field$name}'."
+      )
     }
   }
 }
