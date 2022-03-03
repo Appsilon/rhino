@@ -1,5 +1,21 @@
+# Given a path without extension, read either `{path}.yml` or `{path}.yaml`.
+read_yaml <- function(path) {
+  yml <- paste0(path, ".yml")
+  yaml <- paste0(path, ".yaml")
+  if (fs::file_exists(yml)) {
+    if (fs::file_exists(yaml)) {
+      cli::cli_alert_warning("Both '{yml}' and '{yaml}' found; reading '{yml}'.")
+    }
+    yaml::read_yaml(yml)
+  } else if (fs::file_exists(yaml)) {
+    yaml::read_yaml(yaml)
+  } else {
+    cli::cli_abort("Neither '{yml}' nor '{yaml}' found.")
+  }
+}
+
 read_config <- function() {
-  yaml::read_yaml("rhino.yml")
+  read_yaml("rhino")
 }
 
 node_path <- function(...) {
