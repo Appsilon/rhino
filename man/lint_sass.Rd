@@ -4,7 +4,10 @@
 \alias{lint_sass}
 \title{Lint Sass}
 \usage{
-lint_sass()
+lint_sass(fix = FALSE)
+}
+\arguments{
+\item{fix}{Automatically fix problems.}
 }
 \description{
 Lint Sass

@@ -4,7 +4,10 @@
 \alias{build_js}
 \title{Build JavaScript}
 \usage{
-build_js()
+build_js(watch = FALSE)
+}
+\arguments{
+\item{watch}{Keep the process running and rebuilding JS whenever source files change.}
 }
 \description{
 Builds the \code{app/js/index.js} file into \code{app/static/js/app.min.js}.

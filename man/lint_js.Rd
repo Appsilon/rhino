@@ -4,7 +4,10 @@
 \alias{lint_js}
 \title{Lint JavaScript}
 \usage{
-lint_js()
+lint_js(fix = FALSE)
+}
+\arguments{
+\item{fix}{Automatically fix problems.}
 }
 \description{
 Runs \href{https://eslint.org}{ESLint} on the JavaScript sources in the \code{app/js} directory.
