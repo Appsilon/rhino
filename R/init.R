@@ -36,7 +36,7 @@ init <- function(
   })
 }
 
-handle_old_renv <- function() {
+handle_old_rprofile <- function() {
   if (fs::file_exists(".Rprofile")) {
     cli::cli_alert_warning("Renaming existing '.Rprofile' to 'old.Rprofile'.")
     fs::file_move(".Rprofile", "old.Rprofile")
@@ -62,7 +62,7 @@ write_dependencies <- function() {
 }
 
 init_renv <- function(rhino_version) {
-  handle_old_renv()
+  handle_old_rprofile()
   write_dependencies()
   copy_template("renv")
   if (fs::file_exists("renv.lock")) {
