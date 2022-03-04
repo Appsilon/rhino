@@ -24,6 +24,12 @@ lint_r <- function(accepted_errors = 0) {
   }
 }
 
+rhino_style <- function() {
+  style <- styler::tidyverse_style()
+  style$space$style_space_around_math_token <- NULL
+  style
+}
+
 #' Format R
 #'
 #' @param path File or directory to format
@@ -31,9 +37,9 @@ lint_r <- function(accepted_errors = 0) {
 #' @export
 format_r <- function(path) {
   if (fs::is_dir(path)) {
-    styler::style_dir(path)
+    styler::style_dir(path, style = rhino_style)
   } else {
-    styler::style_file(path)
+    styler::style_file(path, style = rhino_style)
   }
 }
 
