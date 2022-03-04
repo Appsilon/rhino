@@ -68,7 +68,8 @@ format_r <- function(path) {
 #'
 #' @export
 build_js <- function(watch = FALSE) {
-  yarn("build-js", if (watch) "--watch")
+  if (watch) yarn("build-js", "--watch", status_ok = 2)
+  else yarn("build-js")
 }
 
 # nolint start
@@ -108,7 +109,8 @@ lint_js <- function(fix = FALSE) {
 build_sass <- function(watch = TRUE) {
   config <- read_config()$sass
   if (config == "node") {
-    yarn("build-sass", if (watch) "--watch")
+    if (watch) yarn("build-sass", "--watch", status_ok = 2)
+    else yarn("build-sass")
   } else if (config == "r") {
     if (watch) {
       cli::cli_alert_warning("The {.arg watch} argument is only supported when using Node.")
