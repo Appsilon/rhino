@@ -1,10 +1,10 @@
-system_yarn <- function(...) {
+system_yarn <- function(..., status_ok = 0) {
   status <- system2(
     command = "yarn",
     args = c("--cwd", shQuote(node_path()), ...)
   )
-  if (status != 0) {
-    stop(glue::glue("yarn failed with exit status {status}"), call. = FALSE)
+  if (status != status_ok) {
+    cli::cli_abort("System command 'yarn' exited with status {status}.")
   }
 }
 

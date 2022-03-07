@@ -4,7 +4,11 @@
 \alias{build_sass}
 \title{Build Sass}
 \usage{
-build_sass()
+build_sass(watch = FALSE)
+}
+\arguments{
+\item{watch}{Keep the process running and rebuilding Sass whenever source files change.
+Only supported for \code{sass: node} config in \code{rhino.yml}.}
 }
 \description{
 Build Sass

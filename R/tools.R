@@ -64,9 +64,12 @@ format_r <- function(path) {
 #'   tags$button("Hello!", onclick = "App.sayHello()")
 #' ```
 #'
+#' @param watch Keep the process running and rebuilding JS whenever source files change.
+#'
 #' @export
-build_js <- function() {
-  yarn("build-js")
+build_js <- function(watch = FALSE) {
+  if (watch) yarn("build-js", "--watch", status_ok = 2)
+  else yarn("build-js")
 }
 
 # nolint start
@@ -89,20 +92,29 @@ build_js <- function() {
 #' See the [ESLint documentation](https://eslint.org/docs/user-guide/configuring/rules#using-configuration-comments-1)
 #' for full details.
 #'
+#' @param fix Automatically fix problems.
+#'
 #' @export
 # nolint end
-lint_js <- function() {
-  yarn("lint-js")
+lint_js <- function(fix = FALSE) {
+  yarn("lint-js", if (fix) "--fix")
 }
 
 #' Build Sass
 #'
+#' @param watch Keep the process running and rebuilding Sass whenever source files change.
+#' Only supported for `sass: node` config in `rhino.yml`.
+#'
 #' @export
-build_sass <- function() {
+build_sass <- function(watch = FALSE) {
   config <- read_config()$sass
   if (config == "node") {
-    yarn("build-sass")
+    if (watch) yarn("build-sass", "--watch", status_ok = 2)
+    else yarn("build-sass")
   } else if (config == "r") {
+    if (watch) {
+      cli::cli_alert_warning("The {.arg watch} argument is only supported when using Node.")
+    }
     output_dir <- fs::path("app", "static", "css")
     fs::dir_create(output_dir)
     sass::sass(
@@ -115,9 +127,11 @@ build_sass <- function() {
 
 #' Lint Sass
 #'
+#' @param fix Automatically fix problems.
+#'
 #' @export
-lint_sass <- function() {
-  yarn("lint-sass")
+lint_sass <- function(fix = FALSE) {
+  yarn("lint-sass", if (fix) "--fix")
 }
 
 #' Run Cypress end-to-end tests
