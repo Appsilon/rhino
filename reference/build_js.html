@@ -21,7 +21,7 @@ so the latest JavaScript features can be used
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">rhino</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.4.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.5.0</span>
       </span>
     </div>
 
@@ -58,9 +58,14 @@ so the latest JavaScript features can be used
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">build_js</span><span class="op">(</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">build_js</span><span class="op">(</span>watch <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></code></pre></div>
     </div>
 
+    <div id="arguments">
+    <h2>Arguments</h2>
+    <dl><dt>watch</dt>
+<dd><p>Keep the process running and rebuilding JS whenever source files change.</p></dd>
+</dl></div>
     <div id="details">
     <h2>Details</h2>
     <p>Functions/objects defined in the global scope do not automatically become <code>window</code> properties,
