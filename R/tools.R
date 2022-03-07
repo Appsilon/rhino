@@ -20,7 +20,7 @@ lint_r <- function(accepted_errors = 0) {
 
   if (style_errors > accepted_errors) {
     print(lints)
-    stop(sprintf("Number of style errors: %s", style_errors))
+    cli::cli_abort("Number of style errors: {style_errors}.")
   }
 }
 

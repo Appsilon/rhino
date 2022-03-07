@@ -1,7 +1,3 @@
-read_config <- function() {
-  yaml::read_yaml("rhino.yml")
-}
-
 node_path <- function(...) {
   fs::path(".rhino", "node", ...)
 }
