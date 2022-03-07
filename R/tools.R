@@ -35,7 +35,7 @@ rhino_style <- function() {
 #' @param paths Character vector of files and directories to format.
 #'
 #' @export
-format_r <- function(paths = c("app", "tests")) {
+format_r <- function(paths) {
   for (path in paths) {
     if (fs::is_dir(path)) {
       styler::style_dir(path, style = rhino_style)

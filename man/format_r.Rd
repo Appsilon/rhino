@@ -4,7 +4,7 @@
 \alias{format_r}
 \title{Format R}
 \usage{
-format_r(paths = c("app", "tests"))
+format_r(paths)
 }
 \arguments{
 \item{paths}{Character vector of files and directories to format.}
