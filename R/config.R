@@ -28,7 +28,13 @@ rhino_config_definition <- list(
 )
 
 validate_config <- function(definition, config) {
-  stopifnot(is.list(config))
+  if (is.null(config)) config <- list()
+  if (!is.list(config)) {
+    cli::cli_abort(c(
+      "Config should be a named list (a YAML object).",
+      i = "The received config has class {.cls {class(config)}}."
+    ))
+  }
 
   known_fields <- purrr::map_chr(definition, `[[`, "name")
   for (field in names(config)) {
@@ -47,9 +53,7 @@ validate_config <- function(definition, config) {
         ))
       }
     } else if (field$required) {
-      cli::cli_abort(
-        "Missing required field '{field$name}'."
-      )
+      cli::cli_abort("Missing required field '{field$name}'.")
     }
   }
 }
