@@ -4,7 +4,7 @@
 \alias{build_sass}
 \title{Build Sass}
 \usage{
-build_sass(watch = TRUE)
+build_sass(watch = FALSE)
 }
 \arguments{
 \item{watch}{Keep the process running and rebuilding Sass whenever source files change.

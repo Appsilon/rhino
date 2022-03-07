@@ -106,7 +106,7 @@ lint_js <- function(fix = FALSE) {
 #' Only supported for `sass: node` config in `rhino.yml`.
 #'
 #' @export
-build_sass <- function(watch = TRUE) {
+build_sass <- function(watch = FALSE) {
   config <- read_config()$sass
   if (config == "node") {
     if (watch) yarn("build-sass", "--watch", status_ok = 2)
