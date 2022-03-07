@@ -7,7 +7,9 @@
     "lint-sass": "stylelint root/app/styles",
     "run-app": "cd root && Rscript -e 'shiny::runApp(port = 3333)'",
     "run-cypress": "cypress run --project root/tests",
-    "test-e2e": "start-server-and-test run-app http://localhost:3333 run-cypress"
+    "open-cypress": "cypress open --project root/tests",
+    "test-e2e": "start-server-and-test run-app http://localhost:3333 run-cypress",
+    "test-e2e-interactive": "start-server-and-test run-app http://localhost:3333 open-cypress"
   },
   "devDependencies": {
     "@babel/core": "^7.15.5",

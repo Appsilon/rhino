@@ -1,6 +1,6 @@
 Package: rhino
 Title: A framework for enterprise Shiny applications
-Version: 0.4.0
+Version: 0.5.0
 Authors@R:
   c(
     person(given = "Kamil", family = "Zyla", role = "aut", email = "kamil@appsilon.com"),
@@ -24,6 +24,7 @@ Imports:
   glue,
   lintr (>= 2.0.0),
   logger,
+  purrr,
   renv,
   sass,
   shiny,

@@ -4,10 +4,10 @@
 \alias{format_r}
 \title{Format R}
 \usage{
-format_r(path)
+format_r(paths)
 }
 \arguments{
-\item{path}{File or directory to format}
+\item{paths}{Character vector of files and directories to format.}
 }
 \description{
 Format R
