@@ -29,6 +29,7 @@ init <- function(
   fs::dir_create(dir)
   withr::with_dir(dir, {
     init_renv(rhino_version)
+    create_rproj_file()
     create_app_structure()
     create_unit_tests_structure()
     create_e2e_tests_structure()
@@ -76,6 +77,13 @@ init_renv <- function(rhino_version) {
     renv::init(restart = FALSE)
   }
   cli::cli_alert_success("Initialized renv.")
+}
+
+create_rproj_file <- function() {
+  if (!rstudioapi::isAvailable()) {
+    copy_template("rproj")
+  }
+  cli::cli_alert_success("Rproj file created.")
 }
 
 create_app_structure <- function() {
