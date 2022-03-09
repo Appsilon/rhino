@@ -3,7 +3,7 @@ box::use(
   testthat[...],
 )
 box::use(
-  r/main[...],
+  app/main[...],
 )
 
 test_that("main server works", {
