@@ -56,20 +56,20 @@ format_r <- function(paths) {
 #' Functions/objects defined in the global scope do not automatically become `window` properties,
 #' so the following JS code:
 #' ```js
-#'   function sayHello() { alert('Hello!'); }
+#' function sayHello() { alert('Hello!'); }
 #' ```
 #' won't work as expected if used in R like this:
-#' ```R
-#'   tags$button("Hello!", onclick = 'sayHello()');
+#' ```r
+#' tags$button("Hello!", onclick = 'sayHello()');
 #' ```
 #'
 #' Instead you should explicitly export functions:
 #' ```js
-#'   export function sayHello() { alert('Hello!'); }
+#' export function sayHello() { alert('Hello!'); }
 #' ```
 #' and access them via the global `App` object:
-#' ```R
-#'   tags$button("Hello!", onclick = "App.sayHello()")
+#' ```r
+#' tags$button("Hello!", onclick = "App.sayHello()")
 #' ```
 #'
 #' @param watch Keep the process running and rebuilding JS whenever source files change.
@@ -95,7 +95,7 @@ build_js <- function(watch = FALSE) {
 #' If you find a particular ESLint error unapplicable to your code,
 #' you can disable a specific rule for the next line of code with a comment like:
 #' ```js
-#'   // eslint-disable-next-line no-restricted-syntax
+#' // eslint-disable-next-line no-restricted-syntax
 #' ```
 #' See the [ESLint documentation](https://eslint.org/docs/user-guide/configuring/rules#using-configuration-comments-1)
 #' for full details.
