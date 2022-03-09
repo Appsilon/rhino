@@ -3,12 +3,11 @@ Title: A framework for enterprise Shiny applications
 Version: 0.5.0
 Authors@R:
   c(
-    person(given = "Kamil", family = "Zyla", role = "aut", email = "kamil@appsilon.com"),
-    person(given = "Jakub", family = "Nowicki", role = "aut", email = "kuba@appsilon.com"),
-    person(given = "Tymoteusz", family = "Makowski", role = "aut", email = "tymoteusz@appsilon.com"),
-    person(given = "Marek", family = "Rogala", role = "aut", email = "marek@appsilon.com"),
-    person("Developers", "Appsilon", email = "support+opensource@appsilon.com", role = "cre"),
-    person(family = "Appsilon Sp. z o.o.", role = "cph")
+    person("Kamil", "Zyla", role = "aut", email = "kamil@appsilon.com"),
+    person("Jakub", "Nowicki", role = "aut", email = "kuba@appsilon.com"),
+    person("Tymoteusz", "Makowski", role = "aut", email = "tymoteusz@appsilon.com"),
+    person("Marek", "Rogala", role = "aut", email = "marek@appsilon.com"),
+    person("Appsilon Sp. z o.o.", role = c("cre", "cph"), email = "support+opensource@appsilon.com")
   )
 Description: A framework that supports creating and extending enterprise Shiny applications using best practices.
 URL: https://appsilon.github.io/rhino, https://github.com/Appsilon/rhino
