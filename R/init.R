@@ -1,10 +1,10 @@
-#' Create Shiny application using `{rhino}`
+#' Create Rhino application
 #'
 #' Generates the file structure of a Rhino application.
 #' Can be used to start a fresh project or to migrate an existing Shiny application
 #' created without Rhino.
 #'
-#' The recommended steps for migrating an existing application to Rhino:
+#' The recommended steps for migrating an existing Shiny application to Rhino:
 #' 1. Put all app files in the `app` directory,
 #' so that it can be run with `shiny::shinyAppDir("app")` (assuming all dependencies are installed).
 #' 2. If you have a list of dependencies in form of `library()` calls,
