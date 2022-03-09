@@ -18,7 +18,8 @@
 #' @param github_actions_ci Should the Github Actions CI be added?
 #' @param rhino_version When using an existing `renv.lock` file,
 #' Rhino will install itself using `renv::install(rhino_version)`.
-#' You can provide this argument to use a specific version / source, e.g.`"Appsilon/rhino@v0.4.0".
+#' You can provide this argument to use a specific version / source, e.g.`"Appsilon/rhino@v0.4.0"`.
+#' @return None. This function is called for side effects.
 #'
 #' @export
 init <- function(

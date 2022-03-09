@@ -1,5 +1,7 @@
 #' Run R unit tests
 #'
+#' @return None. This function is called for side effects.
+#'
 #' @export
 test_r <- function() {
   testthat::test_dir(fs::path("tests", "testthat"))
@@ -8,6 +10,7 @@ test_r <- function() {
 #' Lint R
 #'
 #' @param accepted_errors Number of accepted style errors.
+#' @return None. This function is called for side effects.
 #'
 #' @export
 lint_r <- function(accepted_errors = 0) {
@@ -33,6 +36,7 @@ rhino_style <- function() {
 #' Format R
 #'
 #' @param paths Character vector of files and directories to format.
+#' @return None. This function is called for side effects.
 #'
 #' @export
 format_r <- function(paths) {
@@ -73,6 +77,7 @@ format_r <- function(paths) {
 #' ```
 #'
 #' @param watch Keep the process running and rebuilding JS whenever source files change.
+#' @return None. This function is called for side effects.
 #'
 #' @export
 build_js <- function(watch = FALSE) {
@@ -101,6 +106,7 @@ build_js <- function(watch = FALSE) {
 #' for full details.
 #'
 #' @param fix Automatically fix problems.
+#' @return None. This function is called for side effects.
 #'
 #' @export
 # nolint end
@@ -112,6 +118,7 @@ lint_js <- function(fix = FALSE) {
 #'
 #' @param watch Keep the process running and rebuilding Sass whenever source files change.
 #' Only supported for `sass: node` config in `rhino.yml`.
+#' @return None. This function is called for side effects.
 #'
 #' @export
 build_sass <- function(watch = FALSE) {
@@ -136,6 +143,7 @@ build_sass <- function(watch = FALSE) {
 #' Lint Sass
 #'
 #' @param fix Automatically fix problems.
+#' @return None. This function is called for side effects.
 #'
 #' @export
 lint_sass <- function(fix = FALSE) {
@@ -145,6 +153,7 @@ lint_sass <- function(fix = FALSE) {
 #' Run Cypress end-to-end tests
 #'
 #' @param interactive Should Cypress be run in the interactive mode?
+#' @return None. This function is called for side effects.
 #'
 #' @export
 test_e2e <- function(interactive = FALSE) {

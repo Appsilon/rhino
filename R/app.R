@@ -79,6 +79,8 @@ with_head_tags <- function(ui) {
 #' into a [Shiny module](https://shiny.rstudio.com/articles/modules.html)
 #' (functions taking a single `id` argument).
 #'
+#' @return An object representing the app (can be passed to `shiny::runApp()`).
+#'
 #' @export
 app <- function() {
   configure_logger()
