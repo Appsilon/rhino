@@ -39,3 +39,15 @@ copy_template <- function(src, dst = ".") {
 rproj_exists <- function() {
   length(fs::dir_ls(type = "file", glob = "*.Rproj")) > 0
 }
+
+copy_rproj <- function() {
+  file_name <- paste0(
+    basename(fs::path_abs(".")),
+    ".Rproj"
+  )
+
+  fs::file_copy(
+    fs::path_package("rhino", "templates", "rproj", "Rproj.template"),
+    fs::path(".", file_name)
+  )
+}
