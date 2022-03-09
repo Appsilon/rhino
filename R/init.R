@@ -80,10 +80,10 @@ init_renv <- function(rhino_version) {
 }
 
 create_rproj_file <- function() {
-  if (!rstudioapi::isAvailable()) {
+  if (!rstudioapi::isAvailable() && !rproj_exists()) {
     copy_template("rproj")
+    cli::cli_alert_success("Rproj file created.")
   }
-  cli::cli_alert_success("Rproj file created.")
 }
 
 create_app_structure <- function() {

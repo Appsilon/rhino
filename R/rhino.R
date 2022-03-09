@@ -35,3 +35,7 @@ copy_template <- function(src, dst = ".") {
     fun = function(file) fs::file_copy(file, target(file))
   )
 }
+
+rproj_exists <- function() {
+  length(fs::dir_ls(type = "file", glob = "*.Rproj")) > 0
+}
