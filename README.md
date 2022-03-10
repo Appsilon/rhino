@@ -25,7 +25,7 @@ remotes::install_github("Appsilon/rhino", ref = "v0.5.0")
 
 
 ## Usage
-### :building_construction: Create a Shiny Application from Scratch
+### 🏗️ Create a Shiny Application from Scratch
 Running `rhino::init()` will create a following application structure for you. Once that is done
 simply run `shiny::runApp()` to start a minimal Rhino application! :rocket:
 
