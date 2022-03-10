@@ -29,38 +29,34 @@ remotes::install_github("Appsilon/rhino", ref = "v0.5.0")
 Running `rhino::init()` will create a following application structure for you. Once that is done
 simply run `shiny::runApp()` to start a minimal Rhino application! :rocket:
 
-<details>
-  <summary><strong>Rhino Application Structure</strong> <em>(click to unfold)</em></summary>
-  <!-- The blank line below this comment keeps formatting intact -->
-
-  ```
-  .
-  ├── app
-  │   ├── js
-  │   │   └── index.js
-  │   ├── logic
-  │   │   └── __init__.R
-  │   ├── static
-  │   │   └── favicon.ico
-  │   ├── styles
-  │   │   └── main.scss
-  │   ├── view
-  │   │   └── __init__.R
-  │   └── main.R
-  ├── tests
-  │   ├── cypress
-  │   │   └── integration
-  │   │       └── app.spec.js
-  │   ├── testthat
-  │   │   └── test-main.R
-  │   └── cypress.json
-  ├── app.R
-  ├── app.Rproj
-  ├── dependencies.R
-  ├── renv.lock
-  └── rhino.yml
-  ```
-</details>
+#### Rhino Application Structure
+```
+.
+├── app
+│   ├── js
+│   │   └── index.js
+│   ├── logic
+│   │   └── __init__.R
+│   ├── static
+│   │   └── favicon.ico
+│   ├── styles
+│   │   └── main.scss
+│   ├── view
+│   │   └── __init__.R
+│   └── main.R
+├── tests
+│   ├── cypress
+│   │   └── integration
+│   │       └── app.spec.js
+│   ├── testthat
+│   │   └── test-main.R
+│   └── cypress.json
+├── app.R
+├── app.Rproj
+├── dependencies.R
+├── renv.lock
+└── rhino.yml
+```
 
 With the structure prepared you can [configure Rhino](#wrench-configure-rhino-with-rhinoyml) or jump
 straight into [development using Rhino](#construction-develop-a-shiny-application-with-rhino)!
@@ -78,15 +74,11 @@ for a recommended approach of proceeding with the migration.
 Rhino uses its own `rhino.yml` config file for preserving your preferences. Currently available
 options are described in the taxonomy below.
 
-<details>
-  <summary><strong><code>rhino.yml</code> Taxonomy</strong> <em>(click to unfold)</em></summary>
-  <!-- The blank line below this comment keeps formatting intact -->
-
-  ```yaml
-  sass: string               # required | one of: "node", "r"
-  legacy_entrypoint: string  # optional | one of: "app_dir", "source", "box_top_level"
-  ```
-</details>
+#### `rhino.yml` Taxonomy
+```yaml
+sass: string               # required | one of: "node", "r"
+legacy_entrypoint: string  # optional | one of: "app_dir", "source", "box_top_level"
+```
 
 ##### `sass`
 Configures whether [SASS](https://sass-lang.com/) should be build using [R
