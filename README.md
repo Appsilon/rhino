@@ -24,6 +24,86 @@ remotes::install_github("Appsilon/rhino", ref = "v0.5.0")
 ```
 
 
+## Usage
+### :building_construction: Create a Shiny Application from Scratch
+Running `rhino::init()` will create a following application structure for you. Once that is done
+simply run `shiny::runApp()` to start a minimal Rhino application! :rocket:
+
+<details>
+  <summary><strong>Rhino Application Structure</strong> <em>(click to unfold)</em></summary>
+  <!-- The blank line below this comment keeps formatting intact -->
+
+  ```
+  .
+  ├── app
+  │   ├── js
+  │   │   └── index.js
+  │   ├── logic
+  │   │   └── __init__.R
+  │   ├── static
+  │   │   └── favicon.ico
+  │   ├── styles
+  │   │   └── main.scss
+  │   ├── view
+  │   │   └── __init__.R
+  │   └── main.R
+  ├── tests
+  │   ├── cypress
+  │   │   └── integration
+  │   │       └── app.spec.js
+  │   ├── testthat
+  │   │   └── test-main.R
+  │   └── cypress.json
+  ├── app.R
+  ├── app.Rproj
+  ├── dependencies.R
+  ├── renv.lock
+  └── rhino.yml
+  ```
+</details>
+
+With the structure prepared you can [configure Rhino](#wrench-configure-rhino-with-rhinoyml) or jump
+straight into [development using Rhino](#construction-develop-a-shiny-application-with-rhino)!
+
+---
+
+### :recycle: Migrate an Existing Shiny Application to Rhino
+To migrate an application to Rhino create an application from scratch as described above. Then refer
+to [`rhino::init()` details section](https://appsilon.github.io/rhino/reference/init.html#details-1)
+for a recommended approach of proceeding with the migration.
+
+---
+
+### :wrench: Configure Rhino with `rhino.yml`
+Rhino uses its own `rhino.yml` config file for preserving your preferences. Currently available
+options are described in the taxonomy below.
+
+<details>
+  <summary><strong><code>rhino.yml</code> Taxonomy</strong> <em>(click to unfold)</em></summary>
+  <!-- The blank line below this comment keeps formatting intact -->
+
+  ```yaml
+  sass: string               # required | one of: "node", "r"
+  legacy_entrypoint: string  # optional | one of: "app_dir", "source", "box_top_level"
+  ```
+</details>
+
+##### `sass`
+Configures whether [SASS](https://sass-lang.com/) should be build using [R
+package](https://cran.r-project.org/package=sass) or [Node
+package](https://www.npmjs.com/package/sass). The latter provides newest implementation, at a cost
+of additional system dependencies for development (`node` and `yarn`).
+
+##### `legacy_entrypoint`
+This setting is useful when migrating an existing Shiny application to Rhino. For more details see
+[`rhino::app()` details section](https://appsilon.github.io/rhino/reference/app.html#details-1).
+
+---
+
+### :construction: Develop a Shiny Application with Rhino
+_TODO_
+
+
 ## Contributing
 Pull requests are welcome! Please see our [contributing guidelines](.github/CONTRIBUTING.md) for more details.
 
