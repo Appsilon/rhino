@@ -24,7 +24,9 @@ remotes::install_github("Appsilon/rhino", ref = "v0.5.0")
 ```
 
 
-## Development
+## Contributing
+Pull requests are welcome! Please see our [contributing guidelines](.github/CONTRIBUTING.md) for more details.
+
 ### Unit Tests
 Unit tests can be run using `testthat::test_local()` or `devtools::test()`.
 
