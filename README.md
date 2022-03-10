@@ -27,14 +27,8 @@ remotes::install_github("Appsilon/rhino", ref = "v0.5.0")
 ## Contributing
 Pull requests are welcome! Please see our [contributing guidelines](.github/CONTRIBUTING.md) for more details.
 
-### Unit Tests
-Unit tests can be run using `testthat::test_local()` or `devtools::test()`.
-
-Alternatively, the package can be installed, and then tested with `testthat::test_package("rhino")`.
-
-### Linter
-Linter can be run using either `lintr::lint_package()` or `devtools::lint()`.
-
-### `pkgdown` site
-To create a `pkgdown` site locally run either `pkgdown::build_site()` or `devtools::build_site()`.
-If built successfully, the website will be in `docs` directory.
+| Tool           | Command                  | `devtools` equivalent    | Comment
+|----------------|--------------------------|--------------------------|-
+| Unit tests     | `testthat::test_local()` | `devtools::test()`       |
+| Linter         | `lintr::lint_package()`  | `devtools::lint()`       |
+| `pkgdown` site | `pkgdown::build_site()`  | `devtools::build_site()` | If built successfully, the website will be in `docs` directory.
