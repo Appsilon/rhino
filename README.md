@@ -18,7 +18,7 @@
     * [Rhino Application Structure](#rhino-application-structure)
   * [:recycle: Migrate an Existing Shiny Application to Rhino](#recycle-migrate-an-existing-shiny-application-to-rhino)
   * [:wrench: Configure Rhino with `rhino.yml`](#wrench-configure-rhino-with-rhinoyml)
-    * [`rhino.yml` Taxonomy](rhinoyml-taxonomy)
+    * [`rhino.yml` Taxonomy](#rhinoyml-taxonomy)
   * [:construction: Develop a Shiny Application with Rhino](#construction-develop-a-shiny-application-with-rhino)
 * [Contributing](#contributing)
 * [About](#about)
