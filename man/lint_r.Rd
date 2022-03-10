@@ -9,6 +9,10 @@ lint_r(accepted_errors = 0)
 \arguments{
 \item{accepted_errors}{Number of accepted style errors.}
 }
+\value{
+None. This function is called for side effects.
+}
 \description{
-Lint R
+Uses the \code{{lintr}} package to check all R sources in the \code{app} and \code{tests/testthat} directories
+for style errors.
 }

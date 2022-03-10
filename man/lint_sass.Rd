@@ -9,6 +9,10 @@ lint_sass(fix = FALSE)
 \arguments{
 \item{fix}{Automatically fix problems.}
 }
+\value{
+None. This function is called for side effects.
+}
 \description{
-Lint Sass
+Runs \href{https://stylelint.io/}{Stylelint} on the Sass sources in the \code{app/styles} directory.
+Requires the \code{yarn} command to be available on the system.
 }

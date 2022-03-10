@@ -9,11 +9,15 @@ lint_js(fix = FALSE)
 \arguments{
 \item{fix}{Automatically fix problems.}
 }
+\value{
+None. This function is called for side effects.
+}
 \description{
 Runs \href{https://eslint.org}{ESLint} on the JavaScript sources in the \code{app/js} directory.
+Requires the \code{yarn} command to be available on the system.
 }
 \details{
-If your code uses global objects defined by other JS libraries or R packages,
+If your JS code uses global objects defined by other JS libraries or R packages,
 you'll need to let the linter know or it will complain about undefined objects.
 For example, the \code{{leaflet}} package defines a global object \code{L}.
 To access it without raising linter errors, add \verb{/* global L */} comment in your JS code.
@@ -21,7 +25,7 @@ To access it without raising linter errors, add \verb{/* global L */} comment in
 You don't need to define \code{Shiny} and \code{$} as these globals are defined by default.
 
 If you find a particular ESLint error unapplicable to your code,
-you can disable a specific rule for the next line of code with a comment like:\if{html}{\out{<div class="sourceCode js">}}\preformatted{  // eslint-disable-next-line no-restricted-syntax
+you can disable a specific rule for the next line of code with a comment like:\if{html}{\out{<div class="sourceCode js">}}\preformatted{// eslint-disable-next-line no-restricted-syntax
 }\if{html}{\out{</div>}}
 
 See the \href{https://eslint.org/docs/user-guide/configuring/rules#using-configuration-comments-1}{ESLint documentation}

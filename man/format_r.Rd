@@ -9,6 +9,9 @@ format_r(paths)
 \arguments{
 \item{paths}{Character vector of files and directories to format.}
 }
+\value{
+None. This function is called for side effects.
+}
 \description{
-Format R
+Uses the \code{{styler}} package to automatically format R sources.
 }
