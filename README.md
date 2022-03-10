@@ -1,4 +1,5 @@
-# Rhino
+# Rhino <a href="https://appsilon.github.io/rhino/"><img src="man/figures/rhino.png" align="right" alt="Rhino logo" height="140"></a>
+> _Strong bones for your [Shiny](https://shiny.rstudio.com/) apps_
 
 <!-- badges: start -->
 [![R build status](https://github.com/Appsilon/rhino/workflows/R-CMD-check/badge.svg)](https://github.com/Appsilon/rhino/actions)
