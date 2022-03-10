@@ -1,8 +1,9 @@
 ^.*\.Rproj$
-^README\.md$
-^\.Rproj\.user$
 ^\.git$
 ^\.github$
 ^\.gitignore$
 ^\.lintr$
+^\.Rproj\.user$
 ^\.whitesource$
+^pkgdown$
+^README\.md$

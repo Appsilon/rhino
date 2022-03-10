@@ -6,6 +6,9 @@
 \usage{
 app()
 }
+\value{
+An object representing the app (can be passed to \code{shiny::runApp()}).
+}
 \description{
 The entrypoint for a Rhino application.
 Your \code{app.R} should contain nothing but a call to \code{rhino::app()}.
@@ -18,7 +21,8 @@ You can run a Rhino application in typical fashion using \code{shiny::runApp()}.
 Rhino will load the \code{app/main.R} file as a box module (\code{box::use(app/main)}).
 It should export two functions which take a single \code{id} argument -
 the \code{ui} and \code{server} of your top-level Shiny module.
-
+}
+\section{Legacy entrypoint}{
 It is possible to specify a different way to load your application
 using the \code{legacy_entrypoint} option in \code{rhino.yml}:
 \enumerate{
@@ -44,3 +48,4 @@ into a \href{https://shiny.rstudio.com/articles/modules.html}{Shiny module}
 (functions taking a single \code{id} argument).
 }
 }
+
