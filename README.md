@@ -6,7 +6,7 @@
 
 ### Development Tools
 #### Unit Tests
-Unit tests can be run using `devtools::test()`.
+Unit tests can be run using `testthat::test_local()` or `devtools::test()`.
 
 Alternatively, the package can be installed, and then tested with `testthat::test_package("rhino")`.
 
