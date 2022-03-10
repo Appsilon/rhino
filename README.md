@@ -4,6 +4,22 @@
 [![R build status](https://github.com/Appsilon/rhino/workflows/R-CMD-check/badge.svg)](https://github.com/Appsilon/rhino/actions)
 <!-- badges: end -->
 
+## Installation
+```r
+install.packages("rhino")
+```
+
+### Installing from GitHub
+To install latest development version or a specific one, run one of the following commands.
+```r
+# install.packages("remotes")
+remotes::install_github("Appsilon/rhino")
+
+# Installing rhino either from a specific release or a branch requires providing `ref` argument:
+remotes::install_github("Appsilon/rhino", ref = "v0.5.0")
+```
+
+
 ## Development
 ### Unit Tests
 Unit tests can be run using `testthat::test_local()` or `devtools::test()`.
