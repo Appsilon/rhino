@@ -14,5 +14,5 @@ None. This function is called for side effects.
 }
 \description{
 Runs \href{https://stylelint.io/}{Stylelint} on the Sass sources in the \code{app/styles} directory.
-Requires the \code{yarn} command to be available on the system.
+Requires Node.js and the \code{yarn} command to be available on the system.
 }

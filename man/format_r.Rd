@@ -15,3 +15,17 @@ None. This function is called for side effects.
 \description{
 Uses the \code{{styler}} package to automatically format R sources.
 }
+\details{
+The code is formatted according to the \code{styler::tidyverse_style} guide with one adjustment:
+spacing around math operators is not modified to avoid conflicts with \code{box::use()} statements.
+}
+\examples{
+if (interactive()) {
+  # Format a single file.
+  format_r("app/main.R")
+
+  # Format all files in a directory.
+  format_r("app/view")
+}
+
+}
