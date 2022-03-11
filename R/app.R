@@ -56,6 +56,8 @@ with_head_tags <- function(ui) {
 #' It should export two functions which take a single `id` argument -
 #' the `ui` and `server` of your top-level Shiny module.
 #'
+#' # Legacy entrypoint
+#'
 #' It is possible to specify a different way to load your application
 #' using the `legacy_entrypoint` option in `rhino.yml`:
 #' 1. `app_dir`: Rhino will run the app using `shiny::shinyAppDir("app")`.
@@ -76,6 +78,8 @@ with_head_tags <- function(ui) {
 #' Compared to `box_top_level` you'll need to make your top-level `ui` and `server`
 #' into a [Shiny module](https://shiny.rstudio.com/articles/modules.html)
 #' (functions taking a single `id` argument).
+#'
+#' @return An object representing the app (can be passed to `shiny::runApp()`).
 #'
 #' @export
 app <- function() {

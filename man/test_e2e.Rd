@@ -9,6 +9,11 @@ test_e2e(interactive = FALSE)
 \arguments{
 \item{interactive}{Should Cypress be run in the interactive mode?}
 }
+\value{
+None. This function is called for side effects.
+}
 \description{
-Run Cypress end-to-end tests
+Uses \href{https://www.cypress.io/}{Cypress} to run end-to-end tests
+defined in the \code{tests/cypress} directory.
+Requires Node.js and the \code{yarn} command to be available on the system.
 }
