@@ -19,4 +19,5 @@ reference:
 
 - title: Other tools
   contents:
+  - diagnostics
   - test_e2e

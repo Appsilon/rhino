@@ -30,6 +30,7 @@ Imports:
   shiny,
   styler,
   testthat (>= 3.0.0),
+  utils,
   withr,
   yaml
 Suggests:

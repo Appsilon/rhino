@@ -3,6 +3,7 @@
 export(app)
 export(build_js)
 export(build_sass)
+export(diagnostics)
 export(format_r)
 export(init)
 export(lint_js)
