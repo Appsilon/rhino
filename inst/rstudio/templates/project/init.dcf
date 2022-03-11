@@ -1,4 +1,4 @@
-Binding: init
+Binding: init_rstudio
 Title: Shiny Application using rhino
 
 Parameter: github_actions_ci

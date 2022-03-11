@@ -27,8 +27,36 @@ init <- function(
   github_actions_ci = TRUE,
   rhino_version = "rhino"
 ) {
+  init_impl(
+    dir = dir,
+    github_actions_ci = github_actions_ci,
+    rhino_version = rhino_version,
+    new_project_wizard = FALSE
+  )
+}
+
+init_rstudio <- function(
+  dir = ".",
+  github_actions_ci = TRUE,
+  rhino_version = "rhino"
+) {
+  init_impl(
+    dir = dir,
+    github_actions_ci = github_actions_ci,
+    rhino_version = rhino_version,
+    new_project_wizard = TRUE
+  )
+}
+
+init_impl <- function(
+  dir,
+  github_actions_ci,
+  rhino_version,
+  new_project_wizard
+) {
   fs::dir_create(dir)
   withr::with_dir(dir, {
+    create_rproj_file(new_project_wizard)
     init_renv(rhino_version)
     create_app_structure()
     create_unit_tests_structure()
@@ -77,6 +105,13 @@ init_renv <- function(rhino_version) {
     renv::init(restart = FALSE)
   }
   cli::cli_alert_success("Initialized renv.")
+}
+
+create_rproj_file <- function(new_project_wizard) {
+  if (!new_project_wizard && !rproj_exists()) {
+    copy_rproj()
+    cli::cli_alert_success("Rproj file created.")
+  }
 }
 
 create_app_structure <- function() {
