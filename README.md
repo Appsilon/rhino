@@ -1,3 +1,5 @@
+_**Disclaimer: Rhino is under an active development. Before version 1.0.0 release Rhino API might change.**_
+
 # Rhino <a href="https://appsilon.github.io/rhino/"><img src="man/figures/rhino.png" align="right" alt="Rhino logo" height="140"></a>
 > _Strong bones for your [Shiny](https://shiny.rstudio.com/) apps_
 
