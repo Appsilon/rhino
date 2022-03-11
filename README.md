@@ -10,7 +10,6 @@
 
 
 ## Contents
-* [Overview](#overview)
 * [Installation](#installation)
   * [Installing from GitHub](#installing-from-github)
 * [Usage](#usage)
@@ -22,10 +21,6 @@
   * [:construction: Develop a Shiny Application with Rhino](#construction-develop-a-shiny-application-with-rhino)
 * [Contributing](#contributing)
 * [About](#about)
-
-
-## Overview
-_TODO_
 
 
 ## Installation
