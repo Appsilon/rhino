@@ -108,7 +108,8 @@ This setting is useful when migrating an existing Shiny application to Rhino. Fo
 ---
 
 ### :construction: Develop a Shiny Application with Rhino
-_TODO_
+_Section under construction, for now please refer to [Rhino package
+reference](https://appsilon.github.io/rhino/reference/index.html)._
 
 
 ## Contributing
