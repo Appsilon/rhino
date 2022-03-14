@@ -1,35 +1,143 @@
-# Rhino
+_**Disclaimer: Rhino is under an active development. Before version 1.0.0 release Rhino API might change.**_
+
+# Rhino <a href="https://appsilon.github.io/rhino/"><img src="man/figures/rhino.png" align="right" alt="Rhino logo" height="140"></a>
+> _Strong bones for your [Shiny](https://shiny.rstudio.com/) apps_
 
 <!-- badges: start -->
+[![CRAN status](https://www.r-pkg.org/badges/version/rhino)](https://cran.r-project.org/package=rhino)
 [![R build status](https://github.com/Appsilon/rhino/workflows/R-CMD-check/badge.svg)](https://github.com/Appsilon/rhino/actions)
+[![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
+[![License: LGPL-3.0](https://img.shields.io/badge/License-LGPL--3.0-blue.svg)][LGPL-3.0 license]
 <!-- badges: end -->
 
-## Development Process
-1. We follow [Scrum](https://scrumguides.org/).
-2. All changes are introduced in pull requests, which must be peer-reviewed.
-The reviewer inspects the code, tests the changes and checks them against the DoD before approving.
-3. The `develop` branch is the base for our regular work.
-It is set as the "default" branch on GitHub
-so that PRs automatically target it and `closes` keyword works in issue descriptions.
-4. The `main` branch is used for releases.
-We regularly merge `develop` into `main`,
-increment the version number and tag a new release on GitHub.
-5. We follow the [Semantic Versioning](https://semver.org/) scheme.
 
-### Definition of Done
-1. The PR has at least 1 approval and 0 change requests.
-2. The CI passes (`R CMD check`, linter, unit tests).
-3. The change is thoroughly documented.
+## Contents
+* [Installation](#installation)
+  * [Installing from GitHub](#installing-from-github)
+* [Usage](#usage)
+  * [🏗️ Create a Shiny Application from Scratch](#%EF%B8%8F-create-a-shiny-application-from-scratch)
+    * [Rhino Application Structure](#rhino-application-structure)
+  * [:recycle: Migrate an Existing Shiny Application to Rhino](#recycle-migrate-an-existing-shiny-application-to-rhino)
+  * [:wrench: Configure Rhino with `rhino.yml`](#wrench-configure-rhino-with-rhinoyml)
+    * [`rhino.yml` Taxonomy](#rhinoyml-taxonomy)
+  * [:construction: Develop a Shiny Application with Rhino](#construction-develop-a-shiny-application-with-rhino)
+* [Contributing](#contributing)
+* [About](#about)
 
-### Development Tools
-#### Unit Tests
-Unit tests can be run using `devtools::test()`.
 
-Alternatively, the package can be installed, and then tested with `testthat::test_package("rhino")`.
+## Installation
+```r
+install.packages("rhino")
+```
 
-#### Linter
-Linter can be run using either `lintr::lint_package()` or `devtools::lint()`.
+### Installing from GitHub
+To install latest development version or a specific one, run one of the following commands.
+```r
+# install.packages("remotes")
+remotes::install_github("Appsilon/rhino")
 
-#### `pkgdown` site
-To create a `pkgdown` site locally run either `pkgdown::build_site()` or `devtools::build_site()`.
-If built successfully, the website will be in `docs` directory.
+# Installing rhino either from a specific release or a branch requires providing `ref` argument:
+remotes::install_github("Appsilon/rhino", ref = "v0.5.0")
+```
+
+
+## Usage
+### 🏗️ Create a Shiny Application from Scratch
+Running `rhino::init()` will create a following application structure for you. Once that is done
+simply run `shiny::runApp()` to start a minimal Rhino application! :rocket:
+
+#### Rhino Application Structure
+```
+.
+├── app
+│   ├── js
+│   │   └── index.js
+│   ├── logic
+│   │   └── __init__.R
+│   ├── static
+│   │   └── favicon.ico
+│   ├── styles
+│   │   └── main.scss
+│   ├── view
+│   │   └── __init__.R
+│   └── main.R
+├── tests
+│   ├── cypress
+│   │   └── integration
+│   │       └── app.spec.js
+│   ├── testthat
+│   │   └── test-main.R
+│   └── cypress.json
+├── app.R
+├── app.Rproj
+├── dependencies.R
+├── renv.lock
+└── rhino.yml
+```
+
+With the structure prepared you can [configure Rhino](#wrench-configure-rhino-with-rhinoyml) or jump
+straight into [development using Rhino](#construction-develop-a-shiny-application-with-rhino)!
+
+---
+
+### :recycle: Migrate an Existing Shiny Application to Rhino
+To migrate an application to Rhino create an application from scratch as described above. Then refer
+to [`rhino::init()` details section](https://appsilon.github.io/rhino/reference/init.html#details-1)
+for a recommended approach of proceeding with the migration.
+
+---
+
+### :wrench: Configure Rhino with `rhino.yml`
+Rhino uses its own `rhino.yml` config file for preserving your preferences. Currently available
+options are described in the taxonomy below.
+
+#### `rhino.yml` Taxonomy
+```yaml
+sass: string               # required | one of: "node", "r"
+legacy_entrypoint: string  # optional | one of: "app_dir", "source", "box_top_level"
+```
+
+##### `sass`
+Configures whether [SASS](https://sass-lang.com/) should be build using [R
+package](https://cran.r-project.org/package=sass) or [Node
+package](https://www.npmjs.com/package/sass). The latter provides newest implementation, at a cost
+of additional system dependencies for development (`node` and `yarn`).
+
+##### `legacy_entrypoint`
+This setting is useful when migrating an existing Shiny application to Rhino. For more details see
+[`rhino::app()` details section](https://appsilon.github.io/rhino/reference/app.html#details-1).
+
+---
+
+### :construction: Develop a Shiny Application with Rhino
+_Section under construction, for now please refer to [Rhino package
+reference](https://appsilon.github.io/rhino/reference/index.html)._
+
+
+## Contributing
+Pull requests are welcome! Please see our [contributing guidelines](.github/CONTRIBUTING.md) for more details.
+
+| Tool           | Command                  | `devtools` equivalent    | Comment
+|----------------|--------------------------|--------------------------|-
+| Unit tests     | `testthat::test_local()` | `devtools::test()`       |
+| Linter         | `lintr::lint_package()`  | `devtools::lint()`       |
+| `pkgdown` site | `pkgdown::build_site()`  | `devtools::build_site()` | If built successfully, the website will be in `docs` directory.
+
+
+## About
+Rhino is distributed under [LGPL-3.0 license]. See [`LICENSE`](LICENSE) for more information.
+
+Developed with :heart: at [Appsilon].
+
+---
+
+Appsilon is the **Full Service Certified RStudio Partner**. Learn more at [appsilon.com][Appsilon].
+
+Get in touch: support+opensource@appsilon.com.
+
+<a href="https://appsilon.com/careers/"><img src="http://d2v95fjda94ghc.cloudfront.net/hiring.png" alt="We are hiring!"></a>
+
+
+<!-- Links -->
+[LGPL-3.0 license]: https://opensource.org/licenses/LGPL-3.0
+[Appsilon]: https://appsilon.com
