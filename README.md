@@ -1,7 +1,7 @@
 _**Disclaimer: Rhino is under an active development. Before version 1.0.0 release Rhino API might change.**_
 
 # Rhino <a href="https://appsilon.github.io/rhino/"><img src="man/figures/rhino.png" align="right" alt="Rhino logo" style="height: 140px;"></a>
-> _Strong bones for your [Shiny](https://shiny.rstudio.com/) apps_
+> _Build enterprise-grade [Shiny](https://shiny.rstudio.com/) apps. Best practices included._
 
 <!-- badges: start -->
 [![CRAN status](https://www.r-pkg.org/badges/version/rhino)](https://cran.r-project.org/package=rhino)
