@@ -6,6 +6,9 @@
 \usage{
 app()
 }
+\value{
+An object representing the app (can be passed to \code{shiny::runApp()}).
+}
 \description{
 The entrypoint for a Rhino application.
 Your \code{app.R} should contain nothing but a call to \code{rhino::app()}.
@@ -15,17 +18,18 @@ This function is a wrapper around \code{shiny::shinyApp()}.
 It reads \code{rhino.yml} and performs some configuration steps (logger, static files, box modules).
 You can run a Rhino application in typical fashion using \code{shiny::runApp()}.
 
-Rhino will load the \code{app/r/main.R} file as a box module (\code{box::use(r/main)}).
+Rhino will load the \code{app/main.R} file as a box module (\code{box::use(app/main)}).
 It should export two functions which take a single \code{id} argument -
 the \code{ui} and \code{server} of your top-level Shiny module.
-
+}
+\section{Legacy entrypoint}{
 It is possible to specify a different way to load your application
 using the \code{legacy_entrypoint} option in \code{rhino.yml}:
 \enumerate{
 \item \code{app_dir}: Rhino will run the app using \code{shiny::shinyAppDir("app")}.
-\item \code{source}: Rhino will \code{source("app/r/main.R")}.
+\item \code{source}: Rhino will \code{source("app/main.R")}.
 This file should define the top-level \code{ui} and \code{server} objects to be passed to \code{shinyApp()}.
-\item \code{box_top_level}: Rhino will load \code{app/r/main.R} as a box module (as it does by default),
+\item \code{box_top_level}: Rhino will load \code{app/main.R} as a box module (as it does by default),
 but the exported \code{ui} and \code{server} objects will be considered as top-level.
 }
 
@@ -44,3 +48,4 @@ into a \href{https://shiny.rstudio.com/articles/modules.html}{Shiny module}
 (functions taking a single \code{id} argument).
 }
 }
+

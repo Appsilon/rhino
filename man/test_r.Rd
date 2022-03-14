@@ -6,6 +6,9 @@
 \usage{
 test_r()
 }
+\value{
+None. This function is called for side effects.
+}
 \description{
-Run R unit tests
+Uses the \code{{testhat}} package to run all unit tests in \code{tests/testthat} directory.
 }

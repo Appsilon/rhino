@@ -1,0 +1,139 @@
+---
+title: "Rhino Project Structure"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Rhino Project Structure}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+# Philosophy
+Shiny comes with a powerful
+[reactive programming](https://shiny.rstudio.com/articles/reactivity-overview.html) model
+and a rich set of functions for creating UI widgets
+or custom [HTML structure](https://shiny.rstudio.com/articles/tag-glossary.html).
+These features make it possible to quickly build impressive, interactive applications,
+but they can also make your code harder to test and reuse.
+
+To address this, we recommend to separate the code which must depend on Shiny
+from the logic which can be expressed without it.
+The division makes for more robust and maintainable apps in our experience.
+To support this separation,
+Rhino encourages a specific structure for the R sources of your application:
+
+* `main.R`: The entry point to your application.
+* `logic`: Application code independent from Shiny.
+* `view`: Shiny modules and related code.
+
+## Logic
+Code which uses reactivity or UI builder functions can be hard to test and reuse.
+With proper design it is possible to express most of your application logic
+using plain R functions and data structures (like lists, data frames).
+
+Use the `logic` directory for code which can be expressed without Shiny.
+
+## View
+The `view` directory should contain code which describes the user interface of your application.
+Use the functions defined in `logic` here and connect them using reactivity.
+
+Structure your application using [Shiny modules](https://shiny.rstudio.com/articles/modules.html).
+A typical module can look something like this:
+```r
+box::use(
+  shiny[moduleServer, NS, renderText, tagList, textInput, textOutput],
+)
+box::use(
+  app/logic/messages[hello_message],
+)
+
+#' @export
+ui <- function(id) {
+  ns <- NS(id)
+  tagList(
+    textInput(ns("name"), "Name"),
+    textOutput(ns("message"))
+  )
+}
+
+#' @export
+server <- function(id) {
+  moduleServer(id, function(input, output, session) {
+    output$message <- renderText(hello_message(input$name))
+  })
+}
+```
+
+# Box modules
+With large applications it is critical for maintainability
+to properly structure your code using files and directories.
+R comes with the `library()` and `source()` functions,
+but its functionality is limited when it comes
+to dividing your code into modules and expressing their dependencies.
+
+To address this, Rhino uses the [box](https://klmr.me/box) R package,
+which allows you to modularize your code in a similar way to languages like Python and Java:
+```r
+box::use(
+  dplyr, # Import dplyr. Its functions can be used via `$`, e.g. `dplyr$filter`.
+  shiny[reactive], # Import the `reactive()` function from shiny package.
+)
+box::use(
+  logic/data_validation # Import the `logic/data_validation.R` module.
+)
+```
+
+The best place to learn about box is its official [documentation](https://klmr.me/box).
+Some useful box features are also explained in the sections below.
+
+## `__init__.R` files
+Objects exported by an `__init__.R` file can be imported from its parent directory.
+
+### Example
+Assume we have an `app/foo/__init__.R` file with the following content:
+```r
+#' @export
+bar <- "Hello!"
+```
+
+We can now import `bar` as if it was defined in `app/foo.R`:
+```r
+box::use(
+  app/foo[bar]
+)
+```
+
+This mechanism can be used in combination with reexports
+to make it easier to import multiple modules from a single directory.
+
+## Reexports
+A module can reexport objects imported from a different module
+by applying `#' @export` to a `box::use()` statement.
+
+### Example
+Assume we have modules `analysis_tab.R` and `download_tab.R` in the `app/view` directory.
+We can reexport them from `app/view/__init__.R` like this:
+```r
+#' @export
+box::use(
+  app/view/analysis_tab,
+  app/view/download_tab
+)
+```
+
+The following `box::use()` statements are now equivalent:
+```r
+box::use(
+  app/view/analysis_tab,
+  app/view/download_tab,
+)
+box::use(
+  app/view[analysis_tab, download_tab],
+)
+```

@@ -1,5 +1,9 @@
 #' Run R unit tests
 #'
+#' Uses the `{testhat}` package to run all unit tests in `tests/testthat` directory.
+#'
+#' @return None. This function is called for side effects.
+#'
 #' @export
 test_r <- function() {
   testthat::test_dir(fs::path("tests", "testthat"))
@@ -7,7 +11,13 @@ test_r <- function() {
 
 #' Lint R
 #'
+#' Uses the `{lintr}` package to check all R sources in the `app` and `tests/testthat` directories
+#' for style errors.
+#'
+#' The linter rules can be adjusted in the `.lintr` file.
+#'
 #' @param accepted_errors Number of accepted style errors.
+#' @return None. This function is called for side effects.
 #'
 #' @export
 lint_r <- function(accepted_errors = 0) {
@@ -32,7 +42,22 @@ rhino_style <- function() {
 
 #' Format R
 #'
+#' Uses the `{styler}` package to automatically format R sources.
+#'
+#' The code is formatted according to the `styler::tidyverse_style` guide with one adjustment:
+#' spacing around math operators is not modified to avoid conflicts with `box::use()` statements.
+#'
 #' @param paths Character vector of files and directories to format.
+#' @return None. This function is called for side effects.
+#'
+#' @examples
+#' if (interactive()) {
+#'   # Format a single file.
+#'   format_r("app/main.R")
+#'
+#'   # Format all files in a directory.
+#'   format_r("app/view")
+#' }
 #'
 #' @export
 format_r <- function(paths) {
@@ -49,30 +74,32 @@ format_r <- function(paths) {
 #'
 #' Builds the `app/js/index.js` file into `app/static/js/app.min.js`.
 #' The code is transformed and bundled
-#' using [Babel](https://babeljs.io) and [Webpack](https://webpack.js.org),
+#' using [Babel](https://babeljs.io) and [webpack](https://webpack.js.org),
 #' so the latest JavaScript features can be used
 #' (including ECMAScript 2015 aka ES6 and newer standards).
+#' Requires Node.js and the `yarn` command to be available on the system.
 #'
 #' Functions/objects defined in the global scope do not automatically become `window` properties,
 #' so the following JS code:
 #' ```js
-#'   function sayHello() { alert('Hello!'); }
+#' function sayHello() { alert('Hello!'); }
 #' ```
 #' won't work as expected if used in R like this:
-#' ```R
-#'   tags$button("Hello!", onclick = 'sayHello()');
+#' ```r
+#' tags$button("Hello!", onclick = 'sayHello()');
 #' ```
 #'
 #' Instead you should explicitly export functions:
 #' ```js
-#'   export function sayHello() { alert('Hello!'); }
+#' export function sayHello() { alert('Hello!'); }
 #' ```
 #' and access them via the global `App` object:
-#' ```R
-#'   tags$button("Hello!", onclick = "App.sayHello()")
+#' ```r
+#' tags$button("Hello!", onclick = "App.sayHello()")
 #' ```
 #'
 #' @param watch Keep the process running and rebuilding JS whenever source files change.
+#' @return None. This function is called for side effects.
 #'
 #' @export
 build_js <- function(watch = FALSE) {
@@ -84,23 +111,25 @@ build_js <- function(watch = FALSE) {
 #' Lint JavaScript
 #'
 #' Runs [ESLint](https://eslint.org) on the JavaScript sources in the `app/js` directory.
+#' Requires Node.js and the `yarn` command to be available on the system.
 #'
-#' If your code uses global objects defined by other JS libraries or R packages,
+#' If your JS code uses global objects defined by other JS libraries or R packages,
 #' you'll need to let the linter know or it will complain about undefined objects.
 #' For example, the `{leaflet}` package defines a global object `L`.
 #' To access it without raising linter errors, add `/* global L */` comment in your JS code.
 #'
-#' You don't need to define `Shiny` and `$` as these globals are defined by default.
+#' You don't need to define `Shiny` and `$` as these global variables are defined by default.
 #'
-#' If you find a particular ESLint error unapplicable to your code,
+#' If you find a particular ESLint error inapplicable to your code,
 #' you can disable a specific rule for the next line of code with a comment like:
 #' ```js
-#'   // eslint-disable-next-line no-restricted-syntax
+#' // eslint-disable-next-line no-restricted-syntax
 #' ```
 #' See the [ESLint documentation](https://eslint.org/docs/user-guide/configuring/rules#using-configuration-comments-1)
 #' for full details.
 #'
 #' @param fix Automatically fix problems.
+#' @return None. This function is called for side effects.
 #'
 #' @export
 # nolint end
@@ -110,8 +139,22 @@ lint_js <- function(fix = FALSE) {
 
 #' Build Sass
 #'
+#' Builds the `app/styles/main.scss` file into `app/static/css/app.min.css`.
+#'
+#' The build method can be configured using the `sass` option in `rhino.yml`:
+#' 1. `node`: Use [Dart Sass](https://sass-lang.com/dart-sass)
+#' (requires Node.js and the `yarn` command to be available on the system).
+#' 2. `r`: Use the `{sass}` R package.
+#'
+#' It is recommended to use Dart Sass which is the primary,
+#' actively developed implementation of Sass.
+#' On systems without `yarn` you can use the `{sass}` R package as a fallback.
+#' It is not advised however, as it uses the deprecated
+#' [LibSass](https://sass-lang.com/blog/libsass-is-deprecated) implementation.
+#'
 #' @param watch Keep the process running and rebuilding Sass whenever source files change.
-#' Only supported for `sass: node` config in `rhino.yml`.
+#' Only supported for `sass: node` configuration in `rhino.yml`.
+#' @return None. This function is called for side effects.
 #'
 #' @export
 build_sass <- function(watch = FALSE) {
@@ -135,7 +178,11 @@ build_sass <- function(watch = FALSE) {
 
 #' Lint Sass
 #'
+#' Runs [Stylelint](https://stylelint.io/) on the Sass sources in the `app/styles` directory.
+#' Requires Node.js and the `yarn` command to be available on the system.
+#'
 #' @param fix Automatically fix problems.
+#' @return None. This function is called for side effects.
 #'
 #' @export
 lint_sass <- function(fix = FALSE) {
@@ -144,7 +191,12 @@ lint_sass <- function(fix = FALSE) {
 
 #' Run Cypress end-to-end tests
 #'
+#' Uses [Cypress](https://www.cypress.io/) to run end-to-end tests
+#' defined in the `tests/cypress` directory.
+#' Requires Node.js and the `yarn` command to be available on the system.
+#'
 #' @param interactive Should Cypress be run in the interactive mode?
+#' @return None. This function is called for side effects.
 #'
 #' @export
 test_e2e <- function(interactive = FALSE) {

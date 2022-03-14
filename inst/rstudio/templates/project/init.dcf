@@ -1,5 +1,6 @@
-Binding: init
+Binding: init_rstudio
 Title: Shiny Application using rhino
+Icon: favicon.ico
 
 Parameter: github_actions_ci
 Widget: CheckboxInput

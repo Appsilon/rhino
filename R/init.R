@@ -1,24 +1,25 @@
-#' Create Shiny application using `{rhino}`
+#' Create Rhino application
 #'
 #' Generates the file structure of a Rhino application.
 #' Can be used to start a fresh project or to migrate an existing Shiny application
 #' created without Rhino.
 #'
-#' The recommended steps for migrating an existing application to Rhino:
+#' The recommended steps for migrating an existing Shiny application to Rhino:
 #' 1. Put all app files in the `app` directory,
 #' so that it can be run with `shiny::shinyAppDir("app")` (assuming all dependencies are installed).
 #' 2. If you have a list of dependencies in form of `library()` calls,
 #' put them in the `dependencies.R` file.
 #' If this file does not exist, Rhino will generate it based on `renv::dependencies("app")`.
-#' 3. If your project uses renv, put `renv.lock` and `renv` directory in the project root.
+#' 3. If your project uses `{renv}`, put `renv.lock` and `renv` directory in the project root.
 #' Rhino will try to only add the necessary dependencies to your lockfile.
 #' 4. Run `rhino::init()` in the project root.
 #'
 #' @param dir Name of the directory to create application in.
-#' @param github_actions_ci Should the Github Actions CI be added?
+#' @param github_actions_ci Should the GitHub Actions CI be added?
 #' @param rhino_version When using an existing `renv.lock` file,
 #' Rhino will install itself using `renv::install(rhino_version)`.
-#' You can provide this argument to use a specific version / source, e.g.`"Appsilon/rhino@v0.4.0".
+#' You can provide this argument to use a specific version / source, e.g.`"Appsilon/rhino@v0.4.0"`.
+#' @return None. This function is called for side effects.
 #'
 #' @export
 init <- function(
@@ -26,8 +27,36 @@ init <- function(
   github_actions_ci = TRUE,
   rhino_version = "rhino"
 ) {
+  init_impl(
+    dir = dir,
+    github_actions_ci = github_actions_ci,
+    rhino_version = rhino_version,
+    new_project_wizard = FALSE
+  )
+}
+
+init_rstudio <- function(
+  dir = ".",
+  github_actions_ci = TRUE,
+  rhino_version = "rhino"
+) {
+  init_impl(
+    dir = dir,
+    github_actions_ci = github_actions_ci,
+    rhino_version = rhino_version,
+    new_project_wizard = TRUE
+  )
+}
+
+init_impl <- function(
+  dir,
+  github_actions_ci,
+  rhino_version,
+  new_project_wizard
+) {
   fs::dir_create(dir)
   withr::with_dir(dir, {
+    create_rproj_file(new_project_wizard)
     init_renv(rhino_version)
     create_app_structure()
     create_unit_tests_structure()
@@ -76,6 +105,13 @@ init_renv <- function(rhino_version) {
     renv::init(restart = FALSE)
   }
   cli::cli_alert_success("Initialized renv.")
+}
+
+create_rproj_file <- function(new_project_wizard) {
+  if (!new_project_wizard && !rproj_exists()) {
+    copy_rproj()
+    cli::cli_alert_success("Rproj file created.")
+  }
 }
 
 create_app_structure <- function() {

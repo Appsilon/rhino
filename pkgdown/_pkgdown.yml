@@ -1,0 +1,23 @@
+reference:
+- title: Project initialization
+  contents:
+  - app
+  - init
+
+- title: R development
+  contents:
+  - format_r
+  - lint_r
+  - test_r
+
+- title: JavaScript & Sass development
+  contents:
+  - build_js
+  - build_sass
+  - lint_js
+  - lint_sass
+
+- title: Other tools
+  contents:
+  - diagnostics
+  - test_e2e

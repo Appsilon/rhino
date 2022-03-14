@@ -21,7 +21,7 @@ load_main_module <- function() {
   r <- NULL
   main <- NULL
 
-  box::use(r/main)
+  box::use(app/main)
   main
 }
 
@@ -52,16 +52,18 @@ with_head_tags <- function(ui) {
 #' It reads `rhino.yml` and performs some configuration steps (logger, static files, box modules).
 #' You can run a Rhino application in typical fashion using `shiny::runApp()`.
 #'
-#' Rhino will load the `app/r/main.R` file as a box module (`box::use(r/main)`).
+#' Rhino will load the `app/main.R` file as a box module (`box::use(app/main)`).
 #' It should export two functions which take a single `id` argument -
 #' the `ui` and `server` of your top-level Shiny module.
+#'
+#' # Legacy entrypoint
 #'
 #' It is possible to specify a different way to load your application
 #' using the `legacy_entrypoint` option in `rhino.yml`:
 #' 1. `app_dir`: Rhino will run the app using `shiny::shinyAppDir("app")`.
-#' 2. `source`: Rhino will `source("app/r/main.R")`.
+#' 2. `source`: Rhino will `source("app/main.R")`.
 #' This file should define the top-level `ui` and `server` objects to be passed to `shinyApp()`.
-#' 3. `box_top_level`: Rhino will load `app/r/main.R` as a box module (as it does by default),
+#' 3. `box_top_level`: Rhino will load `app/main.R` as a box module (as it does by default),
 #' but the exported `ui` and `server` objects will be considered as top-level.
 #'
 #' The `legacy_entrypoint` setting is useful when migrating an existing Shiny application to Rhino.
@@ -77,6 +79,8 @@ with_head_tags <- function(ui) {
 #' into a [Shiny module](https://shiny.rstudio.com/articles/modules.html)
 #' (functions taking a single `id` argument).
 #'
+#' @return An object representing the app (can be passed to `shiny::runApp()`).
+#'
 #' @export
 app <- function() {
   configure_logger()
@@ -89,7 +93,7 @@ app <- function() {
 
   if (identical(entrypoint, "source")) {
     main <- new.env()
-    source(fs::path("app", "r", "main.R"), local = main)
+    source(fs::path("app", "main.R"), local = main)
   } else {
     main <- load_main_module()
     if (!identical(entrypoint, "box_top_level")) {
