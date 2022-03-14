@@ -74,7 +74,7 @@ format_r <- function(paths) {
 #'
 #' Builds the `app/js/index.js` file into `app/static/js/app.min.js`.
 #' The code is transformed and bundled
-#' using [Babel](https://babeljs.io) and [Webpack](https://webpack.js.org),
+#' using [Babel](https://babeljs.io) and [webpack](https://webpack.js.org),
 #' so the latest JavaScript features can be used
 #' (including ECMAScript 2015 aka ES6 and newer standards).
 #' Requires Node.js and the `yarn` command to be available on the system.
@@ -118,9 +118,9 @@ build_js <- function(watch = FALSE) {
 #' For example, the `{leaflet}` package defines a global object `L`.
 #' To access it without raising linter errors, add `/* global L */` comment in your JS code.
 #'
-#' You don't need to define `Shiny` and `$` as these globals are defined by default.
+#' You don't need to define `Shiny` and `$` as these global variables are defined by default.
 #'
-#' If you find a particular ESLint error unapplicable to your code,
+#' If you find a particular ESLint error inapplicable to your code,
 #' you can disable a specific rule for the next line of code with a comment like:
 #' ```js
 #' // eslint-disable-next-line no-restricted-syntax
@@ -153,7 +153,7 @@ lint_js <- function(fix = FALSE) {
 #' [LibSass](https://sass-lang.com/blog/libsass-is-deprecated) implementation.
 #'
 #' @param watch Keep the process running and rebuilding Sass whenever source files change.
-#' Only supported for `sass: node` config in `rhino.yml`.
+#' Only supported for `sass: node` configuration in `rhino.yml`.
 #' @return None. This function is called for side effects.
 #'
 #' @export

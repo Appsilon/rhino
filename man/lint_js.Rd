@@ -22,9 +22,9 @@ you'll need to let the linter know or it will complain about undefined objects.
 For example, the \code{{leaflet}} package defines a global object \code{L}.
 To access it without raising linter errors, add \verb{/* global L */} comment in your JS code.
 
-You don't need to define \code{Shiny} and \code{$} as these globals are defined by default.
+You don't need to define \code{Shiny} and \code{$} as these global variables are defined by default.
 
-If you find a particular ESLint error unapplicable to your code,
+If you find a particular ESLint error inapplicable to your code,
 you can disable a specific rule for the next line of code with a comment like:\if{html}{\out{<div class="sourceCode js">}}\preformatted{// eslint-disable-next-line no-restricted-syntax
 }\if{html}{\out{</div>}}
 

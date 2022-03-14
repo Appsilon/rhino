@@ -10,12 +10,12 @@
 #' 2. If you have a list of dependencies in form of `library()` calls,
 #' put them in the `dependencies.R` file.
 #' If this file does not exist, Rhino will generate it based on `renv::dependencies("app")`.
-#' 3. If your project uses renv, put `renv.lock` and `renv` directory in the project root.
+#' 3. If your project uses `{renv}`, put `renv.lock` and `renv` directory in the project root.
 #' Rhino will try to only add the necessary dependencies to your lockfile.
 #' 4. Run `rhino::init()` in the project root.
 #'
 #' @param dir Name of the directory to create application in.
-#' @param github_actions_ci Should the Github Actions CI be added?
+#' @param github_actions_ci Should the GitHub Actions CI be added?
 #' @param rhino_version When using an existing `renv.lock` file,
 #' Rhino will install itself using `renv::install(rhino_version)`.
 #' You can provide this argument to use a specific version / source, e.g.`"Appsilon/rhino@v0.4.0"`.
