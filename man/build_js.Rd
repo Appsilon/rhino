@@ -15,7 +15,7 @@ None. This function is called for side effects.
 \description{
 Builds the \code{app/js/index.js} file into \code{app/static/js/app.min.js}.
 The code is transformed and bundled
-using \href{https://babeljs.io}{Babel} and \href{https://webpack.js.org}{Webpack},
+using \href{https://babeljs.io}{Babel} and \href{https://webpack.js.org}{webpack},
 so the latest JavaScript features can be used
 (including ECMAScript 2015 aka ES6 and newer standards).
 Requires Node.js and the \code{yarn} command to be available on the system.

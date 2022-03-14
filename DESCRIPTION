@@ -1,5 +1,5 @@
 Package: rhino
-Title: A framework for enterprise Shiny applications
+Title: A Framework for Enterprise Shiny Applications
 Version: 0.5.0
 Authors@R:
   c(

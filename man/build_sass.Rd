@@ -8,7 +8,7 @@ build_sass(watch = FALSE)
 }
 \arguments{
 \item{watch}{Keep the process running and rebuilding Sass whenever source files change.
-Only supported for \code{sass: node} config in \code{rhino.yml}.}
+Only supported for \code{sass: node} configuration in \code{rhino.yml}.}
 }
 \value{
 None. This function is called for side effects.
