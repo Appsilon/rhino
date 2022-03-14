@@ -133,7 +133,7 @@ Developed with :heart: at [Appsilon].
 
 Appsilon is the **Full Service Certified RStudio Partner**. Learn more at [appsilon.com][Appsilon].
 
-Get in touch: support+opensource@appsilon.com.
+Get in touch: opensource@appsilon.com.
 
 <a href="https://appsilon.com/careers/"><img src="http://d2v95fjda94ghc.cloudfront.net/hiring.png" alt="We are hiring!"></a>
 

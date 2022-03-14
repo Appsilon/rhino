@@ -7,7 +7,7 @@ Authors@R:
     person("Jakub", "Nowicki", role = "aut", email = "kuba@appsilon.com"),
     person("Tymoteusz", "Makowski", role = "aut", email = "tymoteusz@appsilon.com"),
     person("Marek", "Rogala", role = "aut", email = "marek@appsilon.com"),
-    person("Appsilon Sp. z o.o.", role = c("cre", "cph"), email = "support+opensource@appsilon.com")
+    person("Appsilon Sp. z o.o.", role = c("cre", "cph"), email = "opensource@appsilon.com")
   )
 Description: A framework that supports creating and extending enterprise Shiny applications using best practices.
 URL: https://appsilon.github.io/rhino, https://github.com/Appsilon/rhino
