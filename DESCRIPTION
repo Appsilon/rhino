@@ -1,6 +1,6 @@
 Package: rhino
 Title: A Framework for Enterprise Shiny Applications
-Version: 0.6.2
+Version: 0.6.3
 Authors@R:
   c(
     person("Kamil", "Zyla", role = c("aut", "cre"), email = "kamil@appsilon.com"),
@@ -10,7 +10,7 @@ Authors@R:
     person("Appsilon Sp. z o.o.", role = "cph", email = "opensource@appsilon.com")
   )
 Description: A framework that supports creating and extending enterprise Shiny applications using best practices.
-URL: https://appsilon.github.io/rhino, https://github.com/Appsilon/rhino
+URL: https://appsilon.github.io/rhino/, https://github.com/Appsilon/rhino
 BugReports: https://github.com/Appsilon/rhino/issues
 License: LGPL-3
 Encoding: UTF-8
