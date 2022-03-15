@@ -39,7 +39,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">rhino</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.6.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.6.3</span>
       </span>
     </div>
 
@@ -144,7 +144,7 @@
 <h2 id="box-modules">Box modules<a class="anchor" aria-label="anchor" href="#box-modules"></a>
 </h2>
 <p>With large applications it is critical for maintainability to properly structure your code using files and directories. R comes with the <code><a href="https://rdrr.io/r/base/library.html" class="external-link">library()</a></code> and <code><a href="https://rdrr.io/r/base/source.html" class="external-link">source()</a></code> functions, but its functionality is limited when it comes to dividing your code into modules and expressing their dependencies.</p>
-<p>To address this, Rhino uses the <a href="https://klmr.me/box" class="external-link">box</a> R package, which allows you to modularize your code in a similar way to languages like Python and Java:</p>
+<p>To address this, Rhino uses the <a href="https://klmr.me/box/" class="external-link">box</a> R package, which allows you to modularize your code in a similar way to languages like Python and Java:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">box</span><span class="fu">::</span><span class="fu"><a href="http://klmr.me/box/reference/use.html" class="external-link">use</a></span><span class="op">(</span>
   <span class="va">dplyr</span>, <span class="co"># Import dplyr. Its functions can be used via `$`, e.g. `dplyr$filter`.</span>
@@ -153,7 +153,7 @@
 <span class="fu">box</span><span class="fu">::</span><span class="fu"><a href="http://klmr.me/box/reference/use.html" class="external-link">use</a></span><span class="op">(</span>
   <span class="va">logic</span><span class="op">/</span><span class="va">data_validation</span> <span class="co"># Import the `logic/data_validation.R` module.</span>
 <span class="op">)</span></code></pre></div>
-<p>The best place to learn about box is its official <a href="https://klmr.me/box" class="external-link">documentation</a>. Some useful box features are also explained in the sections below.</p>
+<p>The best place to learn about box is its official <a href="https://klmr.me/box/" class="external-link">documentation</a>. Some useful box features are also explained in the sections below.</p>
 <div class="section level3">
 <h3 id="init__-r-files">
 <code>__init__.R</code> files<a class="anchor" aria-label="anchor" href="#init__-r-files"></a>
