@@ -12,7 +12,7 @@ Authors@R:
 Description: A framework that supports creating and extending enterprise Shiny applications using best practices.
 URL: https://appsilon.github.io/rhino, https://github.com/Appsilon/rhino
 BugReports: https://github.com/Appsilon/rhino/issues
-License: LGPL-3 + file LICENSE
+License: LGPL-3
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.2
@@ -34,7 +34,7 @@ Imports:
   withr,
   yaml
 Suggests:
-    knitr,
-    rmarkdown
+  knitr,
+  rmarkdown
 Config/testthat/edition: 3
 Config/testthat/parallel: true
