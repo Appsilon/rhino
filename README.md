@@ -125,7 +125,7 @@ Pull requests are welcome! Please see our [contributing guidelines](.github/CONT
 
 
 ## About
-Rhino is distributed under [LGPL-3.0 license]. See [`LICENSE`](LICENSE) for more information.
+Rhino is distributed under [LGPL-3.0 license].
 
 Developed with :heart: at [Appsilon].
 
