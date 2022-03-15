@@ -77,7 +77,7 @@ R comes with the `library()` and `source()` functions,
 but its functionality is limited when it comes
 to dividing your code into modules and expressing their dependencies.
 
-To address this, Rhino uses the [box](https://klmr.me/box) R package,
+To address this, Rhino uses the [box](https://klmr.me/box/) R package,
 which allows you to modularize your code in a similar way to languages like Python and Java:
 ```r
 box::use(
@@ -89,7 +89,7 @@ box::use(
 )
 ```
 
-The best place to learn about box is its official [documentation](https://klmr.me/box).
+The best place to learn about box is its official [documentation](https://klmr.me/box/).
 Some useful box features are also explained in the sections below.
 
 ## `__init__.R` files
