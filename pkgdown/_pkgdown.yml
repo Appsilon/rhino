@@ -1,3 +1,11 @@
+template:
+  params:
+    bootswatch: yeti
+    ganalytics: G-DL2H66RTY1
+
+navbar:
+  type: inverse
+  
 reference:
 - title: Project initialization
   contents:
