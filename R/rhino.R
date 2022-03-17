@@ -65,6 +65,12 @@ system_cmd_version <- function(cmd) {
 #'
 #' @return None. This function is called for side effects.
 #'
+#' @examples
+#' if (interactive()) {
+#'   # Print diagnostic information.
+#'   diagnostics()
+#' }
+#'
 #' @export
 diagnostics <- function() {
   writeLines(c(

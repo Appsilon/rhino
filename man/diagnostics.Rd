@@ -12,3 +12,10 @@ None. This function is called for side effects.
 \description{
 Prints information which can be useful for diagnosing issues with Rhino.
 }
+\examples{
+if (interactive()) {
+  # Print diagnostic information.
+  diagnostics()
+}
+
+}

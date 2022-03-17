@@ -81,6 +81,12 @@ with_head_tags <- function(ui) {
 #'
 #' @return An object representing the app (can be passed to `shiny::runApp()`).
 #'
+#' @examples
+#' \dontrun{
+#'   # Your `app.R` should contain nothing but this single call:
+#'   rhino::app()
+#' }
+#'
 #' @export
 app <- function() {
   configure_logger()

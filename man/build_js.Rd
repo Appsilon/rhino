@@ -34,3 +34,10 @@ Instead you should explicitly export functions:\if{html}{\out{<div class="source
 and access them via the global \code{App} object:\if{html}{\out{<div class="sourceCode r">}}\preformatted{tags$button("Hello!", onclick = "App.sayHello()")
 }\if{html}{\out{</div>}}
 }
+\examples{
+if (interactive()) {
+  # Build the `app/js/index.js` file into `app/static/js/app.min.js`.
+  build_js()
+}
+
+}
