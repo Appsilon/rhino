@@ -30,3 +30,10 @@ On systems without \code{yarn} you can use the \code{{sass}} R package as a fall
 It is not advised however, as it uses the deprecated
 \href{https://sass-lang.com/blog/libsass-is-deprecated}{LibSass} implementation.
 }
+\examples{
+if (interactive()) {
+  # Build the `app/styles/main.scss` file into `app/static/css/app.min.css`.
+  build_sass()
+}
+
+}
