@@ -4,6 +4,12 @@
 #'
 #' @return None. This function is called for side effects.
 #'
+#' @examples
+#' if (interactive()) {
+#'   # Run all unit tests in the `tests/testthat` directory.
+#'   test_r()
+#' }
+#'
 #' @export
 test_r <- function() {
   testthat::test_dir(fs::path("tests", "testthat"))
@@ -18,6 +24,15 @@ test_r <- function() {
 #'
 #' @param accepted_errors Number of accepted style errors.
 #' @return None. This function is called for side effects.
+#'
+#' @examples
+#' if (interactive()) {
+#'   # Lint all R sources in the `app` and `tests/testthat` directories.
+#'   lint_r()
+#'
+#'   # Accept up to 10 errors:
+#'   lint_r(accepted_errors = 10)
+#' }
 #'
 #' @export
 lint_r <- function(accepted_errors = 0) {
@@ -101,6 +116,12 @@ format_r <- function(paths) {
 #' @param watch Keep the process running and rebuilding JS whenever source files change.
 #' @return None. This function is called for side effects.
 #'
+#' @examples
+#' if (interactive()) {
+#'   # Build the `app/js/index.js` file into `app/static/js/app.min.js`.
+#'   build_js()
+#' }
+#'
 #' @export
 build_js <- function(watch = FALSE) {
   if (watch) yarn("build-js", "--watch", status_ok = 2)
@@ -131,6 +152,12 @@ build_js <- function(watch = FALSE) {
 #' @param fix Automatically fix problems.
 #' @return None. This function is called for side effects.
 #'
+#' @examples
+#' if (interactive()) {
+#'   # Lint the JavaScript sources in the `app/js` directory.
+#'   lint_js()
+#' }
+#'
 #' @export
 # nolint end
 lint_js <- function(fix = FALSE) {
@@ -155,6 +182,12 @@ lint_js <- function(fix = FALSE) {
 #' @param watch Keep the process running and rebuilding Sass whenever source files change.
 #' Only supported for `sass: node` configuration in `rhino.yml`.
 #' @return None. This function is called for side effects.
+#'
+#' @examples
+#' if (interactive()) {
+#'   # Build the `app/styles/main.scss` file into `app/static/css/app.min.css`.
+#'   build_sass()
+#' }
 #'
 #' @export
 build_sass <- function(watch = FALSE) {
@@ -184,6 +217,12 @@ build_sass <- function(watch = FALSE) {
 #' @param fix Automatically fix problems.
 #' @return None. This function is called for side effects.
 #'
+#' @examples
+#' if (interactive()) {
+#'   # Lint the Sass sources in the `app/styles` directory.
+#'   lint_sass()
+#' }
+#'
 #' @export
 lint_sass <- function(fix = FALSE) {
   yarn("lint-sass", if (fix) "--fix")
@@ -197,6 +236,12 @@ lint_sass <- function(fix = FALSE) {
 #'
 #' @param interactive Should Cypress be run in the interactive mode?
 #' @return None. This function is called for side effects.
+#'
+#' @examples
+#' if (interactive()) {
+#'   # Run the end-to-end tests in the `tests/cypress` directory.
+#'   test_e2e()
+#' }
 #'
 #' @export
 test_e2e <- function(interactive = FALSE) {

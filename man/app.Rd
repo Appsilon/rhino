@@ -49,3 +49,10 @@ into a \href{https://shiny.rstudio.com/articles/modules.html}{Shiny module}
 }
 }
 
+\examples{
+\dontrun{
+  # Your `app.R` should contain nothing but this single call:
+  rhino::app()
+}
+
+}

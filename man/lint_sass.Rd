@@ -16,3 +16,10 @@ None. This function is called for side effects.
 Runs \href{https://stylelint.io/}{Stylelint} on the Sass sources in the \code{app/styles} directory.
 Requires Node.js and the \code{yarn} command to be available on the system.
 }
+\examples{
+if (interactive()) {
+  # Lint the Sass sources in the `app/styles` directory.
+  lint_sass()
+}
+
+}

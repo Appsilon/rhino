@@ -12,3 +12,10 @@ None. This function is called for side effects.
 \description{
 Uses the \code{{testhat}} package to run all unit tests in \code{tests/testthat} directory.
 }
+\examples{
+if (interactive()) {
+  # Run all unit tests in the `tests/testthat` directory.
+  test_r()
+}
+
+}

@@ -31,3 +31,10 @@ you can disable a specific rule for the next line of code with a comment like:\i
 See the \href{https://eslint.org/docs/user-guide/configuring/rules#using-configuration-comments-1}{ESLint documentation}
 for full details.
 }
+\examples{
+if (interactive()) {
+  # Lint the JavaScript sources in the `app/js` directory.
+  lint_js()
+}
+
+}

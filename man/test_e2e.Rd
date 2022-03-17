@@ -17,3 +17,10 @@ Uses \href{https://www.cypress.io/}{Cypress} to run end-to-end tests
 defined in the \code{tests/cypress} directory.
 Requires Node.js and the \code{yarn} command to be available on the system.
 }
+\examples{
+if (interactive()) {
+  # Run the end-to-end tests in the `tests/cypress` directory.
+  test_e2e()
+}
+
+}
