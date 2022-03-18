@@ -1,21 +1,20 @@
 create_module <- function() {
-  rstudioapi::insertText(
-"box::use(
-  shiny[moduleServer, NS]
-)
+  rstudioapi::insertText(glue::trim("
+    box::use(
+      shiny[moduleServer, NS]
+    )
 
-#' @export
-ui <- function(id) {
-  ns <- NS(id)
+    #' @export
+    ui <- function(id) {
+      ns <- NS(id)
 
-}
+    }
 
-#' @export
-server <- function(id) {
-  moduleServer(id, function(input, output, session) {
+    #' @export
+    server <- function(id) {
+      moduleServer(id, function(input, output, session) {
 
-  })
-}
-"
-  )
+      })
+  }"
+  ))
 }
