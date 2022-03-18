@@ -26,6 +26,7 @@ Imports:
   logger,
   purrr,
   renv,
+  rstudioapi,
   sass,
   shiny,
   styler,
