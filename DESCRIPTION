@@ -1,6 +1,6 @@
 Package: rhino
 Title: A Framework for Enterprise Shiny Applications
-Version: 0.6.4
+Version: 0.7.0
 Authors@R:
   c(
     person("Kamil", "Zyla", role = c("aut", "cre"), email = "kamil@appsilon.com"),
