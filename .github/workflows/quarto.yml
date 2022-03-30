@@ -1,0 +1,33 @@
+name: Build and publish Quarto website
+on:
+  push:
+    branches:
+      - main
+jobs:
+  main:
+    runs-on: ubuntu-latest
+    env:
+      TARGET_BRANCH: gh-pages
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Install Quarto
+        uses: quarto-dev/quarto-actions/install-quarto@v1
+
+      - name: Build
+        working-directory: quarto
+        run: |
+          git worktree add --detach --no-checkout ${{ runner.temp }}/build
+          quarto render --output-dir ${{ runner.temp }}/build
+
+      - name: Publish
+        working-directory: ${{ runner.temp }}/build
+        run: |
+          touch .nojekyll
+          git config user.name "${GITHUB_ACTOR}"
+          git config user.email "${GITHUB_ACTOR}@users.noreply.github.com"
+          git switch --orphan "${TARGET_BRANCH}"
+          git add .
+          git commit --message 'Build Quarto website'
+          git push --force origin "${TARGET_BRANCH}"
