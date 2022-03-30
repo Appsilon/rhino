@@ -6,4 +6,5 @@
 ^\.Rproj\.user$
 ^\.whitesource$
 ^pkgdown$
+^quarto$
 ^README\.md$
