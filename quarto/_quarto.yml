@@ -6,14 +6,13 @@ website:
   navbar:
     background: primary
     left:
-      - href: index.qmd
-        text: Home
+      - text: Home
+        href: index.qmd
       - about.qmd
+      - text: Reference
+        href: reference/index.qmd
 
 format:
   html:
     theme: cosmo
     css: styles.css
-
-
-
