@@ -5,7 +5,7 @@ template:
 
 navbar:
   type: inverse
-  
+
 reference:
 - title: Project initialization
   contents:
@@ -29,3 +29,7 @@ reference:
   contents:
   - diagnostics
   - test_e2e
+
+- title: Data
+  contents:
+  - rhinos
