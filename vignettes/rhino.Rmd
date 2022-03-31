@@ -236,8 +236,8 @@ Add `library` calls to it:
 # dependencies.R
 
 # This file allows packrat (used by rsconnect during deployment) to pick up dependencies.
-library(rhino)
 library(echarts4r)
+library(rhino)
 ```
 
 Finally, you need to update your `renv.lock` file:
