@@ -219,7 +219,7 @@ You're right, a chart. Let's add a chart with a rhinoceros dataset available in 
 First, we need to install a library for visualisations -
 for that, we will go with [`echarts4r`](https://echarts4r.john-coene.com/).
 
-Rhino forces you to use [`renv` package](https://rstudio.github.io/renv/index.html) for dependency management.
+Rhino relies on the [`renv` package](https://rstudio.github.io/renv/index.html) for dependency management.
 To add this package to your project, first, you need to install it:
 
 ```r
