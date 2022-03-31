@@ -541,7 +541,7 @@ The application should look similar to this:
 
 It seems that it would be great to slightly adjust the table. Let's transform the dataset a little bit.
 
-For parts of code that are not Shiny modules, we recommend storing them in `app/logic` directory.
+We recommend to place the code which can be expressed without Shiny in `app/logic` directory.
 
 Let's create a file there, called `app/logic/data_transformation.R`.
 
