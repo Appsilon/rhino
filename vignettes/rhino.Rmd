@@ -266,7 +266,7 @@ box::use(
 ...
 ```
 
-You can those packages in your module by calling `{package}${function}`. For more
+You can use those packages in your module by calling `{package}${function}`. For more
 options of importing in `box` check [this](https://klmr.me/box/index.html#loading-code) link.
 
 
