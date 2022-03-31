@@ -1,20 +1,9 @@
 ---
-title: "Rhino Project Structure"
-output: rmarkdown::html_vignette
-vignette: >
-  %\VignetteIndexEntry{Rhino Project Structure}
-  %\VignetteEngine{knitr::rmarkdown}
-  %\VignetteEncoding{UTF-8}
+title: Rhino Project Structure
+toc: true
 ---
 
-```{r, include = FALSE}
-knitr::opts_chunk$set(
-  collapse = TRUE,
-  comment = "#>"
-)
-```
-
-# Philosophy
+## Philosophy
 Shiny comes with a powerful
 [reactive programming](https://shiny.rstudio.com/articles/reactivity-overview.html) model
 and a rich set of functions for creating UI widgets
@@ -32,14 +21,14 @@ Rhino encourages a specific structure for the R sources of your application:
 * `logic`: Application code independent from Shiny.
 * `view`: Shiny modules and related code.
 
-## Logic
+### Logic
 Code which uses reactivity or UI builder functions can be hard to test and reuse.
 With proper design it is possible to express most of your application logic
 using plain R functions and data structures (like lists, data frames).
 
 Use the `logic` directory for code which can be expressed without Shiny.
 
-## View
+### View
 The `view` directory should contain code which describes the user interface of your application.
 Use the functions defined in `logic` here and connect them using reactivity.
 
@@ -70,7 +59,7 @@ server <- function(id) {
 }
 ```
 
-# Box modules
+## Box modules
 With large applications it is critical for maintainability
 to properly structure your code using files and directories.
 R comes with the `library()` and `source()` functions,
@@ -92,10 +81,10 @@ box::use(
 The best place to learn about box is its official [documentation](https://klmr.me/box/).
 Some useful box features are also explained in the sections below.
 
-## `__init__.R` files
+### `__init__.R` files
 Objects exported by an `__init__.R` file can be imported from its parent directory.
 
-### Example
+#### Example
 Assume we have an `app/foo/__init__.R` file with the following content:
 ```r
 #' @export
@@ -112,11 +101,11 @@ box::use(
 This mechanism can be used in combination with reexports
 to make it easier to import multiple modules from a single directory.
 
-## Reexports
+### Reexports
 A module can reexport objects imported from a different module
 by applying `#' @export` to a `box::use()` statement.
 
-### Example
+#### Example
 Assume we have modules `analysis_tab.R` and `download_tab.R` in the `app/view` directory.
 We can reexport them from `app/view/__init__.R` like this:
 ```r

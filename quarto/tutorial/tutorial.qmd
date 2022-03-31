@@ -1,29 +1,11 @@
 ---
-title: "Tutorial: Create your first app with Rhino"
-output: rmarkdown::html_vignette
-vignette: >
-  %\VignetteIndexEntry{Tutorial: Create your first app with Rhino}
-  %\VignetteEngine{knitr::rmarkdown}
-  %\VignetteEncoding{UTF-8}
+title: Create your first app with Rhino
+toc: true
 ---
 
-```{r, include = FALSE}
-knitr::opts_chunk$set(
-  collapse = TRUE,
-  comment = "#>"
-)
-```
+## Setup
 
-```{r setup, include=FALSE}
-library(rhino)
-```
-
-Let's learn Rhino by building an example app.
-
-
-# Setup
-
-## How to install Rhino?
+### How to install Rhino?
 
 First, you need to install Rhino itself. It can be done with the standard R command:
 
@@ -31,7 +13,7 @@ First, you need to install Rhino itself. It can be done with the standard R comm
 install.packages("rhino")
 ```
 
-## Dependencies
+### Dependencies
 
 Development tools for JavaScript and Sass, provided by Rhino, require
 [Node.js](https://nodejs.org/en/) and [yarn](https://yarnpkg.com/).
@@ -46,12 +28,12 @@ Rhino will still work for you (with some small limitations described in
 [JavaScript](#add-javascript-code) and [Sass](#add-custom-styles) sections).
 
 
-# Create an initial application
+## Create an initial application
 
 Creating a new Rhino application can be done in two ways -
 by running `rhino::init()` function or by using RStudio Create Project functionality.
 
-## Create an application using RStudio wizard
+### Create an application using RStudio wizard
 
 If you use RStudio, probably the easiest way to create a new Rhino application is
 to simply use Create New Project feature. Once Rhino is installed, it will be
@@ -59,9 +41,9 @@ automatically added as one of the options in RStudio:
 
 Choose it, provide your brand new project name and you are ready to go.
 
-![](images/basic_tutorial/rstudio_wizard.png)
+![](images/rstudio_wizard.png)
 
-## Create application using `rhino::init()`
+### Create application using `rhino::init()`
 
 Creating a Rhino application is possible in R console by running `init` function:
 
@@ -110,7 +92,7 @@ A result of both paths will be an initial Rhino application with the following s
 
 If you want to know more about it, check [this](https://appsilon.github.io/rhino/articles/rhino-project-structure.html) document.
 
-## Running the application
+### Running the application
 
 Now, once you are all set up, let's run it:
 
@@ -122,14 +104,14 @@ shiny::shinyAppDir(".")
 
 And here is what you should be seeing right now:
 
-![](images/basic_tutorial/init_application.png)
+![](images/init_application.png)
 
 
-# Add your first module
+## Add your first module
 
 Your application runs, but it seems to be quite empty. Let's add something there!
 
-## Module structure
+### Module structure
 
 In Rhino, each application view is intended to live as a [Shiny module](https://shiny.rstudio.com/articles/modules.html)
 and use encapsulation provided by [`box` package](https://klmr.me/box/).
@@ -159,7 +141,7 @@ server <- function(id) {
 }
 ```
 
-## Calling a module
+### Calling a module
 
 The next step is to call your new module in your application.
 First, you need to import it in your main application file.
@@ -207,14 +189,14 @@ server <- function(id) {
 
 Now, when you run your application, you should see the message from the newly created module:
 
-![](images/basic_tutorial/first_module.png)
+![](images/first_module.png)
 
-## Adding components to a module
+### Adding components to a module
 
 Now is the time to start adding something to your new module. What can we add to a "chart" module?
 You're right, a chart. Let's add a chart with a rhinoceros dataset available in Rhino.
 
-### Adding R packages
+#### Adding R packages
 
 First, we need to install a library for visualisations -
 for that, we will go with [`echarts4r`](https://echarts4r.john-coene.com/).
@@ -249,7 +231,7 @@ renv::snapshot()
 
 If you check `renv.lock` file, you will see that it was updated with `echarts4r` and all its dependencies.
 
-### Add dependencies to the module
+#### Add dependencies to the module
 
 Now, once you have both packages available in your project environment, it's time to use them.
 First, you need to import them in your module. Extend `box::use` call in your
@@ -315,9 +297,9 @@ in `box::use` - simply add `tagList` to the list of imported functions.
 
 Finally, when you run your application, you should see something similar to this:
 
-![](images/basic_tutorial/chart.png)
+![](images/chart.png)
 
-# Add a second module
+## Add a second module
 
 Once you have some content presented in the application, it would be great to
 add a table to show the dataset.
@@ -346,7 +328,7 @@ server <- function(id) {
 }
 ```
 
-## Calling the second module
+### Calling the second module
 
 As we did before, we need to call the new module in `main.R` file:
 
@@ -381,7 +363,7 @@ server <- function(id) {
 }
 ```
 
-## Use the same dataset for both modules
+### Use the same dataset for both modules
 
 We want to use the same dataset in both modules, so instead of calling it
 twice, let's pass data as an argument:
@@ -478,7 +460,7 @@ server <- function(id, data) {
 }
 ```
 
-## Create a table
+### Create a table
 
 For the table, we will go with [`reactable`](https://glin.github.io/reactable/) package.
 
@@ -535,9 +517,9 @@ server <- function(id, data) {
 
 The application should look similar to this:
 
-![](images/basic_tutorial/table_1.png)
+![](images/table_1.png)
 
-# Add logic
+## Add logic
 
 It seems that it would be great to slightly adjust the table. Let's transform the dataset a little bit.
 
@@ -638,7 +620,7 @@ server <- function(id, data) {
 
 When you run the application, you should see something similar to this:
 
-![](images/basic_tutorial/table_2.png)
+![](images/table_2.png)
 
 You can notice, that table is arranged by the Black Rhino population.
 It would make sense to change it to Year using `dplyr::arrange`.
@@ -690,7 +672,7 @@ transform_data <- function(data) {
 
 The result looks much more understandable:
 
-![](images/basic_tutorial/table_3.png)
+![](images/table_3.png)
 
 There is still one element that can be improved. If you check the X axis in the chart,
 values have a comma inside. It's default behaviour for integers, but this is a year!
@@ -772,9 +754,9 @@ server <- function(id, data) {
 
 It should now look better:
 
-![](images/basic_tutorial/chart_2.png)
+![](images/chart_2.png)
 
-# Add custom styles
+## Add custom styles
 
 In this stage, the application has working components, but it does not look well.
 
@@ -924,7 +906,7 @@ rhino::build_sass()
 
 Now, after running the application you should see something similar to this:
 
-![](images/basic_tutorial/styles_1.png)
+![](images/styles_1.png)
 
 It is worth noting, that you don't need to add `app/static/app.min.css` to
 your application header - Rhino does that for you.
@@ -992,7 +974,7 @@ rhino::build_sass()
 
 The result should look similar to this:
 
-![](images/basic_tutorial/styles_2.png)
+![](images/styles_2.png)
 
 ----
 
@@ -1002,7 +984,7 @@ for Sass bundling. Under the hood, it uses deprecated C++ library, so the Node s
 is strongly recommended here._
 
 
-# Add JavaScript code
+## Add JavaScript code
 
 ----
 
@@ -1082,7 +1064,7 @@ Remember to rebuild Sass with `rhino::build_sass()`!
 
 You should now see a button with question mark in the top right corner of the application:
 
-![](images/basic_tutorial/js_1.png)
+![](images/js_1.png)
 
 Now, it's time for writing the JavaScript code that should show the popup with a message.
 All JS code should be stored in `app/js` directory. You already have the first (empty)
@@ -1156,7 +1138,7 @@ JavaScript function from a library, e.g. `Math.round`).
 
 Now, if you run the application and click the button, you should see something like this:
 
-![](images/basic_tutorial/js_2.png)
+![](images/js_2.png)
 
 ----
 

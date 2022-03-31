@@ -6,9 +6,9 @@ website:
   navbar:
     left:
       - text: Tutorial
-        href: index.qmd
+        href: tutorial/tutorial.qmd
       - text: Explanation
-        href: index.qmd
+        href: explanation/rhino-project-structure.qmd
       - text: How-to Guides
         href: index.qmd
       - text: Reference
