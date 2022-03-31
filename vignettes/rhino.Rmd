@@ -346,7 +346,7 @@ server <- function(id) {
 }
 ```
 
-## Call new module in `main.R`
+## Calling the second module
 
 As we did before, we need to call the new module in `main.R` file:
 
@@ -537,7 +537,7 @@ The application should look similar to this:
 
 ![](images/basic_tutorial/table_1.png)
 
-## Add logic
+# Add logic
 
 It seems that it would be great to slightly adjust the table. Let's transform the dataset a little bit.
 
