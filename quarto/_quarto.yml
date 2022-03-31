@@ -13,6 +13,9 @@ website:
         href: index.qmd
       - text: Reference
         href: reference/index.qmd
+    right:
+      - icon: github
+        href: https://github.com/Appsilon/rhino
 
 format:
   html:
