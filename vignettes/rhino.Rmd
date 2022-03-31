@@ -358,8 +358,8 @@ box::use(
 )
 
 box::use(
-  app/view/table,
   app/view/chart,
+  app/view/table,
 )
 
 #' @export
