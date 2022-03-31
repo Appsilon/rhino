@@ -1,10 +1,6 @@
 ---
 title: "How-to: Write JavaScript code"
-output: rmarkdown::html_vignette
-vignette: >
-  %\VignetteIndexEntry{How-to: Write JavaScript code}
-  %\VignetteEngine{knitr::rmarkdown}
-  %\VignetteEncoding{UTF-8}
+toc: true
 ---
 
 <p class="alert alert-warning">

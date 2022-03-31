@@ -1,10 +1,6 @@
 ---
 title: "How-to: Use Rhino on Windows"
-output: rmarkdown::html_vignette
-vignette: >
-  %\VignetteIndexEntry{How-to: Use Rhino on Windows}
-  %\VignetteEngine{knitr::rmarkdown}
-  %\VignetteEncoding{UTF-8}
+toc: true
 ---
 
 <p class="alert alert-warning">

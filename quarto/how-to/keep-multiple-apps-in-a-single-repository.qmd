@@ -1,10 +1,6 @@
 ---
 title: "How to: Keep multiple apps in a single repository"
-output: rmarkdown::html_vignette
-vignette: >
-  %\VignetteIndexEntry{How to: Keep multiple apps in a single repository}
-  %\VignetteEngine{knitr::rmarkdown}
-  %\VignetteEncoding{UTF-8}
+toc: true
 ---
 
 In some cases you might want to put your Rhino application in a subdirectory of your repository -

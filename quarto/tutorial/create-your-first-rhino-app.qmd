@@ -1,10 +1,6 @@
 ---
-title: "Tutorial: Create your first Rhino app"
-output: rmarkdown::html_vignette
-vignette: >
-  %\VignetteIndexEntry{Tutorial: Create your first Rhino app}
-  %\VignetteEngine{knitr::rmarkdown}
-  %\VignetteEncoding{UTF-8}
+title: Create your first app with Rhino
+toc: true
 ---
 
 # Setup

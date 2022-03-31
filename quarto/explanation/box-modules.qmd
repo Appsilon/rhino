@@ -1,10 +1,6 @@
 ---
 title: "Explanation: Box modules"
-output: rmarkdown::html_vignette
-vignette: >
-  %\VignetteIndexEntry{Explanation: Box modules}
-  %\VignetteEngine{knitr::rmarkdown}
-  %\VignetteEncoding{UTF-8}
+toc: true
 ---
 
 # Rationale

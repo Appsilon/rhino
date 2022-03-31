@@ -1,10 +1,6 @@
 ---
 title: "Explanation: Renv configuration"
-output: rmarkdown::html_vignette
-vignette: >
-  %\VignetteIndexEntry{Explanation: Renv configuration}
-  %\VignetteEngine{knitr::rmarkdown}
-  %\VignetteEncoding{UTF-8}
+toc: true
 ---
 
 Rhino relies on `{renv}` to manage the R package dependencies of your project.

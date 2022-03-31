@@ -6,11 +6,24 @@ website:
   navbar:
     left:
       - text: Tutorial
-        href: index.qmd
+        href: tutorial/create-your-first-rhino-app.qmd
       - text: Explanation
-        href: index.qmd
+        menu:
+        - explanation/what-is-rhino.qmd
+        - explanation/application-structure.qmd
+        - explanation/box-modules.qmd
+        - explanation/renv-configuration.qmd
+        - explanation/node-js-javascript-and-sass-tools.qmd
       - text: How-to Guides
-        href: index.qmd
+        menu:
+        - how-to/migrate-app-to-rhino.qmd
+        - how-to/write-r-code.qmd
+        - how-to/write-javascript-code.qmd
+        - how-to/use-static-files.qmd
+        - how-to/manage-r-dependencies.qmd
+        - how-to/manage-secrets-and-environments.qmd
+        - how-to/keep-multiple-apps-in-a-single-repository.qmd
+        - how-to/use-rhino-on-windows.qmd
       - text: Reference
         href: reference/index.qmd
 

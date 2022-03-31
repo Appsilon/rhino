@@ -1,10 +1,6 @@
 ---
 title: "Explanation: What is Rhino?"
-output: rmarkdown::html_vignette
-vignette: >
-  %\VignetteIndexEntry{Explanation: What is Rhino?}
-  %\VignetteEngine{knitr::rmarkdown}
-  %\VignetteEncoding{UTF-8}
+toc: true
 ---
 
 # What is Rhino?

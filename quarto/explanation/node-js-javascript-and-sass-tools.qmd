@@ -1,10 +1,6 @@
 ---
 title: "Explanation: Node.js - JavaScript and Sass tools"
-output: rmarkdown::html_vignette
-vignette: >
-  %\VignetteIndexEntry{Explanation: Node.js - JavaScript and Sass tools}
-  %\VignetteEngine{knitr::rmarkdown}
-  %\VignetteEncoding{UTF-8}
+toc: true
 ---
 
 [Node.js](https://nodejs.org/en/about/) is a runtime environment
