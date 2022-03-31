@@ -38,3 +38,6 @@ Suggests:
   rmarkdown
 Config/testthat/edition: 3
 Config/testthat/parallel: true
+Depends: 
+    R (>= 2.10)
+LazyData: true
