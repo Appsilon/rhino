@@ -1,18 +1,11 @@
 ---
-title: "Rhino Project Structure"
+title: "Explanation: Project structure"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Rhino Project Structure}
+  %\VignetteIndexEntry{Explanation: Project structure}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
-
-```{r, include = FALSE}
-knitr::opts_chunk$set(
-  collapse = TRUE,
-  comment = "#>"
-)
-```
 
 # Philosophy
 Shiny comes with a powerful

@@ -5,6 +5,20 @@ template:
 
 navbar:
   type: inverse
+  structure:
+    left: [tutorial, explanation, how-to-guides, reference]
+  components:
+    tutorial:
+      text: Tutorial
+      href: articles/tutorial-create-your-first-rhino-app.html
+    explanation:
+      text: Explanation
+      menu:
+        - text: Project structure
+          href: articles/explanation-project-structure.html
+    how-to-guides:
+      text: How-to Guides
+      menu:
 
 reference:
 - title: Project initialization
