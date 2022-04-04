@@ -16,9 +16,26 @@ navbar:
       menu:
         - text: Project structure
           href: articles/explanation-project-structure.html
+        - text: Renv configuration
+          href: articles/explanation-renv-configuration.html
+        - text: Node.js
+          href: articles/explanation-node-js.html
+        - text: Limitations and known issues
+          href: articles/explanation-limitations-and-known-issues.html
     how-to-guides:
       text: How-to Guides
       menu:
+        - text: Migrate app to Rhino
+          href: articles/how-to-migrate-app-to-rhino.html
+        - text: Write R code
+          href: articles/how-to-write-r-code.html
+        - text: Write JavaScript code
+          href: articles/how-to-write-javascript-code.html
+        - text: Use static files
+          href: articles/how-to-use-static-files.html
+        - text: Manage R dependencies
+          href: articles/how-to-manage-r-dependencies.html
+
 
 reference:
 - title: Project initialization

@@ -1,0 +1,13 @@
+---
+title: "How-to: Write JavaScript code"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{How-to: Write JavaScript code}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+The `app/js/index.js` is the entrypoint.
+It can import other files.
+It must export functions which are to be available in R.
+Exported objects need to be referred to with an `App.` prefix in R sources.

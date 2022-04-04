@@ -1,0 +1,17 @@
+---
+title: "Explanation: Node.js"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Explanation: Node.js}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+Why Node.js?
+Node.js provides easy access to state of the art tools
+for working with JS and Sass: compilers, bundlers, linters.
+It might also become an easy way to add any JS library to your Shiny app.
+
+The sass R package uses a deprecated implementation
+and we're not sure if there is an R package providing JS bundling.
+We prefer to use state of the art tools.
