@@ -1,0 +1,19 @@
+---
+title: "How-to: Write R code"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{How-to: Write R code}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+The entrypoint to your application is the `app/main.R` file.
+It can load packages and other files with `box::use()`.
+You should not use `::`, `library()` and `source()` calls in your code.
+
+Each file should have two `box::use()` statements at the top
+(one for packages and one for modules).
+Avoid `...`. Sort entries alphabetically.
+
+Each file in `app/view` should be a box + Shiny module.
+See `app/main.R` for example.

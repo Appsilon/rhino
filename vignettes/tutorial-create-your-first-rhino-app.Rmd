@@ -1,25 +1,11 @@
 ---
-title: "Tutorial: Create your first app with Rhino"
+title: "Tutorial: Create your first Rhino app"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Tutorial: Create your first app with Rhino}
+  %\VignetteIndexEntry{Tutorial: Create your first Rhino app}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
-
-```{r, include = FALSE}
-knitr::opts_chunk$set(
-  collapse = TRUE,
-  comment = "#>"
-)
-```
-
-```{r setup, include=FALSE}
-library(rhino)
-```
-
-Let's learn Rhino by building an example app.
-
 
 # Setup
 

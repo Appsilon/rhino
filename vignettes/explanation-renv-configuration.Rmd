@@ -1,0 +1,13 @@
+---
+title: "Explanation: Renv configuration"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Explanation: Renv configuration}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+We use implicit snapshots and `dependencies.R` + `.renvignore`.
+This gives us a similar behavior to explicit snapshots but works better with deployments:
+rsconnect uses packrat, which only reads `library()` calls
+and does not understand `DESCRIPTION` nor box.

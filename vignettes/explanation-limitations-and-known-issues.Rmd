@@ -1,0 +1,17 @@
+---
+title: "Explanation: Limitations and known issues"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Explanation: Limitations and known issues}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+A Rhino app must live in git root for GitHub Actions CI to work.
+
+The box package is still in development
+and the latest CRAN version doesn't yet support lazy-loaded data.
+This feature should be available in the nearest release
+(see this [issue](https://github.com/klmr/box/issues/219)),
+so you'll be able to write e.g. `box::use(datasets[mtcars])`.
+For now please use `datasets::mtcars` in your code.

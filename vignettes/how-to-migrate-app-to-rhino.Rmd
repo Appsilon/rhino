@@ -1,0 +1,32 @@
+---
+title: "How-to: Migrate app to Rhino"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{How-to: Migrate app to Rhino}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+The process described in `rhino::init()` documentation, albeit not in great detail.
+The first step is to put all app files in the `app` directory,
+so it can be run with `shinyAppDir("app")`.
+Practical experience of migrating apps shows that it's a useful step
+which quickly lets you verify whether the app still works.
+
+The process can be a bit unintuitive however.
+For example, if you already have an `app.R` file and ui/server/global in `R` subdirectory,
+you should still move the whole structure under `app`.
+In this case you'll end up with `app.R`, `app/app.R` and ui/server/global in `app/R/`.
+Having two `app.R` files might feel awkward.
+
+In general you use `rhino::init()` for migration.
+This cannot be done via RStudio GUI.
+
+If you already have `.Rprofile` with renv when migrating,
+you'll load it and won't have Rhino inside.
+You need to run `rhino::init()` from a different directory (or perhaps run renv::deactivate()).
+
+Rhino will renv::load() your renv.lock.
+In particular it will set your `options("repos"`) based on `renv.lock`.
+
+What to do when I get "unsatisfied dependencies" during migration?
