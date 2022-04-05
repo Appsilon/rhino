@@ -1,0 +1,154 @@
+---
+title: "How to: Migrate Your App to Rhino"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{How to: Migrate Your App to Rhino}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+<style>
+.tree-change {
+  color: #5a5afa;
+  font-weight: bold;
+}
+</style>
+
+
+# How to Migrate Your App to Rhino
+This guide aims to make your application up and running using Rhino as quickly as possible. Lets
+assume an application has a following structure:
+
+```
+.
+├── utils
+│   ├── foo.R
+│   └── bar.R
+├── www
+│   ├── main.css
+│   └── main.js
+├── server.R
+└── ui.R
+```
+
+The migration process should not be affected by the combination of server.R,
+ui.R, global.R, and app.R files in your application, or lack of thereof.
+
+
+## Prepare Your Application for `rhino::init()`
+The first step is moving all application source files to a new `app` directory:
+<pre><code>.
+└── <span class="tree-change">app</span>
+    ├── utils
+    │   ├── bar.R
+    │   └── foo.R
+    ├── www
+    │   ├── main.css
+    │   └── main.js
+    ├── server.R
+    └── ui.R
+</code></pre>
+
+Once source files are moved, if you have a list of `library()` calls put it in `dependencies.R` in
+the root directory. If you do not have such list, then Rhino will try to create one for you in
+[initialization step](#initialize-your-rhino-application).
+<pre><code>.
+├── app
+│   ├── utils
+│   │   ├── bar.R
+│   │   └── foo.R
+│   ├── www
+│   │   ├── main.css
+│   │   └── main.js
+│   ├── server.R
+│   └── ui.R
+└── <span class="tree-change">dependencies.R</span>
+</code></pre>
+
+After doing so, you should be able to run your application using `shiny::shinyAppDir("app")`.
+
+### _What if:_ My App Uses renv
+If you have used renv in your application, then chances are your active renv session does not have
+Rhino installed. To address this either deactivate renv or run `renv::install("rhino")`.
+
+Apart from additional files related to renv, the target file structure is no different than the one
+presented above.
+
+
+## Initialize Your Rhino Application
+Having your application prepared, you can now run `rhino::init()`.
+<pre><code>.
+├── <span class="tree-change">.github</span>
+│   └── <span class="tree-change">workflows</span>
+│       └── <span class="tree-change">rhino-test.yml</span>
+├── app
+│   ├── <span class="tree-change">js</span>
+│   │   └── <span class="tree-change">index.js</span>
+│   ├── <span class="tree-change">logic</span>
+│   │   └── <span class="tree-change">__init__.R</span>
+│   ├── <span class="tree-change">static</span>
+│   │   └── <span class="tree-change">favicon.ico</span>
+│   ├── <span class="tree-change">styles</span>
+│   │   └── <span class="tree-change">main.scss</span>
+│   ├── utils
+│   │   ├── bar.R
+│   │   └── foo.R
+│   ├── <span class="tree-change">view</span>
+│   │   └── <span class="tree-change">__init__.R</span>
+│   ├── www
+│   │   ├── main.css
+│   │   └── main.js
+│   ├── <span class="tree-change">main.R</span>
+│   ├── server.R
+│   └── ui.R
+├── <span class="tree-change">renv</span>
+│   └── ...
+├── <span class="tree-change">tests</span>
+│   ├── <span class="tree-change">cypress</span>
+│   │   ├── <span class="tree-change">integration</span>
+│   │   └── <span class="tree-change">.gitignore</span>
+│   ├── <span class="tree-change">testthat</span>
+│   │   └── <span class="tree-change">test-main.R</span>
+│   └── <span class="tree-change">cypress.json</span>
+├── <span class="tree-change">.Rprofile</span>
+├── <span class="tree-change">.lintr</span>
+├── <span class="tree-change">.renvignore</span>
+├── <span class="tree-change">app.R</span>
+├── dependencies.R
+├── <span class="tree-change">old.Rprofile</span>
+├── <span class="tree-change">renv.lock</span>
+├── <span class="tree-change">rhino.yml</span>
+└── <span class="tree-change">app.Rproj</span>
+</code></pre>
+
+If you did not use renv before, then Rhino initialized it for you. However, if
+you did use renv, then Rhino added necessary dependencies to `renv.lock` file.
+
+### _What if:_ My App Had .Rprofile
+Your `.Rprofile` has been moved to `old.Rprofile`. If it contained any relevant
+bits (e.g. setting options), then carry it over to `.Rprofile` created by
+Rhino.
+
+
+## Configure Your Rhino Application
+The last step to get started with Rhino is configuring it. A minimal setup that
+allows running the application is setting `legacy_entrypoint` in `rhino.yml`.
+To be able to run application immediately set `legacy_entrypoint: app_dir`, as
+this approach requires no further adjustments to application's structure.
+
+As you adjust adjust your application to fit best practices suggested by Rhino,
+you can modify `legacy_entrypoint`. Ultimately, when application is fully
+migrated to Rhino, `legacy_entrypoint` setting can be removed from `rhino.yml`.
+Refer to [Next Steps](#next-steps) section to see how to continue improving
+your application!
+
+
+## Next Steps
+### Migrating JavaScript Code
+TODO: something along the lines of `build_js()` details
+
+### Migrating CSS styles to SASS
+TODO
+
+### Boxifying Application
+TODO: adjusting application to fit structure proposed by Rhino
