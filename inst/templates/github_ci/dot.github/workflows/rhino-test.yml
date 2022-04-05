@@ -18,6 +18,11 @@ jobs:
         with:
           r-version: ${{ env.R_VERSION }}
 
+      - name: Setup system dependencies
+        run: >
+          sudo apt-get install --yes
+          libcurl4-openssl-dev
+
       - name: Restore renv from cache
         uses: actions/cache@v2
         env:
