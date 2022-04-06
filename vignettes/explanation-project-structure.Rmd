@@ -63,18 +63,29 @@ server <- function(id) {
 }
 ```
 
-## Minimal `app.R`
-Shiny sources `app.R` the traditional way, so `library()` and `source()` could be used.
-Box modules can only load other box modules,
-so by keeping the `app.R` minimal and loading the whole app with box
-we can be confident that it is properly used throughout the app.
+# Minimal `app.R`
+A Rhino application comes with a minimal `app.R` which contains nothing but `rhino::app()`.
+You should not edit this file and instead write your top-level code in `app/main.R`.
+Such a solution gives Rhino full control over app startup.
+Steps performed by `rhino::app()` include:
 
-Additionally, `rhino:app()` gives us full control over app startup. It does:
-1. Purge box cache (reload app without restarting R)
-2. Configure logger (level, file)
-3. Configure static files
-4. Load main module / legacy entrypoint
-5. Add head tags (favicon, CSS & JS)
+1. Purge box cache, so the app can be reloaded without restarting R session.
+2. Configure logger (log level, log file).
+3. Configure static files.
+4. Load the main module / legacy entrypoint.
+5. Add head tags (favicon, CSS & JS).
+
+One can wonder if we really need a separate `main.R` file.
+Couldn't we just define the top-level `ui` and `server` in `app.R`
+and pass it to `rhino::app()` as arguments, much like with `shiny::shinyApp()`?
+
+We employ this solution to enforce consistent use of box in the entire application.
+A file loaded with `box::use()` can only load other modules/packages with `box::use()`.
+On the other hand, Shiny simply sources `app.R`,
+so `library()` and `source()` could be used in this single file.
+
+As the entire Rhino application is loaded with `box::use(app/main)`,
+all the sources must be properly structured as box modules.
 
 # Box modules
 With large applications it is critical for maintainability
@@ -99,7 +110,8 @@ Box modules force you to be explicit about the dependencies between your files a
 The graph of dependencies is visible at a glance in an app developed with box,
 while the traditional approach (`global.R`, `library()`, `source()`)
 makes it easy to build an app which only the author understands.
-Introducing box to existing apps written without it helped to improve structure and find bugs.
+Introduction of box to existing apps written without it
+has helped to improve the code structure and find bugs.
 
 The best place to learn about box is its official [documentation](https://klmr.me/box/).
 Some useful box features are also explained in the sections below.
