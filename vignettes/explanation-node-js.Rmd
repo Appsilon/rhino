@@ -7,11 +7,37 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 ---
 
-Why Node.js?
-Node.js provides easy access to state of the art tools
-for working with JS and Sass: compilers, bundlers, linters.
-It might also become an easy way to add any JS library to your Shiny app.
+[Node.js](https://nodejs.org/en/about/) is a runtime environment
+which can execute JavaScript code outside a web browser.
+It is used widely for web development.
+Its package manager, [npm](https://docs.npmjs.com/about-npm),
+makes it easy to install virtually any JavaScript library.
 
-The sass R package uses a deprecated implementation
-and we're not sure if there is an R package providing JS bundling.
-We prefer to use state of the art tools.
+Rhino uses Node.js to provide state of the art tools
+for working with JavaScript and Sass.
+In the future it might also become an easy way to add any JS library to your Shiny app.
+
+The following functions require Node.js to work:
+
+1. `build_js()`
+2. `build_sass()` (with `sass: node` configuration in `rhino.yml`)
+3. `lint_js()`
+4. `lint_sass()`
+5. `test_e2e()`
+
+You don't need to worry about Node.js most of the time.
+You need to install it on your system along with [yarn](https://classic.yarnpkg.com/lang/en/)
+(an alternative package manager for Node.js).
+The rest will be handled automatically.
+
+Under the hood Rhino will create a `.rhino/node` directory in your project
+to store the specific libraries needed by these tools.
+This directory is git-ignored by default and safe to remove.
+
+The `build_sass()` function is worth an additional comment.
+Depending on the configuration in `rhino.yml`
+it can use either the [sass](https://www.npmjs.com/package/sass) Node.js package
+or the [sass](https://rstudio.github.io/sass/) R package.
+We recommend the Node.js version, as it is the primary, actively developed implementation of Sass.
+In contrast, the R package uses the deprecated
+[LibSass](https://sass-lang.com/blog/libsass-is-deprecated) implementation.
