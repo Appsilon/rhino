@@ -22,6 +22,7 @@ Imports:
   box,
   cli,
   config,
+  desc,
   fs,
   glue,
   lintr (>= 2.0.0),
