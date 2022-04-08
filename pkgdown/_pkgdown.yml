@@ -14,14 +14,14 @@ navbar:
     explanation:
       text: Explanation
       menu:
-        - text: Project structure
-          href: articles/explanation-project-structure.html
+        - text: Application structure
+          href: articles/explanation-application-structure.html
+        - text: Box modules
+          href: articles/explanation-box-modules.html
         - text: Renv configuration
           href: articles/explanation-renv-configuration.html
-        - text: Node.js
-          href: articles/explanation-node-js.html
-        - text: Limitations and known issues
-          href: articles/explanation-limitations-and-known-issues.html
+        - text: Node.js - JavaScript and Sass tools
+          href: articles/explanation-node-js-javascript-and-sass-tools.html
     how-to-guides:
       text: How-to Guides
       menu:
@@ -35,6 +35,8 @@ navbar:
           href: articles/how-to-use-static-files.html
         - text: Manage R dependencies
           href: articles/how-to-manage-r-dependencies.html
+        - text: Keep multiple apps in a single repository
+          href: articles/how-to-keep-multiple-apps-in-a-single-repository.html
 
 
 reference:

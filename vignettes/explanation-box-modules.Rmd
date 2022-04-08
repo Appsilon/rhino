@@ -1,0 +1,102 @@
+---
+title: "Explanation: Box modules"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Explanation: Box modules}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+# Rationale
+With large applications it is critical for maintainability
+to properly structure your code using files and directories.
+R comes with the `library()` and `source()` functions,
+but its functionality is limited when it comes
+to dividing your code into modules and expressing their dependencies.
+
+To address this, Rhino uses the [box](https://klmr.me/box/) R package,
+which allows you to modularize your code in a similar way to languages like Python and Java:
+```r
+box::use(
+  dplyr, # Import dplyr. Its functions can be used via `$`, e.g. `dplyr$filter`.
+  shiny[reactive], # Import the `reactive()` function from shiny package.
+)
+box::use(
+  logic/data_validation, # Import the `logic/data_validation.R` module.
+)
+```
+
+Box modules force you to be explicit about the dependencies between your files and packages.
+The graph of dependencies is visible at a glance in an app developed with box,
+while the traditional approach (`global.R`, `library()`, `source()`)
+makes it easy to build an app which only the author understands.
+Introduction of box to existing apps written without it
+has helped to improve the code structure and find bugs.
+
+# Features
+The best place to learn about box is its official [documentation](https://klmr.me/box/).
+Some useful box features are also explained in the sections below.
+
+## Init files
+Objects exported by an `__init__.R` file can be imported from its parent directory.
+
+### Example
+Assume we have an `app/foo/__init__.R` file with the following content:
+```r
+#' @export
+bar <- "Hello!"
+```
+
+We can now import `bar` as if it was defined in `app/foo.R`:
+```r
+box::use(
+  app/foo[bar]
+)
+```
+
+This mechanism can be used in combination with reexports
+to make it easier to import multiple modules from a single directory.
+
+## Reexports
+A module can reexport objects imported from a different module
+by applying `#' @export` to a `box::use()` statement.
+
+### Example
+Assume we have modules `analysis_tab.R` and `download_tab.R` in the `app/view` directory.
+We can reexport them from `app/view/__init__.R` like this:
+```r
+#' @export
+box::use(
+  app/view/analysis_tab,
+  app/view/download_tab
+)
+```
+
+The following `box::use()` statements are now equivalent:
+```r
+box::use(
+  app/view/analysis_tab,
+  app/view/download_tab,
+)
+box::use(
+  app/view[analysis_tab, download_tab],
+)
+```
+
+# Known issues
+
+### Lazy-loaded data
+Box 1.1.0 doesn't support lazy-loaded [data](https://r-pkgs.org/data.html#data-data),
+so e.g. `box::use(datasets[mtcars])` won't work.
+This feature should be available in the next release
+(see this [issue](https://github.com/klmr/box/issues/219)).
+For now please use `datasets::mtcars` in your code.
+
+### Trailing commas
+Box 1.1.0 allows trailing commas in `box::use()` statements and code,
+but they can cause problems in some circumstances:
+
+1. Reexports ([issue](https://github.com/klmr/box/issues/263)).
+2. Functions accessed via `$` ([issue](https://github.com/klmr/box/issues/266)).
+
+Both issues should be fixed in the nearest release.

@@ -1,8 +1,8 @@
 ---
-title: "Explanation: Node.js"
+title: "Explanation: Node.js - JavaScript and Sass tools"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Explanation: Node.js}
+  %\VignetteIndexEntry{Explanation: Node.js - JavaScript and Sass tools}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---

@@ -1,0 +1,23 @@
+---
+title: "How to: Keep multiple apps in a single repository"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{How to: Keep multiple apps in a single repository}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+In some cases you might want to put your Rhino application in a subdirectory of your repository -
+for example, to keep multiple apps in a single repository.
+Most of Rhino features will work just fine, but CI will need some adjustment.
+
+Rhino comes with a CI workflow (Continuous Integration)
+for [GitHub Actions](https://docs.github.com/en/actions)
+which automatically runs linters and tests whenever you push to the repository.
+It will work out of box if you application lives in the root of your git repository.
+You will need some manual tweaks if your application lives in a subdirectory:
+
+1. Place all workflows in the `.github/workflows` directory.
+2. Adjust each workflow by setting
+a [default working directory](https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions#jobsjob_iddefaultsrun)
+accordingly.
