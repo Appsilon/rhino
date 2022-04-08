@@ -64,8 +64,17 @@ server <- function(id) {
 ```
 
 # Minimal `app.R`
-A Rhino application comes with a minimal `app.R` which contains nothing but `rhino::app()`.
+A Rhino application comes with a minimal `app.R`:
+```r
+# Rhino / shinyApp entrypoint. Do not edit.
+rhino::app()
+```
+
 You should not edit this file and instead write your top-level code in `app/main.R`.
+The comment is also important:
+thanks to the `shinyApp` string, RStudio recognizes this file as a Shiny application
+and shows the "Run" and "Publish" buttons.
+
 Such a solution gives Rhino full control over app startup.
 Steps performed by `rhino::app()` include:
 
