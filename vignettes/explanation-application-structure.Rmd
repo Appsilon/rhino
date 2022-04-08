@@ -1,0 +1,88 @@
+---
+title: "Explanation: Application structure"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Explanation: Application structure}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+# Philosophy
+Shiny comes with a powerful
+[reactive programming](https://shiny.rstudio.com/articles/reactivity-overview.html) model
+and a rich set of functions for creating UI widgets
+or custom [HTML structure](https://shiny.rstudio.com/articles/tag-glossary.html).
+These features make it possible to quickly build impressive, interactive applications,
+but they can also make your code harder to test and reuse.
+
+To address this, we recommend to separate the code which must depend on Shiny
+from the logic which can be expressed without it.
+The division makes for more robust and maintainable apps in our experience.
+To support this separation,
+Rhino encourages a specific structure for the R sources of your application:
+
+* `main.R`: The entry point to your application.
+* `logic`: Application code independent from Shiny.
+* `view`: Shiny modules and related code.
+
+## Logic
+Code which uses reactivity or UI builder functions can be hard to test and reuse.
+With proper design it is possible to express most of your application logic
+using plain R functions and data structures (like lists, data frames).
+
+Use the `logic` directory for code which can be expressed without Shiny.
+
+## View
+The `view` directory should contain code which describes the user interface of your application.
+Use the functions defined in `logic` here and connect them using reactivity.
+
+Structure your application using [Shiny modules](https://shiny.rstudio.com/articles/modules.html).
+A typical module can look something like this:
+```r
+box::use(
+  shiny[moduleServer, NS, renderText, tagList, textInput, textOutput],
+)
+box::use(
+  app/logic/messages[hello_message],
+)
+
+#' @export
+ui <- function(id) {
+  ns <- NS(id)
+  tagList(
+    textInput(ns("name"), "Name"),
+    textOutput(ns("message"))
+  )
+}
+
+#' @export
+server <- function(id) {
+  moduleServer(id, function(input, output, session) {
+    output$message <- renderText(hello_message(input$name))
+  })
+}
+```
+
+# Minimal `app.R`
+A Rhino application comes with a minimal `app.R` which contains nothing but `rhino::app()`.
+You should not edit this file and instead write your top-level code in `app/main.R`.
+Such a solution gives Rhino full control over app startup.
+Steps performed by `rhino::app()` include:
+
+1. Purge box cache, so the app can be reloaded without restarting R session.
+2. Configure logger (log level, log file).
+3. Configure static files.
+4. Load the main module / legacy entrypoint.
+5. Add head tags (favicon, CSS & JS).
+
+One can wonder if we really need a separate `main.R` file.
+Couldn't we just define the top-level `ui` and `server` in `app.R`
+and pass it to `rhino::app()` as arguments, much like with `shiny::shinyApp()`?
+
+We employ this solution to enforce consistent use of box in the entire application.
+A file loaded with `box::use()` can only load other modules/packages with `box::use()`.
+On the other hand, Shiny simply sources `app.R`,
+so `library()` and `source()` could be used in this single file.
+
+As the entire Rhino application is loaded with `box::use(app/main)`,
+all the sources must be properly structured as box modules.

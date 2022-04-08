@@ -1,2 +1,2 @@
 # Logic: application code independent from Shiny.
-# https://appsilon.github.io/rhino/articles/rhino-project-structure.html
+# https://appsilon.github.io/rhino/articles/explanation-project-structure.html
