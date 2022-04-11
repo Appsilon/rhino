@@ -1,18 +1,11 @@
 ---
-title: "Rhino Project Structure"
+title: "Explanation: Application structure"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Rhino Project Structure}
+  %\VignetteIndexEntry{Explanation: Application structure}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
-
-```{r, include = FALSE}
-knitr::opts_chunk$set(
-  collapse = TRUE,
-  comment = "#>"
-)
-```
 
 # Philosophy
 Shiny comes with a powerful
@@ -70,70 +63,35 @@ server <- function(id) {
 }
 ```
 
-# Box modules
-With large applications it is critical for maintainability
-to properly structure your code using files and directories.
-R comes with the `library()` and `source()` functions,
-but its functionality is limited when it comes
-to dividing your code into modules and expressing their dependencies.
-
-To address this, Rhino uses the [box](https://klmr.me/box/) R package,
-which allows you to modularize your code in a similar way to languages like Python and Java:
+# Minimal `app.R`
+A Rhino application comes with a minimal `app.R`:
 ```r
-box::use(
-  dplyr, # Import dplyr. Its functions can be used via `$`, e.g. `dplyr$filter`.
-  shiny[reactive], # Import the `reactive()` function from shiny package.
-)
-box::use(
-  logic/data_validation # Import the `logic/data_validation.R` module.
-)
+# Rhino / shinyApp entrypoint. Do not edit.
+rhino::app()
 ```
 
-The best place to learn about box is its official [documentation](https://klmr.me/box/).
-Some useful box features are also explained in the sections below.
+You should not edit this file and instead write your top-level code in `app/main.R`.
+The comment is also important:
+thanks to the `shinyApp` string, RStudio recognizes this file as a Shiny application
+and shows the "Run" and "Publish" buttons.
 
-## `__init__.R` files
-Objects exported by an `__init__.R` file can be imported from its parent directory.
+Such a solution gives Rhino full control over app startup.
+Steps performed by `rhino::app()` include:
 
-### Example
-Assume we have an `app/foo/__init__.R` file with the following content:
-```r
-#' @export
-bar <- "Hello!"
-```
+1. Purge box cache, so the app can be reloaded without restarting R session.
+2. Configure logger (log level, log file).
+3. Configure static files.
+4. Load the main module / legacy entrypoint.
+5. Add head tags (favicon, CSS & JS).
 
-We can now import `bar` as if it was defined in `app/foo.R`:
-```r
-box::use(
-  app/foo[bar]
-)
-```
+One can wonder if we really need a separate `main.R` file.
+Couldn't we just define the top-level `ui` and `server` in `app.R`
+and pass it to `rhino::app()` as arguments, much like with `shiny::shinyApp()`?
 
-This mechanism can be used in combination with reexports
-to make it easier to import multiple modules from a single directory.
+We employ this solution to enforce consistent use of box in the entire application.
+A file loaded with `box::use()` can only load other modules/packages with `box::use()`.
+On the other hand, Shiny simply sources `app.R`,
+so `library()` and `source()` could be used in this single file.
 
-## Reexports
-A module can reexport objects imported from a different module
-by applying `#' @export` to a `box::use()` statement.
-
-### Example
-Assume we have modules `analysis_tab.R` and `download_tab.R` in the `app/view` directory.
-We can reexport them from `app/view/__init__.R` like this:
-```r
-#' @export
-box::use(
-  app/view/analysis_tab,
-  app/view/download_tab
-)
-```
-
-The following `box::use()` statements are now equivalent:
-```r
-box::use(
-  app/view/analysis_tab,
-  app/view/download_tab,
-)
-box::use(
-  app/view[analysis_tab, download_tab],
-)
-```
+As the entire Rhino application is loaded with `box::use(app/main)`,
+all the sources must be properly structured as box modules.

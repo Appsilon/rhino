@@ -1,0 +1,11 @@
+---
+title: "How-to: Manage R dependencies"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{How-to: Manage R dependencies}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+How to add, update, and remove dependencies:
+[link](https://docs.google.com/presentation/d/1BTaHdGV4q7nr5zykHBL1DdxbT3h88_X-loaO8tkf03g/edit#slide=id.g11e8a5af2ba_0_708).
