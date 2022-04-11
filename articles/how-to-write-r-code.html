@@ -5,7 +5,7 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Tutorial: Create your first app with Rhino • rhino</title>
+<title>How-to: Write R code • rhino</title>
 <!-- favicons --><link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
 <link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
 <link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../apple-touch-icon.png">
@@ -18,7 +18,7 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
 <!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
 <script src="../pkgdown.js"></script><link href="../extra.css" rel="stylesheet">
-<meta property="og:title" content="Tutorial: Create your first app with Rhino">
+<meta property="og:title" content="How-to: Write R code">
 <meta property="og:description" content="rhino">
 <!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
@@ -46,29 +46,65 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">rhino</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.7.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.8.0</span>
       </span>
     </div>
 
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
 <li>
-  <a href="../articles/rhino.html">Get started</a>
-</li>
-<li>
-  <a href="../reference/index.html">Reference</a>
+  <a href="../articles/tutorial-create-your-first-rhino-app.html">Tutorial</a>
 </li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-    Articles
+    Explanation
      
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu">
 <li>
-      <a href="../articles/rhino-project-structure.html">Rhino Project Structure</a>
+      <a href="../articles/explanation-application-structure.html">Application structure</a>
+    </li>
+    <li>
+      <a href="../articles/explanation-box-modules.html">Box modules</a>
+    </li>
+    <li>
+      <a href="../articles/explanation-renv-configuration.html">Renv configuration</a>
+    </li>
+    <li>
+      <a href="../articles/explanation-node-js-javascript-and-sass-tools.html">Node.js - JavaScript and Sass tools</a>
     </li>
   </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    How-to Guides
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+<li>
+      <a href="../articles/how-to-migrate-app-to-rhino.html">Migrate app to Rhino</a>
+    </li>
+    <li>
+      <a href="../articles/how-to-write-r-code.html">Write R code</a>
+    </li>
+    <li>
+      <a href="../articles/how-to-write-javascript-code.html">Write JavaScript code</a>
+    </li>
+    <li>
+      <a href="../articles/how-to-use-static-files.html">Use static files</a>
+    </li>
+    <li>
+      <a href="../articles/how-to-manage-r-dependencies.html">Manage R dependencies</a>
+    </li>
+    <li>
+      <a href="../articles/how-to-keep-multiple-apps-in-a-single-repository.html">Keep multiple apps in a single repository</a>
+    </li>
+  </ul>
+</li>
+<li>
+  <a href="../reference/index.html">Reference</a>
 </li>
       </ul>
 <ul class="nav navbar-nav navbar-right">
@@ -91,18 +127,19 @@
       </header><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
-      <h1 data-toc-skip>Tutorial: Create your first app with Rhino</h1>
+      <h1 data-toc-skip>How-to: Write R code</h1>
             
       
-      <small class="dont-index">Source: <a href="https://github.com/Appsilon/rhino/blob/HEAD/vignettes/rhino.Rmd" class="external-link"><code>vignettes/rhino.Rmd</code></a></small>
-      <div class="hidden name"><code>rhino.Rmd</code></div>
+      <small class="dont-index">Source: <a href="https://github.com/Appsilon/rhino/blob/HEAD/vignettes/how-to-write-r-code.Rmd" class="external-link"><code>vignettes/how-to-write-r-code.Rmd</code></a></small>
+      <div class="hidden name"><code>how-to-write-r-code.Rmd</code></div>
 
     </div>
 
     
     
-<p>Let’s learn Rhino by building an example app.</p>
-<p>[TODO]</p>
+<p>The entrypoint to your application is the <code>app/main.R</code> file. It can load packages and other files with <code><a href="http://klmr.me/box/reference/use.html" class="external-link">box::use()</a></code>. You should not use <code>::</code>, <code><a href="https://rdrr.io/r/base/library.html" class="external-link">library()</a></code> and <code><a href="https://rdrr.io/r/base/source.html" class="external-link">source()</a></code> calls in your code.</p>
+<p>Each file should have two <code><a href="http://klmr.me/box/reference/use.html" class="external-link">box::use()</a></code> statements at the top (one for packages and one for modules). Avoid <code>...</code>. Sort entries alphabetically.</p>
+<p>Each file in <code>app/view</code> should be a box + Shiny module. See <code>app/main.R</code> for example.</p>
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

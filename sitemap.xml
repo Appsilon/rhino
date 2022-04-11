@@ -7,13 +7,40 @@
     <loc>/CONTRIBUTING.html</loc>
   </url>
   <url>
+    <loc>/articles/explanation-application-structure.html</loc>
+  </url>
+  <url>
+    <loc>/articles/explanation-box-modules.html</loc>
+  </url>
+  <url>
+    <loc>/articles/explanation-node-js-javascript-and-sass-tools.html</loc>
+  </url>
+  <url>
+    <loc>/articles/explanation-renv-configuration.html</loc>
+  </url>
+  <url>
+    <loc>/articles/how-to-keep-multiple-apps-in-a-single-repository.html</loc>
+  </url>
+  <url>
+    <loc>/articles/how-to-manage-r-dependencies.html</loc>
+  </url>
+  <url>
+    <loc>/articles/how-to-migrate-app-to-rhino.html</loc>
+  </url>
+  <url>
+    <loc>/articles/how-to-use-static-files.html</loc>
+  </url>
+  <url>
+    <loc>/articles/how-to-write-javascript-code.html</loc>
+  </url>
+  <url>
+    <loc>/articles/how-to-write-r-code.html</loc>
+  </url>
+  <url>
     <loc>/articles/index.html</loc>
   </url>
   <url>
-    <loc>/articles/rhino-project-structure.html</loc>
-  </url>
-  <url>
-    <loc>/articles/rhino.html</loc>
+    <loc>/articles/tutorial-create-your-first-rhino-app.html</loc>
   </url>
   <url>
     <loc>/authors.html</loc>
@@ -53,6 +80,9 @@
   </url>
   <url>
     <loc>/reference/lint_sass.html</loc>
+  </url>
+  <url>
+    <loc>/reference/rhinos.html</loc>
   </url>
   <url>
     <loc>/reference/test_e2e.html</loc>

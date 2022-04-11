@@ -2,7 +2,16 @@ pandoc: 2.14.2
 pkgdown: 2.0.2
 pkgdown_sha: ~
 articles:
-  rhino-project-structure: rhino-project-structure.html
-  rhino: rhino.html
-last_built: 2022-03-21T14:21Z
+  explanation-application-structure: explanation-application-structure.html
+  explanation-box-modules: explanation-box-modules.html
+  explanation-node-js-javascript-and-sass-tools: explanation-node-js-javascript-and-sass-tools.html
+  explanation-renv-configuration: explanation-renv-configuration.html
+  how-to-keep-multiple-apps-in-a-single-repository: how-to-keep-multiple-apps-in-a-single-repository.html
+  how-to-manage-r-dependencies: how-to-manage-r-dependencies.html
+  how-to-migrate-app-to-rhino: how-to-migrate-app-to-rhino.html
+  how-to-use-static-files: how-to-use-static-files.html
+  how-to-write-javascript-code: how-to-write-javascript-code.html
+  how-to-write-r-code: how-to-write-r-code.html
+  tutorial-create-your-first-rhino-app: tutorial-create-your-first-rhino-app.html
+last_built: 2022-04-11T10:03Z
 
