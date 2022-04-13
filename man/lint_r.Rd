@@ -4,10 +4,7 @@
 \alias{lint_r}
 \title{Lint R}
 \usage{
-lint_r(accepted_errors = 0)
-}
-\arguments{
-\item{accepted_errors}{Number of accepted style errors.}
+lint_r()
 }
 \value{
 None. This function is called for side effects.
@@ -18,14 +15,8 @@ for style errors.
 }
 \details{
 The linter rules can be adjusted in the \code{.lintr} file.
-}
-\examples{
-if (interactive()) {
-  # Lint all R sources in the `app` and `tests/testthat` directories.
-  lint_r()
 
-  # Accept up to 10 errors:
-  lint_r(accepted_errors = 10)
-}
-
+You can set the maximum number of accepted style errors
+with the \code{legacy_max_lint_r_errors} option in \code{rhino.yml}.
+This can be useful when inheriting legacy code with multiple styling issues.
 }

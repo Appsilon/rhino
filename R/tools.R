@@ -22,20 +22,17 @@ test_r <- function() {
 #'
 #' The linter rules can be adjusted in the `.lintr` file.
 #'
-#' @param accepted_errors Number of accepted style errors.
+#' You can set the maximum number of accepted style errors
+#' with the `legacy_max_lint_r_errors` option in `rhino.yml`.
+#' This can be useful when inheriting legacy code with multiple styling issues.
+#'
 #' @return None. This function is called for side effects.
 #'
-#' @examples
-#' if (interactive()) {
-#'   # Lint all R sources in the `app` and `tests/testthat` directories.
-#'   lint_r()
-#'
-#'   # Accept up to 10 errors:
-#'   lint_r(accepted_errors = 10)
-#' }
-#'
 #' @export
-lint_r <- function(accepted_errors = 0) {
+lint_r <- function() {
+  max_errors <- read_config()$legacy_max_lint_r_errors
+  if (is.null(max_errors)) max_errors <- 0
+
   lints <- c(
     lintr::lint_dir("app"),
     lintr::lint_dir(fs::path("tests", "testthat"))
@@ -43,7 +40,7 @@ lint_r <- function(accepted_errors = 0) {
 
   style_errors <- length(lints)
 
-  if (style_errors > accepted_errors) {
+  if (style_errors > max_errors) {
     print(lints)
     cli::cli_abort("Number of style errors: {style_errors}.")
   }
