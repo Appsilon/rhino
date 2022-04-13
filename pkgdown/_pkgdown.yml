@@ -1,10 +1,12 @@
 template:
+  bootstrap: 5
+  bootswatch: pulse
+  bslib:
+    pkgdown-nav-height: 100px
   params:
-    bootswatch: yeti
     ganalytics: G-DL2H66RTY1
 
 navbar:
-  type: inverse
   structure:
     left: [tutorial, explanation, how-to-guides, reference]
   components:
