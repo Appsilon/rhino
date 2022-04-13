@@ -1,0 +1,34 @@
+---
+title: "About: Why Rhino? What is Rhino?"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{About: Why Rhino? What is Rhino?}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+# What is Rhino?
+Rhino lets you build high quality, enterprise-grade Shiny applications at speed. It is an opinionated framework with a focus on best practices and development tools. It allows you to create Shiny apps "The Appsilon Way"  - like a fullstack software engineer: apply best software engineering practices, modularize your code, test it well, make UI beautiful and think about adoption from the very beginning. 
+
+Rhino started as a series internal projects at Appsilon aiming to:
+
+1. Save time and avoid repetitive tasks: include all best practices we care about from the very beginning of a project.
+2. Unify applications’ architecture: provide sensible defaults so that we don’t reinvent the wheel.
+3. Automate and codify our existing practices: pass knowledge in the form of code instead of documents and manuals.
+
+It has since evolved into an R package that we are now sharing with the Shiny community.
+
+# Why Rhino?
+Why Rhino? Because Rhino helps you build Shiny apps faster, while making them more reliable and easier to maintain. It bundles in a coherent way a set of tools and practices that are beneficial for most Shiny applications, especially in enterprise. 
+
+You may want to use Rhino if:
+
+1. You need a nested files structure that will handle a bigger application.
+2. You want to follow a complete set of solutions for typical problems, avoid "reinventing the wheel"
+3. You’d like to have a scalable, modularized application, with separation of responsibility, and would like to follow a suggested approach to that (box, Shiny modules, view / logic separation).
+4. You want to save time and avoid repetitive tasks: quickly start an app with a set of preconfigured development tools (linters, CI, Cypress, logging, Sass and JS building)
+5. You are building an application for production use in enterprise - you need to make sure it’s highly maintainable and reliable in the long term.
+
+# Why not use Golem, Leprechaun?
+Golem is a great package, and we believe it is a good fit for many developers. Choose whichever works best for you and your project!
+You can learn more about the differences in [How is Rhino different from ...?](articles/about-how-is-it-different.html). 

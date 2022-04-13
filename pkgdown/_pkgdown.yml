@@ -8,11 +8,18 @@ template:
 
 navbar:
   structure:
-    left: [tutorial, explanation, how-to-guides, reference]
+    left: [tutorial, about, explanation, how-to-guides, reference]
   components:
     tutorial:
       text: Tutorial
       href: articles/tutorial-create-your-first-rhino-app.html
+    about:
+      text: About Rhino
+      menu:
+        - text: Why Rhino? What is Rhino?
+          href: articles/about-why-rhino.html
+        - text: How is Rhino different from ...?
+          href: articles/about-how-is-it-different.html
     explanation:
       text: Explanation
       menu:

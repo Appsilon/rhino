@@ -2,6 +2,16 @@
 This document contains guidelines specific to Rhino. [Appsilon's general contributing
 guidelines](https://github.com/Appsilon/.github/blob/main/CONTRIBUTING.md) still apply.
 
+## Contributing to Rhino
+
+Pull requests to Rhuino are welcome! 
+
+| Tool           | Command                  | `devtools` equivalent    | Comment
+|----------------|--------------------------|--------------------------|-
+| Unit tests     | `testthat::test_local()` | `devtools::test()`       |
+| Linter         | `lintr::lint_package()`  | `devtools::lint()`       |
+| `pkgdown` site | `pkgdown::build_site()`  | `devtools::build_site()` | If built successfully, the website will be in `docs` directory.
+
 
 ## Development Process
 1. We follow [Scrum](https://scrumguides.org/).
