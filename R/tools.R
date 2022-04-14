@@ -15,6 +15,18 @@ test_r <- function() {
   testthat::test_dir(fs::path("tests", "testthat"))
 }
 
+lint_dir <- function(path) {
+  if (interactive()) {
+    message(cli::format_inline("Linting {.file {path}}"), appendLF = FALSE)
+  }
+  lints <- lintr::lint_dir(path)
+  # Return lints with full relative paths, e.g. `app/main.R` instead of just `main.R`.
+  for (i in seq_along(lints)) {
+    lints[[i]]$filename <- fs::path(path, lints[[i]]$filename)
+  }
+  lints
+}
+
 #' Lint R
 #'
 #' Uses the `{lintr}` package to check all R sources in the `app` and `tests/testthat` directories
@@ -34,8 +46,8 @@ lint_r <- function() {
   if (is.null(max_errors)) max_errors <- 0
 
   lints <- c(
-    lintr::lint_dir("app"),
-    lintr::lint_dir(fs::path("tests", "testthat"))
+    lint_dir("app"),
+    lint_dir(fs::path("tests", "testthat"))
   )
   # Applying `c()` removes the `lints` class which is responsible for pretty-printing.
   class(lints) <- "lints"
