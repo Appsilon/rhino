@@ -8,7 +8,7 @@ system_yarn <- function(..., status_ok = 0) {
   }
 }
 
-add_node <- function() {
+add_node <- function(check_message = NULL) {
   copy_template("node", node_path())
   fs::link_create(
     path = fs::path("..", ".."),
@@ -16,10 +16,30 @@ add_node <- function() {
   )
 }
 
-yarn <- function(...) {
+yarn <- function(..., check_message = NULL) {
+  check_js_dependencies(check_message)
+
   if (!fs::dir_exists(node_path())) {
     add_node()
     system_yarn("install")
   }
   system_yarn(...)
+}
+
+check_js_dependencies <- function(additional_message = NULL) {
+  documentation_url <- "https://appsilon.github.io/rhino/articles/tutorial-create-your-first-rhino-app.html#dependencies" #nolint
+
+  check_system_dependency(
+    cmd = "node",
+    dependency_name = "Node.js",
+    documentation_url = documentation_url,
+    additional_message = additional_message
+  )
+
+  check_system_dependency(
+    cmd = "yarn",
+    dependency_name = "yarn",
+    documentation_url = documentation_url,
+    additional_message = additional_message
+  )
 }
