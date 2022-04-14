@@ -53,9 +53,29 @@ copy_rproj <- function() {
 }
 
 system_cmd_version <- function(cmd) {
+  system2(cmd, "--version", stdout = TRUE, stderr = TRUE)
+}
+
+print_system_cmd_version <- function(cmd) {
   tryCatch(
-    system2(cmd, "--version", stdout = TRUE, stderr = TRUE),
+    system_cmd_version(cmd),
     error = function(e) e$message
+  )
+}
+
+check_system_dependency <- function(cmd,
+                                    dependency_name,
+                                    documentation_url,
+                                    additional_message = NULL) {
+  message <- c(
+    glue::glue("Do you have {dependency_name} installed?"),
+    glue::glue("Check {documentation_url} for details."),
+    additional_message
+  )
+
+  tryCatch(
+    system_cmd_version(cmd),
+    error = function(e) cli::cli_abort(message)
   )
 }
 
@@ -77,7 +97,7 @@ diagnostics <- function() {
     paste(Sys.info()[c("sysname", "release", "version")], collapse = " "),
     R.version.string,
     paste("rhino:", utils::packageVersion("rhino")),
-    paste("node:", system_cmd_version("node")),
-    paste("yarn:", system_cmd_version("yarn"))
+    paste("node:", print_system_cmd_version("node")),
+    paste("yarn:", print_system_cmd_version("yarn"))
   ))
 }
