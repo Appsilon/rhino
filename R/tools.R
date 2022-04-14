@@ -37,12 +37,20 @@ lint_r <- function() {
     lintr::lint_dir("app"),
     lintr::lint_dir(fs::path("tests", "testthat"))
   )
+  # Applying `c()` removes the `lints` class which is responsible for pretty-printing.
+  class(lints) <- "lints"
 
-  style_errors <- length(lints)
-
-  if (style_errors > max_errors) {
+  errors <- length(lints)
+  if (errors == 0) {
+    cli::cli_alert_success("No style errors found.")
+  } else {
     print(lints)
-    cli::cli_abort("Number of style errors: {style_errors}.")
+    message <- c(
+      "Found {errors} style error{?s}.",
+      i = if (max_errors > 0) "At most {max_errors} error{?s} allowed."
+    )
+    if (errors <= max_errors) cli::cli_inform(message)
+    else cli::cli_abort(message, call = NULL)
   }
 }
 
