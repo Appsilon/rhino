@@ -8,7 +8,7 @@ system_yarn <- function(..., status_ok = 0) {
   }
 }
 
-add_node <- function(check_message = NULL) {
+add_node <- function() {
   copy_template("node", node_path())
   fs::link_create(
     path = fs::path("..", ".."),
