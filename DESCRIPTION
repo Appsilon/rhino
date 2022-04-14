@@ -22,6 +22,7 @@ Depends:
 Imports:
   box,
   cli,
+  config,
   fs,
   glue,
   lintr (>= 2.0.0),
