@@ -193,8 +193,9 @@ lint_js <- function(fix = FALSE) {
 build_sass <- function(watch = FALSE) {
   config <- read_config()$sass
   if (config == "node") {
-    if (watch) yarn("build-sass", "--watch", status_ok = 2)
-    else yarn("build-sass")
+    error_message <- "If you can't use Node.js and yarn, try using sass: 'r' configuration."
+    if (watch) yarn("build-sass", "--watch", status_ok = 2, check_message = error_message)
+    else yarn("build-sass", check_message = error_message)
   } else if (config == "r") {
     if (watch) {
       cli::cli_alert_warning("The {.arg watch} argument is only supported when using Node.")
