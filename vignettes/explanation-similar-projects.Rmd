@@ -1,0 +1,24 @@
+---
+title: "Explanation: Similar projects"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Explanation: Similar projects}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+# How Rhino is different from ...?
+
+- **golem:** Rhino apps are not R packages. Rhino puts more emphasis on development tools, clean configuration and minimal boilerplate and tries to provide default solutions for typical problems and questions in these areas.
+- **leprechaun:** Leprechaun works by scaffolding Shiny apps, without adding dependencies. Rhino minimizes generated code and aims to provide a complete foundation for building Shiny apps ready for deployment in enterprise, so that you can focus on application’s logic and user experience.
+- **devtools:** devtools streamlines packages development. Rhino is a complete framework for building Shiny apps. Rhino features are interdependent (e.g. coverage and unit tests) and cannot be used without making the app into basic Rhino structure.
+- **usethis:** usethis adds independent code snippers you ask it to. Rhino is a complete framework for building Shiny apps. Your app is designed to call Rhino functions instead of having them insert code into your project.
+
+## What do you think about Golem and Leprechaun?
+Golem is a great package, and we believe it is a good fit for many developers. However, it just did not work for us. Rhino does not attempt to replace Golem - we believe both have perfect use cases. You may want to try Rhino especially if:
+
+1. You need a nested files structure that will handle a bigger application.
+2. You want to follow a complete set of best practices.
+3. You’d like to have a scalable, modularized application, with separation of responsibility, and would like to follow a suggested approach to that (box, Shiny modules, view / logic separation).
+4. You want to quickly start an app with a set of preconfigured development tools (linters, CI, Cypress, logging, Sass and JS building).
+5. You are building an application for production use in enterprise - you need to make sure it’s highly maintainable and reliable in the long term.

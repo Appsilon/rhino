@@ -63,6 +63,7 @@ server <- function(id) {
 }
 ```
 
+
 # Minimal `app.R`
 A Rhino application comes with a minimal `app.R`:
 ```r

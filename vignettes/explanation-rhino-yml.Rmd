@@ -1,0 +1,28 @@
+---
+title: "Explanation: Configuring Rhino - rhino.yml"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Explanation: Configuring Rhino - rhino.yml}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+# :wrench: Configure Rhino with `rhino.yml`
+Rhino uses its own `rhino.yml` config file where you can set a few options on how it works in your app. Currently available
+options are described below.
+
+## `rhino.yml` options
+```yaml
+sass: string               # required | one of: "node", "r"
+legacy_entrypoint: string  # optional | one of: "app_dir", "source", "box_top_level"
+```
+
+### `sass`
+Configures whether [SASS](https://sass-lang.com/) should be build using [R
+package](https://cran.r-project.org/package=sass) or [Node
+package](https://www.npmjs.com/package/sass). The latter provides newest implementation, at a cost
+of additional system dependencies for development (`node` and `yarn`).
+
+### `legacy_entrypoint`
+This setting is useful when migrating an existing Shiny application to Rhino. For more details see
+[`rhino::app()` details section](https://appsilon.github.io/rhino/reference/app.html#details-1).

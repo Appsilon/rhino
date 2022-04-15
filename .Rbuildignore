@@ -4,6 +4,5 @@
 ^\.gitignore$
 ^\.lintr$
 ^\.Rproj\.user$
-^\.whitesource$
 ^pkgdown$
 ^README\.md$

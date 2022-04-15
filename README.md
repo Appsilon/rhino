@@ -1,7 +1,5 @@
-_**Disclaimer: Rhino is under an active development. Before version 1.0.0 release Rhino API might change.**_
-
 # Rhino <a href="https://appsilon.github.io/rhino/"><img src="man/figures/rhino.png" align="right" alt="Rhino logo" style="height: 140px;"></a>
-> _Build enterprise-grade [Shiny](https://shiny.rstudio.com/) apps. Best practices included._
+> _Build high quality, enterprise-grade [Shiny](https://shiny.rstudio.com/) apps at speed._
 
 <!-- badges: start -->
 [![CRAN status](https://www.r-pkg.org/badges/version/rhino)](https://cran.r-project.org/package=rhino)
@@ -11,123 +9,45 @@ _**Disclaimer: Rhino is under an active development. Before version 1.0.0 releas
 <!-- badges: end -->
 
 
-## Contents
-* [Installation](#installation)
-  * [Installing from GitHub](#installing-from-github)
-* [Usage](#usage)
-  * [🏗️ Create a Shiny Application from Scratch](#%EF%B8%8F-create-a-shiny-application-from-scratch)
-    * [Rhino Application Structure](#rhino-application-structure)
-  * [:recycle: Migrate an Existing Shiny Application to Rhino](#recycle-migrate-an-existing-shiny-application-to-rhino)
-  * [:wrench: Configure Rhino with `rhino.yml`](#wrench-configure-rhino-with-rhinoyml)
-    * [`rhino.yml` Taxonomy](#rhinoyml-taxonomy)
-  * [:construction: Develop a Shiny Application with Rhino](#construction-develop-a-shiny-application-with-rhino)
-* [Contributing](#contributing)
-* [About](#about)
+## Why Rhino?
+Rhino allows you to create Shiny apps **The Appsilon Way**  - like a fullstack software engineer. Apply best software engineering practices, modularize your code, test it well, make UI beautiful, and think about user adoption from the very beginning. Rhino is an opinionated framework with a focus on software engineering practices and development tools.
 
+Rhino supports your work in 3 main areas:
 
-## Installation
+1. **Clear code**: scalable app architecture, modularization based on Box and Shiny modules.
+2. **Quality**: unit tests, E2E tests with Cypress, logging and monitoring, linting.
+3. **Automation**: project startup, CI with GitHub Actions, dependency management with renv,
+configuration management with config, Sass and JavaScript bundling with ES6 support via Node.js.
+
+These features are often implemented using well-known packages.
+Rhino brings them all working together out of the box!
+
+Read more:
+[What is Rhino?](https://appsilon.github.io/rhino/articles/explanation-what-is-rhino.html)
+and [Similar projects](https://appsilon.github.io/rhino/articles/explanation-similar-projects.html).
+
+## Get it
+Stable version:
 ```r
 install.packages("rhino")
 ```
 
-### Installing from GitHub
-To install latest development version or a specific one, run one of the following commands.
+Development version:
 ```r
-# install.packages("remotes")
 remotes::install_github("Appsilon/rhino")
-
-# Installing rhino either from a specific release or a branch requires providing `ref` argument:
-remotes::install_github("Appsilon/rhino", ref = "v0.5.0")
 ```
-
 
 ## Usage
-### 🏗️ Create a Shiny Application from Scratch
-Running `rhino::init()` will create a following application structure for you. Once that is done
-simply run `shiny::runApp()` to start a minimal Rhino application! :rocket:
 
-#### Rhino Application Structure
-```
-.
-├── app
-│   ├── js
-│   │   └── index.js
-│   ├── logic
-│   │   └── __init__.R
-│   ├── static
-│   │   └── favicon.ico
-│   ├── styles
-│   │   └── main.scss
-│   ├── view
-│   │   └── __init__.R
-│   └── main.R
-├── tests
-│   ├── cypress
-│   │   └── integration
-│   │       └── app.spec.js
-│   ├── testthat
-│   │   └── test-main.R
-│   └── cypress.json
-├── app.R
-├── app.Rproj
-├── dependencies.R
-├── renv.lock
-└── rhino.yml
-```
-
-With the structure prepared you can [configure Rhino](#wrench-configure-rhino-with-rhinoyml) or jump
-straight into [development using Rhino](#construction-develop-a-shiny-application-with-rhino)!
-
----
-
-### :recycle: Migrate an Existing Shiny Application to Rhino
-To migrate an application to Rhino create an application from scratch as described above. Then refer
-to [`rhino::init()` details section](https://appsilon.github.io/rhino/reference/init.html#details-1)
-for a recommended approach of proceeding with the migration.
-
----
-
-### :wrench: Configure Rhino with `rhino.yml`
-Rhino uses its own `rhino.yml` config file for preserving your preferences. Currently available
-options are described in the taxonomy below.
-
-#### `rhino.yml` Taxonomy
-```yaml
-sass: string               # required | one of: "node", "r"
-legacy_entrypoint: string  # optional | one of: "app_dir", "source", "box_top_level"
-```
-
-##### `sass`
-Configures whether [SASS](https://sass-lang.com/) should be build using [R
-package](https://cran.r-project.org/package=sass) or [Node
-package](https://www.npmjs.com/package/sass). The latter provides newest implementation, at a cost
-of additional system dependencies for development (`node` and `yarn`).
-
-##### `legacy_entrypoint`
-This setting is useful when migrating an existing Shiny application to Rhino. For more details see
-[`rhino::app()` details section](https://appsilon.github.io/rhino/reference/app.html#details-1).
-
----
-
-### :construction: Develop a Shiny Application with Rhino
-_Section under construction, for now please refer to [Rhino package
-reference](https://appsilon.github.io/rhino/reference/index.html)._
-
-
-## Contributing
-Pull requests are welcome! Please see our [contributing guidelines](.github/CONTRIBUTING.md) for more details.
-
-| Tool           | Command                  | `devtools` equivalent    | Comment
-|----------------|--------------------------|--------------------------|-
-| Unit tests     | `testthat::test_local()` | `devtools::test()`       |
-| Linter         | `lintr::lint_package()`  | `devtools::lint()`       |
-| `pkgdown` site | `pkgdown::build_site()`  | `devtools::build_site()` | If built successfully, the website will be in `docs` directory. Requires `pkgdown` version >= 2.0.0.
-
+* Create a new Rhino application with `rhino::init()`
+* To learn more, follow the
+[Rhino tutorial](https://appsilon.github.io/rhino/articles/tutorial-create-your-first-rhino-app.html)
+* To migrate an existing application to Rhino, refer to
+[`rhino::init()` details section](https://appsilon.github.io/rhino/reference/init.html#details-1)
 
 ## About
-Rhino is distributed under [LGPL-3.0 license].
 
-Developed with :heart: at [Appsilon].
+Rhino is distributed under [LGPL-3.0 license]. Developed with :heart: at [Appsilon].
 
 ---
 
