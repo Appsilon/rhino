@@ -14,11 +14,13 @@ Rhino allows you to create Shiny apps **The Appsilon Way**  - like a fullstack s
 
 Rhino supports your work in 3 main areas:
 
-1. Clear code (scalable app architecture, modularization based on Box and Shiny modules.
-2. Quality (unit tests, E2E tests with Cypress, logging and monitoring, linting).
-3. Automation (project startup, CI with Github Actions, dependency management with renv, configuration management with config, Sass and Javascript bundling with ES6 support via Nodejs).
+1. **Clear code**: scalable app architecture, modularization based on Box and Shiny modules.
+2. **Quality**: unit tests, E2E tests with Cypress, logging and monitoring, linting.
+3. **Automation**: project startup, CI with GitHub Actions, dependency management with renv,
+configuration management with config, Sass and JavaScript bundling with ES6 support via Node.js.
 
-These features are often implemented using well-known packages. The biggest value in Rhino is that you instantly get all of them working together and pre-configured.
+These features are often implemented using well-known packages.
+Rhino brings them all working together out of the box!
 
 Read more: [Why Rhino?](https://appsilon.github.io/rhino/articles/about-why-rhino.html) and [How is Rhino different from ...?](https://appsilon.github.io/rhino/articles/about-how-is-it-different.html)
 
@@ -35,9 +37,11 @@ remotes::install_github("Appsilon/rhino")
 
 ## Usage
 
-- 🏗️: `rhino::init()` creates a new Shiny Application with Rhino.
-- :rocket: To learn more, follow the [Rhino tutorial](https://appsilon.github.io/rhino/articles/tutorial-create-your-first-rhino-app.html)
-- To migrate an existing application to Rhino, refer to [`rhino::init()` details section](https://appsilon.github.io/rhino/reference/init.html#details-1)
+* Create a new Rhino application with `rhino::init()`
+* To learn more, follow the
+[Rhino tutorial](https://appsilon.github.io/rhino/articles/tutorial-create-your-first-rhino-app.html)
+* To migrate an existing application to Rhino, refer to
+[`rhino::init()` details section](https://appsilon.github.io/rhino/reference/init.html#details-1)
 
 ## About
 
