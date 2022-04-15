@@ -63,10 +63,12 @@ print_system_cmd_version <- function(cmd) {
   )
 }
 
-check_system_dependency <- function(cmd,
-                                    dependency_name,
-                                    documentation_url,
-                                    additional_message = NULL) {
+check_system_dependency <- function(
+  cmd,
+  dependency_name,
+  documentation_url,
+  additional_message = NULL
+) {
   message <- c(
     glue::glue("Do you have {dependency_name} installed?"),
     glue::glue("Check {documentation_url} for details."),
