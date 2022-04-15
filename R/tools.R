@@ -15,6 +15,18 @@ test_r <- function() {
   testthat::test_dir(fs::path("tests", "testthat"))
 }
 
+lint_dir <- function(path) {
+  if (interactive()) {
+    message(cli::format_inline("Linting {.file {path}}"), appendLF = FALSE)
+  }
+  lints <- lintr::lint_dir(path)
+  # Return lints with full relative paths, e.g. `app/main.R` instead of just `main.R`.
+  for (i in seq_along(lints)) {
+    lints[[i]]$filename <- fs::path(path, lints[[i]]$filename)
+  }
+  lints
+}
+
 #' Lint R
 #'
 #' Uses the `{lintr}` package to check all R sources in the `app` and `tests/testthat` directories
@@ -22,30 +34,35 @@ test_r <- function() {
 #'
 #' The linter rules can be adjusted in the `.lintr` file.
 #'
-#' @param accepted_errors Number of accepted style errors.
+#' You can set the maximum number of accepted style errors
+#' with the `legacy_max_lint_r_errors` option in `rhino.yml`.
+#' This can be useful when inheriting legacy code with multiple styling issues.
+#'
 #' @return None. This function is called for side effects.
 #'
-#' @examples
-#' if (interactive()) {
-#'   # Lint all R sources in the `app` and `tests/testthat` directories.
-#'   lint_r()
-#'
-#'   # Accept up to 10 errors:
-#'   lint_r(accepted_errors = 10)
-#' }
-#'
 #' @export
-lint_r <- function(accepted_errors = 0) {
+lint_r <- function() {
+  max_errors <- read_config()$legacy_max_lint_r_errors
+  if (is.null(max_errors)) max_errors <- 0
+
   lints <- c(
-    lintr::lint_dir("app"),
-    lintr::lint_dir(fs::path("tests", "testthat"))
+    lint_dir("app"),
+    lint_dir(fs::path("tests", "testthat"))
   )
+  # Applying `c()` removes the `lints` class which is responsible for pretty-printing.
+  class(lints) <- "lints"
 
-  style_errors <- length(lints)
-
-  if (style_errors > accepted_errors) {
+  errors <- length(lints)
+  if (errors == 0) {
+    cli::cli_alert_success("No style errors found.")
+  } else {
     print(lints)
-    cli::cli_abort("Number of style errors: {style_errors}.")
+    message <- c(
+      "Found {errors} style error{?s}.",
+      i = if (max_errors > 0) "At most {max_errors} error{?s} allowed."
+    )
+    if (errors <= max_errors) cli::cli_inform(message)
+    else cli::cli_abort(message, call = NULL)
   }
 }
 
