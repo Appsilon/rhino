@@ -193,21 +193,36 @@ lint_js <- function(fix = FALSE) {
 build_sass <- function(watch = FALSE) {
   config <- read_config()$sass
   if (config == "node") {
-    error_message <- "If you can't use Node.js and yarn, try using sass: 'r' configuration."
-    if (watch) yarn("build-sass", "--watch", status_ok = 2, check_message = error_message)
-    else yarn("build-sass", check_message = error_message)
+    tryCatch(
+      build_sass_node(watch = watch),
+      error = function(error) {
+        cli::cli_abort(c(
+          error$message, error$body,
+          i = "If you can't use Node.js and yarn, try using sass: 'r' configuration."
+        ))
+      }
+    )
   } else if (config == "r") {
     if (watch) {
       cli::cli_alert_warning("The {.arg watch} argument is only supported when using Node.")
     }
-    output_dir <- fs::path("app", "static", "css")
-    fs::dir_create(output_dir)
-    sass::sass(
-      input = sass::sass_file(fs::path("app", "styles", "main.scss")),
-      output = fs::path(output_dir, "app.min.css"),
-      cache = FALSE
-    )
+    build_sass_r()
   }
+}
+
+build_sass_node <- function(watch = FALSE) {
+  if (watch) yarn("build-sass", "--watch", status_ok = 2)
+  else yarn("build-sass")
+}
+
+build_sass_r <- function() {
+  output_dir <- fs::path("app", "static", "css")
+  fs::dir_create(output_dir)
+  sass::sass(
+    input = sass::sass_file(fs::path("app", "styles", "main.scss")),
+    output = fs::path(output_dir, "app.min.css"),
+    cache = FALSE
+  )
 }
 
 #' Lint Sass

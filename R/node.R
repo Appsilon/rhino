@@ -16,8 +16,8 @@ add_node <- function() {
   )
 }
 
-yarn <- function(..., check_message = NULL) {
-  check_js_dependencies(check_message)
+yarn <- function(...) {
+  check_js_dependencies()
 
   if (!fs::dir_exists(node_path())) {
     add_node()
@@ -26,20 +26,18 @@ yarn <- function(..., check_message = NULL) {
   system_yarn(...)
 }
 
-check_js_dependencies <- function(additional_message = NULL) {
+check_js_dependencies <- function() {
   documentation_url <- "https://go.appsilon.com/rhino-system-dependencies"
 
   check_system_dependency(
     cmd = "node",
     dependency_name = "Node.js",
-    documentation_url = documentation_url,
-    additional_message = additional_message
+    documentation_url = documentation_url
   )
 
   check_system_dependency(
     cmd = "yarn",
     dependency_name = "yarn",
-    documentation_url = documentation_url,
-    additional_message = additional_message
+    documentation_url = documentation_url
   )
 }
