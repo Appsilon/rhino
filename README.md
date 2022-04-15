@@ -1,5 +1,5 @@
 # Rhino <a href="https://appsilon.github.io/rhino/"><img src="man/figures/rhino.png" align="right" alt="Rhino logo" style="height: 140px;"></a>
-> _Build high quality, enterprise-grade [Shiny](https://shiny.rstudio.com/) apps at speed.._
+> _Build high quality, enterprise-grade [Shiny](https://shiny.rstudio.com/) apps at speed._
 
 <!-- badges: start -->
 [![CRAN status](https://www.r-pkg.org/badges/version/rhino)](https://cran.r-project.org/package=rhino)
@@ -9,8 +9,8 @@
 <!-- badges: end -->
 
 
-# Why Rhino?
-Rhino allows you to create Shiny apps "The Appsilon Way"  - like a fullstack software engineer: apply best software engineering practices, modularize your code, test it well, make UI beautiful and think about adoption from the very beginning. It is an opinionated framework with a focus on software engineering practices and development tools.
+## Why Rhino?
+Rhino allows you to create Shiny apps **The Appsilon Way**  - like a fullstack software engineer. Apply best software engineering practices, modularize your code, test it well, make UI beautiful, and think about user adoption from the very beginning. Rhino is an opinionated framework with a focus on software engineering practices and development tools.
 
 Rhino supports your work in 3 main areas:
 
@@ -20,7 +20,7 @@ Rhino supports your work in 3 main areas:
 
 These features are often implemented using well-known packages. The biggest value in Rhino is that you instantly get all of them working together and pre-configured.
 
-Read more: [Why Rhino?](articles/about-why-rhino.html) and [How is Rhino different from ...?](articles/about-how-is-it-different.html)
+Read more: [Why Rhino?](https://appsilon.github.io/rhino/articles/about-why-rhino.html) and [How is Rhino different from ...?](https://appsilon.github.io/rhino/articles/about-how-is-it-different.html)
 
 ## Get it
 Stable version:
@@ -36,7 +36,7 @@ remotes::install_github("Appsilon/rhino")
 ## Usage
 
 - 🏗️: `rhino::init()` creates a new Shiny Application with Rhino.
-- :rocket: To learn more, follow the [Rhino tutorial](articles/tutorial-create-your-first-rhino-app.html)
+- :rocket: To learn more, follow the [Rhino tutorial](https://appsilon.github.io/rhino/articles/tutorial-create-your-first-rhino-app.html)
 - To migrate an existing application to Rhino, refer to [`rhino::init()` details section](https://appsilon.github.io/rhino/reference/init.html#details-1)
 
 ## About

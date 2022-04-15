@@ -4,7 +4,7 @@ guidelines](https://github.com/Appsilon/.github/blob/main/CONTRIBUTING.md) still
 
 ## Contributing to Rhino
 
-Pull requests to Rhuino are welcome! 
+Pull requests to Rhino are welcome! 
 
 | Tool           | Command                  | `devtools` equivalent    | Comment
 |----------------|--------------------------|--------------------------|-
