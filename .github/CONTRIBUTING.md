@@ -4,13 +4,13 @@ guidelines](https://github.com/Appsilon/.github/blob/main/CONTRIBUTING.md) still
 
 ## Contributing to Rhino
 
-Pull requests to Rhino are welcome! 
+Pull requests to Rhino are welcome!
 
 | Tool           | Command                  | `devtools` equivalent    | Comment
 |----------------|--------------------------|--------------------------|-
 | Unit tests     | `testthat::test_local()` | `devtools::test()`       |
 | Linter         | `lintr::lint_package()`  | `devtools::lint()`       |
-| `pkgdown` site | `pkgdown::build_site()`  | `devtools::build_site()` | If built successfully, the website will be in `docs` directory.
+| `pkgdown` site | `pkgdown::build_site()`  | `devtools::build_site()` | If built successfully, the website will be in `docs` directory. Requires `pkgdown` version >= 2.0.0.
 
 
 ## Development Process
