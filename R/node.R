@@ -27,7 +27,7 @@ yarn <- function(..., check_message = NULL) {
 }
 
 check_js_dependencies <- function(additional_message = NULL) {
-  documentation_url <- "https://appsilon.github.io/rhino/articles/tutorial-create-your-first-rhino-app.html#dependencies" #nolint
+  documentation_url <- "https://go.appsilon.com/rhino-system-dependencies"
 
   check_system_dependency(
     cmd = "node",
