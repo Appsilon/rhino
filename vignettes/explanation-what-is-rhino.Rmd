@@ -31,4 +31,4 @@ You may want to use Rhino if:
 
 # Why not use Golem, Leprechaun?
 Golem is a great package, and we believe it is a good fit for many developers. Choose whichever works best for you and your project!
-You can learn more about the differences in [How is Rhino different from ...?](articles/about-how-is-it-different.html).
+You can learn more about the differences in [Similar projects](articles/explanation-similar-projects.html).
