@@ -52,14 +52,14 @@ copy_rproj <- function() {
   )
 }
 
-system_cmd_version <- function(cmd) {
-  system2(cmd, "--version", stdout = TRUE, stderr = TRUE)
-}
-
-print_system_cmd_version <- function(cmd) {
+system_cmd_version <- function(cmd, throw_error = FALSE) {
   tryCatch(
-    system_cmd_version(cmd),
-    error = function(e) e$message
+    system2(cmd, "--version", stdout = TRUE, stderr = TRUE),
+    error = function(e) {
+      if (isTRUE(throw_error)) stop(e)
+
+      e$message
+    }
   )
 }
 
@@ -76,7 +76,7 @@ check_system_dependency <- function(
   )
 
   tryCatch(
-    system_cmd_version(cmd),
+    system_cmd_version(cmd, TRUE),
     error = function(e) cli::cli_abort(message)
   )
 }
@@ -99,7 +99,7 @@ diagnostics <- function() {
     paste(Sys.info()[c("sysname", "release", "version")], collapse = " "),
     R.version.string,
     paste("rhino:", utils::packageVersion("rhino")),
-    paste("node:", print_system_cmd_version("node")),
-    paste("yarn:", print_system_cmd_version("yarn"))
+    paste("node:", system_cmd_version("node")),
+    paste("yarn:", system_cmd_version("yarn"))
   ))
 }
