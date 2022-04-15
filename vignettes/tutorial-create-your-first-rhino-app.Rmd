@@ -6,7 +6,7 @@ vignette: >
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
-  
+
 # Setup
   
 ## How to install Rhino?
@@ -62,14 +62,15 @@ There are two things you need to know when choosing this way of initializing you
 
 1. Rhino will __not__ change your working directory. You need to either
 open a new R session in your new application directory or manually change the working directory.
+```r
+# In R console...
+setwd("./RhinoApplication")
+```
+
 2. Rhino relies on options added to the projects `.Rprofile` file.
 The most robust way to make sure it was correctly sourced is to simply restart the R session.
 
-```r
-# In R console...
 
-setwd("./RhinoApplication")
-```
 
 ----
 
@@ -355,7 +356,7 @@ server <- function(id) {
 ## Calling the second module
 
 As we did before, we need to call the new module in the `main.R` file:
-  
+
 ```r
 # app/main.R
 
@@ -365,7 +366,7 @@ box::use(
 
 box::use(
   app/view/chart,
-  app/view/table,
+  app/view/table
 )
 
 #' @export
