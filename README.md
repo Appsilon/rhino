@@ -22,7 +22,9 @@ configuration management with config, Sass and JavaScript bundling with ES6 supp
 These features are often implemented using well-known packages.
 Rhino brings them all working together out of the box!
 
-Read more: [Why Rhino?](https://appsilon.github.io/rhino/articles/about-why-rhino.html) and [How is Rhino different from ...?](https://appsilon.github.io/rhino/articles/about-how-is-it-different.html)
+Read more:
+[What is Rhino?](https://appsilon.github.io/rhino/articles/explanation-what-is-rhino.html)
+and [Similar projects](https://appsilon.github.io/rhino/articles/explanation-similar-projects.html).
 
 ## Get it
 Stable version:

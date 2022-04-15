@@ -1,14 +1,14 @@
 ---
-title: "About: Why Rhino? What is Rhino?"
+title: "Explanation: What is Rhino?"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{About: Why Rhino? What is Rhino?}
+  %\VignetteIndexEntry{Explanation: What is Rhino?}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
 
 # What is Rhino?
-Rhino lets you build high quality, enterprise-grade Shiny applications at speed. It is an opinionated framework with a focus on best practices and development tools. It allows you to create Shiny apps "The Appsilon Way"  - like a fullstack software engineer: apply best software engineering practices, modularize your code, test it well, make UI beautiful and think about adoption from the very beginning. 
+Rhino lets you build high quality, enterprise-grade Shiny applications at speed. It is an opinionated framework with a focus on best practices and development tools. It allows you to create Shiny apps "The Appsilon Way"  - like a fullstack software engineer: apply best software engineering practices, modularize your code, test it well, make UI beautiful and think about adoption from the very beginning.
 
 Rhino started as a series internal projects at Appsilon aiming to:
 
@@ -19,7 +19,7 @@ Rhino started as a series internal projects at Appsilon aiming to:
 It has since evolved into an R package that we are now sharing with the Shiny community.
 
 # Why Rhino?
-Why Rhino? Because Rhino helps you build Shiny apps faster, while making them more reliable and easier to maintain. It bundles in a coherent way a set of tools and practices that are beneficial for most Shiny applications, especially in enterprise. 
+Why Rhino? Because Rhino helps you build Shiny apps faster, while making them more reliable and easier to maintain. It bundles in a coherent way a set of tools and practices that are beneficial for most Shiny applications, especially in enterprise.
 
 You may want to use Rhino if:
 
@@ -31,4 +31,4 @@ You may want to use Rhino if:
 
 # Why not use Golem, Leprechaun?
 Golem is a great package, and we believe it is a good fit for many developers. Choose whichever works best for you and your project!
-You can learn more about the differences in [How is Rhino different from ...?](articles/about-how-is-it-different.html). 
+You can learn more about the differences in [How is Rhino different from ...?](articles/about-how-is-it-different.html).

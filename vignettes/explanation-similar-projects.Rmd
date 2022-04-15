@@ -1,8 +1,8 @@
 ---
-title: "About: How is Rhino different from ...?"
+title: "Explanation: Similar projects"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{About: How is Rhino different from ...?}
+  %\VignetteIndexEntry{Explanation: Similar projects}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
