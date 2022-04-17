@@ -8,27 +8,56 @@ vignette: >
 ---
 
 # What is Rhino?
-Rhino lets you build high quality, enterprise-grade Shiny applications at speed. It is an opinionated framework with a focus on best practices and development tools. It allows you to create Shiny apps "The Appsilon Way"  - like a fullstack software engineer: apply best software engineering practices, modularize your code, test it well, make UI beautiful and think about adoption from the very beginning.
+Rhino is an R package designed to help you build high quality, enterprise-grade Shiny applications at speed. It allows you to create Shiny apps "The Appsilon Way"  - like a fullstack software engineer: apply best software engineering practices, modularize your code, test it well, make UI beautiful and think about adoption from the very beginning. 
+
+__Disclaimer:__ _Rhino is an opinionated framework with a focus on best practices and development tools._
 
 Rhino started as a series internal projects at Appsilon aiming to:
 
 1. Save time and avoid repetitive tasks: include all best practices we care about from the very beginning of a project.
+
 2. Unify applications’ architecture: provide sensible defaults so that we don’t reinvent the wheel.
+
 3. Automate and codify our existing practices: pass knowledge in the form of code instead of documents and manuals.
 
-It has since evolved into an R package that we are now sharing with the Shiny community.
+It has since evolved into an R package that we are now excited to share with the Shiny community. 
+
+----
 
 # Why Rhino?
-Why Rhino? Because Rhino helps you build Shiny apps faster, while making them more reliable and easier to maintain. It bundles in a coherent way a set of tools and practices that are beneficial for most Shiny applications, especially in enterprise.
+Because Rhino helps you build Shiny apps faster, while making them more reliable and easier to maintain. It bundles in a coherent way a set of tools and practices that are beneficial for most Shiny applications, especially in enterprise.
 
 You may want to use Rhino if:
 
 1. You need a nested files structure that will handle a bigger application.
+
 2. You want to follow a complete set of solutions for typical problems, avoid "reinventing the wheel"
+
 3. You’d like to have a scalable, modularized application, with separation of responsibility, and would like to follow a suggested approach to that (box, Shiny modules, view / logic separation).
+
 4. You want to save time and avoid repetitive tasks: quickly start an app with a set of preconfigured development tools (linters, CI, Cypress, logging, Sass and JS building)
+
 5. You are building an application for production use in enterprise - you need to make sure it’s highly maintainable and reliable in the long term.
 
-# Why not use Golem, Leprechaun?
-Golem is a great package, and we believe it is a good fit for many developers. Choose whichever works best for you and your project!
-You can learn more about the differences in [Similar projects](articles/explanation-similar-projects.html).
+----
+
+# Similar projects
+Rhino is not the first project of its kind aimed at helping the Shiny community to enhance the structure of their applications. We believe that each of these has value, and it is up to the developer to decide what is best for them in their project. 
+<!-- Rhino does not attempt to replace Golem - we believe both have perfect use cases.  -->
+
+
+How Rhino is different from ...?
+
+- **golem:** Rhino apps are not R packages. Rhino puts more emphasis on development tools, clean configuration and minimal boilerplate and tries to provide default solutions for typical problems and questions in these areas.
+
+
+- **leprechaun:** Leprechaun works by scaffolding Shiny apps, without adding dependencies. Rhino minimizes generated code and aims to provide a complete foundation for building Shiny apps ready for deployment in enterprise, so that you can focus on application’s logic and user experience.
+
+
+- **devtools:** devtools streamlines packages development. Rhino is a complete framework for building Shiny apps. Rhino features are interdependent (e.g. coverage and unit tests) and cannot be used without making the app into basic Rhino structure.
+
+
+- **usethis:** usethis adds independent code snippers you ask it to. Rhino is a complete framework for building Shiny apps. Your app is designed to call Rhino functions instead of having them insert code into your project.
+
+
+
