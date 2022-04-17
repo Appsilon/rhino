@@ -7,11 +7,28 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 ---
 
+<style>
+
+.app-preview {
+
+  margin: 1.5em 0.75em;
+  padding: 0.25em;
+  box-shadow:
+    0 3.9px 4.6px rgba(0, 0, 0, 0.08),
+    0 12.3px 8.4px rgba(0, 0, 0, 0.056),
+    0 18.8px 19.2px rgba(0, 0, 0, 0.037),
+    0 22px 40px rgba(0, 0, 0, 0.019);
+
+}
+
+</style>
+
+
 # Setup
   
 ## How to install Rhino?
   
-To get started, the first thing you will need to install Rhino itself:
+To get started, the first thing you will need is to install Rhino itself:
   
 ```r
 install.packages("rhino")
@@ -42,11 +59,10 @@ by running `rhino::init()` function or by using the RStudio Create Project funct
 
 ## Create an application using the RStudio wizard
 
-If you use RStudio, probably the easiest way to create a new Rhino application is
-to simply use Create New Project feature. Once Rhino is installed, it will be
+If you use RStudio, probably the easiest way to create a new Rhino application is to simply use Create New Project feature. Once Rhino is installed, it will be
 automatically added as one of the options in RStudio:
 
-Choose it, provide your brand new project name and you are ready to go.
+Choose it, input the new project name and you are ready to go.
 
 ![](images/basic_tutorial/rstudio_wizard.png)
 
@@ -63,7 +79,6 @@ There are two things you need to know when choosing this way of initializing you
 1. Rhino will __not__ change your working directory. You need to either
 open a new R session in your new application directory or manually change the working directory.
 ```r
-# In R console...
 setwd("./RhinoApplication")
 ```
 
@@ -111,14 +126,16 @@ If you want to know more about it, check [this](https://appsilon.github.io/rhino
 Now, once you are all set up, let's run it:
   
 ```r
-# In R console
-
 shiny::shinyAppDir(".")
 ```
 
 And here is what you should be seeing right now:
   
+<div class='app-preview'>
+  
 ![](images/basic_tutorial/init_application.png)
+
+</div>
 
 
 # Add your first module
@@ -320,7 +337,11 @@ in `box::use` - simply add `tagList` to the list of imported functions.
   
 Finally, when you run your application, you should see something similar to this:
   
+<div class='app-preview'>
+
 ![](images/basic_tutorial/chart.png)
+
+</div>
 
 # Add a second module
 
@@ -521,7 +542,10 @@ server <- function(id, data) {
 
 The application should look similar to this:
   
+<div class='app-preview'>
+
 ![](images/basic_tutorial/table_1.png)
+</div>
 
 # Add logic
 
@@ -592,8 +616,12 @@ server <- function(id, data) {
 ```
 
 When you run the application, you should see something similar to this:
-  
+
+<div class='app-preview'>
+
 ![](images/basic_tutorial/table_2.png)
+
+</div>
 
 You can notice, that table is arranged by the Black Rhino population.
 It would make sense to change it to Year using `dplyr::arrange`.
@@ -621,8 +649,12 @@ transform_data <- function(data) {
 ```
 
 The result looks much more understandable:
-  
+
+<div class='app-preview'>
+
 ![](images/basic_tutorial/table_3.png)
+
+</div>
 
 There is still one element that can be improved. If you check the X-axis in the chart,
 values contain a comma. It's the default behavior for integers, but this is a year!
@@ -689,8 +721,12 @@ server <- function(id, data) {
 ```
 
 It should now look better:
-  
+
+<div class='app-preview'>
+
 ![](images/basic_tutorial/chart_2.png)
+
+</div>
 
 # Add custom styles
 
@@ -843,8 +879,12 @@ rhino::build_sass()
 ```
 
 Now, after running the application you should see something similar to this:
-  
+
+<div class='app-preview'>
+
 ![](images/basic_tutorial/styles_1.png)
+
+</div>
 
 It is worth noting, that you don't need to add `app/static/app.min.css` to
 your application header - Rhino does that for you.
@@ -911,8 +951,12 @@ rhino::build_sass()
 ```
 
 The result should look similar to this:
-  
+
+<div class='app-preview'>
+
 ![](images/basic_tutorial/styles_2.png)
+
+</div>
 
 ----
   
@@ -995,8 +1039,12 @@ h1 {
 Remember to rebuild Sass with `rhino::build_sass()`!
   
 You should now see a button with a question mark in the top right corner of the application:
-  
+
+<div class='app-preview'>
+
 ![](images/basic_tutorial/js_1.png)
+
+</div>
 
 Now, it's time for writing the JavaScript code that should show the popup with a message.
 All JS code should be stored in the `app/js` directory. You already have the first (empty)
@@ -1062,8 +1110,12 @@ ui <- function(id) {
 You have probably noticed the second difference between the classic Shiny approach and the one used in Rhino. All exported JS functions are now available under `App` (same as any other JavaScript function from a library, e.g. `Math.round`).
 
 Now, if you run the application and click the button, you should see something like this:
-  
+
+<div class='app-preview'>
+
 ![](images/basic_tutorial/js_2.png)
+
+</div>
 
 ----
   
