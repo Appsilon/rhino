@@ -29,6 +29,10 @@ link_root_fs <- function() {
   })
 }
 
+is_windows <- function() {
+  Sys.info()[["sysname"]] == "Windows"
+}
+
 add_node <- function(clean = FALSE) {
   if (clean && fs::dir_exists(node_path())) {
     fs::dir_delete(node_path())
@@ -36,7 +40,7 @@ add_node <- function(clean = FALSE) {
 
   copy_template("node", node_path())
   withr::with_dir(node_path(), {
-    if (Sys.info()[["sysname"]] == "Windows") link_root_mklink()
+    if (is_windows()) link_root_mklink()
     else link_root_fs()
   })
 }
