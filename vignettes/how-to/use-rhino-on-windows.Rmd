@@ -9,4 +9,4 @@ vignette: >
 
 You can use JavaScript & Sass tools on Windows 10.
 You will need to [install Node.js and yarn](https://go.appsilon.com/rhino-system-dependencies)
-and enable [Developer Mode](https://consumer.huawei.com/en/support/content/en-us15594140/).
+and enable [Developer Mode](https://docs.microsoft.com/en-us/windows/apps/get-started/enable-your-device-for-development#active-developer-mode).
