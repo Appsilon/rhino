@@ -165,7 +165,7 @@ To do that, add another `box::use` section in your `app/main.R` file:
 # app/main.R
 
 box::use(
-  app/view/chart
+  ./view/chart
 )
 
 ...
@@ -182,7 +182,7 @@ box::use(
 )
 
 box::use(
-  app/view/chart
+  ./view/chart
 )
 
 #' @export
