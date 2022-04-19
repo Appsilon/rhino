@@ -1,43 +1,50 @@
 template:
+  bootstrap: 5
+  bootswatch: pulse
+  bslib:
+    pkgdown-nav-height: 100px
   params:
-    bootswatch: yeti
     ganalytics: G-DL2H66RTY1
 
 navbar:
-  type: inverse
   structure:
     left: [tutorial, explanation, how-to-guides, reference]
   components:
     tutorial:
       text: Tutorial
-      href: articles/tutorial-create-your-first-rhino-app.html
+      href: articles/tutorial/create-your-first-rhino-app.html
     explanation:
       text: Explanation
       menu:
+        - text: What is Rhino?
+          href: articles/explanation/what-is-rhino.html
+        - text: Similar projects
+          href: articles/explanation/similar-projects.html
         - text: Application structure
-          href: articles/explanation-application-structure.html
+          href: articles/explanation/application-structure.html
         - text: Box modules
-          href: articles/explanation-box-modules.html
+          href: articles/explanation/box-modules.html
         - text: Renv configuration
-          href: articles/explanation-renv-configuration.html
+          href: articles/explanation/renv-configuration.html
         - text: Node.js - JavaScript and Sass tools
-          href: articles/explanation-node-js-javascript-and-sass-tools.html
+          href: articles/explanation/node-js-javascript-and-sass-tools.html
     how-to-guides:
       text: How-to Guides
       menu:
         - text: Migrate app to Rhino
-          href: articles/how-to-migrate-app-to-rhino.html
+          href: articles/how-to/migrate-app-to-rhino.html
         - text: Write R code
-          href: articles/how-to-write-r-code.html
+          href: articles/how-to/write-r-code.html
         - text: Write JavaScript code
-          href: articles/how-to-write-javascript-code.html
+          href: articles/how-to/write-javascript-code.html
         - text: Use static files
-          href: articles/how-to-use-static-files.html
+          href: articles/how-to/use-static-files.html
         - text: Manage R dependencies
-          href: articles/how-to-manage-r-dependencies.html
+          href: articles/how-to/manage-r-dependencies.html
         - text: Keep multiple apps in a single repository
-          href: articles/how-to-keep-multiple-apps-in-a-single-repository.html
-
+          href: articles/how-to/keep-multiple-apps-in-a-single-repository.html
+        - text: Use Rhino on Windows
+          href: articles/how-to/use-rhino-on-windows.html
 
 reference:
 - title: Project initialization
@@ -47,6 +54,7 @@ reference:
 
 - title: R development
   contents:
+  - log
   - format_r
   - lint_r
   - test_r

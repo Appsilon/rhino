@@ -39,5 +39,4 @@ if (interactive()) {
   # Build the `app/js/index.js` file into `app/static/js/app.min.js`.
   build_js()
 }
-
 }

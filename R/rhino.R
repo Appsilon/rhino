@@ -52,10 +52,32 @@ copy_rproj <- function() {
   )
 }
 
-system_cmd_version <- function(cmd) {
+system_cmd_version <- function(cmd, throw_error = FALSE) {
   tryCatch(
     system2(cmd, "--version", stdout = TRUE, stderr = TRUE),
-    error = function(e) e$message
+    error = function(e) {
+      if (isTRUE(throw_error)) cli::cli_abort(e)
+
+      e$message
+    }
+  )
+}
+
+check_system_dependency <- function(
+  cmd,
+  dependency_name,
+  documentation_url,
+  additional_message = NULL
+) {
+  message <- c(
+    glue::glue("Do you have {dependency_name} installed?"),
+    glue::glue("Check {documentation_url} for details."),
+    additional_message
+  )
+
+  tryCatch(
+    system_cmd_version(cmd, TRUE),
+    error = function(e) cli::cli_abort(message)
   )
 }
 
@@ -70,7 +92,6 @@ system_cmd_version <- function(cmd) {
 #'   # Print diagnostic information.
 #'   diagnostics()
 #' }
-#'
 #' @export
 diagnostics <- function() {
   writeLines(c(

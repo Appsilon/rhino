@@ -1,6 +1,7 @@
 configure_logger <- function() {
-  log_level <- Sys.getenv("LOG_LEVEL", unset = "INFO")
-  log_file <- Sys.getenv("LOG_FILE", unset = NA)
+  config <- config::get()
+  log_level <- config$rhino_log_level
+  log_file <- config$rhino_log_file
 
   logger::log_threshold(log_level)
   if (!is.na(log_file)) {
@@ -86,7 +87,6 @@ with_head_tags <- function(ui) {
 #'   # Your `app.R` should contain nothing but this single call:
 #'   rhino::app()
 #' }
-#'
 #' @export
 app <- function() {
   configure_logger()

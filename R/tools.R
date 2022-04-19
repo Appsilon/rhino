@@ -9,10 +9,21 @@
 #'   # Run all unit tests in the `tests/testthat` directory.
 #'   test_r()
 #' }
-#'
 #' @export
 test_r <- function() {
   testthat::test_dir(fs::path("tests", "testthat"))
+}
+
+lint_dir <- function(path) {
+  if (interactive()) {
+    message(cli::format_inline("Linting {.file {path}}"), appendLF = FALSE)
+  }
+  lints <- lintr::lint_dir(path)
+  # Return lints with full relative paths, e.g. `app/main.R` instead of just `main.R`.
+  for (i in seq_along(lints)) {
+    lints[[i]]$filename <- fs::path(path, lints[[i]]$filename)
+  }
+  lints
 }
 
 #' Lint R
@@ -22,30 +33,35 @@ test_r <- function() {
 #'
 #' The linter rules can be adjusted in the `.lintr` file.
 #'
-#' @param accepted_errors Number of accepted style errors.
+#' You can set the maximum number of accepted style errors
+#' with the `legacy_max_lint_r_errors` option in `rhino.yml`.
+#' This can be useful when inheriting legacy code with multiple styling issues.
+#'
 #' @return None. This function is called for side effects.
 #'
-#' @examples
-#' if (interactive()) {
-#'   # Lint all R sources in the `app` and `tests/testthat` directories.
-#'   lint_r()
-#'
-#'   # Accept up to 10 errors:
-#'   lint_r(accepted_errors = 10)
-#' }
-#'
 #' @export
-lint_r <- function(accepted_errors = 0) {
+lint_r <- function() {
+  max_errors <- read_config()$legacy_max_lint_r_errors
+  if (is.null(max_errors)) max_errors <- 0
+
   lints <- c(
-    lintr::lint_dir("app"),
-    lintr::lint_dir(fs::path("tests", "testthat"))
+    lint_dir("app"),
+    lint_dir(fs::path("tests", "testthat"))
   )
+  # Applying `c()` removes the `lints` class which is responsible for pretty-printing.
+  class(lints) <- "lints"
 
-  style_errors <- length(lints)
-
-  if (style_errors > accepted_errors) {
+  errors <- length(lints)
+  if (errors == 0) {
+    cli::cli_alert_success("No style errors found.")
+  } else {
     print(lints)
-    cli::cli_abort("Number of style errors: {style_errors}.")
+    message <- c(
+      "Found {errors} style error{?s}.",
+      i = if (max_errors > 0) "At most {max_errors} error{?s} allowed."
+    )
+    if (errors <= max_errors) cli::cli_inform(message)
+    else cli::cli_abort(message, call = NULL)
   }
 }
 
@@ -73,7 +89,6 @@ rhino_style <- function() {
 #'   # Format all files in a directory.
 #'   format_r("app/view")
 #' }
-#'
 #' @export
 format_r <- function(paths) {
   for (path in paths) {
@@ -121,7 +136,6 @@ format_r <- function(paths) {
 #'   # Build the `app/js/index.js` file into `app/static/js/app.min.js`.
 #'   build_js()
 #' }
-#'
 #' @export
 build_js <- function(watch = FALSE) {
   if (watch) yarn("build-js", "--watch", status_ok = 2)
@@ -157,7 +171,6 @@ build_js <- function(watch = FALSE) {
 #'   # Lint the JavaScript sources in the `app/js` directory.
 #'   lint_js()
 #' }
-#'
 #' @export
 # nolint end
 lint_js <- function(fix = FALSE) {
@@ -188,25 +201,40 @@ lint_js <- function(fix = FALSE) {
 #'   # Build the `app/styles/main.scss` file into `app/static/css/app.min.css`.
 #'   build_sass()
 #' }
-#'
 #' @export
 build_sass <- function(watch = FALSE) {
   config <- read_config()$sass
   if (config == "node") {
-    if (watch) yarn("build-sass", "--watch", status_ok = 2)
-    else yarn("build-sass")
+    tryCatch(
+      build_sass_node(watch = watch),
+      error = function(error) {
+        cli::cli_abort(c(
+          error$message, error$body,
+          i = "If you can't use Node.js and yarn, try using sass: 'r' configuration."
+        ))
+      }
+    )
   } else if (config == "r") {
     if (watch) {
       cli::cli_alert_warning("The {.arg watch} argument is only supported when using Node.")
     }
-    output_dir <- fs::path("app", "static", "css")
-    fs::dir_create(output_dir)
-    sass::sass(
-      input = sass::sass_file(fs::path("app", "styles", "main.scss")),
-      output = fs::path(output_dir, "app.min.css"),
-      cache = FALSE
-    )
+    build_sass_r()
   }
+}
+
+build_sass_node <- function(watch = FALSE) {
+  if (watch) yarn("build-sass", "--watch", status_ok = 2)
+  else yarn("build-sass")
+}
+
+build_sass_r <- function() {
+  output_dir <- fs::path("app", "static", "css")
+  fs::dir_create(output_dir)
+  sass::sass(
+    input = sass::sass_file(fs::path("app", "styles", "main.scss")),
+    output = fs::path(output_dir, "app.min.css"),
+    cache = FALSE
+  )
 }
 
 #' Lint Sass
@@ -222,7 +250,6 @@ build_sass <- function(watch = FALSE) {
 #'   # Lint the Sass sources in the `app/styles` directory.
 #'   lint_sass()
 #' }
-#'
 #' @export
 lint_sass <- function(fix = FALSE) {
   yarn("lint-sass", if (fix) "--fix")
@@ -242,7 +269,6 @@ lint_sass <- function(fix = FALSE) {
 #'   # Run the end-to-end tests in the `tests/cypress` directory.
 #'   test_e2e()
 #' }
-#'
 #' @export
 test_e2e <- function(interactive = FALSE) {
   command <- ifelse(isTRUE(interactive), "test-e2e-interactive", "test-e2e")
