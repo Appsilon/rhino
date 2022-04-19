@@ -87,7 +87,6 @@ with_head_tags <- function(ui) {
 #'   # Your `app.R` should contain nothing but this single call:
 #'   rhino::app()
 #' }
-#'
 #' @export
 app <- function() {
   configure_logger()

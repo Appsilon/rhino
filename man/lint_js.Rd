@@ -36,5 +36,4 @@ if (interactive()) {
   # Lint the JavaScript sources in the `app/js` directory.
   lint_js()
 }
-
 }

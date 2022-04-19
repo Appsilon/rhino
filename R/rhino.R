@@ -92,7 +92,6 @@ check_system_dependency <- function(
 #'   # Print diagnostic information.
 #'   diagnostics()
 #' }
-#'
 #' @export
 diagnostics <- function() {
   writeLines(c(
