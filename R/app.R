@@ -6,19 +6,24 @@ configure_logger <- function() {
   if (!is.null(log_level)) {
     logger::log_threshold(log_level)
   } else {
-    cli::cli_alert_warning("Skipping log level configuration, 'rhino_log_level' field not found in config.")
+    cli::cli_alert_warning(
+      "Skipping log level configuration, 'rhino_log_level' field not found in config."
+    )
   }
 
   if (!is.null(log_file)) {
     if (!is.na(log_file)) {
-      # Use an absolute path to avoid the effects of changing the working directory when the app runs.
+      # Use an absolute path to avoid the effects of changing the working directory when the app
+      # runs.
       if (!fs::is_absolute_path(log_file)) {
         log_file <- fs::path_wd(log_file)
       }
       logger::log_appender(logger::appender_file(log_file))
     }
   } else {
-    cli::cli_alert_warning("Skipping log file configuration, 'rhino_log_file' field not found in config.")
+    cli::cli_alert_warning(
+      "Skipping log file configuration, 'rhino_log_file' field not found in config."
+    )
   }
 }
 
