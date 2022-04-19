@@ -27,5 +27,4 @@ if (interactive()) {
   # Format all files in a directory.
   format_r("app/view")
 }
-
 }

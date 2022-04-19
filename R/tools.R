@@ -9,7 +9,6 @@
 #'   # Run all unit tests in the `tests/testthat` directory.
 #'   test_r()
 #' }
-#'
 #' @export
 test_r <- function() {
   testthat::test_dir(fs::path("tests", "testthat"))
@@ -90,7 +89,6 @@ rhino_style <- function() {
 #'   # Format all files in a directory.
 #'   format_r("app/view")
 #' }
-#'
 #' @export
 format_r <- function(paths) {
   for (path in paths) {
@@ -138,7 +136,6 @@ format_r <- function(paths) {
 #'   # Build the `app/js/index.js` file into `app/static/js/app.min.js`.
 #'   build_js()
 #' }
-#'
 #' @export
 build_js <- function(watch = FALSE) {
   if (watch) yarn("build-js", "--watch", status_ok = 2)
@@ -174,7 +171,6 @@ build_js <- function(watch = FALSE) {
 #'   # Lint the JavaScript sources in the `app/js` directory.
 #'   lint_js()
 #' }
-#'
 #' @export
 # nolint end
 lint_js <- function(fix = FALSE) {
@@ -205,7 +201,6 @@ lint_js <- function(fix = FALSE) {
 #'   # Build the `app/styles/main.scss` file into `app/static/css/app.min.css`.
 #'   build_sass()
 #' }
-#'
 #' @export
 build_sass <- function(watch = FALSE) {
   config <- read_config()$sass
@@ -255,7 +250,6 @@ build_sass_r <- function() {
 #'   # Lint the Sass sources in the `app/styles` directory.
 #'   lint_sass()
 #' }
-#'
 #' @export
 lint_sass <- function(fix = FALSE) {
   yarn("lint-sass", if (fix) "--fix")
@@ -275,7 +269,6 @@ lint_sass <- function(fix = FALSE) {
 #'   # Run the end-to-end tests in the `tests/cypress` directory.
 #'   test_e2e()
 #' }
-#'
 #' @export
 test_e2e <- function(interactive = FALSE) {
   command <- ifelse(isTRUE(interactive), "test-e2e-interactive", "test-e2e")

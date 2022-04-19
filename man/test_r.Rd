@@ -17,5 +17,4 @@ if (interactive()) {
   # Run all unit tests in the `tests/testthat` directory.
   test_r()
 }
-
 }

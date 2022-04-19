@@ -17,5 +17,4 @@ if (interactive()) {
   # Print diagnostic information.
   diagnostics()
 }
-
 }
