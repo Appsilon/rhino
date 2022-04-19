@@ -1,35 +1,17 @@
-.navbar-inverse {
-  background-color: #0099f9;
+.navbar {
+  background-color: #4747B1 !important;
 }
 
-.navbar-inverse .dropdown-menu {
-  background-color: #efefef;
+#navbar > ul.navbar-nav.me-auto > li.nav-item.dropdown a:hover {
+  background-color: #4747B1 !important;
 }
 
-.navbar-inverse .dropdown-menu > li > a:hover,
-.navbar-inverse .dropdown-menu > li.active > a,
-.navbar-inverse .dropdown-menu > li.active > a:hover {
-  background-color: #fff;
+.navbar-dark .navbar-nav .active>.nav-link {
+  background-color: #4747B1 !important;
+  color: #fff;
 }
 
-.navbar-inverse .dropdown-menu > li > a,
-.navbar-inverse .dropdown-menu > li > a:focus,
-.navbar-inverse .dropdown-menu > li.active > a,
-.navbar-inverse .dropdown-menu > li.active > a:hover,
-.navbar-inverse .dropdown-menu > li.active > a:focus {
-  color: #15354a;
-}
-
-.navbar-inverse .navbar-nav > li > a:hover,
-.navbar-inverse .navbar-nav > li > a:focus,
-.navbar-inverse .navbar-nav > li.open > a,
-.navbar-inverse .navbar-nav > li.open > a:hover,
-.navbar-inverse .navbar-nav > li.open > a:focus {
-  background-color: #47abfd;
-}
-
-.navbar-inverse .navbar-nav > li.active > a,
-.navbar-inverse .navbar-nav > li.active > a:hover,
-.navbar-inverse .navbar-nav > li.active > a:focus {
-  background-color: #15354a;
+.navbar-dark input[type="search"] {
+  background-color: #fff !important;
+  color: #444 !important;
 }

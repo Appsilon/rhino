@@ -4,7 +4,8 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="description" content="A framework that supports creating and extending enterprise Shiny applications using best practices.">
 <title>A Framework for Enterprise Shiny Applications • rhino</title>
 <!-- favicons --><link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
 <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
@@ -12,12 +13,11 @@
 <link rel="apple-touch-icon" type="image/png" sizes="120x120" href="apple-touch-icon-120x120.png">
 <link rel="apple-touch-icon" type="image/png" sizes="76x76" href="apple-touch-icon-76x76.png">
 <link rel="apple-touch-icon" type="image/png" sizes="60x60" href="apple-touch-icon-60x60.png">
-<!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script><!-- Bootstrap --><link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.4.0/yeti/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script><!-- bootstrap-toc --><link rel="stylesheet" href="bootstrap-toc.css">
-<script src="bootstrap-toc.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
+<script src="deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="deps/bootstrap-5.1.0/bootstrap.min.css" rel="stylesheet">
+<script src="deps/bootstrap-5.1.0/bootstrap.bundle.min.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
-<!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="pkgdown.css" rel="stylesheet">
-<script src="pkgdown.js"></script><link href="extra.css" rel="stylesheet">
+<!-- bootstrap-toc --><script src="https://cdn.rawgit.com/afeld/bootstrap-toc/v1.0.1/dist/bootstrap-toc.min.js"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- search --><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- pkgdown --><script src="pkgdown.js"></script><link href="extra.css" rel="stylesheet">
 <meta property="og:title" content="A Framework for Enterprise Shiny Applications">
 <meta property="og:description" content="A framework that supports creating and extending enterprise Shiny applications using best practices.">
 <!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
@@ -31,288 +31,122 @@
   gtag('config', 'G-DL2H66RTY1');
 </script>
 </head>
-<body data-spy="scroll" data-target="#toc">
+<body>
+    <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
     
 
-    <div class="container template-home">
-      <header><div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-  <div class="container">
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-      <span class="navbar-brand">
-        <a class="navbar-link" href="index.html">rhino</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.8.0</span>
-      </span>
-    </div>
+    <nav class="navbar fixed-top navbar-dark navbar-expand-lg bg-primary"><div class="container">
+    
+    <a class="navbar-brand me-2" href="index.html">rhino</a>
 
-    <div id="navbar" class="navbar-collapse collapse">
-      <ul class="nav navbar-nav">
-<li>
-  <a href="articles/tutorial-create-your-first-rhino-app.html">Tutorial</a>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.0</small>
+
+    
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div id="navbar" class="collapse navbar-collapse ms-3">
+      <ul class="navbar-nav me-auto">
+<li class="nav-item">
+  <a class="nav-link" href="articles/tutorial/create-your-first-rhino-app.html">Tutorial</a>
 </li>
-<li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-    Explanation
-     
-    <span class="caret"></span>
-  </a>
-  <ul class="dropdown-menu" role="menu">
-<li>
-      <a href="articles/explanation-application-structure.html">Application structure</a>
-    </li>
-    <li>
-      <a href="articles/explanation-box-modules.html">Box modules</a>
-    </li>
-    <li>
-      <a href="articles/explanation-renv-configuration.html">Renv configuration</a>
-    </li>
-    <li>
-      <a href="articles/explanation-node-js-javascript-and-sass-tools.html">Node.js - JavaScript and Sass tools</a>
-    </li>
-  </ul>
-</li>
-<li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-    How-to Guides
-     
-    <span class="caret"></span>
-  </a>
-  <ul class="dropdown-menu" role="menu">
-<li>
-      <a href="articles/how-to-migrate-app-to-rhino.html">Migrate app to Rhino</a>
-    </li>
-    <li>
-      <a href="articles/how-to-write-r-code.html">Write R code</a>
-    </li>
-    <li>
-      <a href="articles/how-to-write-javascript-code.html">Write JavaScript code</a>
-    </li>
-    <li>
-      <a href="articles/how-to-use-static-files.html">Use static files</a>
-    </li>
-    <li>
-      <a href="articles/how-to-manage-r-dependencies.html">Manage R dependencies</a>
-    </li>
-    <li>
-      <a href="articles/how-to-keep-multiple-apps-in-a-single-repository.html">Keep multiple apps in a single repository</a>
-    </li>
-  </ul>
-</li>
-<li>
-  <a href="reference/index.html">Reference</a>
-</li>
-      </ul>
-<ul class="nav navbar-nav navbar-right">
-<li>
-  <a href="https://github.com/Appsilon/rhino/" class="external-link">
-    <span class="fab fa-github fa-lg"></span>
-     
-  </a>
-</li>
-      </ul>
-</div>
-<!--/.nav-collapse -->
+<li class="nav-item dropdown">
+  <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-explanation">Explanation</a>
+  <div class="dropdown-menu" aria-labelledby="dropdown-explanation">
+    <a class="dropdown-item" href="articles/explanation/what-is-rhino.html">What is Rhino?</a>
+    <a class="dropdown-item" href="articles/explanation/similar-projects.html">Similar projects</a>
+    <a class="dropdown-item" href="articles/explanation/application-structure.html">Application structure</a>
+    <a class="dropdown-item" href="articles/explanation/box-modules.html">Box modules</a>
+    <a class="dropdown-item" href="articles/explanation/renv-configuration.html">Renv configuration</a>
+    <a class="dropdown-item" href="articles/explanation/node-js-javascript-and-sass-tools.html">Node.js - JavaScript and Sass tools</a>
   </div>
-<!--/.container -->
+</li>
+<li class="nav-item dropdown">
+  <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-how-to-guides">How-to Guides</a>
+  <div class="dropdown-menu" aria-labelledby="dropdown-how-to-guides">
+    <a class="dropdown-item" href="articles/how-to/migrate-app-to-rhino.html">Migrate app to Rhino</a>
+    <a class="dropdown-item" href="articles/how-to/write-r-code.html">Write R code</a>
+    <a class="dropdown-item" href="articles/how-to/write-javascript-code.html">Write JavaScript code</a>
+    <a class="dropdown-item" href="articles/how-to/use-static-files.html">Use static files</a>
+    <a class="dropdown-item" href="articles/how-to/manage-r-dependencies.html">Manage R dependencies</a>
+    <a class="dropdown-item" href="articles/how-to/keep-multiple-apps-in-a-single-repository.html">Keep multiple apps in a single repository</a>
+    <a class="dropdown-item" href="articles/how-to/use-rhino-on-windows.html">Use Rhino on Windows</a>
+  </div>
+</li>
+<li class="nav-item">
+  <a class="nav-link" href="reference/index.html">Reference</a>
+</li>
+      </ul>
+<form class="form-inline my-2 my-lg-0" role="search">
+        <input type="search" class="form-control me-sm-2" aria-label="Toggle navigation" name="search-input" data-search-index="search.json" id="search-input" placeholder="Search for" autocomplete="off">
+</form>
+
+      <ul class="navbar-nav">
+<li class="nav-item">
+  <a class="external-link nav-link" href="https://github.com/Appsilon/rhino/" aria-label="github">
+    <span class="fab fa fab fa-github fa-lg"></span>
+     
+  </a>
+</li>
+      </ul>
 </div>
-<!--/.navbar -->
 
-      
-
-      </header><div class="row">
-  <div class="contents col-md-9">
-
-<p><em><strong>Disclaimer: Rhino is under an active development. Before version 1.0.0 release Rhino API might change.</strong></em></p>
-<div class="section level1">
+    
+  </div>
+</nav><div class="container template-home">
+<div class="row">
+  <main id="main" class="col-md-9"><div class="section level1">
 <div class="page-header"><h1 id="rhino-">Rhino <a href="https://appsilon.github.io/rhino/" class="external-link"><img src="reference/figures/rhino.png" align="right" alt="Rhino logo" style="height: 140px;"></a>
 <a class="anchor" aria-label="anchor" href="#rhino-"></a>
 </h1></div>
 <blockquote>
-<p><em>Build enterprise-grade <a href="https://shiny.rstudio.com/" class="external-link">Shiny</a> apps. Best practices included.</em></p>
+<p><em>Build high quality, enterprise-grade <a href="https://shiny.rstudio.com/" class="external-link">Shiny</a> apps at speed.</em></p>
 </blockquote>
 <!-- badges: start -->
 
 <div class="section level2">
-<h2 id="contents">Contents<a class="anchor" aria-label="anchor" href="#contents"></a>
+<h2 id="why-rhino">Why Rhino?<a class="anchor" aria-label="anchor" href="#why-rhino"></a>
 </h2>
-<ul>
+<p>Rhino allows you to create Shiny apps <strong>The Appsilon Way</strong> - like a fullstack software engineer. Apply best software engineering practices, modularize your code, test it well, make UI beautiful, and think about user adoption from the very beginning. Rhino is an opinionated framework with a focus on software engineering practices and development tools.</p>
+<p>Rhino supports your work in 3 main areas:</p>
+<ol style="list-style-type: decimal">
 <li>
-<a href="#installation">Installation</a>
-<ul>
-<li><a href="#installing-from-github">Installing from GitHub</a></li>
-</ul>
-</li>
+<strong>Clear code</strong>: scalable app architecture, modularization based on Box and Shiny modules.</li>
 <li>
-<a href="#usage">Usage</a>
-<ul>
+<strong>Quality</strong>: unit tests, E2E tests with Cypress, logging and monitoring, linting.</li>
 <li>
-<a href="#%EF%B8%8F-create-a-shiny-application-from-scratch">🏗️ Create a Shiny Application from Scratch</a>
-<ul>
-<li><a href="#rhino-application-structure">Rhino Application Structure</a></li>
-</ul>
-</li>
-<li><a href="#recycle-migrate-an-existing-shiny-application-to-rhino"><span class="emoji" data-emoji="recycle">♻️</span> Migrate an Existing Shiny Application to Rhino</a></li>
-<li>
-<a href="#wrench-configure-rhino-with-rhinoyml"><span class="emoji" data-emoji="wrench">🔧</span> Configure Rhino with <code>rhino.yml</code></a>
-<ul>
-<li><a href="#rhinoyml-taxonomy"><code>rhino.yml</code> Taxonomy</a></li>
-</ul>
-</li>
-<li><a href="#construction-develop-a-shiny-application-with-rhino"><span class="emoji" data-emoji="construction">🚧</span> Develop a Shiny Application with Rhino</a></li>
-</ul>
-</li>
-<li><a href="#contributing">Contributing</a></li>
-<li><a href="#about">About</a></li>
-</ul>
+<strong>Automation</strong>: project startup, CI with GitHub Actions, dependency management with renv, configuration management with config, Sass and JavaScript bundling with ES6 support via Node.js.</li>
+</ol>
+<p>These features are often implemented using well-known packages. Rhino brings them all working together out of the box!</p>
+<p>Read more: <a href="https://appsilon.github.io/rhino/articles/explanation/what-is-rhino.html" class="external-link">What is Rhino?</a> and <a href="https://appsilon.github.io/rhino/articles/explanation/similar-projects.html" class="external-link">Similar projects</a>.</p>
 </div>
 <div class="section level2">
-<h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
+<h2 id="get-it">Get it<a class="anchor" aria-label="anchor" href="#get-it"></a>
 </h2>
+<p>Stable version:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"rhino"</span><span class="op">)</span></code></pre></div>
-<div class="section level3">
-<h3 id="installing-from-github">Installing from GitHub<a class="anchor" aria-label="anchor" href="#installing-from-github"></a>
-</h3>
-<p>To install latest development version or a specific one, run one of the following commands.</p>
+<p>Development version:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># install.packages("remotes")</span>
-<span class="fu">remotes</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"Appsilon/rhino"</span><span class="op">)</span>
-
-<span class="co"># Installing rhino either from a specific release or a branch requires providing `ref` argument:</span>
-<span class="fu">remotes</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"Appsilon/rhino"</span>, ref <span class="op">=</span> <span class="st">"v0.5.0"</span><span class="op">)</span></code></pre></div>
-</div>
+<code class="sourceCode R"><span class="fu">remotes</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"Appsilon/rhino"</span><span class="op">)</span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="usage">Usage<a class="anchor" aria-label="anchor" href="#usage"></a>
 </h2>
-<div class="section level3">
-<h3 id="️-create-a-shiny-application-from-scratch">🏗️ Create a Shiny Application from Scratch<a class="anchor" aria-label="anchor" href="#%EF%B8%8F-create-a-shiny-application-from-scratch"></a>
-</h3>
-<p>Running <code><a href="reference/init.html">rhino::init()</a></code> will create a following application structure for you. Once that is done simply run <code><a href="https://rdrr.io/pkg/shiny/man/runApp.html" class="external-link">shiny::runApp()</a></code> to start a minimal Rhino application! <span class="emoji" data-emoji="rocket">🚀</span></p>
-<div class="section level4">
-<h4 id="rhino-application-structure">Rhino Application Structure<a class="anchor" aria-label="anchor" href="#rhino-application-structure"></a>
-</h4>
-<pre><code>.
-├── app
-│   ├── js
-│   │   └── index.js
-│   ├── logic
-│   │   └── __init__.R
-│   ├── static
-│   │   └── favicon.ico
-│   ├── styles
-│   │   └── main.scss
-│   ├── view
-│   │   └── __init__.R
-│   └── main.R
-├── tests
-│   ├── cypress
-│   │   └── integration
-│   │       └── app.spec.js
-│   ├── testthat
-│   │   └── test-main.R
-│   └── cypress.json
-├── app.R
-├── app.Rproj
-├── dependencies.R
-├── renv.lock
-└── rhino.yml</code></pre>
-<p>With the structure prepared you can <a href="#wrench-configure-rhino-with-rhinoyml">configure Rhino</a> or jump straight into <a href="#construction-develop-a-shiny-application-with-rhino">development using Rhino</a>!</p>
-<hr>
-</div>
-</div>
-<div class="section level3">
-<h3 id="recycle-migrate-an-existing-shiny-application-to-rhino">
-<span class="emoji" data-emoji="recycle">♻️</span> Migrate an Existing Shiny Application to Rhino<a class="anchor" aria-label="anchor" href="#recycle-migrate-an-existing-shiny-application-to-rhino"></a>
-</h3>
-<p>To migrate an application to Rhino create an application from scratch as described above. Then refer to <a href="https://appsilon.github.io/rhino/reference/init.html#details-1" class="external-link"><code>rhino::init()</code> details section</a> for a recommended approach of proceeding with the migration.</p>
-<hr>
-</div>
-<div class="section level3">
-<h3 id="wrench-configure-rhino-with-rhinoyml">
-<span class="emoji" data-emoji="wrench">🔧</span> Configure Rhino with <code>rhino.yml</code>
-<a class="anchor" aria-label="anchor" href="#wrench-configure-rhino-with-rhinoyml"></a>
-</h3>
-<p>Rhino uses its own <code>rhino.yml</code> config file for preserving your preferences. Currently available options are described in the taxonomy below.</p>
-<div class="section level4">
-<h4 id="rhinoyml-taxonomy">
-<code>rhino.yml</code> Taxonomy<a class="anchor" aria-label="anchor" href="#rhinoyml-taxonomy"></a>
-</h4>
-<div class="sourceCode" id="cb4"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sass</span><span class="kw">:</span><span class="at"> string</span><span class="co">               # required | one of: "node", "r"</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">legacy_entrypoint</span><span class="kw">:</span><span class="at"> string</span><span class="co">  # optional | one of: "app_dir", "source", "box_top_level"</span></span></code></pre></div>
-<div class="section level5">
-<h5 id="sass">
-<code>sass</code><a class="anchor" aria-label="anchor" href="#sass"></a>
-</h5>
-<p>Configures whether <a href="https://sass-lang.com/" class="external-link">SASS</a> should be build using <a href="https://cran.r-project.org/package=sass" class="external-link">R package</a> or <a href="https://www.npmjs.com/package/sass" class="external-link">Node package</a>. The latter provides newest implementation, at a cost of additional system dependencies for development (<code>node</code> and <code>yarn</code>).</p>
-</div>
-<div class="section level5">
-<h5 id="legacy_entrypoint">
-<code>legacy_entrypoint</code><a class="anchor" aria-label="anchor" href="#legacy_entrypoint"></a>
-</h5>
-<p>This setting is useful when migrating an existing Shiny application to Rhino. For more details see <a href="https://appsilon.github.io/rhino/reference/app.html#details-1" class="external-link"><code>rhino::app()</code> details section</a>.</p>
-<hr>
-</div>
-</div>
-</div>
-<div class="section level3">
-<h3 id="construction-develop-a-shiny-application-with-rhino">
-<span class="emoji" data-emoji="construction">🚧</span> Develop a Shiny Application with Rhino<a class="anchor" aria-label="anchor" href="#construction-develop-a-shiny-application-with-rhino"></a>
-</h3>
-<p><em>Section under construction, for now please refer to <a href="https://appsilon.github.io/rhino/reference/index.html" class="external-link">Rhino package reference</a>.</em></p>
-</div>
-</div>
-<div class="section level2">
-<h2 id="contributing">Contributing<a class="anchor" aria-label="anchor" href="#contributing"></a>
-</h2>
-<p>Pull requests are welcome! Please see our <a href="CONTRIBUTING.html">contributing guidelines</a> for more details.</p>
-<table class="table">
-<colgroup>
-<col width="23%">
-<col width="37%">
-<col width="37%">
-<col width="1%">
-</colgroup>
-<thead><tr class="header">
-<th>Tool</th>
-<th>Command</th>
-<th>
-<code>devtools</code> equivalent</th>
-<th>Comment</th>
-</tr></thead>
-<tbody>
-<tr class="odd">
-<td>Unit tests</td>
-<td><code><a href="https://testthat.r-lib.org/reference/test_package.html" class="external-link">testthat::test_local()</a></code></td>
-<td><code>devtools::test()</code></td>
-<td></td>
-</tr>
-<tr class="even">
-<td>Linter</td>
-<td><code><a href="https://rdrr.io/pkg/lintr/man/lint_package.html" class="external-link">lintr::lint_package()</a></code></td>
-<td><code>devtools::lint()</code></td>
-<td></td>
-</tr>
-<tr class="odd">
-<td>
-<code>pkgdown</code> site</td>
-<td><code><a href="https://pkgdown.r-lib.org/reference/build_site.html" class="external-link">pkgdown::build_site()</a></code></td>
-<td><code>devtools::build_site()</code></td>
-<td>If built successfully, the website will be in <code>docs</code> directory.</td>
-</tr>
-</tbody>
-</table>
+<ul>
+<li>Create a new Rhino application with <code><a href="reference/init.html">rhino::init()</a></code>
+</li>
+<li>To learn more, follow the <a href="https://appsilon.github.io/rhino/articles/tutorial/create-your-first-rhino-app.html" class="external-link">Rhino tutorial</a>
+</li>
+<li>To migrate an existing application to Rhino, refer to <a href="https://appsilon.github.io/rhino/reference/init.html#details-1" class="external-link"><code>rhino::init()</code> details section</a>
+</li>
+</ul>
 </div>
 <div class="section level2">
 <h2 id="about">About<a class="anchor" aria-label="anchor" href="#about"></a>
 </h2>
-<p>Rhino is distributed under <a href="https://opensource.org/licenses/LGPL-3.0" class="external-link">LGPL-3.0 license</a>.</p>
-<p>Developed with <span class="emoji" data-emoji="heart">❤️</span> at <a href="https://appsilon.com" class="external-link">Appsilon</a>.</p>
+<p>Rhino is distributed under <a href="https://opensource.org/licenses/LGPL-3.0" class="external-link">LGPL-3.0 license</a>. Developed with <span class="emoji" data-emoji="heart">❤️</span> at <a href="https://appsilon.com" class="external-link">Appsilon</a>.</p>
 <hr>
 <p>Appsilon is the <strong>Full Service Certified RStudio Partner</strong>. Learn more at <a href="https://appsilon.com" class="external-link">appsilon.com</a>.</p>
 <p>Get in touch: <a href="mailto:opensource@appsilon.com" class="email">opensource@appsilon.com</a>.</p>
@@ -320,11 +154,7 @@
 <!-- Links -->
 </div>
 </div>
-
-  </div>
-
-  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
-    <div class="links">
+  </main><aside class="col-md-3"><div class="links">
 <h2 data-toc-skip>Links</h2>
 <ul class="list-unstyled">
 <li><a href="https://cloud.r-project.org/package=rhino" class="external-link">View on CRAN</a></li>
@@ -375,25 +205,24 @@
 </ul>
 </div>
 
-  </div>
+  </aside>
 </div>
 
 
-      <footer><div class="copyright">
+    <footer><div class="pkgdown-footer-left">
   <p></p>
 <p>Developed by Kamil Zyla, Jakub Nowicki, Tymoteusz Makowski, Marek Rogala.</p>
 </div>
 
-<div class="pkgdown">
+<div class="pkgdown-footer-right">
   <p></p>
 <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
 </div>
 
-      </footer>
+    </footer>
 </div>
 
   
-
 
   
 
