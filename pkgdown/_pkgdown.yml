@@ -53,6 +53,7 @@ reference:
 
 - title: R development
   contents:
+  - log
   - format_r
   - lint_r
   - test_r
