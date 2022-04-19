@@ -16,7 +16,8 @@
 #' 1. `rhino_log_level`: The minimum severity of messages to be logged.
 #' 2. `rhino_log_file`: The file to save logs to. If `NA`, standard error stream will be used.
 #'
-#' The log level and file can also be configured
+#' The default `config.yml` file uses `!expr Sys.getenv()`
+#' so that log level and file can also be configured
 #' by setting the `RHINO_LOG_LEVEL` and `RHINO_LOG_FILE` environment variables.
 #'
 #' The functions re-exported by the `log` object are aliases for `{logger}` functions.

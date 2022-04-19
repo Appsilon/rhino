@@ -32,7 +32,8 @@ in the root of your project:
 \item \code{rhino_log_file}: The file to save logs to. If \code{NA}, standard error stream will be used.
 }
 
-The log level and file can also be configured
+The default \code{config.yml} file uses \verb{!expr Sys.getenv()}
+so that log level and file can also be configured
 by setting the \code{RHINO_LOG_LEVEL} and \code{RHINO_LOG_FILE} environment variables.
 
 The functions re-exported by the \code{log} object are aliases for \code{{logger}} functions.
