@@ -23,8 +23,8 @@ These features are often implemented using well-known packages.
 Rhino brings them all working together out of the box!
 
 Read more:
-[What is Rhino?](https://appsilon.github.io/rhino/articles/explanation-what-is-rhino.html)
-and [Similar projects](https://appsilon.github.io/rhino/articles/explanation-similar-projects.html).
+[What is Rhino?](https://appsilon.github.io/rhino/articles/explanation/what-is-rhino.html)
+and [Similar projects](https://appsilon.github.io/rhino/articles/explanation/similar-projects.html).
 
 ## Get it
 Stable version:
@@ -41,7 +41,7 @@ remotes::install_github("Appsilon/rhino")
 
 * Create a new Rhino application with `rhino::init()`
 * To learn more, follow the
-[Rhino tutorial](https://appsilon.github.io/rhino/articles/tutorial-create-your-first-rhino-app.html)
+[Rhino tutorial](https://appsilon.github.io/rhino/articles/tutorial/create-your-first-rhino-app.html)
 * To migrate an existing application to Rhino, refer to
 [`rhino::init()` details section](https://appsilon.github.io/rhino/reference/init.html#details-1)
 
