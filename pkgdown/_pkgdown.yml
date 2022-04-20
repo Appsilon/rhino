@@ -6,6 +6,8 @@ template:
   params:
     ganalytics: G-DL2H66RTY1
 
+url: https://appsilon.github.io/rhino/
+
 navbar:
   structure:
     left: [tutorial, explanation, how-to-guides, reference]
