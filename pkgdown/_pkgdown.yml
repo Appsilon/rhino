@@ -20,8 +20,6 @@ navbar:
       menu:
         - text: What is Rhino?
           href: articles/explanation/what-is-rhino.html
-        - text: Similar projects
-          href: articles/explanation/similar-projects.html
         - text: Application structure
           href: articles/explanation/application-structure.html
         - text: Box modules
