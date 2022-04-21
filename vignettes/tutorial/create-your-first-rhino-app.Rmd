@@ -7,19 +7,6 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 ---
 
-
-<style>
-  .app-preview {
-    margin: 1.5em 0.75em;
-    padding: 0.25em;
-    box-shadow:
-      0 3.9px 4.6px rgba(0, 0, 0, 0.08),
-      0 12.3px 8.4px rgba(0, 0, 0, 0.056),
-      0 18.8px 19.2px rgba(0, 0, 0, 0.037),
-      0 22px 40px rgba(0, 0, 0, 0.019);
-  }
-</style>
-
 # Setup
 
 ## How to install Rhino?
