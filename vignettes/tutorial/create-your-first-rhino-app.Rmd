@@ -117,9 +117,9 @@ shiny::shinyAppDir(".")
 
 And here is what you should be seeing right now:
 
-::: app-preview
-![](images/init_application.png)
-:::
+<div class="app-preview">
+  ![](images/init_application.png)
+</div>
 
 # Add your first module
 
@@ -307,9 +307,9 @@ One thing worth noting here is that in the UI part we had to use another functio
 
 Finally, when you run your application, you should see something similar to this:
 
-::: app-preview
-![](images/chart.png)
-:::
+<div class="app-preview">
+  ![](images/chart.png)
+</div>
 
 # Add a second module
 
@@ -508,9 +508,9 @@ server <- function(id, data) {
 
 The application should look similar to this:
 
-::: app-preview
-![](images/table_1.png)
-:::
+<div class="app-preview">
+  ![](images/table_1.png)
+</div>
 
 # Add logic
 
@@ -581,9 +581,9 @@ server <- function(id, data) {
 
 When you run the application, you should see something similar to this:
 
-::: app-preview
-![](images/table_2.png)
-:::
+<div class="app-preview">
+  ![](images/table_2.png)
+</div>
 
 You can notice, that table is arranged by the Black Rhino population. It would make sense to change it to Year using `dplyr::arrange`.
 
@@ -610,9 +610,9 @@ transform_data <- function(data) {
 
 The result looks much more understandable:
 
-::: app-preview
-![](images/table_3.png)
-:::
+<div class="app-preview">
+  ![](images/table_3.png)
+</div>
 
 There is still one element that can be improved. If you check the X-axis in the chart, values contain a comma. It's the default behavior for integers, but this is a year! To fix that, you need to add a custom formatter. Let's create another file, `app/logic/chart_utils.R`:
 
@@ -677,9 +677,9 @@ server <- function(id, data) {
 
 It should now look better:
 
-::: app-preview
-![](images/chart_2.png)
-:::
+<div class="app-preview">
+  ![](images/chart_2.png)
+</div>
 
 # Add custom styles {#add-custom-styles}
 
@@ -830,9 +830,9 @@ rhino::build_sass()
 
 Now, after running the application you should see something similar to this:
 
-::: app-preview
-![](images/styles_1.png)
-:::
+<div class="app-preview">
+  ![](images/styles_1.png)
+</div>
 
 It is worth noting, that you don't need to add `app/static/app.min.css` to your application header - Rhino does that for you.
 
@@ -899,9 +899,9 @@ rhino::build_sass()
 
 The result should look similar to this:
 
-::: app-preview
-![](images/styles_2.png)
-:::
+<div class="app-preview">
+  ![](images/styles_2.png)
+</div>
 
 ------------------------------------------------------------------------
 
@@ -982,9 +982,9 @@ Remember to rebuild Sass with `rhino::build_sass()`!
 
 You should now see a button with a question mark in the top right corner of the application:
 
-::: app-preview
-![](images/js_1.png)
-:::
+<div class="app-preview">
+  ![](images/js_1.png)
+</div>
 
 Now, it's time for writing the JavaScript code that should show the popup with a message. All JS code should be stored in the `app/js` directory. You already have the first (empty) file there - `index.js`. Let's use it:
 
@@ -1047,9 +1047,9 @@ You have probably noticed the second difference between the classic Shiny approa
 
 Now, if you run the application and click the button, you should see something like this:
 
-::: app-preview
-![](images/js_2.png)
-:::
+<div class="app-preview">
+  ![](images/js_2.png)
+</div>
 
 ------------------------------------------------------------------------
 
