@@ -38,6 +38,7 @@ Imports:
   yaml
 Suggests:
   knitr,
+  mockery,
   rmarkdown
 LazyData: true
 Config/testthat/edition: 3
