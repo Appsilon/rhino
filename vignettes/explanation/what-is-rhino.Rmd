@@ -11,9 +11,8 @@ vignette: >
 
 Rhino is an R package designed to help you build high quality, enterprise-grade Shiny applications at speed. It allows you to create Shiny apps "The Appsilon Way" - like a fullstack software engineer: apply best software engineering practices, modularize your code, test it well, make UI beautiful and think about adoption from the very beginning.
 
-**Disclaimer:** *Rhino is an opinionated framework with a focus on best practices and development tools.*
-
-Rhino started as a series internal projects at Appsilon aiming to:
+Rhino is an opinionated framework with a focus on best practices and development tools.
+It started as a series internal projects at Appsilon aiming to:
 
 1. Save time and avoid repetitive tasks: include all best practices we care about from the very beginning of a project.
 2. Unify applications' architecture: provide sensible defaults so that we don't reinvent the wheel.
