@@ -26,7 +26,7 @@ vignette: >
 
 To get started, the first thing you will need is to install Rhino itself:
 
-``` r
+```r
 install.packages("rhino")
 ```
 
@@ -36,14 +36,14 @@ Development tools for JavaScript and Sass, provided by Rhino, require [Node.js](
 
 Please follow installation guides for your OS:
 
--   [Node.js installation guide](https://nodejs.org/en/download/)
--   [yarn installation guide](https://yarnpkg.com/getting-started/install)
+* [Node.js installation guide](https://nodejs.org/en/download/)
+* [yarn installation guide](https://yarnpkg.com/getting-started/install)
 
 Don't be discouraged if you are not able to get Node.js and yarn on your machine. Rhino will still work for you (with some small limitations described in [JavaScript](#add-javascript-code) and [Sass](#add-custom-styles) sections).
 
 **Note:** *If you already have node installed on your machine, make sure that you are using version \>=12.0.0.*
 
-------------------------------------------------------------------------
+----
 
 # Create an initial application
 
@@ -61,49 +61,51 @@ Choose it, input the new project name and you are ready to go.
 
 Creating a Rhino application is possible in the R console by running the `init` function:
 
-``` r
+```r
 rhino::init("RhinoApplication")
 ```
 
 There are two things you need to know when choosing this way of initializing your application:
 
-1.  Rhino will **not** change your working directory. You need to either open a new R session in your new application directory or manually change the working directory.
+1. Rhino will **not** change your working directory. You need to either open a new R session in your new application directory or manually change the working directory.
 
-``` r
+```r
 setwd("./RhinoApplication")
 ```
 
-2.  Rhino relies on options added to the projects `.Rprofile` file. The most robust way to make sure it was correctly sourced is to simply restart the R session.
+2. Rhino relies on options added to the projects `.Rprofile` file. The most robust way to make sure it was correctly sourced is to simply restart the R session.
 
-------------------------------------------------------------------------
+----
 
 A result of both paths will be an initial Rhino application with the following structure:
 
-    .
-    ├── app
-    │   ├── js
-    │   │   └── index.js
-    │   ├── logic
-    │   │   └── __init__.R
-    │   ├── static
-    │   │   └── favicon.ico
-    │   ├── styles
-    │   │   └── main.scss
-    │   ├── view
-    │   │   └── __init__.R
-    │   └── main.R
-    ├── tests
-    │   ├── cypress
-    │   │   └── integration
-    │   │       └── app.spec.js
-    │   ├── testthat
-    │   │   └── test-main.R
-    │   └── cypress.json
-    ├── app.R
-    ├── RhinoApplication.Rproj
-    ├── dependencies.R
-    ├── renv.lock
-    └── rhino.yml
+```
+.
+├── app
+│   ├── js
+│   │   └── index.js
+│   ├── logic
+│   │   └── __init__.R
+│   ├── static
+│   │   └── favicon.ico
+│   ├── styles
+│   │   └── main.scss
+│   ├── view
+│   │   └── __init__.R
+│   └── main.R
+├── tests
+│   ├── cypress
+│   │   └── integration
+│   │       └── app.spec.js
+│   ├── testthat
+│   │   └── test-main.R
+│   └── cypress.json
+├── app.R
+├── RhinoApplication.Rproj
+├── dependencies.R
+├── renv.lock
+└── rhino.yml
+```
 
 If you want to know more about it, check [this](https://appsilon.github.io/rhino/articles/explanation/application-structure.html) document.
 
@@ -111,7 +113,7 @@ If you want to know more about it, check [this](https://appsilon.github.io/rhino
 
 Now, once you are all set up, let's run it:
 
-``` r
+```r
 shiny::shinyAppDir(".")
 ```
 
@@ -131,7 +133,7 @@ In Rhino, each application view is intended to live as a [Shiny module](https://
 
 Rhino already created a good place for new modules, the `app/view` directory. Create a file there, named `chart.R`:
 
-``` r
+```r
 # app/view/chart.R
 
 box::use(
@@ -157,7 +159,7 @@ server <- function(id) {
 
 The next step is to call your new module in your application. First, you need to import it into your main application file. To do that, add another `box::use` section in your `app/main.R` file:
 
-``` r
+```r
 # app/main.R
 
 box::use(
@@ -169,7 +171,7 @@ box::use(
 
 Now, the main module will be able to use exported functions from `chart.R`. Let's try it! Modify your `app/main.R` file to look like that:
 
-``` r
+```r
 # app/main.R
 
 box::use(
@@ -211,7 +213,7 @@ First, we need to install a library for visualizations - for that, we will go wi
 
 Rhino relies on the [`renv` package](https://rstudio.github.io/renv/index.html) for dependency management. To add this package to your project, first, you need to install it. We will be using a total of 5 packages for this application. To save us time in the tutorial we will install them all here. Please note that for every new package you add, you will need to install, add to dependencies.R, and re-run renv::snapshot().
 
-``` r
+```r
 # In R console
 renv::install("echarts4r")
 renv::install("reactable")
@@ -226,7 +228,7 @@ The second step is to add them to the `dependencies.R` file. This file is a sing
 
 Add `library` calls to it:
 
-``` r
+```r
 # dependencies.R
 
 # This file allows packrat (used by rsconnect during deployment) to pick up dependencies.
@@ -240,7 +242,7 @@ library(htmlwidgets)
 
 Finally, you need to update your `renv.lock` file:
 
-``` r
+```r
 # in R console
 renv::snapshot()
 ```
@@ -251,7 +253,7 @@ If you check the `renv.lock` file, you will see that it was updated with `echart
 
 Now, once you have both packages available in your project environment, it's time to use them. First, you need to import them into your module. Extend `box::use` call in your `app/view/chart.R` file:
 
-``` r
+```r
 # app/view/chart.R
 
 box::use(
@@ -266,7 +268,7 @@ You can use those packages in your module by calling `{package}${function}`. For
 
 Add `echarts4r` render to the server part of the module and output part to its UI:
 
-``` r
+```r
 # app/view/chart.R
 
 box::use(
@@ -303,7 +305,7 @@ server <- function(id) {
 
 One thing worth noting here is that in the UI part we had to use another function from Shiny - `tagList`. To be able to do that, you have to adjust your import in `box::use` - simply add `tagList` to the list of imported functions.
 
-------------------------------------------------------------------------
+----
 
 Finally, when you run your application, you should see something similar to this:
 
@@ -317,7 +319,7 @@ Once you have some content presented in the application, it would be great to ad
 
 For that, let's create another module - `app/view/table.R`:
 
-``` r
+```r
 # app/view/table.R
 
 box::use(
@@ -345,7 +347,7 @@ server <- function(id) {
 
 As we did before, we need to call the new module in the `main.R` file:
 
-``` r
+```r
 # app/main.R
 
 box::use(
@@ -380,7 +382,7 @@ server <- function(id) {
 
 We want to use the same dataset in both modules, so instead of calling it twice, let's pass data as an argument:
 
-``` r
+```r
 # app/main.R
 
 box::use(
@@ -415,7 +417,7 @@ server <- function(id) {
 }
 ```
 
-``` r
+```r
 # app/view/table.R
 
 box::use(
@@ -439,7 +441,7 @@ server <- function(id, data) {
 }
 ```
 
-``` r
+```r
 # app/view/chart.R
 
 box::use(
@@ -478,7 +480,7 @@ For the table, we will go with the [`reactable`](https://glin.github.io/reactabl
 
 Now you can add a table to the application. Let's check the raw data for Rhinos:
 
-``` r
+```r
 # app/view/table.R
 
 box::use(
@@ -524,7 +526,7 @@ The table would be better if for each Rhino species we would have a separate col
 
 Now we are able to access this function in our `data_transformation.R` file using box::use(). Let's also create a function that wraps `pivot_wider` and transforms data. Note that, as always, we need to add @export to be able to access it in the file it is being sourced.
 
-``` r
+```r
 # app/logic/data_transformation.R
 
 box::use(
@@ -545,7 +547,7 @@ The next step is to call this function in your table module.
 
 Add box import and transform dataset:
 
-``` r
+```r
 # app/view/table.R
 
 box::use(
@@ -589,7 +591,7 @@ You can notice, that table is arranged by the Black Rhino population. It would m
 
 Next, add arrange to `transform_data` function:
 
-``` r
+```r
 # app/logic/data_transformation.R
 
 box::use(
@@ -616,7 +618,7 @@ The result looks much more understandable:
 
 There is still one element that can be improved. If you check the X-axis in the chart, values contain a comma. It's the default behavior for integers, but this is a year! To fix that, you need to add a custom formatter. Let's create another file, `app/logic/chart_utils.R`:
 
-``` r
+```r
 # app/logic/chart_utils.R
 
 box::use(
@@ -633,7 +635,7 @@ label_formatter <- JS(
 
 Finally, add the formatter to the chart module:
 
-``` r
+```r
 # app/view/chart.R
 
 box::use(
@@ -689,7 +691,7 @@ In this stage, the application has working components, but it doesn't have a cle
 
 Adjusting application style can be done by providing custom styles in the `app/styles` directory, But first, you need to adjust the application a little bit by adding Html tags and CSS classes:
 
-``` r
+```r
 # app/main.R
 
 box::use(
@@ -727,7 +729,7 @@ server <- function(id) {
 }
 ```
 
-``` r
+```r
 # app/view/chart.R
 
 box::use(
@@ -769,7 +771,7 @@ server <- function(id, data) {
 }
 ```
 
-``` r
+```r
 # app/view/table.R
 
 box::use(
@@ -805,7 +807,7 @@ server <- function(id, data) {
 
 Now you are ready to modify the styles. Simply add few CSS rules to `app/styles/mains.scss` file:
 
-``` css
+```css
 // app/styles/main.scss
 
 .components-container {
@@ -823,7 +825,7 @@ Now you are ready to modify the styles. Simply add few CSS rules to `app/styles/
 
 If you try running the application right now, you will not see any changes. That is because Rhino uses minified `app/static/app.min.css` for styling. To use it, you will need to build it using the Rhino function:
 
-``` r
+```r
 # in R console
 rhino::build_sass()
 ```
@@ -838,7 +840,7 @@ It is worth noting, that you don't need to add `app/static/app.min.css` to your 
 
 Let's adjust the application a little bit more by adding a title:
 
-``` r
+```r
 # app/main.R
 
 box::use(
@@ -869,7 +871,7 @@ ui <- function(id) {
 
 And some styling:
 
-``` css
+```css
 // app/styles/main.scss
 
 .components-container {
@@ -892,7 +894,7 @@ h1 {
 
 Finally, build Sass once again:
 
-``` r
+```r
 # in R console
 rhino::build_sass()
 ```
@@ -903,21 +905,19 @@ The result should look similar to this:
   ![](images/styles_2.png)
 </div>
 
-------------------------------------------------------------------------
-
 # Add JavaScript code {#add-javascript-code}
 
-------------------------------------------------------------------------
+----
 
 **Note:** *Rhino tools for JS require Node.js. You can still use JavaScript code [like in a regular Shiny application](https://shiny.rstudio.com/articles/packaging-javascript.html), but instead of using `www` directory, you should add your files to `static/js` and call them using full path, e.g. `tags$script(src = "static/js/app.min.js")`.*
 
-------------------------------------------------------------------------
+----
 
 As the last element, let's add a button that will trigger a JavaScript popup.
 
 First, we need to create a simple button and style it:
 
-``` r
+```r
 # app/main.R
 
 box::use(
@@ -950,7 +950,7 @@ ui <- function(id) {
 ...
 ```
 
-``` css
+```css
 // app/styles/main.scss
 
 .components-container {
@@ -988,7 +988,7 @@ You should now see a button with a question mark in the top right corner of the 
 
 Now, it's time for writing the JavaScript code that should show the popup with a message. All JS code should be stored in the `app/js` directory. You already have the first (empty) file there - `index.js`. Let's use it:
 
-``` js
+```js
 // app/js/index.js
 
 export function showHelp() {
@@ -1000,7 +1000,7 @@ This function will simply show a browser alert with the message. If you are fami
 
 Same as it was with styles, the Rhino application does not use JS files directly, but instead utilizes minified version build with `rhino::build_js` function. Try it:
 
-``` r
+```r
 # in R console
 rhino::build_js()
 ```
@@ -1009,7 +1009,7 @@ Now `app/static/js/app.min.js` file has been created and, same as the minified C
 
 The last thing here is to use the `showHelp()` function in the application. To do that, let's simply add `onclick` to the button:
 
-``` r
+```r
 # app/main.R
 
 box::use(
@@ -1051,6 +1051,6 @@ Now, if you run the application and click the button, you should see something l
   ![](images/js_2.png)
 </div>
 
-------------------------------------------------------------------------
+----
 
 **Congratulations! You now have a fully armed and operational ~~battle station~~ Rhino application!**
