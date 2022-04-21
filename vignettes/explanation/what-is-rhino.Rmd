@@ -54,3 +54,4 @@ How Rhino is different from ...?
 -   **devtools:** devtools streamlines packages development. Rhino is a complete framework for building Shiny apps. Rhino features are interdependent (e.g. coverage and unit tests) and cannot be used without making the app into basic Rhino structure.
 
 -   **usethis:** usethis adds independent code snippers you ask it to. Rhino is a complete framework for building Shiny apps. Your app is designed to call Rhino functions instead of having them insert code into your project.
+

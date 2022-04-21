@@ -19,6 +19,6 @@ A data frame with 58 rows and 3 variables:
 rhinos
 }
 \description{
-A dataset containing population of 5 species of rhinos
+A dataset containing population of 5 species of rhinos.
 }
 \keyword{datasets}

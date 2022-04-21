@@ -1,20 +1,8 @@
-create_module <- function() {
-  rstudioapi::insertText(glue::trim("
-    box::use(
-      shiny[moduleServer, NS]
-    )
+read_addin <- function(...) {
+  path <- fs::path_package("rhino", "rstudio", "addins", ...)
+  readChar(path, file.info(path)$size)
+}
 
-    #' @export
-    ui <- function(id) {
-      ns <- NS(id)
-
-    }
-
-    #' @export
-    server <- function(id) {
-      moduleServer(id, function(input, output, session) {
-
-      })
-  }"
-  ))
+addin_module <- function() {
+  rstudioapi::insertText(read_addin("module.R"))
 }

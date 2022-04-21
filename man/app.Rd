@@ -54,5 +54,4 @@ into a \href{https://shiny.rstudio.com/articles/modules.html}{Shiny module}
   # Your `app.R` should contain nothing but this single call:
   rhino::app()
 }
-
 }
