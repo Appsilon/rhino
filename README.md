@@ -23,8 +23,7 @@ These features are often implemented using well-known packages.
 Rhino brings them all working together out of the box!
 
 Read more:
-[What is Rhino?](https://appsilon.github.io/rhino/articles/explanation/what-is-rhino.html)
-and [Similar projects](https://appsilon.github.io/rhino/articles/explanation/similar-projects.html).
+[What is Rhino?](https://appsilon.github.io/rhino/articles/explanation/what-is-rhino.html).
 
 ## Get it
 Stable version:
