@@ -5,7 +5,7 @@
     "build-sass": "sass --no-source-map --style=compressed root/app/styles/main.scss:root/app/static/css/app.min.css",
     "lint-js": "eslint root/app/js",
     "lint-sass": "stylelint root/app/styles",
-    "run-app": "cd root && Rscript -e 'shiny::runApp(port = 3333)'",
+    "run-app": "cd ../.. && Rscript -e \"shiny::runApp(port = 3333)\"",
     "run-cypress": "cypress run --project root/tests",
     "open-cypress": "cypress open --project root/tests",
     "test-e2e": "start-server-and-test run-app http://localhost:3333 run-cypress",

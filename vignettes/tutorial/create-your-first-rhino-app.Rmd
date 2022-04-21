@@ -55,7 +55,7 @@ If you use RStudio, probably the easiest way to create a new Rhino application i
 
 Choose it, input the new project name and you are ready to go.
 
-![](images/basic_tutorial/rstudio_wizard.png)
+![](images/rstudio_wizard.png)
 
 ## Create an application using `rhino::init()`
 
@@ -105,7 +105,7 @@ A result of both paths will be an initial Rhino application with the following s
     ├── renv.lock
     └── rhino.yml
 
-If you want to know more about it, check [this](https://appsilon.github.io/rhino/articles/rhino-project-structure.html) document.
+If you want to know more about it, check [this](https://appsilon.github.io/rhino/articles/explanation/application-structure.html) document.
 
 ## Running the application
 
@@ -118,7 +118,7 @@ shiny::shinyAppDir(".")
 And here is what you should be seeing right now:
 
 ::: app-preview
-![](images/basic_tutorial/init_application.png)
+![](images/init_application.png)
 :::
 
 # Add your first module
@@ -141,7 +141,7 @@ box::use(
 #' @export
 ui <- function(id) {
   ns <- NS(id)
-  
+
   h3("Chart")
 }
 
@@ -183,7 +183,7 @@ box::use(
 #' @export
 ui <- function(id) {
   ns <- NS(id)
-  
+
   bootstrapPage(
     chart$ui(ns("chart"))
   )
@@ -199,7 +199,7 @@ server <- function(id) {
 
 Now, when you run your application, you should see the message from the newly created module:
 
-![](images/basic_tutorial/first_module.png)
+![](images/first_module.png)
 
 ## Adding components to a module
 
@@ -277,7 +277,7 @@ box::use(
 #' @export
 ui <- function(id) {
   ns <- NS(id)
-  
+
   tagList(
     h3("Chart"),
     echarts4r$echarts4rOutput(ns("chart"))
@@ -308,7 +308,7 @@ One thing worth noting here is that in the UI part we had to use another functio
 Finally, when you run your application, you should see something similar to this:
 
 ::: app-preview
-![](images/basic_tutorial/chart.png)
+![](images/chart.png)
 :::
 
 # Add a second module
@@ -327,7 +327,7 @@ box::use(
 #' @export
 ui <- function(id) {
   ns <- NS(id)
-  
+
   tagList(
     h3("Table")
   )
@@ -336,7 +336,7 @@ ui <- function(id) {
 #' @export
 server <- function(id) {
   moduleServer(id, function(input, output, session) {
-    
+
   })
 }
 ```
@@ -360,7 +360,7 @@ box::use(
 #' @export
 ui <- function(id) {
   ns <- NS(id)
-  
+
   bootstrapPage(
     table$ui(ns("table")),
     chart$ui(ns("chart"))
@@ -395,7 +395,7 @@ box::use(
 #' @export
 ui <- function(id) {
   ns <- NS(id)
-  
+
   bootstrapPage(
     table$ui(ns("table")),
     chart$ui(ns("chart"))
@@ -408,7 +408,7 @@ server <- function(id) {
     # Datasets are the only case when you need to use :: in `box`.
     # This issue should be solved in the next `box` release.
     data <- rhino::rhinos
-    
+
     table$server("table", data = data)
     chart$server("chart", data = data)
   })
@@ -425,7 +425,7 @@ box::use(
 #' @export
 ui <- function(id) {
   ns <- NS(id)
-  
+
   tagList(
     h3("Table")
   )
@@ -434,7 +434,7 @@ ui <- function(id) {
 #' @export
 server <- function(id, data) {
   moduleServer(id, function(input, output, session) {
-    
+
   })
 }
 ```
@@ -450,7 +450,7 @@ box::use(
 #' @export
 ui <- function(id) {
   ns <- NS(id)
-  
+
   tagList(
     h3("Chart"),
     echarts4r$echarts4rOutput(ns("chart"))
@@ -489,7 +489,7 @@ box::use(
 #' @export
 ui <- function(id) {
   ns <- NS(id)
-  
+
   tagList(
     h3("Table"),
     reactable$reactableOutput(ns("table"))
@@ -509,7 +509,7 @@ server <- function(id, data) {
 The application should look similar to this:
 
 ::: app-preview
-![](images/basic_tutorial/table_1.png)
+![](images/table_1.png)
 :::
 
 # Add logic
@@ -560,7 +560,7 @@ box::use(
 #' @export
 ui <- function(id) {
   ns <- NS(id)
-  
+
   tagList(
     h3("Table"),
     reactable$reactableOutput(ns("table"))
@@ -582,7 +582,7 @@ server <- function(id, data) {
 When you run the application, you should see something similar to this:
 
 ::: app-preview
-![](images/basic_tutorial/table_2.png)
+![](images/table_2.png)
 :::
 
 You can notice, that table is arranged by the Black Rhino population. It would make sense to change it to Year using `dplyr::arrange`.
@@ -611,7 +611,7 @@ transform_data <- function(data) {
 The result looks much more understandable:
 
 ::: app-preview
-![](images/basic_tutorial/table_3.png)
+![](images/table_3.png)
 :::
 
 There is still one element that can be improved. If you check the X-axis in the chart, values contain a comma. It's the default behavior for integers, but this is a year! To fix that, you need to add a custom formatter. Let's create another file, `app/logic/chart_utils.R`:
@@ -648,7 +648,7 @@ box::use(
 #' @export
 ui <- function(id) {
   ns <- NS(id)
-  
+
   tagList(
     h3("Chart"),
     echarts4r$echarts4rOutput(ns("chart"))
@@ -678,7 +678,7 @@ server <- function(id, data) {
 It should now look better:
 
 ::: app-preview
-![](images/basic_tutorial/chart_2.png)
+![](images/chart_2.png)
 :::
 
 # Add custom styles {#add-custom-styles}
@@ -704,7 +704,7 @@ box::use(
 #' @export
 ui <- function(id) {
   ns <- NS(id)
-  
+
   bootstrapPage(
     div(
       class = "components-container",
@@ -720,7 +720,7 @@ server <- function(id) {
     # Datasets are the only case when you need to use :: in `box`.
     # This issue should be solved in the next `box` release.
     data <- rhino::rhinos
-    
+
     table$server("table", data = data)
     chart$server("chart", data = data)
   })
@@ -742,7 +742,7 @@ box::use(
 #' @export
 ui <- function(id) {
   ns <- NS(id)
-  
+
   div(
     class = "component-box",
     echarts4r$echarts4rOutput(ns("chart"))
@@ -784,7 +784,7 @@ box::use(
 #' @export
 ui <- function(id) {
   ns <- NS(id)
-  
+
   div(
     class = "component-box",
     reactable$reactableOutput(ns("table"))
@@ -812,7 +812,7 @@ Now you are ready to modify the styles. Simply add few CSS rules to `app/styles/
   display: inline-grid;
   grid-template-columns: 1fr 1fr;
   width: 100%;
-  
+
   .component-box {
     padding: 10px;
     margin: 10px;
@@ -831,7 +831,7 @@ rhino::build_sass()
 Now, after running the application you should see something similar to this:
 
 ::: app-preview
-![](images/basic_tutorial/styles_1.png)
+![](images/styles_1.png)
 :::
 
 It is worth noting, that you don't need to add `app/static/app.min.css` to your application header - Rhino does that for you.
@@ -853,7 +853,7 @@ box::use(
 #' @export
 ui <- function(id) {
   ns <- NS(id)
-  
+
   bootstrapPage(
     h1("RhinoApplication"),
     div(
@@ -876,7 +876,7 @@ And some styling:
   display: inline-grid;
   grid-template-columns: 1fr 1fr;
   width: 100%;
-  
+
   .component-box {
     padding: 10px;
     margin: 10px;
@@ -900,7 +900,7 @@ rhino::build_sass()
 The result should look similar to this:
 
 ::: app-preview
-![](images/basic_tutorial/styles_2.png)
+![](images/styles_2.png)
 :::
 
 ------------------------------------------------------------------------
@@ -932,7 +932,7 @@ box::use(
 #' @export
 ui <- function(id) {
   ns <- NS(id)
-  
+
   bootstrapPage(
     h1("RhinoApplication"),
     div(
@@ -957,7 +957,7 @@ ui <- function(id) {
   display: inline-grid;
   grid-template-columns: 1fr 1fr;
   width: 100%;
-  
+
   .component-box {
     padding: 10px;
     margin: 10px;
@@ -983,7 +983,7 @@ Remember to rebuild Sass with `rhino::build_sass()`!
 You should now see a button with a question mark in the top right corner of the application:
 
 ::: app-preview
-![](images/basic_tutorial/js_1.png)
+![](images/js_1.png)
 :::
 
 Now, it's time for writing the JavaScript code that should show the popup with a message. All JS code should be stored in the `app/js` directory. You already have the first (empty) file there - `index.js`. Let's use it:
@@ -1024,7 +1024,7 @@ box::use(
 #' @export
 ui <- function(id) {
   ns <- NS(id)
-  
+
   bootstrapPage(
     h1("RhinoApplication"),
     div(
@@ -1048,7 +1048,7 @@ You have probably noticed the second difference between the classic Shiny approa
 Now, if you run the application and click the button, you should see something like this:
 
 ::: app-preview
-![](images/basic_tutorial/js_2.png)
+![](images/js_2.png)
 :::
 
 ------------------------------------------------------------------------

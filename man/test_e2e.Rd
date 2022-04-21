@@ -22,5 +22,4 @@ if (interactive()) {
   # Run the end-to-end tests in the `tests/cypress` directory.
   test_e2e()
 }
-
 }

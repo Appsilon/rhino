@@ -21,5 +21,4 @@ if (interactive()) {
   # Lint the Sass sources in the `app/styles` directory.
   lint_sass()
 }
-
 }

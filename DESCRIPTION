@@ -1,6 +1,6 @@
 Package: rhino
 Title: A Framework for Enterprise Shiny Applications
-Version: 0.8.0
+Version: 1.0.0
 Authors@R:
   c(
     person("Kamil", "Zyla", role = c("aut", "cre"), email = "kamil@appsilon.com"),
@@ -16,7 +16,6 @@ License: LGPL-3
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.2
-VignetteBuilder: knitr
 Depends:
   R (>= 2.10)
 Imports:
@@ -39,6 +38,7 @@ Imports:
   yaml
 Suggests:
   knitr,
+  mockery,
   rmarkdown
 LazyData: true
 Config/testthat/edition: 3

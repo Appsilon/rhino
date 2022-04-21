@@ -35,5 +35,4 @@ if (interactive()) {
   # Build the `app/styles/main.scss` file into `app/static/css/app.min.css`.
   build_sass()
 }
-
 }
