@@ -19,7 +19,7 @@ install.packages("rhino")
 
 ## Dependencies
 
-This tutorial uses native pipe operator `|>` introduced in R 4.1 release. If you use an earlier R version, then you can use `%>%` operator found in magrittr and dplyr packages instead.*
+This tutorial uses the native pipe operator (`|>`) introduced in R 4.1 release. If you use an earlier R version, then you can use the `%>%` pipe operator found in `{magrittr}` and `{dplyr}` packages instead.*
 
 Development tools for JavaScript and Sass, provided by Rhino, require [Node.js](https://nodejs.org/en/) and [yarn](https://yarnpkg.com/). Please follow installation guides for your OS:
 
