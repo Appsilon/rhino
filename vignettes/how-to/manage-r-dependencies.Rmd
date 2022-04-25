@@ -7,9 +7,26 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 ---
 
-<p class="alert alert-warning">
-  This article is a stub. We are working to edit and expand it.
-</p>
+Rhino uses `{renv}` to manage the R package dependencies of your project.
+To learn about the details and rationale for the particular setup used by Rhino,
+please refer to [Explanation: Renv configuration](https://appsilon.github.io/rhino/articles/explanation/renv-configuration.html).
 
-How to add, update, and remove dependencies:
-[link](https://docs.google.com/presentation/d/1BTaHdGV4q7nr5zykHBL1DdxbT3h88_X-loaO8tkf03g/edit#slide=id.g11e8a5af2ba_0_708).
+This article offers short recipes for the most common tasks:
+adding, updating and removing dependencies.
+
+### Add a dependency
+
+1. Add a `library(package)` line to `dependencies.R`.
+1. Call `renv::install("package")`.
+1. Call `renv::snapshot()`.
+
+### Update a dependency
+
+1. Call `renv::update("package")`.
+1. Call `renv::snapshot()`.
+
+### Remove a dependency
+
+1. Remove the `library(package)` line from `dependencies.R`.
+1. Call `renv::snapshot()`.
+1. Call `renv::restore(clean = TRUE)`.
