@@ -16,13 +16,12 @@ Pull requests to Rhino are welcome!
 
 ## Development Process
 
-1. We follow [Scrum](https://scrumguides.org/).
-2. All changes are introduced in pull requests to the `main` branch,
+1. All changes are introduced in pull requests to the `main` branch,
 which must be always kept in a "potentially shippable" state.
-3. Pull requests must be peer-reviewed.
+2. Pull requests must be peer-reviewed.
 The reviewer inspects the code, tests the changes
 and checks them against the [DoD](#definition-of-done) before approving.
-4. We follow the [Semantic Versioning](https://semver.org/) scheme.
+3. We follow the [Semantic Versioning](https://semver.org/) scheme.
 Starting with `1.0.0`, all versions should be released to CRAN.
 
 ## Definition of Done
