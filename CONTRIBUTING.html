@@ -31,7 +31,6 @@
   <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-explanation">Explanation</a>
   <div class="dropdown-menu" aria-labelledby="dropdown-explanation">
     <a class="dropdown-item" href="articles/explanation/what-is-rhino.html">What is Rhino?</a>
-    <a class="dropdown-item" href="articles/explanation/similar-projects.html">Similar projects</a>
     <a class="dropdown-item" href="articles/explanation/application-structure.html">Application structure</a>
     <a class="dropdown-item" href="articles/explanation/box-modules.html">Box modules</a>
     <a class="dropdown-item" href="articles/explanation/renv-configuration.html">Renv configuration</a>
@@ -100,11 +99,9 @@
 </tr></tbody></table></div>
 <div class="section level2">
 <h2 id="development-process">Development Process<a class="anchor" aria-label="anchor" href="#development-process"></a></h2>
-<ol style="list-style-type: decimal"><li>We follow <a href="https://scrumguides.org/" class="external-link">Scrum</a>.</li>
-<li>All changes are introduced in pull requests, which must be peer-reviewed. The reviewer inspects the code, tests the changes and checks them against the <a href="#definition-of-done">DoD</a> before approving.</li>
-<li>The <code>develop</code> branch is the base for our regular work. It is set as the “default” branch on GitHub so that PRs automatically target it and <code>closes</code> keyword works in issue descriptions.</li>
-<li>The <code>main</code> branch is used for releases. We regularly merge <code>develop</code> into <code>main</code>, increment the version number and tag a new release on GitHub.</li>
-<li>We follow the <a href="https://semver.org/" class="external-link">Semantic Versioning</a> scheme.</li>
+<ol style="list-style-type: decimal"><li>All changes are introduced in pull requests to the <code>main</code> branch, which must be always kept in a “potentially shippable” state.</li>
+<li>Pull requests must be peer-reviewed. The reviewer inspects the code, tests the changes and checks them against the <a href="#definition-of-done">DoD</a> before approving.</li>
+<li>We follow the <a href="https://semver.org/" class="external-link">Semantic Versioning</a> scheme. Starting with <code>1.0.0</code>, all versions should be released to CRAN.</li>
 </ol></div>
 <div class="section level2">
 <h2 id="definition-of-done">Definition of Done<a class="anchor" aria-label="anchor" href="#definition-of-done"></a></h2>

@@ -55,7 +55,6 @@
   <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-explanation">Explanation</a>
   <div class="dropdown-menu" aria-labelledby="dropdown-explanation">
     <a class="dropdown-item" href="../../articles/explanation/what-is-rhino.html">What is Rhino?</a>
-    <a class="dropdown-item" href="../../articles/explanation/similar-projects.html">Similar projects</a>
     <a class="dropdown-item" href="../../articles/explanation/application-structure.html">Application structure</a>
     <a class="dropdown-item" href="../../articles/explanation/box-modules.html">Box modules</a>
     <a class="dropdown-item" href="../../articles/explanation/renv-configuration.html">Renv configuration</a>
@@ -116,15 +115,15 @@
 <div class="section level3">
 <h3 id="how-to-install-rhino">How to install Rhino?<a class="anchor" aria-label="anchor" href="#how-to-install-rhino"></a>
 </h3>
-<p>To get started, the first thing you will need to install Rhino itself:</p>
+<p>To get started, the first thing you will need is to install Rhino itself:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"rhino"</span><span class="op">)</span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="dependencies">Dependencies<a class="anchor" aria-label="anchor" href="#dependencies"></a>
 </h3>
-<p>Development tools for JavaScript and Sass, provided by Rhino, require <a href="https://nodejs.org/en/" class="external-link">Node.js</a> and <a href="https://yarnpkg.com/" class="external-link">yarn</a>.</p>
-<p>Please follow installation guides for your OS:</p>
+<p>This tutorial uses the native pipe operator (<code>|&gt;</code>) introduced in R 4.1 release. If you use an earlier R version, then you can use the <code>%&gt;%</code> pipe operator found in <a href="https://magrittr.tidyverse.org" class="external-link">magrittr</a> and <a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a> packages instead.*</p>
+<p>Development tools for JavaScript and Sass, provided by Rhino, require <a href="https://nodejs.org/en/" class="external-link">Node.js</a> and <a href="https://yarnpkg.com/" class="external-link">yarn</a>. Please follow installation guides for your OS:</p>
 <ul>
 <li><a href="https://nodejs.org/en/download/" class="external-link">Node.js installation guide</a></li>
 <li><a href="https://yarnpkg.com/getting-started/install" class="external-link">yarn installation guide</a></li>
@@ -142,7 +141,7 @@
 <h3 id="create-an-application-using-the-rstudio-wizard">Create an application using the RStudio wizard<a class="anchor" aria-label="anchor" href="#create-an-application-using-the-rstudio-wizard"></a>
 </h3>
 <p>If you use RStudio, probably the easiest way to create a new Rhino application is to simply use Create New Project feature. Once Rhino is installed, it will be automatically added as one of the options in RStudio:</p>
-<p>Choose it, provide your brand new project name and you are ready to go.</p>
+<p>Choose it, input the new project name and you are ready to go.</p>
 <p><img src="images/rstudio_wizard.png"></p>
 </div>
 <div class="section level3">
@@ -156,8 +155,7 @@
 <li>Rhino will <strong>not</strong> change your working directory. You need to either open a new R session in your new application directory or manually change the working directory.</li>
 </ol>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># In R console...</span>
-<span class="fu"><a href="https://rdrr.io/r/base/getwd.html" class="external-link">setwd</a></span><span class="op">(</span><span class="st">"./RhinoApplication"</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/getwd.html" class="external-link">setwd</a></span><span class="op">(</span><span class="st">"./RhinoApplication"</span><span class="op">)</span></code></pre></div>
 <ol start="2" style="list-style-type: decimal">
 <li>Rhino relies on options added to the projects <code>.Rprofile</code> file. The most robust way to make sure it was correctly sourced is to simply restart the R session.</li>
 </ol>
@@ -188,24 +186,24 @@
 ├── dependencies.R
 ├── renv.lock
 └── rhino.yml</code></pre>
-<p>If you want to know more about it, check <a href="https://appsilon.github.io/rhino/articles/explanation/application-structure.html" class="external-link">this</a> document.</p>
+<p>If you want to know more about it, check <a href="https://appsilon.github.io/rhino/articles/explanation/application-structure.html">this</a> document.</p>
 </div>
 <div class="section level3">
 <h3 id="running-the-application">Running the application<a class="anchor" aria-label="anchor" href="#running-the-application"></a>
 </h3>
 <p>Now, once you are all set up, let’s run it:</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># In R console</span>
-
-<span class="fu">shiny</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/shinyApp.html" class="external-link">shinyAppDir</a></span><span class="op">(</span><span class="st">"."</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span class="fu">shiny</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/shinyApp.html" class="external-link">shinyAppDir</a></span><span class="op">(</span><span class="st">"."</span><span class="op">)</span></code></pre></div>
 <p>And here is what you should be seeing right now:</p>
+<div class="app-preview">
 <p><img src="images/init_application.png"></p>
+</div>
 </div>
 </div>
 <div class="section level2">
 <h2 id="add-your-first-module">Add your first module<a class="anchor" aria-label="anchor" href="#add-your-first-module"></a>
 </h2>
-<p>Your application runs, but it seems to be quite empty. Let’s add something there!</p>
+<p>Your application runs, but it doesn’t have any meaningful functionality. Let’s add something there!</p>
 <div class="section level3">
 <h3 id="module-structure">Module structure<a class="anchor" aria-label="anchor" href="#module-structure"></a>
 </h3>
@@ -259,6 +257,7 @@
 <span class="co">#' @export</span>
 <span class="va">ui</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">id</span><span class="op">)</span> <span class="op">{</span>
   <span class="va">ns</span> <span class="op">&lt;-</span> <span class="fu">NS</span><span class="op">(</span><span class="va">id</span><span class="op">)</span>
+
   <span class="fu">bootstrapPage</span><span class="op">(</span>
     <span class="va">chart</span><span class="op">$</span><span class="fu">ui</span><span class="op">(</span><span class="fu">ns</span><span class="op">(</span><span class="st">"chart"</span><span class="op">)</span><span class="op">)</span>
   <span class="op">)</span>
@@ -296,7 +295,7 @@
 <code class="sourceCode R"><span class="co"># dependencies.R</span>
 
 <span class="co"># This file allows packrat (used by rsconnect during deployment) to pick up dependencies.</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://appsilon.github.io/rhino/" class="external-link">rhino</a></span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://appsilon.github.io/rhino/">rhino</a></span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://echarts4r.john-coene.com/" class="external-link">echarts4r</a></span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://glin.github.io/reactable/" class="external-link">reactable</a></span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyr.tidyverse.org" class="external-link">tidyr</a></span><span class="op">)</span>
@@ -359,7 +358,9 @@
 <p>One thing worth noting here is that in the UI part we had to use another function from Shiny - <code>tagList</code>. To be able to do that, you have to adjust your import in <code><a href="http://klmr.me/box/reference/use.html" class="external-link">box::use</a></code> - simply add <code>tagList</code> to the list of imported functions.</p>
 <hr>
 <p>Finally, when you run your application, you should see something similar to this:</p>
+<div class="app-preview">
 <p><img src="images/chart.png"></p>
+</div>
 </div>
 </div>
 </div>
@@ -547,7 +548,9 @@
   <span class="op">}</span><span class="op">)</span>
 <span class="op">}</span></code></pre></div>
 <p>The application should look similar to this:</p>
+<div class="app-preview">
 <p><img src="images/table_1.png"></p>
+</div>
 </div>
 </div>
 <div class="section level2">
@@ -608,7 +611,9 @@
   <span class="op">}</span><span class="op">)</span>
 <span class="op">}</span></code></pre></div>
 <p>When you run the application, you should see something similar to this:</p>
+<div class="app-preview">
 <p><img src="images/table_2.png"></p>
+</div>
 <p>You can notice, that table is arranged by the Black Rhino population. It would make sense to change it to Year using <code>dplyr::arrange</code>.</p>
 <p>Next, add arrange to <code>transform_data</code> function:</p>
 <div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
@@ -629,7 +634,9 @@
     <span class="fu">arrange</span><span class="op">(</span><span class="va">Year</span><span class="op">)</span>
 <span class="op">}</span></code></pre></div>
 <p>The result looks much more understandable:</p>
+<div class="app-preview">
 <p><img src="images/table_3.png"></p>
+</div>
 <p>There is still one element that can be improved. If you check the X-axis in the chart, values contain a comma. It’s the default behavior for integers, but this is a year! To fix that, you need to add a custom formatter. Let’s create another file, <code>app/logic/chart_utils.R</code>:</p>
 <div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># app/logic/chart_utils.R</span>
@@ -686,13 +693,15 @@
   <span class="op">}</span><span class="op">)</span>
 <span class="op">}</span></code></pre></div>
 <p>It should now look better:</p>
+<div class="app-preview">
 <p><img src="images/chart_2.png"></p>
+</div>
 </div>
 <div class="section level2">
 <h2 id="add-custom-styles">Add custom styles<a class="anchor" aria-label="anchor" href="#add-custom-styles"></a>
 </h2>
 <p><strong>Note:</strong> <em>Sass builder uses Node.js. If you are not able to install Node in your environment, you can change the <code>sass</code> entry in the <code>rhino.yml</code> file to <code>r</code>. It will now use the R package for Sass bundling. Under the hood, it uses a deprecated C++ library, so the Node solution is strongly recommended here.</em></p>
-<p>In this stage, the application has working components, but it does not look well.</p>
+<p>In this stage, the application has working components, but it doesn’t have a clean and organized look to it. For this we will need a little css styling.</p>
 <p>Adjusting application style can be done by providing custom styles in the <code>app/styles</code> directory, But first, you need to adjust the application a little bit by adding Html tags and CSS classes:</p>
 <div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># app/main.R</span>
@@ -821,7 +830,9 @@
 <code class="sourceCode R"><span class="co"># in R console</span>
 <span class="fu">rhino</span><span class="fu">::</span><span class="fu"><a href="../../reference/build_sass.html">build_sass</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
 <p>Now, after running the application you should see something similar to this:</p>
+<div class="app-preview">
 <p><img src="images/styles_1.png"></p>
+</div>
 <p>It is worth noting, that you don’t need to add <code>app/static/app.min.css</code> to your application header - Rhino does that for you.</p>
 <p>Let’s adjust the application a little bit more by adding a title:</p>
 <div class="sourceCode" id="cb30"><pre class="downlit sourceCode r">
@@ -875,8 +886,9 @@
 <code class="sourceCode R"><span class="co"># in R console</span>
 <span class="fu">rhino</span><span class="fu">::</span><span class="fu"><a href="../../reference/build_sass.html">build_sass</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
 <p>The result should look similar to this:</p>
+<div class="app-preview">
 <p><img src="images/styles_2.png"></p>
-<hr>
+</div>
 </div>
 <div class="section level2">
 <h2 id="add-javascript-code">Add JavaScript code<a class="anchor" aria-label="anchor" href="#add-javascript-code"></a>
@@ -944,7 +956,9 @@
 <span id="cb34-25"><a href="#cb34-25" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
 <p>Remember to rebuild Sass with <code><a href="../../reference/build_sass.html">rhino::build_sass()</a></code>!</p>
 <p>You should now see a button with a question mark in the top right corner of the application:</p>
+<div class="app-preview">
 <p><img src="images/js_1.png"></p>
+</div>
 <p>Now, it’s time for writing the JavaScript code that should show the popup with a message. All JS code should be stored in the <code>app/js</code> directory. You already have the first (empty) file there - <code>index.js</code>. Let’s use it:</p>
 <div class="sourceCode" id="cb35"><pre class="sourceCode js"><code class="sourceCode javascript"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="co">// app/js/index.js</span></span>
 <span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -992,7 +1006,9 @@
 <span class="va">...</span></code></pre></div>
 <p>You have probably noticed the second difference between the classic Shiny approach and the one used in Rhino. All exported JS functions are now available under <code>App</code> (same as any other JavaScript function from a library, e.g. <code>Math.round</code>).</p>
 <p>Now, if you run the application and click the button, you should see something like this:</p>
+<div class="app-preview">
 <p><img src="images/js_2.png"></p>
+</div>
 <hr>
 <p><strong>Congratulations! You now have a fully armed and operational <del>battle station</del> Rhino application!</strong></p>
 </div>

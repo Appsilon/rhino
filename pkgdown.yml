@@ -7,7 +7,6 @@ articles:
   node-js-javascript-and-sass-tools: explanation/node-js-javascript-and-sass-tools.html
   renv-configuration: explanation/renv-configuration.html
   rhino-yml: explanation/rhino-yml.html
-  similar-projects: explanation/similar-projects.html
   what-is-rhino: explanation/what-is-rhino.html
   keep-multiple-apps-in-a-single-repository: how-to/keep-multiple-apps-in-a-single-repository.html
   manage-r-dependencies: how-to/manage-r-dependencies.html
@@ -17,5 +16,8 @@ articles:
   write-javascript-code: how-to/write-javascript-code.html
   write-r-code: how-to/write-r-code.html
   create-your-first-rhino-app: tutorial/create-your-first-rhino-app.html
-last_built: 2022-04-19T15:58Z
+last_built: 2022-04-25T16:49Z
+urls:
+  reference: https://appsilon.github.io/rhino/reference
+  article: https://appsilon.github.io/rhino/articles
 
