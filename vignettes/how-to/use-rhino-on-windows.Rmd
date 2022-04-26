@@ -7,6 +7,10 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 ---
 
+<p class="alert alert-warning">
+  This article is a stub. We are working to edit and expand it.
+</p>
+
 You can use JavaScript & Sass tools on Windows 10.
 You will need to [install Node.js and yarn](https://go.appsilon.com/rhino-system-dependencies)
 and enable [Developer Mode](https://docs.microsoft.com/en-us/windows/apps/get-started/enable-your-device-for-development#active-developer-mode).

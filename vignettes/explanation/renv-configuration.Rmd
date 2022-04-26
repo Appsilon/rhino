@@ -7,6 +7,10 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 ---
 
+<p class="alert alert-warning">
+  This article is a stub. We are working to edit and expand it.
+</p>
+
 We use implicit snapshots and `dependencies.R` + `.renvignore`.
 This gives us a similar behavior to explicit snapshots but works better with deployments:
 rsconnect uses packrat, which only reads `library()` calls

@@ -14,6 +14,7 @@ vignette: >
 }
 </style>
 
+
 This guide aims to make your application up and running using Rhino as quickly as possible. Lets
 assume an application has a following structure:
 
