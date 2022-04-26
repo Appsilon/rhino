@@ -7,6 +7,10 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 ---
 
+<p class="alert alert-warning">
+  This article is a stub. We are working to edit and expand it.
+</p>
+
 # :wrench: Configure Rhino with `rhino.yml`
 Rhino uses its own `rhino.yml` config file where you can set a few options on how it works in your app. Currently available
 options are described below.

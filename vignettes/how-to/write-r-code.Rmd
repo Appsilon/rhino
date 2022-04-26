@@ -7,6 +7,10 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 ---
 
+<p class="alert alert-warning">
+  This article is a stub. We are working to edit and expand it.
+</p>
+
 The entrypoint to your application is the `app/main.R` file.
 It can load packages and other files with `box::use()`.
 You should not use `::`, `library()` and `source()` calls in your code.
