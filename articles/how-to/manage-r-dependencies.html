@@ -110,10 +110,34 @@
 
     
     
-<p class="alert alert-warning">
-This article is a stub. We are working to edit and expand it.
-</p>
-<p>How to add, update, and remove dependencies: <a href="https://docs.google.com/presentation/d/1BTaHdGV4q7nr5zykHBL1DdxbT3h88_X-loaO8tkf03g/edit#slide=id.g11e8a5af2ba_0_708" class="external-link">link</a>.</p>
+<p>Rhino uses <a href="https://rstudio.github.io/renv/" class="external-link">renv</a> to manage the R package dependencies of your project. To learn about the details and rationale for the particular setup used by Rhino, please refer to <a href="https://appsilon.github.io/rhino/articles/explanation/renv-configuration.html">Explanation: Renv configuration</a>.</p>
+<p>This article offers short recipes for the most common tasks: adding, updating and removing dependencies.</p>
+<div class="section level3">
+<h3 id="add-a-dependency">Add a dependency<a class="anchor" aria-label="anchor" href="#add-a-dependency"></a>
+</h3>
+<ol style="list-style-type: decimal">
+<li>Add a <code><a href="https://rdrr.io/r/base/library.html" class="external-link">library(package)</a></code> line to <code>dependencies.R</code>.</li>
+<li>Call <code>renv::install("package")</code>.</li>
+<li>Call <code><a href="https://rstudio.github.io/renv/reference/snapshot.html" class="external-link">renv::snapshot()</a></code>.</li>
+</ol>
+</div>
+<div class="section level3">
+<h3 id="update-a-dependency">Update a dependency<a class="anchor" aria-label="anchor" href="#update-a-dependency"></a>
+</h3>
+<ol style="list-style-type: decimal">
+<li>Call <code>renv::update("package")</code>.</li>
+<li>Call <code><a href="https://rstudio.github.io/renv/reference/snapshot.html" class="external-link">renv::snapshot()</a></code>.</li>
+</ol>
+</div>
+<div class="section level3">
+<h3 id="remove-a-dependency">Remove a dependency<a class="anchor" aria-label="anchor" href="#remove-a-dependency"></a>
+</h3>
+<ol style="list-style-type: decimal">
+<li>Remove the <code><a href="https://rdrr.io/r/base/library.html" class="external-link">library(package)</a></code> line from <code>dependencies.R</code>.</li>
+<li>Call <code><a href="https://rstudio.github.io/renv/reference/snapshot.html" class="external-link">renv::snapshot()</a></code>.</li>
+<li>Call <code>renv::restore(clean = TRUE)</code>.</li>
+</ol>
+</div>
   </main>
 </div>
 
