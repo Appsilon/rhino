@@ -1,0 +1,38 @@
+name: Bug Report
+description: Report a problem you encountered
+labels: [bug]
+body:
+  - type: markdown
+    attributes:
+      value: Thanks for taking the time to complete this bug report!
+
+  - type: textarea
+    attributes:
+      label: Steps to reproduce
+      value: "1. "
+    validations:
+      required: true
+
+  - type: textarea
+    attributes:
+      label: What happened?
+      description: Describe the bug. Attach error messages and screenshots if applicable.
+    validations:
+      required: true
+
+  - type: textarea
+    attributes:
+      label: Expected behavior
+      description: What should have happened?
+    validations:
+      required: true
+
+  - type: textarea
+    attributes:
+      label: Rhino diagnostics
+      description: Paste the output of `rhino::diagnostics()` below.
+
+  - type: textarea
+    attributes:
+      label: Comments
+      description: Add any other useful information about the problem here.

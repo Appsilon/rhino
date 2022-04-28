@@ -1,0 +1,8 @@
+blank_issues_enabled: true
+contact_links:
+  - name: Rhino Documentation
+    url: https://appsilon.github.io/rhino/
+    about: Learn about Rhino from our extensive documentation
+  - name: GitHub Discussions
+    url: https://github.com/Appsilon/rhino/discussions
+    about: Use the board for questions, feature requests and general discussion
