@@ -20,7 +20,7 @@ jobs:
 
       - name: Setup system dependencies
         run: >
-          sudo apt-get install --yes
+          sudo apt-get update && sudo apt-get install --yes
           libcurl4-openssl-dev
 
       - name: Restore renv from cache
