@@ -35,6 +35,22 @@ Development version:
 remotes::install_github("Appsilon/rhino")
 ```
 
+## Documentation
+
+The [documentation site](https://appsilon.github.io/rhino/)
+is divided into four sections
+(inspired by the [documentation system](https://documentation.divio.com/)).
+They can be accessed from the navigation bar at the top:
+
+1. **Tutorial**:
+Start here to learn the basic and get a feeling for Rhino.
+2. **Explanation**:
+In-depth articles to deepen your understanding of Rhino and its design decisions.
+3. **How-to Guides**:
+Recipes for specific tasks you'll commonly encounter when working with Rhino.
+4. **Reference**:
+A list of package functions with descriptions.
+
 ## Usage
 
 * Create a new Rhino application with `rhino::init()`
