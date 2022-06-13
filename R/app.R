@@ -41,6 +41,10 @@ load_main_module <- function() {
 }
 
 as_top_level <- function(shiny_module) {
+  # Necessary to avoid infinite recursion / bugs due to lazy evaluation:
+  # https://adv-r.hadley.nz/function-factories.html?q=force#forcing-evaluation
+  force(shiny_module)
+
   list(
     # Wrap the UI in a function to support Shiny bookmarking.
     ui = function(request) shiny_module$ui("app"),
