@@ -4,7 +4,7 @@
 <!-- badges: start -->
 [![CRAN status](https://www.r-pkg.org/badges/version/rhino)](https://cran.r-project.org/package=rhino)
 [![R build status](https://github.com/Appsilon/rhino/workflows/R-CMD-check/badge.svg)](https://github.com/Appsilon/rhino/actions)
-[![License: LGPL-3.0](https://img.shields.io/badge/License-LGPL--3.0-blue.svg)][LGPL-3.0 license]
+[![License: LGPL-3.0](https://img.shields.io/badge/License-LGPL--3.0-blue.svg)](https://opensource.org/licenses/LGPL-3.0)
 <!-- badges: end -->
 
 
@@ -22,9 +22,9 @@ These features are often implemented using well-known packages.
 Rhino brings them all working together out of the box!
 
 Read more:
-[What is Rhino?](https://appsilon.github.io/rhino/articles/explanation/what-is-rhino.html).
+[What is Rhino?](https://appsilon.github.io/rhino/articles/explanation/what-is-rhino.html)
 
-## Get it
+## Installation
 Stable version:
 ```r
 install.packages("rhino")
@@ -35,27 +35,28 @@ Development version:
 remotes::install_github("Appsilon/rhino")
 ```
 
-## Usage
+## Documentation
 
-* Create a new Rhino application with `rhino::init()`
-* To learn more, follow the
-[Rhino tutorial](https://appsilon.github.io/rhino/articles/tutorial/create-your-first-rhino-app.html)
-* To migrate an existing application to Rhino, refer to
-[`rhino::init()` details section](https://appsilon.github.io/rhino/reference/init.html#details-1)
+[Rhino documentation](https://appsilon.github.io/rhino/) is divided into four sections,
+accessible from the navigation bar at the top:
 
-## About
-
-Rhino is distributed under [LGPL-3.0 license]. Developed with :heart: at [Appsilon].
+1. [**Tutorial**](https://appsilon.github.io/rhino/articles/tutorial/create-your-first-rhino-app.html):
+Start here to learn the basics.
+2. **Explanation**:
+In-depth articles on Rhino machinery and its design.
+3. **How-to Guides**:
+Step-by-step instructions for common tasks.
+4. **Reference**:
+A list of Rhino functions with technical details.
 
 ---
 
-Appsilon is the **Full Service Certified RStudio Partner**. Learn more at [appsilon.com][Appsilon].
+Developed with :heart: at [Appsilon](https://appsilon.com).
+Get in touch: <opensource@appsilon.com>.
 
-Get in touch: opensource@appsilon.com.
+Appsilon is a
+[**Full Service Certified RStudio Partner**](https://www.rstudio.com/certified-partners/).
 
-<a href="https://appsilon.com/careers/"><img src="http://d2v95fjda94ghc.cloudfront.net/hiring.png" alt="We are hiring!"></a>
-
-
-<!-- Links -->
-[LGPL-3.0 license]: https://opensource.org/licenses/LGPL-3.0
-[Appsilon]: https://appsilon.com
+<a href="https://appsilon.com/careers/">
+  <img src="http://d2v95fjda94ghc.cloudfront.net/hiring.png" alt="We are hiring!">
+</a>
