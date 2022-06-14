@@ -47,6 +47,8 @@ navbar:
           href: articles/how-to/manage-r-dependencies.html
         - text: Manage secrets and environments
           href: articles/how-to/manage-secrets-and-environments.html
+        - text: Enable Shiny bookmarking
+          href: articles/how-to/enable-shiny-bookmarking.html
         - text: Keep multiple apps in a single repository
           href: articles/how-to/keep-multiple-apps-in-a-single-repository.html
         - text: Use Rhino on Windows
