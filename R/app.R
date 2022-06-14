@@ -42,13 +42,18 @@ load_main_module <- function() {
 }
 
 as_top_level <- function(shiny_module) {
+  # Necessary to avoid infinite recursion / bugs due to lazy evaluation:
+  # https://adv-r.hadley.nz/function-factories.html?q=force#forcing-evaluation
+  force(shiny_module)
+
   list(
-    ui = shiny_module$ui("app"),
+    # Wrap the UI in a function to support Shiny bookmarking.
+    ui = function(request) shiny_module$ui("app"),
     server = function(input, output) shiny_module$server("app")
   )
 }
 
-with_head_tags <- function(ui) {
+attach_head_tags <- function(ui) {
   shiny::tagList(
     shiny::tags$head(
       shiny::tags$script(src = "static/js/app.min.js"),
@@ -57,6 +62,12 @@ with_head_tags <- function(ui) {
     ),
     ui
   )
+}
+
+with_head_tags <- function(ui) {
+  # The top-level UI must be a function for Shiny bookmarking to work.
+  if (is.function(ui)) function(request) attach_head_tags(ui(request))
+  else attach_head_tags(ui)
 }
 
 #' Rhino application
