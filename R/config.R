@@ -14,10 +14,12 @@ read_yaml <- function(path) {
   }
 }
 
-option_validator <- function(...) list(
-  check = function(value) value %in% c(...),
-  help = cli::format_inline("Allowed values: {c(...)}.")
-)
+option_validator <- function(...) {
+  list(
+    check = function(value) value %in% c(...),
+    help = cli::format_inline("Allowed values: {c(...)}.")
+  )
+}
 
 positive_integer_validator <- list(
   check = function(value) is.integer(value) && value > 0,
