@@ -1,5 +1,5 @@
 pandoc: 2.14.2
-pkgdown: 2.0.3
+pkgdown: 2.0.4
 pkgdown_sha: ~
 articles:
   application-structure: explanation/application-structure.html
@@ -17,7 +17,7 @@ articles:
   write-javascript-code: how-to/write-javascript-code.html
   write-r-code: how-to/write-r-code.html
   create-your-first-rhino-app: tutorial/create-your-first-rhino-app.html
-last_built: 2022-05-18T11:41Z
+last_built: 2022-06-14T07:23Z
 urls:
   reference: https://appsilon.github.io/rhino/reference
   article: https://appsilon.github.io/rhino/articles
