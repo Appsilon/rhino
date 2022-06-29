@@ -46,11 +46,11 @@ as_top_level <- function(shiny_module) {
   # https://adv-r.hadley.nz/function-factories.html?q=force#forcing-evaluation
   force(shiny_module)
 
-  list(
-    # Wrap the UI in a function to support Shiny bookmarking.
-    ui = function(request) shiny_module$ui("app"),
-    server = function(input, output) shiny_module$server("app")
-  )
+  # The actual function must be sourced with `keep.source = TRUE` for reloading to work:
+  # https://github.com/Appsilon/rhino/issues/157
+  wrap <- source(fs::path_package("rhino", "as_top_level.R"), keep.source = TRUE)$value
+
+  wrap(shiny_module)
 }
 
 attach_head_tags <- function(ui) {
