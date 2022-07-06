@@ -39,6 +39,7 @@ Imports:
 Suggests:
   knitr,
   mockery,
+  rcmdcheck,
   rmarkdown
 LazyData: true
 Config/testthat/edition: 3
