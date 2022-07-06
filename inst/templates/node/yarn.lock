@@ -1108,6 +1108,27 @@
     remark "^13.0.0"
     unist-util-find-all-after "^3.0.2"
 
+"@types/bootstrap-datepicker@0.0.14":
+  version "0.0.14"
+  resolved "https://registry.yarnpkg.com/@types/bootstrap-datepicker/-/bootstrap-datepicker-0.0.14.tgz#89bc5816dd0b802bf8d4923cf5461e2c98cbb450"
+  integrity sha512-ZBwEUuwYpehEHWtkaIDl55N3F6dPz6xEsoPW5esCZdtuhuZdNC/ebFV2n48kATcY5S2HD3V0O5/J8nuEgVk9fQ==
+  dependencies:
+    "@types/jquery" "*"
+
+"@types/bootstrap@3.4.0":
+  version "3.4.0"
+  resolved "https://registry.yarnpkg.com/@types/bootstrap/-/bootstrap-3.4.0.tgz#7e74a2421b3984ce53ab459e979a99a78dd802c6"
+  integrity sha512-LS05hVAAsX86qbHg7W+ydwBlNHrVCoFw6wEP3/uW4eYmRXl08bWmPeN/+onM+8qZTFfDgUlG/OItJI8SW972oQ==
+  dependencies:
+    "@types/jquery" "*"
+
+"@types/datatables.net@^1.10.19":
+  version "1.10.22"
+  resolved "https://registry.yarnpkg.com/@types/datatables.net/-/datatables.net-1.10.22.tgz#2f2f03a659d316c70fc719dba0a3bb31c9e54b67"
+  integrity sha512-4VWfa/NrGiP5cZlZCAQ3aQBlPPX5VXSBRfb3C1plrCv3RKEslKp2oBEy/kaS/93OaqgBuFZBh10pOzgPa7ZXgw==
+  dependencies:
+    "@types/jquery" "*"
+
 "@types/eslint-scope@^3.7.3":
   version "3.7.3"
   resolved "https://registry.yarnpkg.com/@types/eslint-scope/-/eslint-scope-3.7.3.tgz#125b88504b61e3c8bc6f870882003253005c3224"
@@ -1128,6 +1149,25 @@
   version "0.0.51"
   resolved "https://registry.yarnpkg.com/@types/estree/-/estree-0.0.51.tgz#cfd70924a25a3fd32b218e5e420e6897e1ac4f40"
   integrity sha512-CuPgU6f3eT/XgKKPqKd/gLZV1Xmvf1a2R5POBOGQa6uv82xpls89HU5zKeVoyR8XzHd1RGNOlQlvUe3CFkjWNQ==
+
+"@types/ion-rangeslider@2.3.0":
+  version "2.3.0"
+  resolved "https://registry.yarnpkg.com/@types/ion-rangeslider/-/ion-rangeslider-2.3.0.tgz#dd089921c21acebc266c37e95d191e721ea21750"
+  integrity sha512-u1k2Ekfg7E/ByCrtqtMk98g3QMXnMyIjCKU397YfjhWnTrms2BteoTanMqe0MJ1zyBBiP6+bwbc7P4cU+RiL+w==
+
+"@types/jquery@*":
+  version "3.5.14"
+  resolved "https://registry.yarnpkg.com/@types/jquery/-/jquery-3.5.14.tgz#ac8e11ee591e94d4d58da602cb3a5a8320dee577"
+  integrity sha512-X1gtMRMbziVQkErhTQmSe2jFwwENA/Zr+PprCkF63vFq+Yt5PZ4AlKqgmeNlwgn7dhsXEK888eIW2520EpC+xg==
+  dependencies:
+    "@types/sizzle" "*"
+
+"@types/jquery@patch:@types/jquery@3.5.5#./srcts/patch/types-jquery.patch":
+  version "3.5.5"
+  resolved "https://registry.yarnpkg.com/@types/jquery/-/jquery-3.5.5.tgz#2c63f47c9c8d96693d272f5453602afd8338c903"
+  integrity sha512-6RXU9Xzpc6vxNrS6FPPapN1SxSHgQ336WC6Jj/N8q30OiaBZ00l1GBgeP7usjVZPivSkGUfL1z/WW6TX989M+w==
+  dependencies:
+    "@types/sizzle" "*"
 
 "@types/json-schema@*", "@types/json-schema@^7.0.5", "@types/json-schema@^7.0.8":
   version "7.0.9"
@@ -1171,12 +1211,28 @@
   resolved "https://registry.yarnpkg.com/@types/parse-json/-/parse-json-4.0.0.tgz#2f8bb441434d163b35fb8ffdccd7138927ffb8c0"
   integrity sha512-//oorEZjL6sbPcKUaCdIGlIUeH26mgzimjBB77G6XRgnDl/L5wOnpyBGRe/Mmf5CVW3PwEBE1NjiMZ/ssFh4wA==
 
+"@types/rstudio-shiny@https://github.com/rstudio/shiny":
+  version "1.7.1-alpha.9003"
+  resolved "https://github.com/rstudio/shiny#ff5ef52dd5ceef3880c220f1da567ec23ffec433"
+  dependencies:
+    "@types/bootstrap" "3.4.0"
+    "@types/bootstrap-datepicker" "0.0.14"
+    "@types/datatables.net" "^1.10.19"
+    "@types/ion-rangeslider" "2.3.0"
+    "@types/jquery" "patch:@types/jquery@3.5.5#./srcts/patch/types-jquery.patch"
+    "@types/selectize" "0.12.34"
+
+"@types/selectize@0.12.34":
+  version "0.12.34"
+  resolved "https://registry.yarnpkg.com/@types/selectize/-/selectize-0.12.34.tgz#24a79e3176103019d2371ae9fc8487dcd1336cea"
+  integrity sha512-OAXHsgsHBMJBHnB6QrFlHVa0+gCE5lgjdpwJDlJLRhrcsM4I2VXrm2vsG00//Rpdm4XgnX17vrBpjHlWOk1ALw==
+
 "@types/sinonjs__fake-timers@^6.0.2":
   version "6.0.4"
   resolved "https://registry.yarnpkg.com/@types/sinonjs__fake-timers/-/sinonjs__fake-timers-6.0.4.tgz#0ecc1b9259b76598ef01942f547904ce61a6a77d"
   integrity sha512-IFQTJARgMUBF+xVd2b+hIgXWrZEjND3vJtRCvIelcFB5SIXfjV4bOHbHJ0eXKh+0COrBRc8MqteKAz/j88rE0A==
 
-"@types/sizzle@^2.3.2":
+"@types/sizzle@*", "@types/sizzle@^2.3.2":
   version "2.3.3"
   resolved "https://registry.yarnpkg.com/@types/sizzle/-/sizzle-2.3.3.tgz#ff5e2f1902969d305225a047c8a0fd5c915cebef"
   integrity sha512-JYM8x9EGF163bEyhdJBpR2QX1R5naCJHC8ucJylJ3w9/CVBaskdQ8WqBf8MmQrd1kRvp/a4TS8HJ+bxzR7ZJYQ==
