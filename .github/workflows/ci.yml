@@ -1,0 +1,50 @@
+name: CI
+on: push
+jobs:
+  main:
+    name: Check, lint & test
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Install R
+        uses: r-lib/actions/setup-r@v2
+        with:
+          r-version: '4.2.0'
+
+      - name: Install R package dependencies
+        uses: r-lib/actions/setup-r-dependencies@v2
+        with:
+          extra-packages: local::. # Necessary to avoid object usage linter errors.
+
+      - name: R CMD check
+        if: always()
+        uses: r-lib/actions/check-r-package@v2
+        with:
+          error-on: '"note"'
+
+      - name: Lint
+        if: always()
+        shell: Rscript {0}
+        run: |
+          lints <- lintr::lint_package()
+          for (lint in lints) print(lint)
+          quit(status = length(lints) > 0)
+
+      - name: Test
+        if: always()
+        shell: Rscript {0}
+        run: |
+          # Errors will fail this step automatically.
+          tests <- testthat::test_local()
+
+          # Escalate warnings to a failure too.
+          expectations <-
+            lapply(tests, function(test) {
+              lapply(test$results, class)
+            }) |>
+            unlist()
+          warnings_found <- any(grepl("expectation_warning", expectations))
+          quit(status = warnings_found)
