@@ -19,7 +19,7 @@ install.packages("rhino")
 
 ## Dependencies
 
-This tutorial uses the native pipe operator (`|>`) introduced in R 4.1 release. If you use an earlier R version, then you can use the `%>%` pipe operator found in `{magrittr}` and `{dplyr}` packages instead.*
+This tutorial uses the native pipe operator (`|>`) introduced in R 4.1 release. If you use an earlier R version, then you can use the `%>%` pipe operator found in `{magrittr}` and `{dplyr}` packages instead.
 
 Development tools for JavaScript and Sass, provided by Rhino, require [Node.js](https://nodejs.org/en/) and [yarn](https://yarnpkg.com/). Please follow installation guides for your OS:
 
@@ -101,7 +101,7 @@ If you want to know more about it, check [this](https://appsilon.github.io/rhino
 Now, once you are all set up, let's run it:
 
 ```r
-shiny::shinyAppDir(".")
+shiny::runApp()
 ```
 
 And here is what you should be seeing right now:
@@ -124,7 +124,7 @@ Rhino already created a good place for new modules, the `app/view` directory. Cr
 # app/view/chart.R
 
 box::use(
-  shiny[moduleServer, NS, h3]
+  shiny[h3, moduleServer, NS],
 )
 
 #' @export
@@ -150,7 +150,7 @@ The next step is to call your new module in your application. First, you need to
 # app/main.R
 
 box::use(
-  app/view/chart
+  app/view/chart,
 )
 
 ...
@@ -164,9 +164,8 @@ Now, the main module will be able to use exported functions from `chart.R`. Let'
 box::use(
   shiny[bootstrapPage, moduleServer, NS],
 )
-
 box::use(
-  app/view/chart
+  app/view/chart,
 )
 
 #' @export
@@ -198,18 +197,14 @@ Now is the time to start adding something to your new module. What can we add to
 
 First, we need to install a library for visualizations - for that, we will go with [`echarts4r`](https://echarts4r.john-coene.com/).
 
-Rhino relies on the [`renv` package](https://rstudio.github.io/renv/index.html) for dependency management. To add this package to your project, first, you need to install it. We will be using a total of 5 packages for this application. To save us time in the tutorial we will install them all here. Please note that for every new package you add, you will need to install, add to dependencies.R, and re-run renv::snapshot().
+Rhino relies on the [`renv` package](https://rstudio.github.io/renv/index.html) for dependency management. To add this package to your project, first, you need to install it. We will be using a total of 5 packages for this application. To save us time in the tutorial we will install them all here. Please note that for every new package you add, you will need to install, add to dependencies.R, and re-run `renv::snapshot()`.
 
 ```r
 # In R console
-renv::install("echarts4r")
-renv::install("reactable")
-renv::install("tidyr")
-renv::install("dplyr")
-renv::install("htmlwidgets")
+renv::install(c("dplyr", "echarts4r", "htmlwidgets", "reactable", "tidyr"))
 ```
 
-**Note:** *Package `htmlwidgets` is already installed since it is a dependency for `shiny`, but we still should add it to the `dependencies.R` file:*
+**Note:** *Package `htmlwidgets` is already installed since it is a dependency for `shiny`, but we still should add it to the `dependencies.R` file.*
 
 The second step is to add them to the `dependencies.R` file. This file is a single source of truth when it comes to R packages used by the application. `renv` is going to check dependencies only in this file.
 
@@ -219,12 +214,12 @@ Add `library` calls to it:
 # dependencies.R
 
 # This file allows packrat (used by rsconnect during deployment) to pick up dependencies.
-library(rhino)
-library(echarts4r)
-library(reactable)
-library(tidyr)
 library(dplyr)
+library(echarts4r)
 library(htmlwidgets)
+library(reactable)
+library(rhino)
+library(tidyr)
 ```
 
 Finally, you need to update your `renv.lock` file:
@@ -244,8 +239,8 @@ Now, once you have both packages available in your project environment, it's tim
 # app/view/chart.R
 
 box::use(
-  shiny[moduleServer, NS, h3, tagList],
   echarts4r,
+  shiny[h3, moduleServer, NS, tagList],
 )
 
 ...
@@ -259,8 +254,8 @@ Add `echarts4r` render to the server part of the module and output part to its U
 # app/view/chart.R
 
 box::use(
-  shiny[moduleServer, NS, h3, tagList],
   echarts4r,
+  shiny[h3, moduleServer, NS, tagList],
 )
 
 #' @export
@@ -310,7 +305,7 @@ For that, let's create another module - `app/view/table.R`:
 # app/view/table.R
 
 box::use(
-  shiny[moduleServer, NS, h3, tagList],
+  shiny[h3, moduleServer, NS, tagList],
 )
 
 #' @export
@@ -340,10 +335,9 @@ As we did before, we need to call the new module in the `main.R` file:
 box::use(
   shiny[bootstrapPage, moduleServer, NS],
 )
-
 box::use(
   app/view/chart,
-  app/view/table
+  app/view/table,
 )
 
 #' @export
@@ -373,12 +367,11 @@ We want to use the same dataset in both modules, so instead of calling it twice,
 # app/main.R
 
 box::use(
-  shiny[bootstrapPage, moduleServer, NS]
+  shiny[bootstrapPage, moduleServer, NS],
 )
-
 box::use(
-  app/view/table,
   app/view/chart,
+  app/view/table,
 )
 
 #' @export
@@ -408,7 +401,7 @@ server <- function(id) {
 # app/view/table.R
 
 box::use(
-  shiny[moduleServer, NS, h3, tagList],
+  shiny[h3, moduleServer, NS, tagList],
 )
 
 #' @export
@@ -432,8 +425,8 @@ server <- function(id, data) {
 # app/view/chart.R
 
 box::use(
-  shiny[moduleServer, NS, h3, tagList],
-  echarts4r
+  echarts4r,
+  shiny[h3, moduleServer, NS, tagList],
 )
 
 #' @export
@@ -471,8 +464,8 @@ Now you can add a table to the application. Let's check the raw data for Rhinos:
 # app/view/table.R
 
 box::use(
-  shiny[moduleServer, NS, h3, tagList],
   reactable,
+  shiny[h3, moduleServer, NS, tagList],
 )
 
 #' @export
@@ -511,13 +504,13 @@ Let's create a file there, called `app/logic/data_transformation.R`.
 
 The table would be better if for each Rhino species we would have a separate column, so it would be easy to compare populations across time. To do that, we need to transform the dataset using the `pivot_wider` function from the `tidyr` package.
 
-Now we are able to access this function in our `data_transformation.R` file using box::use(). Let's also create a function that wraps `pivot_wider` and transforms data. Note that, as always, we need to add @export to be able to access it in the file it is being sourced.
+Now we are able to access this function in our `data_transformation.R` file using `box::use()`. Let's also create a function that wraps `pivot_wider` and transforms data. Note that, as always, we need to add @export to be able to access it in the file it is being sourced.
 
 ```r
 # app/logic/data_transformation.R
 
 box::use(
-  tidyr[pivot_wider]
+  tidyr[pivot_wider],
 )
 
 #' @export
@@ -538,12 +531,11 @@ Add box import and transform dataset:
 # app/view/table.R
 
 box::use(
-  shiny[moduleServer, NS, h3, tagList],
   reactable,
+  shiny[h3, moduleServer, NS, tagList],
 )
-
 box::use(
-  app/logic/data_transformation[transform_data]
+  app/logic/data_transformation[transform_data],
 )
 
 #' @export
@@ -582,8 +574,8 @@ Next, add arrange to `transform_data` function:
 # app/logic/data_transformation.R
 
 box::use(
+  dplyr[arrange],
   tidyr[pivot_wider],
-  dplyr[arrange]
 )
 
 #' @export
@@ -609,15 +601,11 @@ There is still one element that can be improved. If you check the X-axis in the 
 # app/logic/chart_utils.R
 
 box::use(
-  htmlwidgets[JS]
+  htmlwidgets[JS],
 )
 
 #' @export
-label_formatter <- JS(
-  "function(value, index){
-    return value;
-  }"
-)
+label_formatter <- JS("(value, index) => value")
 ```
 
 Finally, add the formatter to the chart module:
@@ -626,12 +614,11 @@ Finally, add the formatter to the chart module:
 # app/view/chart.R
 
 box::use(
-  shiny[moduleServer, NS, h3, tagList],
-  echarts4r
+  echarts4r,
+  shiny[h3, moduleServer, NS, tagList],
 )
-
 box::use(
-  app/logic/chart_utils[label_formatter]
+  app/logic/chart_utils[label_formatter],
 )
 
 #' @export
@@ -674,20 +661,19 @@ It should now look better:
 
 **Note:** *Sass builder uses Node.js. If you are not able to install Node in your environment, you can change the `sass` entry in the `rhino.yml` file to `r`. It will now use the R package for Sass bundling. Under the hood, it uses a deprecated C++ library, so the Node solution is strongly recommended here.*
 
-In this stage, the application has working components, but it doesn't have a clean and organized look to it. For this we will need a little css styling.
+In this stage, the application has working components, but it doesn't have a clean and organized look to it. For this we will need a little CSS styling.
 
-Adjusting application style can be done by providing custom styles in the `app/styles` directory, But first, you need to adjust the application a little bit by adding Html tags and CSS classes:
+Adjusting application style can be done by providing custom styles in the `app/styles` directory, But first, you need to adjust the application a little bit by adding HTML tags and CSS classes:
 
 ```r
 # app/main.R
 
 box::use(
-  shiny[bootstrapPage, moduleServer, NS, div],
+  shiny[bootstrapPage, div, moduleServer, NS],
 )
-
 box::use(
-  app/view/table,
   app/view/chart,
+  app/view/table,
 )
 
 #' @export
@@ -720,12 +706,11 @@ server <- function(id) {
 # app/view/chart.R
 
 box::use(
-  shiny[moduleServer, NS, div],
-  echarts4r
+  echarts4r,
+  shiny[div, moduleServer, NS],
 )
-
 box::use(
-  app/logic/chart_utils[label_formatter]
+  app/logic/chart_utils[label_formatter],
 )
 
 #' @export
@@ -762,12 +747,11 @@ server <- function(id, data) {
 # app/view/table.R
 
 box::use(
-  shiny[moduleServer, NS, div],
   reactable,
+  shiny[div, moduleServer, NS],
 )
-
 box::use(
-  app/logic/data_transformation[transform_data]
+  app/logic/data_transformation[transform_data],
 )
 
 #' @export
@@ -831,12 +815,11 @@ Let's adjust the application a little bit more by adding a title:
 # app/main.R
 
 box::use(
-  shiny[bootstrapPage, moduleServer, NS, div, h1],
+  shiny[bootstrapPage, div, h1, moduleServer, NS],
 )
-
 box::use(
-  app/view/table,
   app/view/chart,
+  app/view/table,
 )
 
 #' @export
@@ -908,12 +891,11 @@ First, we need to create a simple button and style it:
 # app/main.R
 
 box::use(
-  shiny[bootstrapPage, moduleServer, NS, div, h1, tags, icon],
+  shiny[bootstrapPage, div, h1, icon, moduleServer, NS, tags],
 )
-
 box::use(
-  app/view/table,
   app/view/chart,
+  app/view/table,
 )
 
 #' @export
@@ -979,7 +961,7 @@ Now, it's time for writing the JavaScript code that should show the popup with a
 // app/js/index.js
 
 export function showHelp() {
-  alert("Check rhino here: https://appsilon.github.io/rhino/");
+  alert('Learn more about Rhino: https://appsilon.github.io/rhino/');
 }
 ```
 
@@ -1000,12 +982,11 @@ The last thing here is to use the `showHelp()` function in the application. To d
 # app/main.R
 
 box::use(
-  shiny[bootstrapPage, moduleServer, NS, div, h1, tags, icon],
+  shiny[bootstrapPage, div, h1, icon, moduleServer, NS, tags],
 )
-
 box::use(
-  app/view/table,
   app/view/chart,
+  app/view/table,
 )
 
 #' @export
