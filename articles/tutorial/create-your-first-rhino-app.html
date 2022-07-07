@@ -113,7 +113,7 @@
 </h3>
 <p>To get started, the first thing you will need is to install Rhino itself:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"rhino"</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"rhino"</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="dependencies">Dependencies<a class="anchor" aria-label="anchor" href="#dependencies"></a>
@@ -145,13 +145,13 @@
 </h3>
 <p>Creating a Rhino application is possible in the R console by running the <code>init</code> function:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu">rhino</span><span class="fu">::</span><span class="fu"><a href="../../reference/init.html">init</a></span><span class="op">(</span><span class="st">"RhinoApplication"</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu">rhino</span><span class="fu">::</span><span class="fu"><a href="../../reference/init.html">init</a></span><span class="op">(</span><span class="st">"RhinoApplication"</span><span class="op">)</span></span></code></pre></div>
 <p>There are two things you need to know when choosing this way of initializing your application:</p>
 <ol style="list-style-type: decimal">
 <li>Rhino will <strong>not</strong> change your working directory. You need to either open a new R session in your new application directory or manually change the working directory.</li>
 </ol>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/getwd.html" class="external-link">setwd</a></span><span class="op">(</span><span class="st">"./RhinoApplication"</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/getwd.html" class="external-link">setwd</a></span><span class="op">(</span><span class="st">"./RhinoApplication"</span><span class="op">)</span></span></code></pre></div>
 <ol start="2" style="list-style-type: decimal">
 <li>Rhino relies on options added to the projects <code>.Rprofile</code> file. The most robust way to make sure it was correctly sourced is to simply restart the R session.</li>
 </ol>
@@ -189,7 +189,7 @@
 </h3>
 <p>Now, once you are all set up, let’s run it:</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu">shiny</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/shinyApp.html" class="external-link">shinyAppDir</a></span><span class="op">(</span><span class="st">"."</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu">shiny</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/shinyApp.html" class="external-link">shinyAppDir</a></span><span class="op">(</span><span class="st">"."</span><span class="op">)</span></span></code></pre></div>
 <p>And here is what you should be seeing right now:</p>
 <div class="app-preview">
 <p><img src="images/init_application.png"></p>
@@ -206,65 +206,65 @@
 <p>In Rhino, each application view is intended to live as a <a href="https://shiny.rstudio.com/articles/modules.html" class="external-link">Shiny module</a> and use encapsulation provided by <a href="https://klmr.me/box/" class="external-link"><code>box</code> package</a>.</p>
 <p>Rhino already created a good place for new modules, the <code>app/view</code> directory. Create a file there, named <code>chart.R</code>:</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># app/view/chart.R</span>
-
-<span class="fu">box</span><span class="fu">::</span><span class="fu"><a href="http://klmr.me/box/reference/use.html" class="external-link">use</a></span><span class="op">(</span>
-  <span class="va">shiny</span><span class="op">[</span><span class="va">moduleServer</span>, <span class="va">NS</span>, <span class="va">h3</span><span class="op">]</span>
-<span class="op">)</span>
-
-<span class="co">#' @export</span>
-<span class="va">ui</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">id</span><span class="op">)</span> <span class="op">{</span>
-  <span class="va">ns</span> <span class="op">&lt;-</span> <span class="fu">NS</span><span class="op">(</span><span class="va">id</span><span class="op">)</span>
-
-  <span class="fu">h3</span><span class="op">(</span><span class="st">"Chart"</span><span class="op">)</span>
-<span class="op">}</span>
-
-<span class="co">#' @export</span>
-<span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">id</span><span class="op">)</span> <span class="op">{</span>
-  <span class="fu">moduleServer</span><span class="op">(</span><span class="va">id</span>, <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span>
-    <span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="st">"Chart module server part works!"</span><span class="op">)</span>
-  <span class="op">}</span><span class="op">)</span>
-<span class="op">}</span></code></pre></div>
+<code class="sourceCode R"><span><span class="co"># app/view/chart.R</span></span>
+<span></span>
+<span><span class="fu">box</span><span class="fu">::</span><span class="fu"><a href="http://klmr.me/box/reference/use.html" class="external-link">use</a></span><span class="op">(</span></span>
+<span>  <span class="va">shiny</span><span class="op">[</span><span class="va">moduleServer</span>, <span class="va">NS</span>, <span class="va">h3</span><span class="op">]</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="co">#' @export</span></span>
+<span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">id</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="va">ns</span> <span class="op">&lt;-</span> <span class="fu">NS</span><span class="op">(</span><span class="va">id</span><span class="op">)</span></span>
+<span></span>
+<span>  <span class="fu">h3</span><span class="op">(</span><span class="st">"Chart"</span><span class="op">)</span></span>
+<span><span class="op">}</span></span>
+<span></span>
+<span><span class="co">#' @export</span></span>
+<span><span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">id</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="fu">moduleServer</span><span class="op">(</span><span class="va">id</span>, <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="st">"Chart module server part works!"</span><span class="op">)</span></span>
+<span>  <span class="op">}</span><span class="op">)</span></span>
+<span><span class="op">}</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="calling-a-module">Calling a module<a class="anchor" aria-label="anchor" href="#calling-a-module"></a>
 </h3>
 <p>The next step is to call your new module in your application. First, you need to import it into your main application file. To do that, add another <code><a href="http://klmr.me/box/reference/use.html" class="external-link">box::use</a></code> section in your <code>app/main.R</code> file:</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># app/main.R</span>
-
-<span class="fu">box</span><span class="fu">::</span><span class="fu"><a href="http://klmr.me/box/reference/use.html" class="external-link">use</a></span><span class="op">(</span>
-  <span class="va">app</span><span class="op">/</span><span class="va">view</span><span class="op">/</span><span class="va">chart</span>
-<span class="op">)</span>
-
-<span class="va">...</span></code></pre></div>
+<code class="sourceCode R"><span><span class="co"># app/main.R</span></span>
+<span></span>
+<span><span class="fu">box</span><span class="fu">::</span><span class="fu"><a href="http://klmr.me/box/reference/use.html" class="external-link">use</a></span><span class="op">(</span></span>
+<span>  <span class="va">app</span><span class="op">/</span><span class="va">view</span><span class="op">/</span><span class="va">chart</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">...</span></span></code></pre></div>
 <p>Now, the main module will be able to use exported functions from <code>chart.R</code>. Let’s try it! Modify your <code>app/main.R</code> file to look like that:</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># app/main.R</span>
-
-<span class="fu">box</span><span class="fu">::</span><span class="fu"><a href="http://klmr.me/box/reference/use.html" class="external-link">use</a></span><span class="op">(</span>
-  <span class="va">shiny</span><span class="op">[</span><span class="va">bootstrapPage</span>, <span class="va">moduleServer</span>, <span class="va">NS</span><span class="op">]</span>,
-<span class="op">)</span>
-
-<span class="fu">box</span><span class="fu">::</span><span class="fu"><a href="http://klmr.me/box/reference/use.html" class="external-link">use</a></span><span class="op">(</span>
-  <span class="va">app</span><span class="op">/</span><span class="va">view</span><span class="op">/</span><span class="va">chart</span>
-<span class="op">)</span>
-
-<span class="co">#' @export</span>
-<span class="va">ui</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">id</span><span class="op">)</span> <span class="op">{</span>
-  <span class="va">ns</span> <span class="op">&lt;-</span> <span class="fu">NS</span><span class="op">(</span><span class="va">id</span><span class="op">)</span>
-
-  <span class="fu">bootstrapPage</span><span class="op">(</span>
-    <span class="va">chart</span><span class="op">$</span><span class="fu">ui</span><span class="op">(</span><span class="fu">ns</span><span class="op">(</span><span class="st">"chart"</span><span class="op">)</span><span class="op">)</span>
-  <span class="op">)</span>
-<span class="op">}</span>
-
-<span class="co">#' @export</span>
-<span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">id</span><span class="op">)</span> <span class="op">{</span>
-  <span class="fu">moduleServer</span><span class="op">(</span><span class="va">id</span>, <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span>
-    <span class="va">chart</span><span class="op">$</span><span class="fu">server</span><span class="op">(</span><span class="st">"chart"</span><span class="op">)</span>
-  <span class="op">}</span><span class="op">)</span>
-<span class="op">}</span></code></pre></div>
+<code class="sourceCode R"><span><span class="co"># app/main.R</span></span>
+<span></span>
+<span><span class="fu">box</span><span class="fu">::</span><span class="fu"><a href="http://klmr.me/box/reference/use.html" class="external-link">use</a></span><span class="op">(</span></span>
+<span>  <span class="va">shiny</span><span class="op">[</span><span class="va">bootstrapPage</span>, <span class="va">moduleServer</span>, <span class="va">NS</span><span class="op">]</span>,</span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">box</span><span class="fu">::</span><span class="fu"><a href="http://klmr.me/box/reference/use.html" class="external-link">use</a></span><span class="op">(</span></span>
+<span>  <span class="va">app</span><span class="op">/</span><span class="va">view</span><span class="op">/</span><span class="va">chart</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="co">#' @export</span></span>
+<span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">id</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="va">ns</span> <span class="op">&lt;-</span> <span class="fu">NS</span><span class="op">(</span><span class="va">id</span><span class="op">)</span></span>
+<span></span>
+<span>  <span class="fu">bootstrapPage</span><span class="op">(</span></span>
+<span>    <span class="va">chart</span><span class="op">$</span><span class="fu">ui</span><span class="op">(</span><span class="fu">ns</span><span class="op">(</span><span class="st">"chart"</span><span class="op">)</span><span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">}</span></span>
+<span></span>
+<span><span class="co">#' @export</span></span>
+<span><span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">id</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="fu">moduleServer</span><span class="op">(</span><span class="va">id</span>, <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span></span>
+<span>    <span class="va">chart</span><span class="op">$</span><span class="fu">server</span><span class="op">(</span><span class="st">"chart"</span><span class="op">)</span></span>
+<span>  <span class="op">}</span><span class="op">)</span></span>
+<span><span class="op">}</span></span></code></pre></div>
 <p>Now, when you run your application, you should see the message from the newly created module:</p>
 <p><img src="images/first_module.png"></p>
 </div>
@@ -278,29 +278,29 @@
 <p>First, we need to install a library for visualizations - for that, we will go with <a href="https://echarts4r.john-coene.com/" class="external-link"><code>echarts4r</code></a>.</p>
 <p>Rhino relies on the <a href="https://rstudio.github.io/renv/index.html" class="external-link"><code>renv</code> package</a> for dependency management. To add this package to your project, first, you need to install it. We will be using a total of 5 packages for this application. To save us time in the tutorial we will install them all here. Please note that for every new package you add, you will need to install, add to dependencies.R, and re-run renv::snapshot().</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># In R console</span>
-<span class="fu">renv</span><span class="fu">::</span><span class="fu"><a href="https://rstudio.github.io/renv/reference/install.html" class="external-link">install</a></span><span class="op">(</span><span class="st">"echarts4r"</span><span class="op">)</span>
-<span class="fu">renv</span><span class="fu">::</span><span class="fu"><a href="https://rstudio.github.io/renv/reference/install.html" class="external-link">install</a></span><span class="op">(</span><span class="st">"reactable"</span><span class="op">)</span>
-<span class="fu">renv</span><span class="fu">::</span><span class="fu"><a href="https://rstudio.github.io/renv/reference/install.html" class="external-link">install</a></span><span class="op">(</span><span class="st">"tidyr"</span><span class="op">)</span>
-<span class="fu">renv</span><span class="fu">::</span><span class="fu"><a href="https://rstudio.github.io/renv/reference/install.html" class="external-link">install</a></span><span class="op">(</span><span class="st">"dplyr"</span><span class="op">)</span>
-<span class="fu">renv</span><span class="fu">::</span><span class="fu"><a href="https://rstudio.github.io/renv/reference/install.html" class="external-link">install</a></span><span class="op">(</span><span class="st">"htmlwidgets"</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="co"># In R console</span></span>
+<span><span class="fu">renv</span><span class="fu">::</span><span class="fu"><a href="https://rstudio.github.io/renv/reference/install.html" class="external-link">install</a></span><span class="op">(</span><span class="st">"echarts4r"</span><span class="op">)</span></span>
+<span><span class="fu">renv</span><span class="fu">::</span><span class="fu"><a href="https://rstudio.github.io/renv/reference/install.html" class="external-link">install</a></span><span class="op">(</span><span class="st">"reactable"</span><span class="op">)</span></span>
+<span><span class="fu">renv</span><span class="fu">::</span><span class="fu"><a href="https://rstudio.github.io/renv/reference/install.html" class="external-link">install</a></span><span class="op">(</span><span class="st">"tidyr"</span><span class="op">)</span></span>
+<span><span class="fu">renv</span><span class="fu">::</span><span class="fu"><a href="https://rstudio.github.io/renv/reference/install.html" class="external-link">install</a></span><span class="op">(</span><span class="st">"dplyr"</span><span class="op">)</span></span>
+<span><span class="fu">renv</span><span class="fu">::</span><span class="fu"><a href="https://rstudio.github.io/renv/reference/install.html" class="external-link">install</a></span><span class="op">(</span><span class="st">"htmlwidgets"</span><span class="op">)</span></span></code></pre></div>
 <p><strong>Note:</strong> <em>Package <code>htmlwidgets</code> is already installed since it is a dependency for <code>shiny</code>, but we still should add it to the <code>dependencies.R</code> file:</em></p>
 <p>The second step is to add them to the <code>dependencies.R</code> file. This file is a single source of truth when it comes to R packages used by the application. <code>renv</code> is going to check dependencies only in this file.</p>
 <p>Add <code>library</code> calls to it:</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># dependencies.R</span>
-
-<span class="co"># This file allows packrat (used by rsconnect during deployment) to pick up dependencies.</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://appsilon.github.io/rhino/">rhino</a></span><span class="op">)</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://echarts4r.john-coene.com/" class="external-link">echarts4r</a></span><span class="op">)</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://glin.github.io/reactable/" class="external-link">reactable</a></span><span class="op">)</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyr.tidyverse.org" class="external-link">tidyr</a></span><span class="op">)</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a></span><span class="op">)</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/ramnathv/htmlwidgets" class="external-link">htmlwidgets</a></span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="co"># dependencies.R</span></span>
+<span></span>
+<span><span class="co"># This file allows packrat (used by rsconnect during deployment) to pick up dependencies.</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://appsilon.github.io/rhino/">rhino</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://echarts4r.john-coene.com/" class="external-link">echarts4r</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://glin.github.io/reactable/" class="external-link">reactable</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyr.tidyverse.org" class="external-link">tidyr</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/ramnathv/htmlwidgets" class="external-link">htmlwidgets</a></span><span class="op">)</span></span></code></pre></div>
 <p>Finally, you need to update your <code>renv.lock</code> file:</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># in R console</span>
-<span class="fu">renv</span><span class="fu">::</span><span class="fu"><a href="https://rstudio.github.io/renv/reference/snapshot.html" class="external-link">snapshot</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="co"># in R console</span></span>
+<span><span class="fu">renv</span><span class="fu">::</span><span class="fu"><a href="https://rstudio.github.io/renv/reference/snapshot.html" class="external-link">snapshot</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <p>If you check the <code>renv.lock</code> file, you will see that it was updated with <code>echarts4r</code> and all its dependencies.</p>
 </div>
 <div class="section level4">
@@ -308,49 +308,49 @@
 </h4>
 <p>Now, once you have both packages available in your project environment, it’s time to use them. First, you need to import them into your module. Extend <code><a href="http://klmr.me/box/reference/use.html" class="external-link">box::use</a></code> call in your <code>app/view/chart.R</code> file:</p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># app/view/chart.R</span>
-
-<span class="fu">box</span><span class="fu">::</span><span class="fu"><a href="http://klmr.me/box/reference/use.html" class="external-link">use</a></span><span class="op">(</span>
-  <span class="va">shiny</span><span class="op">[</span><span class="va">moduleServer</span>, <span class="va">NS</span>, <span class="va">h3</span>, <span class="va">tagList</span><span class="op">]</span>,
-  <span class="va">echarts4r</span>,
-<span class="op">)</span>
-
-<span class="va">...</span></code></pre></div>
+<code class="sourceCode R"><span><span class="co"># app/view/chart.R</span></span>
+<span></span>
+<span><span class="fu">box</span><span class="fu">::</span><span class="fu"><a href="http://klmr.me/box/reference/use.html" class="external-link">use</a></span><span class="op">(</span></span>
+<span>  <span class="va">shiny</span><span class="op">[</span><span class="va">moduleServer</span>, <span class="va">NS</span>, <span class="va">h3</span>, <span class="va">tagList</span><span class="op">]</span>,</span>
+<span>  <span class="va">echarts4r</span>,</span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">...</span></span></code></pre></div>
 <p>You can use those packages in your module by calling <code>{package}${function}</code>. For more options of importing in <code>box</code> check <a href="https://klmr.me/box/index.html#loading-code" class="external-link">this</a> link.</p>
 <p>Add <code>echarts4r</code> render to the server part of the module and output part to its UI:</p>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># app/view/chart.R</span>
-
-<span class="fu">box</span><span class="fu">::</span><span class="fu"><a href="http://klmr.me/box/reference/use.html" class="external-link">use</a></span><span class="op">(</span>
-  <span class="va">shiny</span><span class="op">[</span><span class="va">moduleServer</span>, <span class="va">NS</span>, <span class="va">h3</span>, <span class="va">tagList</span><span class="op">]</span>,
-  <span class="va">echarts4r</span>,
-<span class="op">)</span>
-
-<span class="co">#' @export</span>
-<span class="va">ui</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">id</span><span class="op">)</span> <span class="op">{</span>
-  <span class="va">ns</span> <span class="op">&lt;-</span> <span class="fu">NS</span><span class="op">(</span><span class="va">id</span><span class="op">)</span>
-
-  <span class="fu">tagList</span><span class="op">(</span>
-    <span class="fu">h3</span><span class="op">(</span><span class="st">"Chart"</span><span class="op">)</span>,
-    <span class="va">echarts4r</span><span class="op">$</span><span class="fu">echarts4rOutput</span><span class="op">(</span><span class="fu">ns</span><span class="op">(</span><span class="st">"chart"</span><span class="op">)</span><span class="op">)</span>
-  <span class="op">)</span>
-<span class="op">}</span>
-
-<span class="co">#' @export</span>
-<span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">id</span><span class="op">)</span> <span class="op">{</span>
-  <span class="fu">moduleServer</span><span class="op">(</span><span class="va">id</span>, <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span>
-    <span class="va">output</span><span class="op">$</span><span class="va">chart</span> <span class="op">&lt;-</span> <span class="va">echarts4r</span><span class="op">$</span><span class="fu">renderEcharts4r</span><span class="op">(</span>
-      <span class="co"># Datasets are the only case when you need to use :: in `box`.</span>
-      <span class="co"># This issue should be solved in the next `box` release.</span>
-      <span class="fu">rhino</span><span class="fu">::</span><span class="va"><a href="../../reference/rhinos.html">rhinos</a></span> |&gt;
-        <span class="va">echarts4r</span><span class="op">$</span><span class="fu">group_by</span><span class="op">(</span><span class="va">Species</span><span class="op">)</span> |&gt;
-        <span class="va">echarts4r</span><span class="op">$</span><span class="fu">e_chart</span><span class="op">(</span>x <span class="op">=</span> <span class="va">Year</span><span class="op">)</span> |&gt;
-        <span class="va">echarts4r</span><span class="op">$</span><span class="fu">e_line</span><span class="op">(</span><span class="va">Population</span><span class="op">)</span> |&gt;
-        <span class="va">echarts4r</span><span class="op">$</span><span class="fu">e_x_axis</span><span class="op">(</span><span class="va">Year</span><span class="op">)</span> |&gt;
-        <span class="va">echarts4r</span><span class="op">$</span><span class="fu">e_tooltip</span><span class="op">(</span><span class="op">)</span>
-    <span class="op">)</span>
-  <span class="op">}</span><span class="op">)</span>
-<span class="op">}</span></code></pre></div>
+<code class="sourceCode R"><span><span class="co"># app/view/chart.R</span></span>
+<span></span>
+<span><span class="fu">box</span><span class="fu">::</span><span class="fu"><a href="http://klmr.me/box/reference/use.html" class="external-link">use</a></span><span class="op">(</span></span>
+<span>  <span class="va">shiny</span><span class="op">[</span><span class="va">moduleServer</span>, <span class="va">NS</span>, <span class="va">h3</span>, <span class="va">tagList</span><span class="op">]</span>,</span>
+<span>  <span class="va">echarts4r</span>,</span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="co">#' @export</span></span>
+<span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">id</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="va">ns</span> <span class="op">&lt;-</span> <span class="fu">NS</span><span class="op">(</span><span class="va">id</span><span class="op">)</span></span>
+<span></span>
+<span>  <span class="fu">tagList</span><span class="op">(</span></span>
+<span>    <span class="fu">h3</span><span class="op">(</span><span class="st">"Chart"</span><span class="op">)</span>,</span>
+<span>    <span class="va">echarts4r</span><span class="op">$</span><span class="fu">echarts4rOutput</span><span class="op">(</span><span class="fu">ns</span><span class="op">(</span><span class="st">"chart"</span><span class="op">)</span><span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">}</span></span>
+<span></span>
+<span><span class="co">#' @export</span></span>
+<span><span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">id</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="fu">moduleServer</span><span class="op">(</span><span class="va">id</span>, <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span></span>
+<span>    <span class="va">output</span><span class="op">$</span><span class="va">chart</span> <span class="op">&lt;-</span> <span class="va">echarts4r</span><span class="op">$</span><span class="fu">renderEcharts4r</span><span class="op">(</span></span>
+<span>      <span class="co"># Datasets are the only case when you need to use :: in `box`.</span></span>
+<span>      <span class="co"># This issue should be solved in the next `box` release.</span></span>
+<span>      <span class="fu">rhino</span><span class="fu">::</span><span class="va"><a href="../../reference/rhinos.html">rhinos</a></span> <span class="op">|&gt;</span></span>
+<span>        <span class="va">echarts4r</span><span class="op">$</span><span class="fu">group_by</span><span class="op">(</span><span class="va">Species</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>        <span class="va">echarts4r</span><span class="op">$</span><span class="fu">e_chart</span><span class="op">(</span>x <span class="op">=</span> <span class="va">Year</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>        <span class="va">echarts4r</span><span class="op">$</span><span class="fu">e_line</span><span class="op">(</span><span class="va">Population</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>        <span class="va">echarts4r</span><span class="op">$</span><span class="fu">e_x_axis</span><span class="op">(</span><span class="va">Year</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>        <span class="va">echarts4r</span><span class="op">$</span><span class="fu">e_tooltip</span><span class="op">(</span><span class="op">)</span></span>
+<span>    <span class="op">)</span></span>
+<span>  <span class="op">}</span><span class="op">)</span></span>
+<span><span class="op">}</span></span></code></pre></div>
 <p>One thing worth noting here is that in the UI part we had to use another function from Shiny - <code>tagList</code>. To be able to do that, you have to adjust your import in <code><a href="http://klmr.me/box/reference/use.html" class="external-link">box::use</a></code> - simply add <code>tagList</code> to the list of imported functions.</p>
 <hr>
 <p>Finally, when you run your application, you should see something similar to this:</p>
@@ -366,151 +366,151 @@
 <p>Once you have some content presented in the application, it would be great to add a table to show the dataset.</p>
 <p>For that, let’s create another module - <code>app/view/table.R</code>:</p>
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># app/view/table.R</span>
-
-<span class="fu">box</span><span class="fu">::</span><span class="fu"><a href="http://klmr.me/box/reference/use.html" class="external-link">use</a></span><span class="op">(</span>
-  <span class="va">shiny</span><span class="op">[</span><span class="va">moduleServer</span>, <span class="va">NS</span>, <span class="va">h3</span>, <span class="va">tagList</span><span class="op">]</span>,
-<span class="op">)</span>
-
-<span class="co">#' @export</span>
-<span class="va">ui</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">id</span><span class="op">)</span> <span class="op">{</span>
-  <span class="va">ns</span> <span class="op">&lt;-</span> <span class="fu">NS</span><span class="op">(</span><span class="va">id</span><span class="op">)</span>
-
-  <span class="fu">tagList</span><span class="op">(</span>
-    <span class="fu">h3</span><span class="op">(</span><span class="st">"Table"</span><span class="op">)</span>
-  <span class="op">)</span>
-<span class="op">}</span>
-
-<span class="co">#' @export</span>
-<span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">id</span><span class="op">)</span> <span class="op">{</span>
-  <span class="fu">moduleServer</span><span class="op">(</span><span class="va">id</span>, <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span>
-
-  <span class="op">}</span><span class="op">)</span>
-<span class="op">}</span></code></pre></div>
+<code class="sourceCode R"><span><span class="co"># app/view/table.R</span></span>
+<span></span>
+<span><span class="fu">box</span><span class="fu">::</span><span class="fu"><a href="http://klmr.me/box/reference/use.html" class="external-link">use</a></span><span class="op">(</span></span>
+<span>  <span class="va">shiny</span><span class="op">[</span><span class="va">moduleServer</span>, <span class="va">NS</span>, <span class="va">h3</span>, <span class="va">tagList</span><span class="op">]</span>,</span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="co">#' @export</span></span>
+<span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">id</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="va">ns</span> <span class="op">&lt;-</span> <span class="fu">NS</span><span class="op">(</span><span class="va">id</span><span class="op">)</span></span>
+<span></span>
+<span>  <span class="fu">tagList</span><span class="op">(</span></span>
+<span>    <span class="fu">h3</span><span class="op">(</span><span class="st">"Table"</span><span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">}</span></span>
+<span></span>
+<span><span class="co">#' @export</span></span>
+<span><span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">id</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="fu">moduleServer</span><span class="op">(</span><span class="va">id</span>, <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span></span>
+<span></span>
+<span>  <span class="op">}</span><span class="op">)</span></span>
+<span><span class="op">}</span></span></code></pre></div>
 <div class="section level3">
 <h3 id="calling-the-second-module">Calling the second module<a class="anchor" aria-label="anchor" href="#calling-the-second-module"></a>
 </h3>
 <p>As we did before, we need to call the new module in the <code>main.R</code> file:</p>
 <div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># app/main.R</span>
-
-<span class="fu">box</span><span class="fu">::</span><span class="fu"><a href="http://klmr.me/box/reference/use.html" class="external-link">use</a></span><span class="op">(</span>
-  <span class="va">shiny</span><span class="op">[</span><span class="va">bootstrapPage</span>, <span class="va">moduleServer</span>, <span class="va">NS</span><span class="op">]</span>,
-<span class="op">)</span>
-
-<span class="fu">box</span><span class="fu">::</span><span class="fu"><a href="http://klmr.me/box/reference/use.html" class="external-link">use</a></span><span class="op">(</span>
-  <span class="va">app</span><span class="op">/</span><span class="va">view</span><span class="op">/</span><span class="va">chart</span>,
-  <span class="va">app</span><span class="op">/</span><span class="va">view</span><span class="op">/</span><span class="va">table</span>
-<span class="op">)</span>
-
-<span class="co">#' @export</span>
-<span class="va">ui</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">id</span><span class="op">)</span> <span class="op">{</span>
-  <span class="va">ns</span> <span class="op">&lt;-</span> <span class="fu">NS</span><span class="op">(</span><span class="va">id</span><span class="op">)</span>
-
-  <span class="fu">bootstrapPage</span><span class="op">(</span>
-    <span class="va">table</span><span class="op">$</span><span class="fu">ui</span><span class="op">(</span><span class="fu">ns</span><span class="op">(</span><span class="st">"table"</span><span class="op">)</span><span class="op">)</span>,
-    <span class="va">chart</span><span class="op">$</span><span class="fu">ui</span><span class="op">(</span><span class="fu">ns</span><span class="op">(</span><span class="st">"chart"</span><span class="op">)</span><span class="op">)</span>
-  <span class="op">)</span>
-<span class="op">}</span>
-
-<span class="co">#' @export</span>
-<span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">id</span><span class="op">)</span> <span class="op">{</span>
-  <span class="fu">moduleServer</span><span class="op">(</span><span class="va">id</span>, <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span>
-    <span class="va">table</span><span class="op">$</span><span class="fu">server</span><span class="op">(</span><span class="st">"table"</span><span class="op">)</span>
-    <span class="va">chart</span><span class="op">$</span><span class="fu">server</span><span class="op">(</span><span class="st">"chart"</span><span class="op">)</span>
-  <span class="op">}</span><span class="op">)</span>
-<span class="op">}</span></code></pre></div>
+<code class="sourceCode R"><span><span class="co"># app/main.R</span></span>
+<span></span>
+<span><span class="fu">box</span><span class="fu">::</span><span class="fu"><a href="http://klmr.me/box/reference/use.html" class="external-link">use</a></span><span class="op">(</span></span>
+<span>  <span class="va">shiny</span><span class="op">[</span><span class="va">bootstrapPage</span>, <span class="va">moduleServer</span>, <span class="va">NS</span><span class="op">]</span>,</span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">box</span><span class="fu">::</span><span class="fu"><a href="http://klmr.me/box/reference/use.html" class="external-link">use</a></span><span class="op">(</span></span>
+<span>  <span class="va">app</span><span class="op">/</span><span class="va">view</span><span class="op">/</span><span class="va">chart</span>,</span>
+<span>  <span class="va">app</span><span class="op">/</span><span class="va">view</span><span class="op">/</span><span class="va">table</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="co">#' @export</span></span>
+<span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">id</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="va">ns</span> <span class="op">&lt;-</span> <span class="fu">NS</span><span class="op">(</span><span class="va">id</span><span class="op">)</span></span>
+<span></span>
+<span>  <span class="fu">bootstrapPage</span><span class="op">(</span></span>
+<span>    <span class="va">table</span><span class="op">$</span><span class="fu">ui</span><span class="op">(</span><span class="fu">ns</span><span class="op">(</span><span class="st">"table"</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>    <span class="va">chart</span><span class="op">$</span><span class="fu">ui</span><span class="op">(</span><span class="fu">ns</span><span class="op">(</span><span class="st">"chart"</span><span class="op">)</span><span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">}</span></span>
+<span></span>
+<span><span class="co">#' @export</span></span>
+<span><span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">id</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="fu">moduleServer</span><span class="op">(</span><span class="va">id</span>, <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span></span>
+<span>    <span class="va">table</span><span class="op">$</span><span class="fu">server</span><span class="op">(</span><span class="st">"table"</span><span class="op">)</span></span>
+<span>    <span class="va">chart</span><span class="op">$</span><span class="fu">server</span><span class="op">(</span><span class="st">"chart"</span><span class="op">)</span></span>
+<span>  <span class="op">}</span><span class="op">)</span></span>
+<span><span class="op">}</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="use-the-same-dataset-for-both-modules">Use the same dataset for both modules<a class="anchor" aria-label="anchor" href="#use-the-same-dataset-for-both-modules"></a>
 </h3>
 <p>We want to use the same dataset in both modules, so instead of calling it twice, let’s pass data as an argument:</p>
 <div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># app/main.R</span>
-
-<span class="fu">box</span><span class="fu">::</span><span class="fu"><a href="http://klmr.me/box/reference/use.html" class="external-link">use</a></span><span class="op">(</span>
-  <span class="va">shiny</span><span class="op">[</span><span class="va">bootstrapPage</span>, <span class="va">moduleServer</span>, <span class="va">NS</span><span class="op">]</span>
-<span class="op">)</span>
-
-<span class="fu">box</span><span class="fu">::</span><span class="fu"><a href="http://klmr.me/box/reference/use.html" class="external-link">use</a></span><span class="op">(</span>
-  <span class="va">app</span><span class="op">/</span><span class="va">view</span><span class="op">/</span><span class="va">table</span>,
-  <span class="va">app</span><span class="op">/</span><span class="va">view</span><span class="op">/</span><span class="va">chart</span>,
-<span class="op">)</span>
-
-<span class="co">#' @export</span>
-<span class="va">ui</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">id</span><span class="op">)</span> <span class="op">{</span>
-  <span class="va">ns</span> <span class="op">&lt;-</span> <span class="fu">NS</span><span class="op">(</span><span class="va">id</span><span class="op">)</span>
-
-  <span class="fu">bootstrapPage</span><span class="op">(</span>
-    <span class="va">table</span><span class="op">$</span><span class="fu">ui</span><span class="op">(</span><span class="fu">ns</span><span class="op">(</span><span class="st">"table"</span><span class="op">)</span><span class="op">)</span>,
-    <span class="va">chart</span><span class="op">$</span><span class="fu">ui</span><span class="op">(</span><span class="fu">ns</span><span class="op">(</span><span class="st">"chart"</span><span class="op">)</span><span class="op">)</span>
-  <span class="op">)</span>
-<span class="op">}</span>
-
-<span class="co">#' @export</span>
-<span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">id</span><span class="op">)</span> <span class="op">{</span>
-  <span class="fu">moduleServer</span><span class="op">(</span><span class="va">id</span>, <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span>
-    <span class="co"># Datasets are the only case when you need to use :: in `box`.</span>
-    <span class="co"># This issue should be solved in the next `box` release.</span>
-    <span class="va">data</span> <span class="op">&lt;-</span> <span class="fu">rhino</span><span class="fu">::</span><span class="va"><a href="../../reference/rhinos.html">rhinos</a></span>
-
-    <span class="va">table</span><span class="op">$</span><span class="fu">server</span><span class="op">(</span><span class="st">"table"</span>, data <span class="op">=</span> <span class="va">data</span><span class="op">)</span>
-    <span class="va">chart</span><span class="op">$</span><span class="fu">server</span><span class="op">(</span><span class="st">"chart"</span>, data <span class="op">=</span> <span class="va">data</span><span class="op">)</span>
-  <span class="op">}</span><span class="op">)</span>
-<span class="op">}</span></code></pre></div>
+<code class="sourceCode R"><span><span class="co"># app/main.R</span></span>
+<span></span>
+<span><span class="fu">box</span><span class="fu">::</span><span class="fu"><a href="http://klmr.me/box/reference/use.html" class="external-link">use</a></span><span class="op">(</span></span>
+<span>  <span class="va">shiny</span><span class="op">[</span><span class="va">bootstrapPage</span>, <span class="va">moduleServer</span>, <span class="va">NS</span><span class="op">]</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">box</span><span class="fu">::</span><span class="fu"><a href="http://klmr.me/box/reference/use.html" class="external-link">use</a></span><span class="op">(</span></span>
+<span>  <span class="va">app</span><span class="op">/</span><span class="va">view</span><span class="op">/</span><span class="va">table</span>,</span>
+<span>  <span class="va">app</span><span class="op">/</span><span class="va">view</span><span class="op">/</span><span class="va">chart</span>,</span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="co">#' @export</span></span>
+<span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">id</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="va">ns</span> <span class="op">&lt;-</span> <span class="fu">NS</span><span class="op">(</span><span class="va">id</span><span class="op">)</span></span>
+<span></span>
+<span>  <span class="fu">bootstrapPage</span><span class="op">(</span></span>
+<span>    <span class="va">table</span><span class="op">$</span><span class="fu">ui</span><span class="op">(</span><span class="fu">ns</span><span class="op">(</span><span class="st">"table"</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>    <span class="va">chart</span><span class="op">$</span><span class="fu">ui</span><span class="op">(</span><span class="fu">ns</span><span class="op">(</span><span class="st">"chart"</span><span class="op">)</span><span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">}</span></span>
+<span></span>
+<span><span class="co">#' @export</span></span>
+<span><span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">id</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="fu">moduleServer</span><span class="op">(</span><span class="va">id</span>, <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span></span>
+<span>    <span class="co"># Datasets are the only case when you need to use :: in `box`.</span></span>
+<span>    <span class="co"># This issue should be solved in the next `box` release.</span></span>
+<span>    <span class="va">data</span> <span class="op">&lt;-</span> <span class="fu">rhino</span><span class="fu">::</span><span class="va"><a href="../../reference/rhinos.html">rhinos</a></span></span>
+<span></span>
+<span>    <span class="va">table</span><span class="op">$</span><span class="fu">server</span><span class="op">(</span><span class="st">"table"</span>, data <span class="op">=</span> <span class="va">data</span><span class="op">)</span></span>
+<span>    <span class="va">chart</span><span class="op">$</span><span class="fu">server</span><span class="op">(</span><span class="st">"chart"</span>, data <span class="op">=</span> <span class="va">data</span><span class="op">)</span></span>
+<span>  <span class="op">}</span><span class="op">)</span></span>
+<span><span class="op">}</span></span></code></pre></div>
 <div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># app/view/table.R</span>
-
-<span class="fu">box</span><span class="fu">::</span><span class="fu"><a href="http://klmr.me/box/reference/use.html" class="external-link">use</a></span><span class="op">(</span>
-  <span class="va">shiny</span><span class="op">[</span><span class="va">moduleServer</span>, <span class="va">NS</span>, <span class="va">h3</span>, <span class="va">tagList</span><span class="op">]</span>,
-<span class="op">)</span>
-
-<span class="co">#' @export</span>
-<span class="va">ui</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">id</span><span class="op">)</span> <span class="op">{</span>
-  <span class="va">ns</span> <span class="op">&lt;-</span> <span class="fu">NS</span><span class="op">(</span><span class="va">id</span><span class="op">)</span>
-
-  <span class="fu">tagList</span><span class="op">(</span>
-    <span class="fu">h3</span><span class="op">(</span><span class="st">"Table"</span><span class="op">)</span>
-  <span class="op">)</span>
-<span class="op">}</span>
-
-<span class="co">#' @export</span>
-<span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">id</span>, <span class="va">data</span><span class="op">)</span> <span class="op">{</span>
-  <span class="fu">moduleServer</span><span class="op">(</span><span class="va">id</span>, <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span>
-
-  <span class="op">}</span><span class="op">)</span>
-<span class="op">}</span></code></pre></div>
+<code class="sourceCode R"><span><span class="co"># app/view/table.R</span></span>
+<span></span>
+<span><span class="fu">box</span><span class="fu">::</span><span class="fu"><a href="http://klmr.me/box/reference/use.html" class="external-link">use</a></span><span class="op">(</span></span>
+<span>  <span class="va">shiny</span><span class="op">[</span><span class="va">moduleServer</span>, <span class="va">NS</span>, <span class="va">h3</span>, <span class="va">tagList</span><span class="op">]</span>,</span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="co">#' @export</span></span>
+<span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">id</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="va">ns</span> <span class="op">&lt;-</span> <span class="fu">NS</span><span class="op">(</span><span class="va">id</span><span class="op">)</span></span>
+<span></span>
+<span>  <span class="fu">tagList</span><span class="op">(</span></span>
+<span>    <span class="fu">h3</span><span class="op">(</span><span class="st">"Table"</span><span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">}</span></span>
+<span></span>
+<span><span class="co">#' @export</span></span>
+<span><span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">id</span>, <span class="va">data</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="fu">moduleServer</span><span class="op">(</span><span class="va">id</span>, <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span></span>
+<span></span>
+<span>  <span class="op">}</span><span class="op">)</span></span>
+<span><span class="op">}</span></span></code></pre></div>
 <div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># app/view/chart.R</span>
-
-<span class="fu">box</span><span class="fu">::</span><span class="fu"><a href="http://klmr.me/box/reference/use.html" class="external-link">use</a></span><span class="op">(</span>
-  <span class="va">shiny</span><span class="op">[</span><span class="va">moduleServer</span>, <span class="va">NS</span>, <span class="va">h3</span>, <span class="va">tagList</span><span class="op">]</span>,
-  <span class="va">echarts4r</span>
-<span class="op">)</span>
-
-<span class="co">#' @export</span>
-<span class="va">ui</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">id</span><span class="op">)</span> <span class="op">{</span>
-  <span class="va">ns</span> <span class="op">&lt;-</span> <span class="fu">NS</span><span class="op">(</span><span class="va">id</span><span class="op">)</span>
-
-  <span class="fu">tagList</span><span class="op">(</span>
-    <span class="fu">h3</span><span class="op">(</span><span class="st">"Chart"</span><span class="op">)</span>,
-    <span class="va">echarts4r</span><span class="op">$</span><span class="fu">echarts4rOutput</span><span class="op">(</span><span class="fu">ns</span><span class="op">(</span><span class="st">"chart"</span><span class="op">)</span><span class="op">)</span>
-  <span class="op">)</span>
-<span class="op">}</span>
-
-<span class="co">#' @export</span>
-<span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">id</span>, <span class="va">data</span><span class="op">)</span> <span class="op">{</span>
-  <span class="fu">moduleServer</span><span class="op">(</span><span class="va">id</span>, <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span>
-    <span class="va">output</span><span class="op">$</span><span class="va">chart</span> <span class="op">&lt;-</span> <span class="va">echarts4r</span><span class="op">$</span><span class="fu">renderEcharts4r</span><span class="op">(</span>
-      <span class="va">data</span> |&gt;
-        <span class="va">echarts4r</span><span class="op">$</span><span class="fu">group_by</span><span class="op">(</span><span class="va">Species</span><span class="op">)</span> |&gt;
-        <span class="va">echarts4r</span><span class="op">$</span><span class="fu">e_chart</span><span class="op">(</span>x <span class="op">=</span> <span class="va">Year</span><span class="op">)</span> |&gt;
-        <span class="va">echarts4r</span><span class="op">$</span><span class="fu">e_line</span><span class="op">(</span><span class="va">Population</span><span class="op">)</span> |&gt;
-        <span class="va">echarts4r</span><span class="op">$</span><span class="fu">e_x_axis</span><span class="op">(</span><span class="va">Year</span><span class="op">)</span> |&gt;
-        <span class="va">echarts4r</span><span class="op">$</span><span class="fu">e_tooltip</span><span class="op">(</span><span class="op">)</span>
-    <span class="op">)</span>
-  <span class="op">}</span><span class="op">)</span>
-<span class="op">}</span></code></pre></div>
+<code class="sourceCode R"><span><span class="co"># app/view/chart.R</span></span>
+<span></span>
+<span><span class="fu">box</span><span class="fu">::</span><span class="fu"><a href="http://klmr.me/box/reference/use.html" class="external-link">use</a></span><span class="op">(</span></span>
+<span>  <span class="va">shiny</span><span class="op">[</span><span class="va">moduleServer</span>, <span class="va">NS</span>, <span class="va">h3</span>, <span class="va">tagList</span><span class="op">]</span>,</span>
+<span>  <span class="va">echarts4r</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="co">#' @export</span></span>
+<span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">id</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="va">ns</span> <span class="op">&lt;-</span> <span class="fu">NS</span><span class="op">(</span><span class="va">id</span><span class="op">)</span></span>
+<span></span>
+<span>  <span class="fu">tagList</span><span class="op">(</span></span>
+<span>    <span class="fu">h3</span><span class="op">(</span><span class="st">"Chart"</span><span class="op">)</span>,</span>
+<span>    <span class="va">echarts4r</span><span class="op">$</span><span class="fu">echarts4rOutput</span><span class="op">(</span><span class="fu">ns</span><span class="op">(</span><span class="st">"chart"</span><span class="op">)</span><span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">}</span></span>
+<span></span>
+<span><span class="co">#' @export</span></span>
+<span><span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">id</span>, <span class="va">data</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="fu">moduleServer</span><span class="op">(</span><span class="va">id</span>, <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span></span>
+<span>    <span class="va">output</span><span class="op">$</span><span class="va">chart</span> <span class="op">&lt;-</span> <span class="va">echarts4r</span><span class="op">$</span><span class="fu">renderEcharts4r</span><span class="op">(</span></span>
+<span>      <span class="va">data</span> <span class="op">|&gt;</span></span>
+<span>        <span class="va">echarts4r</span><span class="op">$</span><span class="fu">group_by</span><span class="op">(</span><span class="va">Species</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>        <span class="va">echarts4r</span><span class="op">$</span><span class="fu">e_chart</span><span class="op">(</span>x <span class="op">=</span> <span class="va">Year</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>        <span class="va">echarts4r</span><span class="op">$</span><span class="fu">e_line</span><span class="op">(</span><span class="va">Population</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>        <span class="va">echarts4r</span><span class="op">$</span><span class="fu">e_x_axis</span><span class="op">(</span><span class="va">Year</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>        <span class="va">echarts4r</span><span class="op">$</span><span class="fu">e_tooltip</span><span class="op">(</span><span class="op">)</span></span>
+<span>    <span class="op">)</span></span>
+<span>  <span class="op">}</span><span class="op">)</span></span>
+<span><span class="op">}</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="create-a-table">Create a table<a class="anchor" aria-label="anchor" href="#create-a-table"></a>
@@ -518,31 +518,31 @@
 <p>For the table, we will go with the <a href="https://glin.github.io/reactable/" class="external-link"><code>reactable</code></a> package.</p>
 <p>Now you can add a table to the application. Let’s check the raw data for Rhinos:</p>
 <div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># app/view/table.R</span>
-
-<span class="fu">box</span><span class="fu">::</span><span class="fu"><a href="http://klmr.me/box/reference/use.html" class="external-link">use</a></span><span class="op">(</span>
-  <span class="va">shiny</span><span class="op">[</span><span class="va">moduleServer</span>, <span class="va">NS</span>, <span class="va">h3</span>, <span class="va">tagList</span><span class="op">]</span>,
-  <span class="va">reactable</span>,
-<span class="op">)</span>
-
-<span class="co">#' @export</span>
-<span class="va">ui</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">id</span><span class="op">)</span> <span class="op">{</span>
-  <span class="va">ns</span> <span class="op">&lt;-</span> <span class="fu">NS</span><span class="op">(</span><span class="va">id</span><span class="op">)</span>
-
-  <span class="fu">tagList</span><span class="op">(</span>
-    <span class="fu">h3</span><span class="op">(</span><span class="st">"Table"</span><span class="op">)</span>,
-    <span class="va">reactable</span><span class="op">$</span><span class="fu">reactableOutput</span><span class="op">(</span><span class="fu">ns</span><span class="op">(</span><span class="st">"table"</span><span class="op">)</span><span class="op">)</span>
-  <span class="op">)</span>
-<span class="op">}</span>
-
-<span class="co">#' @export</span>
-<span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">id</span>, <span class="va">data</span><span class="op">)</span> <span class="op">{</span>
-  <span class="fu">moduleServer</span><span class="op">(</span><span class="va">id</span>, <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span>
-    <span class="va">output</span><span class="op">$</span><span class="va">table</span> <span class="op">&lt;-</span> <span class="va">reactable</span><span class="op">$</span><span class="fu">renderReactable</span><span class="op">(</span>
-      <span class="va">reactable</span><span class="op">$</span><span class="fu">reactable</span><span class="op">(</span><span class="va">data</span><span class="op">)</span>
-    <span class="op">)</span>
-  <span class="op">}</span><span class="op">)</span>
-<span class="op">}</span></code></pre></div>
+<code class="sourceCode R"><span><span class="co"># app/view/table.R</span></span>
+<span></span>
+<span><span class="fu">box</span><span class="fu">::</span><span class="fu"><a href="http://klmr.me/box/reference/use.html" class="external-link">use</a></span><span class="op">(</span></span>
+<span>  <span class="va">shiny</span><span class="op">[</span><span class="va">moduleServer</span>, <span class="va">NS</span>, <span class="va">h3</span>, <span class="va">tagList</span><span class="op">]</span>,</span>
+<span>  <span class="va">reactable</span>,</span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="co">#' @export</span></span>
+<span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">id</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="va">ns</span> <span class="op">&lt;-</span> <span class="fu">NS</span><span class="op">(</span><span class="va">id</span><span class="op">)</span></span>
+<span></span>
+<span>  <span class="fu">tagList</span><span class="op">(</span></span>
+<span>    <span class="fu">h3</span><span class="op">(</span><span class="st">"Table"</span><span class="op">)</span>,</span>
+<span>    <span class="va">reactable</span><span class="op">$</span><span class="fu">reactableOutput</span><span class="op">(</span><span class="fu">ns</span><span class="op">(</span><span class="st">"table"</span><span class="op">)</span><span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">}</span></span>
+<span></span>
+<span><span class="co">#' @export</span></span>
+<span><span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">id</span>, <span class="va">data</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="fu">moduleServer</span><span class="op">(</span><span class="va">id</span>, <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span></span>
+<span>    <span class="va">output</span><span class="op">$</span><span class="va">table</span> <span class="op">&lt;-</span> <span class="va">reactable</span><span class="op">$</span><span class="fu">renderReactable</span><span class="op">(</span></span>
+<span>      <span class="va">reactable</span><span class="op">$</span><span class="fu">reactable</span><span class="op">(</span><span class="va">data</span><span class="op">)</span></span>
+<span>    <span class="op">)</span></span>
+<span>  <span class="op">}</span><span class="op">)</span></span>
+<span><span class="op">}</span></span></code></pre></div>
 <p>The application should look similar to this:</p>
 <div class="app-preview">
 <p><img src="images/table_1.png"></p>
@@ -558,54 +558,54 @@
 <p>The table would be better if for each Rhino species we would have a separate column, so it would be easy to compare populations across time. To do that, we need to transform the dataset using the <code>pivot_wider</code> function from the <code>tidyr</code> package.</p>
 <p>Now we are able to access this function in our <code>data_transformation.R</code> file using box::use(). Let’s also create a function that wraps <code>pivot_wider</code> and transforms data. Note that, as always, we need to add <span class="citation">@export</span> to be able to access it in the file it is being sourced.</p>
 <div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># app/logic/data_transformation.R</span>
-
-<span class="fu">box</span><span class="fu">::</span><span class="fu"><a href="http://klmr.me/box/reference/use.html" class="external-link">use</a></span><span class="op">(</span>
-  <span class="va">tidyr</span><span class="op">[</span><span class="va">pivot_wider</span><span class="op">]</span>
-<span class="op">)</span>
-
-<span class="co">#' @export</span>
-<span class="va">transform_data</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">data</span><span class="op">)</span> <span class="op">{</span>
-  <span class="fu">pivot_wider</span><span class="op">(</span>
-    data <span class="op">=</span> <span class="va">data</span>,
-    names_from <span class="op">=</span> <span class="va">Species</span>,
-    values_from <span class="op">=</span> <span class="va">Population</span>
-  <span class="op">)</span>
-<span class="op">}</span></code></pre></div>
+<code class="sourceCode R"><span><span class="co"># app/logic/data_transformation.R</span></span>
+<span></span>
+<span><span class="fu">box</span><span class="fu">::</span><span class="fu"><a href="http://klmr.me/box/reference/use.html" class="external-link">use</a></span><span class="op">(</span></span>
+<span>  <span class="va">tidyr</span><span class="op">[</span><span class="va">pivot_wider</span><span class="op">]</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="co">#' @export</span></span>
+<span><span class="va">transform_data</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">data</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="fu">pivot_wider</span><span class="op">(</span></span>
+<span>    data <span class="op">=</span> <span class="va">data</span>,</span>
+<span>    names_from <span class="op">=</span> <span class="va">Species</span>,</span>
+<span>    values_from <span class="op">=</span> <span class="va">Population</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">}</span></span></code></pre></div>
 <p>The next step is to call this function in your table module.</p>
 <p>Add box import and transform dataset:</p>
 <div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># app/view/table.R</span>
-
-<span class="fu">box</span><span class="fu">::</span><span class="fu"><a href="http://klmr.me/box/reference/use.html" class="external-link">use</a></span><span class="op">(</span>
-  <span class="va">shiny</span><span class="op">[</span><span class="va">moduleServer</span>, <span class="va">NS</span>, <span class="va">h3</span>, <span class="va">tagList</span><span class="op">]</span>,
-  <span class="va">reactable</span>,
-<span class="op">)</span>
-
-<span class="fu">box</span><span class="fu">::</span><span class="fu"><a href="http://klmr.me/box/reference/use.html" class="external-link">use</a></span><span class="op">(</span>
-  <span class="va">app</span><span class="op">/</span><span class="va">logic</span><span class="op">/</span><span class="va">data_transformation</span><span class="op">[</span><span class="va">transform_data</span><span class="op">]</span>
-<span class="op">)</span>
-
-<span class="co">#' @export</span>
-<span class="va">ui</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">id</span><span class="op">)</span> <span class="op">{</span>
-  <span class="va">ns</span> <span class="op">&lt;-</span> <span class="fu">NS</span><span class="op">(</span><span class="va">id</span><span class="op">)</span>
-
-  <span class="fu">tagList</span><span class="op">(</span>
-    <span class="fu">h3</span><span class="op">(</span><span class="st">"Table"</span><span class="op">)</span>,
-    <span class="va">reactable</span><span class="op">$</span><span class="fu">reactableOutput</span><span class="op">(</span><span class="fu">ns</span><span class="op">(</span><span class="st">"table"</span><span class="op">)</span><span class="op">)</span>
-  <span class="op">)</span>
-<span class="op">}</span>
-
-<span class="co">#' @export</span>
-<span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">id</span>, <span class="va">data</span><span class="op">)</span> <span class="op">{</span>
-  <span class="fu">moduleServer</span><span class="op">(</span><span class="va">id</span>, <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span>
-    <span class="va">output</span><span class="op">$</span><span class="va">table</span> <span class="op">&lt;-</span> <span class="va">reactable</span><span class="op">$</span><span class="fu">renderReactable</span><span class="op">(</span>
-      <span class="va">data</span> |&gt;
-        <span class="fu">transform_data</span><span class="op">(</span><span class="op">)</span> |&gt;
-        <span class="va">reactable</span><span class="op">$</span><span class="fu">reactable</span><span class="op">(</span><span class="op">)</span>
-    <span class="op">)</span>
-  <span class="op">}</span><span class="op">)</span>
-<span class="op">}</span></code></pre></div>
+<code class="sourceCode R"><span><span class="co"># app/view/table.R</span></span>
+<span></span>
+<span><span class="fu">box</span><span class="fu">::</span><span class="fu"><a href="http://klmr.me/box/reference/use.html" class="external-link">use</a></span><span class="op">(</span></span>
+<span>  <span class="va">shiny</span><span class="op">[</span><span class="va">moduleServer</span>, <span class="va">NS</span>, <span class="va">h3</span>, <span class="va">tagList</span><span class="op">]</span>,</span>
+<span>  <span class="va">reactable</span>,</span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">box</span><span class="fu">::</span><span class="fu"><a href="http://klmr.me/box/reference/use.html" class="external-link">use</a></span><span class="op">(</span></span>
+<span>  <span class="va">app</span><span class="op">/</span><span class="va">logic</span><span class="op">/</span><span class="va">data_transformation</span><span class="op">[</span><span class="va">transform_data</span><span class="op">]</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="co">#' @export</span></span>
+<span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">id</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="va">ns</span> <span class="op">&lt;-</span> <span class="fu">NS</span><span class="op">(</span><span class="va">id</span><span class="op">)</span></span>
+<span></span>
+<span>  <span class="fu">tagList</span><span class="op">(</span></span>
+<span>    <span class="fu">h3</span><span class="op">(</span><span class="st">"Table"</span><span class="op">)</span>,</span>
+<span>    <span class="va">reactable</span><span class="op">$</span><span class="fu">reactableOutput</span><span class="op">(</span><span class="fu">ns</span><span class="op">(</span><span class="st">"table"</span><span class="op">)</span><span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">}</span></span>
+<span></span>
+<span><span class="co">#' @export</span></span>
+<span><span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">id</span>, <span class="va">data</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="fu">moduleServer</span><span class="op">(</span><span class="va">id</span>, <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span></span>
+<span>    <span class="va">output</span><span class="op">$</span><span class="va">table</span> <span class="op">&lt;-</span> <span class="va">reactable</span><span class="op">$</span><span class="fu">renderReactable</span><span class="op">(</span></span>
+<span>      <span class="va">data</span> <span class="op">|&gt;</span></span>
+<span>        <span class="fu">transform_data</span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>        <span class="va">reactable</span><span class="op">$</span><span class="fu">reactable</span><span class="op">(</span><span class="op">)</span></span>
+<span>    <span class="op">)</span></span>
+<span>  <span class="op">}</span><span class="op">)</span></span>
+<span><span class="op">}</span></span></code></pre></div>
 <p>When you run the application, you should see something similar to this:</p>
 <div class="app-preview">
 <p><img src="images/table_2.png"></p>
@@ -613,81 +613,81 @@
 <p>You can notice, that table is arranged by the Black Rhino population. It would make sense to change it to Year using <code>dplyr::arrange</code>.</p>
 <p>Next, add arrange to <code>transform_data</code> function:</p>
 <div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># app/logic/data_transformation.R</span>
-
-<span class="fu">box</span><span class="fu">::</span><span class="fu"><a href="http://klmr.me/box/reference/use.html" class="external-link">use</a></span><span class="op">(</span>
-  <span class="va">tidyr</span><span class="op">[</span><span class="va">pivot_wider</span><span class="op">]</span>,
-  <span class="va">dplyr</span><span class="op">[</span><span class="va">arrange</span><span class="op">]</span>
-<span class="op">)</span>
-
-<span class="co">#' @export</span>
-<span class="va">transform_data</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">data</span><span class="op">)</span> <span class="op">{</span>
-  <span class="fu">pivot_wider</span><span class="op">(</span>
-    data <span class="op">=</span> <span class="va">data</span>,
-    names_from <span class="op">=</span> <span class="va">Species</span>,
-    values_from <span class="op">=</span> <span class="va">Population</span>
-  <span class="op">)</span> |&gt;
-    <span class="fu">arrange</span><span class="op">(</span><span class="va">Year</span><span class="op">)</span>
-<span class="op">}</span></code></pre></div>
+<code class="sourceCode R"><span><span class="co"># app/logic/data_transformation.R</span></span>
+<span></span>
+<span><span class="fu">box</span><span class="fu">::</span><span class="fu"><a href="http://klmr.me/box/reference/use.html" class="external-link">use</a></span><span class="op">(</span></span>
+<span>  <span class="va">tidyr</span><span class="op">[</span><span class="va">pivot_wider</span><span class="op">]</span>,</span>
+<span>  <span class="va">dplyr</span><span class="op">[</span><span class="va">arrange</span><span class="op">]</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="co">#' @export</span></span>
+<span><span class="va">transform_data</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">data</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="fu">pivot_wider</span><span class="op">(</span></span>
+<span>    data <span class="op">=</span> <span class="va">data</span>,</span>
+<span>    names_from <span class="op">=</span> <span class="va">Species</span>,</span>
+<span>    values_from <span class="op">=</span> <span class="va">Population</span></span>
+<span>  <span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>    <span class="fu">arrange</span><span class="op">(</span><span class="va">Year</span><span class="op">)</span></span>
+<span><span class="op">}</span></span></code></pre></div>
 <p>The result looks much more understandable:</p>
 <div class="app-preview">
 <p><img src="images/table_3.png"></p>
 </div>
 <p>There is still one element that can be improved. If you check the X-axis in the chart, values contain a comma. It’s the default behavior for integers, but this is a year! To fix that, you need to add a custom formatter. Let’s create another file, <code>app/logic/chart_utils.R</code>:</p>
 <div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># app/logic/chart_utils.R</span>
-
-<span class="fu">box</span><span class="fu">::</span><span class="fu"><a href="http://klmr.me/box/reference/use.html" class="external-link">use</a></span><span class="op">(</span>
-  <span class="va">htmlwidgets</span><span class="op">[</span><span class="va">JS</span><span class="op">]</span>
-<span class="op">)</span>
-
-<span class="co">#' @export</span>
-<span class="va">label_formatter</span> <span class="op">&lt;-</span> <span class="fu">JS</span><span class="op">(</span>
-  <span class="st">"function(value, index){
-    return value;
-  }"</span>
-<span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="co"># app/logic/chart_utils.R</span></span>
+<span></span>
+<span><span class="fu">box</span><span class="fu">::</span><span class="fu"><a href="http://klmr.me/box/reference/use.html" class="external-link">use</a></span><span class="op">(</span></span>
+<span>  <span class="va">htmlwidgets</span><span class="op">[</span><span class="va">JS</span><span class="op">]</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="co">#' @export</span></span>
+<span><span class="va">label_formatter</span> <span class="op">&lt;-</span> <span class="fu">JS</span><span class="op">(</span></span>
+<span>  <span class="st">"function(value, index){</span></span>
+<span><span class="st">    return value;</span></span>
+<span><span class="st">  }"</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <p>Finally, add the formatter to the chart module:</p>
 <div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># app/view/chart.R</span>
-
-<span class="fu">box</span><span class="fu">::</span><span class="fu"><a href="http://klmr.me/box/reference/use.html" class="external-link">use</a></span><span class="op">(</span>
-  <span class="va">shiny</span><span class="op">[</span><span class="va">moduleServer</span>, <span class="va">NS</span>, <span class="va">h3</span>, <span class="va">tagList</span><span class="op">]</span>,
-  <span class="va">echarts4r</span>
-<span class="op">)</span>
-
-<span class="fu">box</span><span class="fu">::</span><span class="fu"><a href="http://klmr.me/box/reference/use.html" class="external-link">use</a></span><span class="op">(</span>
-  <span class="va">app</span><span class="op">/</span><span class="va">logic</span><span class="op">/</span><span class="va">chart_utils</span><span class="op">[</span><span class="va">label_formatter</span><span class="op">]</span>
-<span class="op">)</span>
-
-<span class="co">#' @export</span>
-<span class="va">ui</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">id</span><span class="op">)</span> <span class="op">{</span>
-  <span class="va">ns</span> <span class="op">&lt;-</span> <span class="fu">NS</span><span class="op">(</span><span class="va">id</span><span class="op">)</span>
-
-  <span class="fu">tagList</span><span class="op">(</span>
-    <span class="fu">h3</span><span class="op">(</span><span class="st">"Chart"</span><span class="op">)</span>,
-    <span class="va">echarts4r</span><span class="op">$</span><span class="fu">echarts4rOutput</span><span class="op">(</span><span class="fu">ns</span><span class="op">(</span><span class="st">"chart"</span><span class="op">)</span><span class="op">)</span>
-  <span class="op">)</span>
-<span class="op">}</span>
-
-<span class="co">#' @export</span>
-<span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">id</span>, <span class="va">data</span><span class="op">)</span> <span class="op">{</span>
-  <span class="fu">moduleServer</span><span class="op">(</span><span class="va">id</span>, <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span>
-    <span class="va">output</span><span class="op">$</span><span class="va">chart</span> <span class="op">&lt;-</span> <span class="va">echarts4r</span><span class="op">$</span><span class="fu">renderEcharts4r</span><span class="op">(</span>
-      <span class="va">data</span> |&gt;
-        <span class="va">echarts4r</span><span class="op">$</span><span class="fu">group_by</span><span class="op">(</span><span class="va">Species</span><span class="op">)</span> |&gt;
-        <span class="va">echarts4r</span><span class="op">$</span><span class="fu">e_chart</span><span class="op">(</span>x <span class="op">=</span> <span class="va">Year</span><span class="op">)</span> |&gt;
-        <span class="va">echarts4r</span><span class="op">$</span><span class="fu">e_line</span><span class="op">(</span><span class="va">Population</span><span class="op">)</span> |&gt;
-        <span class="va">echarts4r</span><span class="op">$</span><span class="fu">e_x_axis</span><span class="op">(</span>
-          <span class="va">Year</span>,
-          axisLabel <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>
-            formatter <span class="op">=</span> <span class="va">label_formatter</span>
-          <span class="op">)</span>
-        <span class="op">)</span> |&gt;
-        <span class="va">echarts4r</span><span class="op">$</span><span class="fu">e_tooltip</span><span class="op">(</span><span class="op">)</span>
-    <span class="op">)</span>
-  <span class="op">}</span><span class="op">)</span>
-<span class="op">}</span></code></pre></div>
+<code class="sourceCode R"><span><span class="co"># app/view/chart.R</span></span>
+<span></span>
+<span><span class="fu">box</span><span class="fu">::</span><span class="fu"><a href="http://klmr.me/box/reference/use.html" class="external-link">use</a></span><span class="op">(</span></span>
+<span>  <span class="va">shiny</span><span class="op">[</span><span class="va">moduleServer</span>, <span class="va">NS</span>, <span class="va">h3</span>, <span class="va">tagList</span><span class="op">]</span>,</span>
+<span>  <span class="va">echarts4r</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">box</span><span class="fu">::</span><span class="fu"><a href="http://klmr.me/box/reference/use.html" class="external-link">use</a></span><span class="op">(</span></span>
+<span>  <span class="va">app</span><span class="op">/</span><span class="va">logic</span><span class="op">/</span><span class="va">chart_utils</span><span class="op">[</span><span class="va">label_formatter</span><span class="op">]</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="co">#' @export</span></span>
+<span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">id</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="va">ns</span> <span class="op">&lt;-</span> <span class="fu">NS</span><span class="op">(</span><span class="va">id</span><span class="op">)</span></span>
+<span></span>
+<span>  <span class="fu">tagList</span><span class="op">(</span></span>
+<span>    <span class="fu">h3</span><span class="op">(</span><span class="st">"Chart"</span><span class="op">)</span>,</span>
+<span>    <span class="va">echarts4r</span><span class="op">$</span><span class="fu">echarts4rOutput</span><span class="op">(</span><span class="fu">ns</span><span class="op">(</span><span class="st">"chart"</span><span class="op">)</span><span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">}</span></span>
+<span></span>
+<span><span class="co">#' @export</span></span>
+<span><span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">id</span>, <span class="va">data</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="fu">moduleServer</span><span class="op">(</span><span class="va">id</span>, <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span></span>
+<span>    <span class="va">output</span><span class="op">$</span><span class="va">chart</span> <span class="op">&lt;-</span> <span class="va">echarts4r</span><span class="op">$</span><span class="fu">renderEcharts4r</span><span class="op">(</span></span>
+<span>      <span class="va">data</span> <span class="op">|&gt;</span></span>
+<span>        <span class="va">echarts4r</span><span class="op">$</span><span class="fu">group_by</span><span class="op">(</span><span class="va">Species</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>        <span class="va">echarts4r</span><span class="op">$</span><span class="fu">e_chart</span><span class="op">(</span>x <span class="op">=</span> <span class="va">Year</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>        <span class="va">echarts4r</span><span class="op">$</span><span class="fu">e_line</span><span class="op">(</span><span class="va">Population</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>        <span class="va">echarts4r</span><span class="op">$</span><span class="fu">e_x_axis</span><span class="op">(</span></span>
+<span>          <span class="va">Year</span>,</span>
+<span>          axisLabel <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>            formatter <span class="op">=</span> <span class="va">label_formatter</span></span>
+<span>          <span class="op">)</span></span>
+<span>        <span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>        <span class="va">echarts4r</span><span class="op">$</span><span class="fu">e_tooltip</span><span class="op">(</span><span class="op">)</span></span>
+<span>    <span class="op">)</span></span>
+<span>  <span class="op">}</span><span class="op">)</span></span>
+<span><span class="op">}</span></span></code></pre></div>
 <p>It should now look better:</p>
 <div class="app-preview">
 <p><img src="images/chart_2.png"></p>
@@ -700,113 +700,113 @@
 <p>In this stage, the application has working components, but it doesn’t have a clean and organized look to it. For this we will need a little css styling.</p>
 <p>Adjusting application style can be done by providing custom styles in the <code>app/styles</code> directory, But first, you need to adjust the application a little bit by adding Html tags and CSS classes:</p>
 <div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># app/main.R</span>
-
-<span class="fu">box</span><span class="fu">::</span><span class="fu"><a href="http://klmr.me/box/reference/use.html" class="external-link">use</a></span><span class="op">(</span>
-  <span class="va">shiny</span><span class="op">[</span><span class="va">bootstrapPage</span>, <span class="va">moduleServer</span>, <span class="va">NS</span>, <span class="va">div</span><span class="op">]</span>,
-<span class="op">)</span>
-
-<span class="fu">box</span><span class="fu">::</span><span class="fu"><a href="http://klmr.me/box/reference/use.html" class="external-link">use</a></span><span class="op">(</span>
-  <span class="va">app</span><span class="op">/</span><span class="va">view</span><span class="op">/</span><span class="va">table</span>,
-  <span class="va">app</span><span class="op">/</span><span class="va">view</span><span class="op">/</span><span class="va">chart</span>,
-<span class="op">)</span>
-
-<span class="co">#' @export</span>
-<span class="va">ui</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">id</span><span class="op">)</span> <span class="op">{</span>
-  <span class="va">ns</span> <span class="op">&lt;-</span> <span class="fu">NS</span><span class="op">(</span><span class="va">id</span><span class="op">)</span>
-
-  <span class="fu">bootstrapPage</span><span class="op">(</span>
-    <span class="fu">div</span><span class="op">(</span>
-      class <span class="op">=</span> <span class="st">"components-container"</span>,
-      <span class="va">table</span><span class="op">$</span><span class="fu">ui</span><span class="op">(</span><span class="fu">ns</span><span class="op">(</span><span class="st">"table"</span><span class="op">)</span><span class="op">)</span>,
-      <span class="va">chart</span><span class="op">$</span><span class="fu">ui</span><span class="op">(</span><span class="fu">ns</span><span class="op">(</span><span class="st">"chart"</span><span class="op">)</span><span class="op">)</span>
-    <span class="op">)</span>
-  <span class="op">)</span>
-<span class="op">}</span>
-
-<span class="co">#' @export</span>
-<span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">id</span><span class="op">)</span> <span class="op">{</span>
-  <span class="fu">moduleServer</span><span class="op">(</span><span class="va">id</span>, <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span>
-    <span class="co"># Datasets are the only case when you need to use :: in `box`.</span>
-    <span class="co"># This issue should be solved in the next `box` release.</span>
-    <span class="va">data</span> <span class="op">&lt;-</span> <span class="fu">rhino</span><span class="fu">::</span><span class="va"><a href="../../reference/rhinos.html">rhinos</a></span>
-
-    <span class="va">table</span><span class="op">$</span><span class="fu">server</span><span class="op">(</span><span class="st">"table"</span>, data <span class="op">=</span> <span class="va">data</span><span class="op">)</span>
-    <span class="va">chart</span><span class="op">$</span><span class="fu">server</span><span class="op">(</span><span class="st">"chart"</span>, data <span class="op">=</span> <span class="va">data</span><span class="op">)</span>
-  <span class="op">}</span><span class="op">)</span>
-<span class="op">}</span></code></pre></div>
+<code class="sourceCode R"><span><span class="co"># app/main.R</span></span>
+<span></span>
+<span><span class="fu">box</span><span class="fu">::</span><span class="fu"><a href="http://klmr.me/box/reference/use.html" class="external-link">use</a></span><span class="op">(</span></span>
+<span>  <span class="va">shiny</span><span class="op">[</span><span class="va">bootstrapPage</span>, <span class="va">moduleServer</span>, <span class="va">NS</span>, <span class="va">div</span><span class="op">]</span>,</span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">box</span><span class="fu">::</span><span class="fu"><a href="http://klmr.me/box/reference/use.html" class="external-link">use</a></span><span class="op">(</span></span>
+<span>  <span class="va">app</span><span class="op">/</span><span class="va">view</span><span class="op">/</span><span class="va">table</span>,</span>
+<span>  <span class="va">app</span><span class="op">/</span><span class="va">view</span><span class="op">/</span><span class="va">chart</span>,</span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="co">#' @export</span></span>
+<span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">id</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="va">ns</span> <span class="op">&lt;-</span> <span class="fu">NS</span><span class="op">(</span><span class="va">id</span><span class="op">)</span></span>
+<span></span>
+<span>  <span class="fu">bootstrapPage</span><span class="op">(</span></span>
+<span>    <span class="fu">div</span><span class="op">(</span></span>
+<span>      class <span class="op">=</span> <span class="st">"components-container"</span>,</span>
+<span>      <span class="va">table</span><span class="op">$</span><span class="fu">ui</span><span class="op">(</span><span class="fu">ns</span><span class="op">(</span><span class="st">"table"</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>      <span class="va">chart</span><span class="op">$</span><span class="fu">ui</span><span class="op">(</span><span class="fu">ns</span><span class="op">(</span><span class="st">"chart"</span><span class="op">)</span><span class="op">)</span></span>
+<span>    <span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">}</span></span>
+<span></span>
+<span><span class="co">#' @export</span></span>
+<span><span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">id</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="fu">moduleServer</span><span class="op">(</span><span class="va">id</span>, <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span></span>
+<span>    <span class="co"># Datasets are the only case when you need to use :: in `box`.</span></span>
+<span>    <span class="co"># This issue should be solved in the next `box` release.</span></span>
+<span>    <span class="va">data</span> <span class="op">&lt;-</span> <span class="fu">rhino</span><span class="fu">::</span><span class="va"><a href="../../reference/rhinos.html">rhinos</a></span></span>
+<span></span>
+<span>    <span class="va">table</span><span class="op">$</span><span class="fu">server</span><span class="op">(</span><span class="st">"table"</span>, data <span class="op">=</span> <span class="va">data</span><span class="op">)</span></span>
+<span>    <span class="va">chart</span><span class="op">$</span><span class="fu">server</span><span class="op">(</span><span class="st">"chart"</span>, data <span class="op">=</span> <span class="va">data</span><span class="op">)</span></span>
+<span>  <span class="op">}</span><span class="op">)</span></span>
+<span><span class="op">}</span></span></code></pre></div>
 <div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># app/view/chart.R</span>
-
-<span class="fu">box</span><span class="fu">::</span><span class="fu"><a href="http://klmr.me/box/reference/use.html" class="external-link">use</a></span><span class="op">(</span>
-  <span class="va">shiny</span><span class="op">[</span><span class="va">moduleServer</span>, <span class="va">NS</span>, <span class="va">div</span><span class="op">]</span>,
-  <span class="va">echarts4r</span>
-<span class="op">)</span>
-
-<span class="fu">box</span><span class="fu">::</span><span class="fu"><a href="http://klmr.me/box/reference/use.html" class="external-link">use</a></span><span class="op">(</span>
-  <span class="va">app</span><span class="op">/</span><span class="va">logic</span><span class="op">/</span><span class="va">chart_utils</span><span class="op">[</span><span class="va">label_formatter</span><span class="op">]</span>
-<span class="op">)</span>
-
-<span class="co">#' @export</span>
-<span class="va">ui</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">id</span><span class="op">)</span> <span class="op">{</span>
-  <span class="va">ns</span> <span class="op">&lt;-</span> <span class="fu">NS</span><span class="op">(</span><span class="va">id</span><span class="op">)</span>
-
-  <span class="fu">div</span><span class="op">(</span>
-    class <span class="op">=</span> <span class="st">"component-box"</span>,
-    <span class="va">echarts4r</span><span class="op">$</span><span class="fu">echarts4rOutput</span><span class="op">(</span><span class="fu">ns</span><span class="op">(</span><span class="st">"chart"</span><span class="op">)</span><span class="op">)</span>
-  <span class="op">)</span>
-<span class="op">}</span>
-
-<span class="co">#' @export</span>
-<span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">id</span>, <span class="va">data</span><span class="op">)</span> <span class="op">{</span>
-  <span class="fu">moduleServer</span><span class="op">(</span><span class="va">id</span>, <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span>
-    <span class="va">output</span><span class="op">$</span><span class="va">chart</span> <span class="op">&lt;-</span> <span class="va">echarts4r</span><span class="op">$</span><span class="fu">renderEcharts4r</span><span class="op">(</span>
-      <span class="va">data</span> |&gt;
-        <span class="va">echarts4r</span><span class="op">$</span><span class="fu">group_by</span><span class="op">(</span><span class="va">Species</span><span class="op">)</span> |&gt;
-        <span class="va">echarts4r</span><span class="op">$</span><span class="fu">e_chart</span><span class="op">(</span>x <span class="op">=</span> <span class="va">Year</span><span class="op">)</span> |&gt;
-        <span class="va">echarts4r</span><span class="op">$</span><span class="fu">e_line</span><span class="op">(</span><span class="va">Population</span><span class="op">)</span> |&gt;
-        <span class="va">echarts4r</span><span class="op">$</span><span class="fu">e_x_axis</span><span class="op">(</span>
-          <span class="va">Year</span>,
-          axisLabel <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>
-            formatter <span class="op">=</span> <span class="va">label_formatter</span>
-          <span class="op">)</span>
-        <span class="op">)</span> |&gt;
-        <span class="va">echarts4r</span><span class="op">$</span><span class="fu">e_tooltip</span><span class="op">(</span><span class="op">)</span>
-    <span class="op">)</span>
-  <span class="op">}</span><span class="op">)</span>
-<span class="op">}</span></code></pre></div>
+<code class="sourceCode R"><span><span class="co"># app/view/chart.R</span></span>
+<span></span>
+<span><span class="fu">box</span><span class="fu">::</span><span class="fu"><a href="http://klmr.me/box/reference/use.html" class="external-link">use</a></span><span class="op">(</span></span>
+<span>  <span class="va">shiny</span><span class="op">[</span><span class="va">moduleServer</span>, <span class="va">NS</span>, <span class="va">div</span><span class="op">]</span>,</span>
+<span>  <span class="va">echarts4r</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">box</span><span class="fu">::</span><span class="fu"><a href="http://klmr.me/box/reference/use.html" class="external-link">use</a></span><span class="op">(</span></span>
+<span>  <span class="va">app</span><span class="op">/</span><span class="va">logic</span><span class="op">/</span><span class="va">chart_utils</span><span class="op">[</span><span class="va">label_formatter</span><span class="op">]</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="co">#' @export</span></span>
+<span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">id</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="va">ns</span> <span class="op">&lt;-</span> <span class="fu">NS</span><span class="op">(</span><span class="va">id</span><span class="op">)</span></span>
+<span></span>
+<span>  <span class="fu">div</span><span class="op">(</span></span>
+<span>    class <span class="op">=</span> <span class="st">"component-box"</span>,</span>
+<span>    <span class="va">echarts4r</span><span class="op">$</span><span class="fu">echarts4rOutput</span><span class="op">(</span><span class="fu">ns</span><span class="op">(</span><span class="st">"chart"</span><span class="op">)</span><span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">}</span></span>
+<span></span>
+<span><span class="co">#' @export</span></span>
+<span><span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">id</span>, <span class="va">data</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="fu">moduleServer</span><span class="op">(</span><span class="va">id</span>, <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span></span>
+<span>    <span class="va">output</span><span class="op">$</span><span class="va">chart</span> <span class="op">&lt;-</span> <span class="va">echarts4r</span><span class="op">$</span><span class="fu">renderEcharts4r</span><span class="op">(</span></span>
+<span>      <span class="va">data</span> <span class="op">|&gt;</span></span>
+<span>        <span class="va">echarts4r</span><span class="op">$</span><span class="fu">group_by</span><span class="op">(</span><span class="va">Species</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>        <span class="va">echarts4r</span><span class="op">$</span><span class="fu">e_chart</span><span class="op">(</span>x <span class="op">=</span> <span class="va">Year</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>        <span class="va">echarts4r</span><span class="op">$</span><span class="fu">e_line</span><span class="op">(</span><span class="va">Population</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>        <span class="va">echarts4r</span><span class="op">$</span><span class="fu">e_x_axis</span><span class="op">(</span></span>
+<span>          <span class="va">Year</span>,</span>
+<span>          axisLabel <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>            formatter <span class="op">=</span> <span class="va">label_formatter</span></span>
+<span>          <span class="op">)</span></span>
+<span>        <span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>        <span class="va">echarts4r</span><span class="op">$</span><span class="fu">e_tooltip</span><span class="op">(</span><span class="op">)</span></span>
+<span>    <span class="op">)</span></span>
+<span>  <span class="op">}</span><span class="op">)</span></span>
+<span><span class="op">}</span></span></code></pre></div>
 <div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># app/view/table.R</span>
-
-<span class="fu">box</span><span class="fu">::</span><span class="fu"><a href="http://klmr.me/box/reference/use.html" class="external-link">use</a></span><span class="op">(</span>
-  <span class="va">shiny</span><span class="op">[</span><span class="va">moduleServer</span>, <span class="va">NS</span>, <span class="va">div</span><span class="op">]</span>,
-  <span class="va">reactable</span>,
-<span class="op">)</span>
-
-<span class="fu">box</span><span class="fu">::</span><span class="fu"><a href="http://klmr.me/box/reference/use.html" class="external-link">use</a></span><span class="op">(</span>
-  <span class="va">app</span><span class="op">/</span><span class="va">logic</span><span class="op">/</span><span class="va">data_transformation</span><span class="op">[</span><span class="va">transform_data</span><span class="op">]</span>
-<span class="op">)</span>
-
-<span class="co">#' @export</span>
-<span class="va">ui</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">id</span><span class="op">)</span> <span class="op">{</span>
-  <span class="va">ns</span> <span class="op">&lt;-</span> <span class="fu">NS</span><span class="op">(</span><span class="va">id</span><span class="op">)</span>
-
-  <span class="fu">div</span><span class="op">(</span>
-    class <span class="op">=</span> <span class="st">"component-box"</span>,
-    <span class="va">reactable</span><span class="op">$</span><span class="fu">reactableOutput</span><span class="op">(</span><span class="fu">ns</span><span class="op">(</span><span class="st">"table"</span><span class="op">)</span><span class="op">)</span>
-  <span class="op">)</span>
-<span class="op">}</span>
-
-<span class="co">#' @export</span>
-<span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">id</span>, <span class="va">data</span><span class="op">)</span> <span class="op">{</span>
-  <span class="fu">moduleServer</span><span class="op">(</span><span class="va">id</span>, <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span>
-    <span class="va">output</span><span class="op">$</span><span class="va">table</span> <span class="op">&lt;-</span> <span class="va">reactable</span><span class="op">$</span><span class="fu">renderReactable</span><span class="op">(</span>
-      <span class="va">data</span> |&gt;
-        <span class="fu">transform_data</span><span class="op">(</span><span class="op">)</span> |&gt;
-        <span class="va">reactable</span><span class="op">$</span><span class="fu">reactable</span><span class="op">(</span><span class="op">)</span>
-    <span class="op">)</span>
-  <span class="op">}</span><span class="op">)</span>
-<span class="op">}</span></code></pre></div>
+<code class="sourceCode R"><span><span class="co"># app/view/table.R</span></span>
+<span></span>
+<span><span class="fu">box</span><span class="fu">::</span><span class="fu"><a href="http://klmr.me/box/reference/use.html" class="external-link">use</a></span><span class="op">(</span></span>
+<span>  <span class="va">shiny</span><span class="op">[</span><span class="va">moduleServer</span>, <span class="va">NS</span>, <span class="va">div</span><span class="op">]</span>,</span>
+<span>  <span class="va">reactable</span>,</span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">box</span><span class="fu">::</span><span class="fu"><a href="http://klmr.me/box/reference/use.html" class="external-link">use</a></span><span class="op">(</span></span>
+<span>  <span class="va">app</span><span class="op">/</span><span class="va">logic</span><span class="op">/</span><span class="va">data_transformation</span><span class="op">[</span><span class="va">transform_data</span><span class="op">]</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="co">#' @export</span></span>
+<span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">id</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="va">ns</span> <span class="op">&lt;-</span> <span class="fu">NS</span><span class="op">(</span><span class="va">id</span><span class="op">)</span></span>
+<span></span>
+<span>  <span class="fu">div</span><span class="op">(</span></span>
+<span>    class <span class="op">=</span> <span class="st">"component-box"</span>,</span>
+<span>    <span class="va">reactable</span><span class="op">$</span><span class="fu">reactableOutput</span><span class="op">(</span><span class="fu">ns</span><span class="op">(</span><span class="st">"table"</span><span class="op">)</span><span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">}</span></span>
+<span></span>
+<span><span class="co">#' @export</span></span>
+<span><span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">id</span>, <span class="va">data</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="fu">moduleServer</span><span class="op">(</span><span class="va">id</span>, <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span></span>
+<span>    <span class="va">output</span><span class="op">$</span><span class="va">table</span> <span class="op">&lt;-</span> <span class="va">reactable</span><span class="op">$</span><span class="fu">renderReactable</span><span class="op">(</span></span>
+<span>      <span class="va">data</span> <span class="op">|&gt;</span></span>
+<span>        <span class="fu">transform_data</span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>        <span class="va">reactable</span><span class="op">$</span><span class="fu">reactable</span><span class="op">(</span><span class="op">)</span></span>
+<span>    <span class="op">)</span></span>
+<span>  <span class="op">}</span><span class="op">)</span></span>
+<span><span class="op">}</span></span></code></pre></div>
 <p>Now you are ready to modify the styles. Simply add few CSS rules to <code>app/styles/mains.scss</code> file:</p>
 <div class="sourceCode" id="cb28"><pre class="sourceCode css"><code class="sourceCode css"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="er">// app/styles/main.scss</span></span>
 <span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -823,8 +823,8 @@
 <span id="cb28-13"><a href="#cb28-13" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
 <p>If you try running the application right now, you will not see any changes. That is because Rhino uses minified <code>app/static/app.min.css</code> for styling. To use it, you will need to build it using the Rhino function:</p>
 <div class="sourceCode" id="cb29"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># in R console</span>
-<span class="fu">rhino</span><span class="fu">::</span><span class="fu"><a href="../../reference/build_sass.html">build_sass</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="co"># in R console</span></span>
+<span><span class="fu">rhino</span><span class="fu">::</span><span class="fu"><a href="../../reference/build_sass.html">build_sass</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <p>Now, after running the application you should see something similar to this:</p>
 <div class="app-preview">
 <p><img src="images/styles_1.png"></p>
@@ -832,32 +832,32 @@
 <p>It is worth noting, that you don’t need to add <code>app/static/app.min.css</code> to your application header - Rhino does that for you.</p>
 <p>Let’s adjust the application a little bit more by adding a title:</p>
 <div class="sourceCode" id="cb30"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># app/main.R</span>
-
-<span class="fu">box</span><span class="fu">::</span><span class="fu"><a href="http://klmr.me/box/reference/use.html" class="external-link">use</a></span><span class="op">(</span>
-  <span class="va">shiny</span><span class="op">[</span><span class="va">bootstrapPage</span>, <span class="va">moduleServer</span>, <span class="va">NS</span>, <span class="va">div</span>, <span class="va">h1</span><span class="op">]</span>,
-<span class="op">)</span>
-
-<span class="fu">box</span><span class="fu">::</span><span class="fu"><a href="http://klmr.me/box/reference/use.html" class="external-link">use</a></span><span class="op">(</span>
-  <span class="va">app</span><span class="op">/</span><span class="va">view</span><span class="op">/</span><span class="va">table</span>,
-  <span class="va">app</span><span class="op">/</span><span class="va">view</span><span class="op">/</span><span class="va">chart</span>,
-<span class="op">)</span>
-
-<span class="co">#' @export</span>
-<span class="va">ui</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">id</span><span class="op">)</span> <span class="op">{</span>
-  <span class="va">ns</span> <span class="op">&lt;-</span> <span class="fu">NS</span><span class="op">(</span><span class="va">id</span><span class="op">)</span>
-
-  <span class="fu">bootstrapPage</span><span class="op">(</span>
-    <span class="fu">h1</span><span class="op">(</span><span class="st">"RhinoApplication"</span><span class="op">)</span>,
-    <span class="fu">div</span><span class="op">(</span>
-      class <span class="op">=</span> <span class="st">"components-container"</span>,
-      <span class="va">table</span><span class="op">$</span><span class="fu">ui</span><span class="op">(</span><span class="fu">ns</span><span class="op">(</span><span class="st">"table"</span><span class="op">)</span><span class="op">)</span>,
-      <span class="va">chart</span><span class="op">$</span><span class="fu">ui</span><span class="op">(</span><span class="fu">ns</span><span class="op">(</span><span class="st">"chart"</span><span class="op">)</span><span class="op">)</span>
-    <span class="op">)</span>
-  <span class="op">)</span>
-<span class="op">}</span>
-
-<span class="va">...</span></code></pre></div>
+<code class="sourceCode R"><span><span class="co"># app/main.R</span></span>
+<span></span>
+<span><span class="fu">box</span><span class="fu">::</span><span class="fu"><a href="http://klmr.me/box/reference/use.html" class="external-link">use</a></span><span class="op">(</span></span>
+<span>  <span class="va">shiny</span><span class="op">[</span><span class="va">bootstrapPage</span>, <span class="va">moduleServer</span>, <span class="va">NS</span>, <span class="va">div</span>, <span class="va">h1</span><span class="op">]</span>,</span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">box</span><span class="fu">::</span><span class="fu"><a href="http://klmr.me/box/reference/use.html" class="external-link">use</a></span><span class="op">(</span></span>
+<span>  <span class="va">app</span><span class="op">/</span><span class="va">view</span><span class="op">/</span><span class="va">table</span>,</span>
+<span>  <span class="va">app</span><span class="op">/</span><span class="va">view</span><span class="op">/</span><span class="va">chart</span>,</span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="co">#' @export</span></span>
+<span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">id</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="va">ns</span> <span class="op">&lt;-</span> <span class="fu">NS</span><span class="op">(</span><span class="va">id</span><span class="op">)</span></span>
+<span></span>
+<span>  <span class="fu">bootstrapPage</span><span class="op">(</span></span>
+<span>    <span class="fu">h1</span><span class="op">(</span><span class="st">"RhinoApplication"</span><span class="op">)</span>,</span>
+<span>    <span class="fu">div</span><span class="op">(</span></span>
+<span>      class <span class="op">=</span> <span class="st">"components-container"</span>,</span>
+<span>      <span class="va">table</span><span class="op">$</span><span class="fu">ui</span><span class="op">(</span><span class="fu">ns</span><span class="op">(</span><span class="st">"table"</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>      <span class="va">chart</span><span class="op">$</span><span class="fu">ui</span><span class="op">(</span><span class="fu">ns</span><span class="op">(</span><span class="st">"chart"</span><span class="op">)</span><span class="op">)</span></span>
+<span>    <span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">}</span></span>
+<span></span>
+<span><span class="va">...</span></span></code></pre></div>
 <p>And some styling:</p>
 <div class="sourceCode" id="cb31"><pre class="sourceCode css"><code class="sourceCode css"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="er">// app/styles/main.scss</span></span>
 <span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -879,8 +879,8 @@
 <span id="cb31-18"><a href="#cb31-18" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
 <p>Finally, build Sass once again:</p>
 <div class="sourceCode" id="cb32"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># in R console</span>
-<span class="fu">rhino</span><span class="fu">::</span><span class="fu"><a href="../../reference/build_sass.html">build_sass</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="co"># in R console</span></span>
+<span><span class="fu">rhino</span><span class="fu">::</span><span class="fu"><a href="../../reference/build_sass.html">build_sass</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <p>The result should look similar to this:</p>
 <div class="app-preview">
 <p><img src="images/styles_2.png"></p>
@@ -895,36 +895,36 @@
 <p>As the last element, let’s add a button that will trigger a JavaScript popup.</p>
 <p>First, we need to create a simple button and style it:</p>
 <div class="sourceCode" id="cb33"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># app/main.R</span>
-
-<span class="fu">box</span><span class="fu">::</span><span class="fu"><a href="http://klmr.me/box/reference/use.html" class="external-link">use</a></span><span class="op">(</span>
-  <span class="va">shiny</span><span class="op">[</span><span class="va">bootstrapPage</span>, <span class="va">moduleServer</span>, <span class="va">NS</span>, <span class="va">div</span>, <span class="va">h1</span>, <span class="va">tags</span>, <span class="va">icon</span><span class="op">]</span>,
-<span class="op">)</span>
-
-<span class="fu">box</span><span class="fu">::</span><span class="fu"><a href="http://klmr.me/box/reference/use.html" class="external-link">use</a></span><span class="op">(</span>
-  <span class="va">app</span><span class="op">/</span><span class="va">view</span><span class="op">/</span><span class="va">table</span>,
-  <span class="va">app</span><span class="op">/</span><span class="va">view</span><span class="op">/</span><span class="va">chart</span>,
-<span class="op">)</span>
-
-<span class="co">#' @export</span>
-<span class="va">ui</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">id</span><span class="op">)</span> <span class="op">{</span>
-  <span class="va">ns</span> <span class="op">&lt;-</span> <span class="fu">NS</span><span class="op">(</span><span class="va">id</span><span class="op">)</span>
-
-  <span class="fu">bootstrapPage</span><span class="op">(</span>
-    <span class="fu">h1</span><span class="op">(</span><span class="st">"RhinoApplication"</span><span class="op">)</span>,
-    <span class="fu">div</span><span class="op">(</span>
-      class <span class="op">=</span> <span class="st">"components-container"</span>,
-      <span class="va">table</span><span class="op">$</span><span class="fu">ui</span><span class="op">(</span><span class="fu">ns</span><span class="op">(</span><span class="st">"table"</span><span class="op">)</span><span class="op">)</span>,
-      <span class="va">chart</span><span class="op">$</span><span class="fu">ui</span><span class="op">(</span><span class="fu">ns</span><span class="op">(</span><span class="st">"chart"</span><span class="op">)</span><span class="op">)</span>
-    <span class="op">)</span>,
-    <span class="va">tags</span><span class="op">$</span><span class="fu">button</span><span class="op">(</span>
-      id <span class="op">=</span> <span class="st">"help-button"</span>,
-      <span class="fu">icon</span><span class="op">(</span><span class="st">"question"</span><span class="op">)</span>
-    <span class="op">)</span>
-  <span class="op">)</span>
-<span class="op">}</span>
-
-<span class="va">...</span></code></pre></div>
+<code class="sourceCode R"><span><span class="co"># app/main.R</span></span>
+<span></span>
+<span><span class="fu">box</span><span class="fu">::</span><span class="fu"><a href="http://klmr.me/box/reference/use.html" class="external-link">use</a></span><span class="op">(</span></span>
+<span>  <span class="va">shiny</span><span class="op">[</span><span class="va">bootstrapPage</span>, <span class="va">moduleServer</span>, <span class="va">NS</span>, <span class="va">div</span>, <span class="va">h1</span>, <span class="va">tags</span>, <span class="va">icon</span><span class="op">]</span>,</span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">box</span><span class="fu">::</span><span class="fu"><a href="http://klmr.me/box/reference/use.html" class="external-link">use</a></span><span class="op">(</span></span>
+<span>  <span class="va">app</span><span class="op">/</span><span class="va">view</span><span class="op">/</span><span class="va">table</span>,</span>
+<span>  <span class="va">app</span><span class="op">/</span><span class="va">view</span><span class="op">/</span><span class="va">chart</span>,</span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="co">#' @export</span></span>
+<span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">id</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="va">ns</span> <span class="op">&lt;-</span> <span class="fu">NS</span><span class="op">(</span><span class="va">id</span><span class="op">)</span></span>
+<span></span>
+<span>  <span class="fu">bootstrapPage</span><span class="op">(</span></span>
+<span>    <span class="fu">h1</span><span class="op">(</span><span class="st">"RhinoApplication"</span><span class="op">)</span>,</span>
+<span>    <span class="fu">div</span><span class="op">(</span></span>
+<span>      class <span class="op">=</span> <span class="st">"components-container"</span>,</span>
+<span>      <span class="va">table</span><span class="op">$</span><span class="fu">ui</span><span class="op">(</span><span class="fu">ns</span><span class="op">(</span><span class="st">"table"</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>      <span class="va">chart</span><span class="op">$</span><span class="fu">ui</span><span class="op">(</span><span class="fu">ns</span><span class="op">(</span><span class="st">"chart"</span><span class="op">)</span><span class="op">)</span></span>
+<span>    <span class="op">)</span>,</span>
+<span>    <span class="va">tags</span><span class="op">$</span><span class="fu">button</span><span class="op">(</span></span>
+<span>      id <span class="op">=</span> <span class="st">"help-button"</span>,</span>
+<span>      <span class="fu">icon</span><span class="op">(</span><span class="st">"question"</span><span class="op">)</span></span>
+<span>    <span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">}</span></span>
+<span></span>
+<span><span class="va">...</span></span></code></pre></div>
 <div class="sourceCode" id="cb34"><pre class="sourceCode css"><code class="sourceCode css"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="er">// app/styles/main.scss</span></span>
 <span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a><span class="fu">.components-container</span> {</span>
@@ -964,42 +964,42 @@
 <p>This function will simply show a browser alert with the message. If you are familiar with how JavaScript code is used in Shiny applications, you will notice one difference - keyword <code>export</code> added before the function name. In Rhino, only functions marked like that will be available for Shiny to use.</p>
 <p>Same as it was with styles, the Rhino application does not use JS files directly, but instead utilizes minified version build with <code><a href="../../reference/build_js.html">rhino::build_js</a></code> function. Try it:</p>
 <div class="sourceCode" id="cb36"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># in R console</span>
-<span class="fu">rhino</span><span class="fu">::</span><span class="fu"><a href="../../reference/build_js.html">build_js</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="co"># in R console</span></span>
+<span><span class="fu">rhino</span><span class="fu">::</span><span class="fu"><a href="../../reference/build_js.html">build_js</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <p>Now <code>app/static/js/app.min.js</code> file has been created and, same as the minified CSS file, is automatically included in the application head tag.</p>
 <p>The last thing here is to use the <code>showHelp()</code> function in the application. To do that, let’s simply add <code>onclick</code> to the button:</p>
 <div class="sourceCode" id="cb37"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># app/main.R</span>
-
-<span class="fu">box</span><span class="fu">::</span><span class="fu"><a href="http://klmr.me/box/reference/use.html" class="external-link">use</a></span><span class="op">(</span>
-  <span class="va">shiny</span><span class="op">[</span><span class="va">bootstrapPage</span>, <span class="va">moduleServer</span>, <span class="va">NS</span>, <span class="va">div</span>, <span class="va">h1</span>, <span class="va">tags</span>, <span class="va">icon</span><span class="op">]</span>,
-<span class="op">)</span>
-
-<span class="fu">box</span><span class="fu">::</span><span class="fu"><a href="http://klmr.me/box/reference/use.html" class="external-link">use</a></span><span class="op">(</span>
-  <span class="va">app</span><span class="op">/</span><span class="va">view</span><span class="op">/</span><span class="va">table</span>,
-  <span class="va">app</span><span class="op">/</span><span class="va">view</span><span class="op">/</span><span class="va">chart</span>,
-<span class="op">)</span>
-
-<span class="co">#' @export</span>
-<span class="va">ui</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">id</span><span class="op">)</span> <span class="op">{</span>
-  <span class="va">ns</span> <span class="op">&lt;-</span> <span class="fu">NS</span><span class="op">(</span><span class="va">id</span><span class="op">)</span>
-
-  <span class="fu">bootstrapPage</span><span class="op">(</span>
-    <span class="fu">h1</span><span class="op">(</span><span class="st">"RhinoApplication"</span><span class="op">)</span>,
-    <span class="fu">div</span><span class="op">(</span>
-      class <span class="op">=</span> <span class="st">"components-container"</span>,
-      <span class="va">table</span><span class="op">$</span><span class="fu">ui</span><span class="op">(</span><span class="fu">ns</span><span class="op">(</span><span class="st">"table"</span><span class="op">)</span><span class="op">)</span>,
-      <span class="va">chart</span><span class="op">$</span><span class="fu">ui</span><span class="op">(</span><span class="fu">ns</span><span class="op">(</span><span class="st">"chart"</span><span class="op">)</span><span class="op">)</span>
-    <span class="op">)</span>,
-    <span class="va">tags</span><span class="op">$</span><span class="fu">button</span><span class="op">(</span>
-      id <span class="op">=</span> <span class="st">"help-button"</span>,
-      <span class="fu">icon</span><span class="op">(</span><span class="st">"question"</span><span class="op">)</span>,
-      onclick <span class="op">=</span> <span class="st">"App.showHelp()"</span>
-    <span class="op">)</span>
-  <span class="op">)</span>
-<span class="op">}</span>
-
-<span class="va">...</span></code></pre></div>
+<code class="sourceCode R"><span><span class="co"># app/main.R</span></span>
+<span></span>
+<span><span class="fu">box</span><span class="fu">::</span><span class="fu"><a href="http://klmr.me/box/reference/use.html" class="external-link">use</a></span><span class="op">(</span></span>
+<span>  <span class="va">shiny</span><span class="op">[</span><span class="va">bootstrapPage</span>, <span class="va">moduleServer</span>, <span class="va">NS</span>, <span class="va">div</span>, <span class="va">h1</span>, <span class="va">tags</span>, <span class="va">icon</span><span class="op">]</span>,</span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">box</span><span class="fu">::</span><span class="fu"><a href="http://klmr.me/box/reference/use.html" class="external-link">use</a></span><span class="op">(</span></span>
+<span>  <span class="va">app</span><span class="op">/</span><span class="va">view</span><span class="op">/</span><span class="va">table</span>,</span>
+<span>  <span class="va">app</span><span class="op">/</span><span class="va">view</span><span class="op">/</span><span class="va">chart</span>,</span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="co">#' @export</span></span>
+<span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">id</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="va">ns</span> <span class="op">&lt;-</span> <span class="fu">NS</span><span class="op">(</span><span class="va">id</span><span class="op">)</span></span>
+<span></span>
+<span>  <span class="fu">bootstrapPage</span><span class="op">(</span></span>
+<span>    <span class="fu">h1</span><span class="op">(</span><span class="st">"RhinoApplication"</span><span class="op">)</span>,</span>
+<span>    <span class="fu">div</span><span class="op">(</span></span>
+<span>      class <span class="op">=</span> <span class="st">"components-container"</span>,</span>
+<span>      <span class="va">table</span><span class="op">$</span><span class="fu">ui</span><span class="op">(</span><span class="fu">ns</span><span class="op">(</span><span class="st">"table"</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>      <span class="va">chart</span><span class="op">$</span><span class="fu">ui</span><span class="op">(</span><span class="fu">ns</span><span class="op">(</span><span class="st">"chart"</span><span class="op">)</span><span class="op">)</span></span>
+<span>    <span class="op">)</span>,</span>
+<span>    <span class="va">tags</span><span class="op">$</span><span class="fu">button</span><span class="op">(</span></span>
+<span>      id <span class="op">=</span> <span class="st">"help-button"</span>,</span>
+<span>      <span class="fu">icon</span><span class="op">(</span><span class="st">"question"</span><span class="op">)</span>,</span>
+<span>      onclick <span class="op">=</span> <span class="st">"App.showHelp()"</span></span>
+<span>    <span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">}</span></span>
+<span></span>
+<span><span class="va">...</span></span></code></pre></div>
 <p>You have probably noticed the second difference between the classic Shiny approach and the one used in Rhino. All exported JS functions are now available under <code>App</code> (same as any other JavaScript function from a library, e.g. <code>Math.round</code>).</p>
 <p>Now, if you run the application and click the button, you should see something like this:</p>
 <div class="app-preview">
@@ -1021,7 +1021,7 @@
 
 <div class="pkgdown-footer-right">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.4.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
 </div>
 
     </footer>
