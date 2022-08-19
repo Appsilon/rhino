@@ -14,11 +14,10 @@ Would you like to learn about Rhino hands-on? Join our events!
 * August 22, 2022: *Enterprise-grade Shiny App Development with {rhino}*
 led by [Jakub Nowicki](https://www.linkedin.com/in/jakub-nowicki/).
 The workshop will be held during the [R/Medicine](https://events.linuxfoundation.org/r-medicine/) conference.
-* September 6, 2022: *Creating Shiny Apps with Rhino*
+* September 6, 2022 at 2 PM (GMT+2):
+[*Creating Shiny Apps with Rhino*](https://hopin.com/events/shinygathering-1-rhino)
 led by [Kamil Żyła](https://www.linkedin.com/in/kamil-zyla/).
 It will be a rerun of the [workshop](https://www.youtube.com/watch?v=8H_ZHUy8Yj4) which was held shortly after the initial Rhino release.
-
-Details (time, how to join) to be announced - come back soon!
 
 ## Why Rhino?
 Rhino allows you to create Shiny apps **The Appsilon Way**  - like a fullstack software engineer. Apply best software engineering practices, modularize your code, test it well, make UI beautiful, and think about user adoption from the very beginning. Rhino is an opinionated framework with a focus on software engineering practices and development tools.
