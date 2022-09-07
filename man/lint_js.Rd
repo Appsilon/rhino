@@ -25,7 +25,9 @@ To access it without raising linter errors, add \verb{/* global L */} comment in
 You don't need to define \code{Shiny} and \code{$} as these global variables are defined by default.
 
 If you find a particular ESLint error inapplicable to your code,
-you can disable a specific rule for the next line of code with a comment like:\if{html}{\out{<div class="sourceCode js">}}\preformatted{// eslint-disable-next-line no-restricted-syntax
+you can disable a specific rule for the next line of code with a comment like:
+
+\if{html}{\out{<div class="sourceCode js">}}\preformatted{// eslint-disable-next-line no-restricted-syntax
 }\if{html}{\out{</div>}}
 
 See the \href{https://eslint.org/docs/user-guide/configuring/rules#using-configuration-comments-1}{ESLint documentation}
