@@ -26,6 +26,14 @@ lint_dir <- function(path) {
   lints
 }
 
+lint_path <- function(path) {
+  if (fs::is_dir(path)) {
+    lint_dir(path)
+  } else {
+    lintr::lint(filename = path)
+  }
+}
+
 #' Lint R
 #'
 #' Uses the `{lintr}` package to check all R sources in the `app` and `tests/testthat` directories
@@ -33,21 +41,31 @@ lint_dir <- function(path) {
 #'
 #' The linter rules can be adjusted in the `.lintr` file.
 #'
-#' You can set the maximum number of accepted style errors
-#' with the `legacy_max_lint_r_errors` option in `rhino.yml`.
-#' This can be useful when inheriting legacy code with multiple styling issues.
+#' You can set the maximum number of accepted style errors with the `legacy_max_lint_r_errors`
+#' option in `rhino.yml`. This can be useful when inheriting legacy code with multiple styling
+#' issues.
+#'
+#' @param paths a vector paths to directories or `.R` files; defaults to `NULL` and checks `app` and
+#'   `tests/testthat` directories
 #'
 #' @return None. This function is called for side effects.
 #'
 #' @export
-lint_r <- function() {
-  max_errors <- read_config()$legacy_max_lint_r_errors
+lint_r <- function(paths = NULL) {
+  max_errors <- max_errors <- read_config()$legacy_max_lint_r_errors
   if (is.null(max_errors)) max_errors <- 0
 
-  lints <- c(
-    lint_dir("app"),
-    lint_dir(fs::path("tests", "testthat"))
+  if (is.null(paths)) {
+    paths <- c("app", "tests/testthat")
+  }
+
+  lints <- purrr::map(
+    paths,
+    lint_path
   )
+
+  lints <- purrr::reduce(lints, c)
+
   # Applying `c()` removes the `lints` class which is responsible for pretty-printing.
   class(lints) <- "lints"
 
@@ -60,8 +78,11 @@ lint_r <- function() {
       "Found {errors} style error{?s}.",
       i = if (max_errors > 0) "At most {max_errors} error{?s} allowed."
     )
-    if (errors <= max_errors) cli::cli_inform(message)
-    else cli::cli_abort(message, call = NULL)
+    if (errors <= max_errors) {
+      cli::cli_inform(message)
+    } else {
+      cli::cli_abort(message, call = NULL)
+    }
   }
 }
 
@@ -138,8 +159,11 @@ format_r <- function(paths) {
 #' }
 #' @export
 build_js <- function(watch = FALSE) {
-  if (watch) yarn("build-js", "--watch", status_ok = 2)
-  else yarn("build-js")
+  if (watch) {
+    yarn("build-js", "--watch", status_ok = 2)
+  } else {
+    yarn("build-js")
+  }
 }
 
 # nolint start
@@ -223,8 +247,11 @@ build_sass <- function(watch = FALSE) {
 }
 
 build_sass_node <- function(watch = FALSE) {
-  if (watch) yarn("build-sass", "--watch", status_ok = 2)
-  else yarn("build-sass")
+  if (watch) {
+    yarn("build-sass", "--watch", status_ok = 2)
+  } else {
+    yarn("build-sass")
+  }
 }
 
 build_sass_r <- function() {
