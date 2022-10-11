@@ -4,7 +4,11 @@
 \alias{lint_r}
 \title{Lint R}
 \usage{
-lint_r()
+lint_r(paths = NULL)
+}
+\arguments{
+\item{paths}{a vector paths to directories or \code{.R} files; defaults to \code{NULL} and checks \code{app} and
+\code{tests/testthat} directories}
 }
 \value{
 None. This function is called for side effects.
@@ -16,7 +20,7 @@ for style errors.
 \details{
 The linter rules can be adjusted in the \code{.lintr} file.
 
-You can set the maximum number of accepted style errors
-with the \code{legacy_max_lint_r_errors} option in \code{rhino.yml}.
-This can be useful when inheriting legacy code with multiple styling issues.
+You can set the maximum number of accepted style errors with the \code{legacy_max_lint_r_errors}
+option in \code{rhino.yml}. This can be useful when inheriting legacy code with multiple styling
+issues.
 }
