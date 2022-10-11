@@ -30,6 +30,9 @@ lint_path <- function(path) {
   if (fs::is_dir(path)) {
     lint_dir(path)
   } else {
+    if (interactive()) {
+      message(cli::format_inline("Linting {.file {path}}"))
+    }
     lintr::lint(filename = path)
   }
 }
