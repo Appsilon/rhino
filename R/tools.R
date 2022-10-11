@@ -61,7 +61,7 @@ lint_r <- function(paths = NULL) {
 
   lints <- purrr::map(
     paths,
-    lint_path
+    ~ c(lint_path(.x))
   )
 
   lints <- purrr::reduce(lints, c)
