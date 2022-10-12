@@ -135,7 +135,7 @@ create_e2e_tests_structure <- function() {
 }
 
 check_dir_for_rhino <- function(dir, force) {
-  if (force) {
+  if (!fs::dir_exists(dir) || force) {
     return(FALSE)
   }
 
@@ -180,7 +180,7 @@ check_dir_for_rhino <- function(dir, force) {
 }
 
 is_dir_home <- function(dir, force) {
-  if (force) {
+  if (!fs::dir_exists(dir) || force) {
     return(FALSE)
   }
 
