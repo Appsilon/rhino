@@ -163,10 +163,8 @@ check_dir_for_rhino <- function(dir, force) {
   )
 
   if (rhino_structure_exists) {
-    dir_path <- normalizePath(dir)
-
     cli::cli_alert_danger(
-      "{cli::col_blue('rhino')} app structure already exists in {dir_path}!
+      "{cli::col_blue('rhino')} app structure already exists in {normalizePath(dir)}!
       Please set {cli::col_red('force = TRUE')} if you want to overwrite
       the existing {cli::col_blue('rhino')} app and its accompanying files."
     )
