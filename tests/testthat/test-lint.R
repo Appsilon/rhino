@@ -21,4 +21,6 @@ test_that("lint_r does not throw lint errors or success messages", {
     ),
     "No style errors found."
   )
+  expect_error(lint_r(fs::path(app_path, "missing_dir")))
+  expect_error(lint_r(fs::path(app_path, "missing_file.R")))
 })
