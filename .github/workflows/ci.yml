@@ -52,5 +52,7 @@ jobs:
         if : always()
         shell: Rscript {0}
         run: |
-          spelling::spell_check_package()
+          spell_check <- spelling::spell_check_package(use_wordlist = TRUE)
+          print(spell_check)
+          quit(status = nrow(spell_check) > 0)
           
