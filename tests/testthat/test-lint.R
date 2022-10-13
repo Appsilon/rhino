@@ -1,4 +1,6 @@
 test_that("lint_r does not throw lint errors or success messages", {
+  withr::local_options(lintr.linter_file = "lintr_test_config")
+
   app_path <- test_path("dir_with_lint_errors")
 
   mockery::stub(lint_r, "read_config", list())
@@ -25,11 +27,11 @@ test_that("lint_r does not throw lint errors or success messages", {
   expect_error(lint_r(fs::path(app_path, "missing_file.R")), "Nothing to lint.")
   expect_error(lint_r(fs::path(app_path, c("missing_dir", "missing_file.R"))), "Nothing to lint.")
   expect_message(
-    lint_r(fs::path(app_path, c("good.R", "missing_dir", "missing_file.R"))), 
+    lint_r(fs::path(app_path, c("good.R", "missing_dir", "missing_file.R"))),
     "The following paths do not exist"
   )
   expect_message(
-    lint_r(fs::path(app_path, c("good.R", "missing_dir", "dir_with_lint_errors/good.R"))), 
+    lint_r(fs::path(app_path, c("good.R", "missing_dir", "dir_with_lint_errors/good.R"))),
     "This path does not exist"
   )
 })
