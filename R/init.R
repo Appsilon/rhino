@@ -1,35 +1,35 @@
 #' Create Rhino application
 #'
-#' Generates the file structure of a Rhino application. Can be used to start a fresh project or to
-#' migrate an existing Shiny application created without Rhino.
+#' Generates the file structure of a Rhino application.
+#' Can be used to start a fresh project or to migrate an existing Shiny application
+#' created without Rhino.
 #'
-#' The recommended steps for migrating an existing Shiny application to Rhino: 1. Put all app files
-#' in the `app` directory, so that it can be run with `shiny::shinyAppDir("app")` (assuming all
-#' dependencies are installed). 2. If you have a list of dependencies in form of `library()` calls,
-#' put them in the `dependencies.R` file. If this file does not exist, Rhino will generate it based
-#' on `renv::dependencies("app")`. 3. If your project uses `{renv}`, put `renv.lock` and `renv`
-#' directory in the project root. Rhino will try to only add the necessary dependencies to your
-#' lockfile. 4. Run `rhino::init()` in the project root.
+#' The recommended steps for migrating an existing Shiny application to Rhino:
+#' 1. Put all app files in the `app` directory,
+#' so that it can be run with `shiny::shinyAppDir("app")` (assuming all dependencies are installed).
+#' 2. If you have a list of dependencies in form of `library()` calls,
+#' put them in the `dependencies.R` file.
+#' If this file does not exist, Rhino will generate it based on `renv::dependencies("app")`.
+#' 3. If your project uses `{renv}`, put `renv.lock` and `renv` directory in the project root.
+#' Rhino will try to only add the necessary dependencies to your lockfile.
+#' 4. Run `rhino::init()` in the project root.
 #'
 #' @param dir Name of the directory to create application in.
 #' @param github_actions_ci Should the GitHub Actions CI be added?
-#' @param rhino_version When using an existing `renv.lock` file, `rhino` will install itself using
-#'   `renv::install(rhino_version)`. You can provide this argument to use a specific version /
-#'   source, e.g.`"Appsilon/rhino@v0.4.0"`.
-#' @param force a logical, defaults to `FALSE` to prevent creating a `rhino` if `dir` is the home
-#'   directory or if there is already an existing `rhino` app structure; set to `TRUE` to overwrite
-#'   existing `rhino` app and accompanying files
+#' @param rhino_version When using an existing `renv.lock` file,
+#' Rhino will install itself using `renv::install(rhino_version)`.
+#' You can provide this argument to use a specific version / source, e.g.`"Appsilon/rhino@v0.4.0"`.
 #' @return None. This function is called for side effects.
 #'
 #' @export
-init <- function(dir = ".",
-                 github_actions_ci = TRUE,
-                 rhino_version = "rhino",
-                 force = FALSE) {
+init <- function(
+  dir = ".",
+  github_actions_ci = TRUE,
+  rhino_version = "rhino"
+)  {
   is_home <- is_dir_home(dir = dir, force = force)
-  rhino_exists <- check_dir_for_rhino(dir = dir, force = force)
 
-  if (!is_home && !rhino_exists) {
+  if (!is_home) {
     init_impl(
       dir = dir,
       github_actions_ci = github_actions_ci,
@@ -39,9 +39,11 @@ init <- function(dir = ".",
   }
 }
 
-init_rstudio <- function(dir = ".",
-                         github_actions_ci = TRUE,
-                         rhino_version = "rhino") {
+init_rstudio <- function(
+  dir = ".",
+  github_actions_ci = TRUE,
+  rhino_version = "rhino"
+) {
   init_impl(
     dir = dir,
     github_actions_ci = github_actions_ci,
@@ -50,10 +52,12 @@ init_rstudio <- function(dir = ".",
   )
 }
 
-init_impl <- function(dir,
-                      github_actions_ci,
-                      rhino_version,
-                      new_project_wizard) {
+init_impl <- function(
+  dir,
+  github_actions_ci,
+  rhino_version,
+  new_project_wizard
+) {
   fs::dir_create(dir)
   withr::with_dir(dir, {
     create_rproj_file(new_project_wizard)
@@ -132,49 +136,6 @@ create_unit_tests_structure <- function() {
 create_e2e_tests_structure <- function() {
   copy_template("e2e_tests")
   cli::cli_alert_success("E2E tests structure created.")
-}
-
-check_dir_for_rhino <- function(dir, force) {
-  if (!fs::dir_exists(dir) || force) {
-    return(FALSE)
-  }
-
-  rhino_structure_exists <- all(
-    fs::file_exists(
-      fs::path(
-        dir,
-        # Checks for dir/app.R, dir/config.yml, and dir/rhino.yml
-        c(
-          "app.R", "config.yml", "rhino.yml",
-          c(fs::path(
-            "app",
-            # Check for dir/app/main.R
-            c(
-              "main.R",
-              # Check dir/app/styles/main.scss
-              fs::path("styles", "main.scss"),
-              # Check dir/app/js/index.js
-              fs::path("js", "index.js")
-            )
-          ))
-        )
-      )
-    )
-  )
-
-  if (rhino_structure_exists) {
-    cli::cli_alert_danger(
-      "{cli::col_blue('rhino')} app structure already exists in {normalizePath(dir)}!
-      Please set {cli::col_red('force = TRUE')} if you want to overwrite
-      the existing {cli::col_blue('rhino')} app and its accompanying files."
-    )
-
-    return(TRUE)
-  } else {
-    (
-      return(FALSE)
-    )
-  }
 }
 
 is_dir_home <- function(dir, force) {
