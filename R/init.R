@@ -19,13 +19,17 @@
 #' @param rhino_version When using an existing `renv.lock` file,
 #' Rhino will install itself using `renv::install(rhino_version)`.
 #' You can provide this argument to use a specific version / source, e.g.`"Appsilon/rhino@v0.4.0"`.
+#' @param force Create a `rhino` app without checking for if working directory is home directory.
+#' Defaults to `FALSE` to prevent creating a `rhino` app in the home directory
+#' Set to `TRUE` to create a `rhino` app in the home directory.
 #' @return None. This function is called for side effects.
 #'
 #' @export
 init <- function(
   dir = ".",
   github_actions_ci = TRUE,
-  rhino_version = "rhino"
+  rhino_version = "rhino",
+  force = FALSE
 )  {
   is_home <- is_dir_home(dir = dir, force = force)
 
