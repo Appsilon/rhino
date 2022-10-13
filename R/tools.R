@@ -44,7 +44,7 @@ lint_path <- function(path) {
   if (fs::is_dir(path)) {
     lint_dir(path)
   } else if (fs::is_file(path)) {
-    lint_path(path)
+    lint_file(path)
   }
 }
 
