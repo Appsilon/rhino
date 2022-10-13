@@ -15,6 +15,10 @@ test_r <- function() {
 }
 
 lint_dir <- function(path) {
+  if (!fs::dir_exists(path)) {
+    cli::cli_abort("Nothing to lint. {.file {path}} does not exist.")
+  }
+
   if (interactive()) {
     message(cli::format_inline("Linting {.file {path}}"), appendLF = FALSE)
   }
@@ -27,6 +31,10 @@ lint_dir <- function(path) {
 }
 
 lint_file <- function(path) {
+  if (!fs::file_exists(path)) {
+    cli::cli_abort("Nothing to lint. {.file {path}} does not exist.")
+  }
+
   if (interactive()) {
     message(cli::format_inline("Linting {.file {path}}"))
   }
