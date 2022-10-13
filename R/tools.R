@@ -61,7 +61,7 @@ check_paths <- function(paths) {
         i = "The following path{?s} cannot be read: {.file {paths[!readable]}}."
       )
     )
-  
+
   paths
 }
 
