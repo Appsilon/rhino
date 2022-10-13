@@ -15,13 +15,6 @@ test_r <- function() {
 }
 
 lint_dir <- function(path) {
-  if (!fs::dir_exists(path)) {
-    cli::cli_abort(c(
-      "Nothing to lint.",
-      "i" = "Please make sure that {.file {path}} exists."
-    ))
-  }
-
   if (interactive()) {
     message(cli::format_inline("Linting {.file {path}}"), appendLF = FALSE)
   }
@@ -34,13 +27,6 @@ lint_dir <- function(path) {
 }
 
 lint_file <- function(path) {
-  if (!fs::file_exists(path)) {
-    cli::cli_abort(c(
-      "Nothing to lint.",
-      "i" = "Please make sure that {.file {path}} exists."
-    ))
-  }
-
   if (interactive()) {
     message(cli::format_inline("Linting {.file {path}}"))
   }
@@ -62,6 +48,30 @@ lint_path <- function(path) {
   }
 }
 
+check_paths <- function(paths) {
+  paths_exist <- fs::file_access(paths, mode = "exists")
+
+  if (all(!paths_exist)) {
+    cli::cli_abort(
+      c(
+        "Nothing to lint.",
+        i = "Please check that {cli::col_blue('paths')} has at
+          least {cli::style_underline('ONE')} existing file or directory."
+      )
+    )
+  } else if (any(!paths_exist)) {
+    cli::cli_inform(
+      ifelse(
+        length(paths[!paths_exist] > 1),
+        "The following paths do not exist: {.file {paths[!paths_exist]}}.",
+        "This path do not exist: {.file {paths[!paths_exist]}}."
+      )
+    )
+  }
+
+  paths[paths_exist]
+}
+
 #' Lint R
 #'
 #' Uses the `{lintr}` package to check all R sources in the `app` and `tests/testthat` directories
@@ -80,7 +90,10 @@ lint_path <- function(path) {
 #'
 #' @export
 lint_r <- function(paths = NULL) {
+  paths <- check_paths(paths = paths)
+
   max_errors <- read_config()$legacy_max_lint_r_errors
+
   if (is.null(max_errors)) max_errors <- 0
 
   if (is.null(paths)) {
