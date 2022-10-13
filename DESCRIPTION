@@ -37,10 +37,13 @@ Imports:
   withr,
   yaml
 Suggests:
+    spelling,
   knitr,
   mockery,
   rcmdcheck,
-  rmarkdown
+  rmarkdown,
+  spellcheck
 LazyData: true
 Config/testthat/edition: 3
 Config/testthat/parallel: true
+Language: en-US
