@@ -45,31 +45,24 @@ lint_path <- function(path) {
     lint_dir(path)
   } else if (fs::is_file(path)) {
     lint_file(path)
+  } else {
+    cli::cli_abort("Unexpected invalid path: {.file {path}}.")
   }
 }
 
 check_paths <- function(paths) {
-  paths_exist <- fs::file_access(paths, mode = "exists")
+  readable <- fs::file_access(paths, mode = "read")
 
-  if (all(!paths_exist)) {
+  if (any(!readable))
     cli::cli_abort(
       c(
-        "Nothing to lint.",
-        i = "Please check that {cli::col_blue('paths')} has at
-          least {cli::style_underline('ONE')} existing file or directory."
+        "Cannot lint an invalid path.",
+        i = "Please check that {cli::col_blue('paths')} contain only valid paths.",
+        i = "The following path{?s} cannot be read: {.file {paths[!readable]}}."
       )
     )
-  } else if (any(!paths_exist)) {
-    cli::cli_inform(
-      ifelse(
-        length(paths[!paths_exist]) > 1,
-        "The following paths do not exist: {.file {paths[!paths_exist]}}.",
-        "This path does not exist: {.file {paths[!paths_exist]}}."
-      )
-    )
-  }
-
-  paths[paths_exist]
+  
+  paths
 }
 
 #' Lint R
@@ -93,11 +86,8 @@ lint_r <- function(paths = NULL) {
   if (is.null(paths)) {
     paths <- c("app", "tests/testthat")
   }
-
-  paths <- check_paths(paths = paths)
-
+  paths <- check_paths(paths)
   max_errors <- read_config()$legacy_max_lint_r_errors
-
   if (is.null(max_errors)) max_errors <- 0
 
   lints <- do.call(c, lapply(paths, lint_path))
