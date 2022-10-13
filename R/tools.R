@@ -26,14 +26,25 @@ lint_dir <- function(path) {
   lints
 }
 
+lint_file <- function(path) {
+  if (interactive()) {
+    message(cli::format_inline("Linting {.file {path}}"))
+  }
+  lints <- lintr::lint(path)
+  # Use the actual path provided by the user (typically relative) to make results more readable.
+  # (`lintr::lint()` normalizes paths, e.g. `app/main.R` becomes a full absolute path.)
+  for (i in seq_along(lints)) {
+    lints[[i]]$filename <- path
+  }
+  lints
+}
+
 lint_path <- function(path) {
+  # Check if path is a directory or a file such that nothing happens when the path is invalid.
   if (fs::is_dir(path)) {
     lint_dir(path)
-  } else {
-    if (interactive()) {
-      message(cli::format_inline("Linting {.file {path}}"))
-    }
-    lintr::lint(filename = path)
+  } else if (fs::is_file(path)) {
+    lint_path(path)
   }
 }
 
@@ -44,30 +55,25 @@ lint_path <- function(path) {
 #'
 #' The linter rules can be adjusted in the `.lintr` file.
 #'
-#' You can set the maximum number of accepted style errors with the `legacy_max_lint_r_errors`
-#' option in `rhino.yml`. This can be useful when inheriting legacy code with multiple styling
-#' issues.
+#' You can set the maximum number of accepted style errors
+#' with the `legacy_max_lint_r_errors` option in `rhino.yml`.
+#' This can be useful when inheriting legacy code with multiple styling issues.
 #'
-#' @param paths a vector paths to directories or `.R` files; defaults to `NULL` and checks `app` and
-#'   `tests/testthat` directories
+#' @param paths Character vector of directories and files to lint.
+#' When `NULL` (the default), check `app` and `tests/testthat` directories.
 #'
 #' @return None. This function is called for side effects.
 #'
 #' @export
 lint_r <- function(paths = NULL) {
-  max_errors <- max_errors <- read_config()$legacy_max_lint_r_errors
+  max_errors <- read_config()$legacy_max_lint_r_errors
   if (is.null(max_errors)) max_errors <- 0
 
   if (is.null(paths)) {
     paths <- c("app", "tests/testthat")
   }
 
-  lints <- purrr::map(
-    paths,
-    ~ c(lint_path(.x))
-  )
-
-  lints <- purrr::reduce(lints, c)
+  lints <- do.call(c, lapply(paths, lint_path))
 
   # Applying `c()` removes the `lints` class which is responsible for pretty-printing.
   class(lints) <- "lints"
