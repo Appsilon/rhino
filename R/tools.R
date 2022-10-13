@@ -62,9 +62,9 @@ check_paths <- function(paths) {
   } else if (any(!paths_exist)) {
     cli::cli_inform(
       ifelse(
-        length(paths[!paths_exist] > 1),
+        length(paths[!paths_exist]) > 1,
         "The following paths do not exist: {.file {paths[!paths_exist]}}.",
-        "This path do not exist: {.file {paths[!paths_exist]}}."
+        "This path does not exist: {.file {paths[!paths_exist]}}."
       )
     )
   }
