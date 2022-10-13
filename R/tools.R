@@ -90,15 +90,15 @@ check_paths <- function(paths) {
 #'
 #' @export
 lint_r <- function(paths = NULL) {
+  if (is.null(paths)) {
+    paths <- c("app", "tests/testthat")
+  }
+
   paths <- check_paths(paths = paths)
 
   max_errors <- read_config()$legacy_max_lint_r_errors
 
   if (is.null(max_errors)) max_errors <- 0
-
-  if (is.null(paths)) {
-    paths <- c("app", "tests/testthat")
-  }
 
   lints <- do.call(c, lapply(paths, lint_path))
 
