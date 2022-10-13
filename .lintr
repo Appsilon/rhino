@@ -5,5 +5,6 @@ linters:
 exclusions:
   c(
     "inst/rstudio",
-    "inst/templates"
+    "inst/templates",
+    "tests/testthat/dir_with_lint_errors"
   )
