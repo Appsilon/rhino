@@ -31,14 +31,20 @@ init <- function(
   rhino_version = "rhino",
   force = FALSE
 )  {
-  is_home <- is_dir_home(dir = dir, force = force)
-
-  if (!is_home) {
+  is_home <- is_dir_home(dir = dir)
+  
+  if (!is_home || force) {
     init_impl(
       dir = dir,
       github_actions_ci = github_actions_ci,
       rhino_version = rhino_version,
       new_project_wizard = FALSE
+    )
+  } else {
+    cli::cli_abort(
+      "Refusing to create {.pkg rhino} in {.path {dir}}!
+      You are in your home directory. Please set {.code force = TRUE} if you
+      want to create a {.pkg rhino} app in your home directory."
     )
   }
 }
@@ -49,6 +55,8 @@ init_rstudio <- function(
   rhino_version = "rhino"
 ) {
   init_impl(
+    # No need to check if dir is home, because RStudio's new project wizard already requires that
+    # the user provide a directory within the home directory.
     dir = dir,
     github_actions_ci = github_actions_ci,
     rhino_version = rhino_version,
@@ -142,24 +150,10 @@ create_e2e_tests_structure <- function() {
   cli::cli_alert_success("E2E tests structure created.")
 }
 
-is_dir_home <- function(dir, force) {
-  if (!fs::dir_exists(dir) || force) {
-    return(FALSE)
-  }
-
+is_dir_home <- function(dir) {
+  # For Windows, home by default should be C:\Users\user\Documents.
+  # For Unix, home by default should be /home/user.
   home_path <- normalizePath("~")
-
-  dir_path <- normalizePath(dir)
-
-  if (dir_path == home_path) {
-    cli::cli_alert_danger(
-      "Refusing to create {cli::col_blue('rhino')} in {dir_path}!
-      You are in your home directory. Please set {cli::col_red('force = TRUE')} if you
-      want to create a {cli::col_blue('rhino')} app in your home directory."
-    )
-
-    return(TRUE)
-  } else {
-    return(FALSE)
-  }
+  dir_path <- normalizePath(dir, mustWork = FALSE)
+  dir_path == home_path
 }
