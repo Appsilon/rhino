@@ -4,7 +4,11 @@
 \alias{lint_r}
 \title{Lint R}
 \usage{
-lint_r()
+lint_r(paths = NULL)
+}
+\arguments{
+\item{paths}{Character vector of directories and files to lint.
+When \code{NULL} (the default), check \code{app} and \code{tests/testthat} directories.}
 }
 \value{
 None. This function is called for side effects.
