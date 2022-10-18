@@ -53,7 +53,9 @@ jobs:
         shell: Rscript {0}
         run: |
           spell_check <- spelling::spell_check_package(use_wordlist = TRUE)
-          message("There are ", nrow(spell_check), " spelling errors.")
-          print(spell_check)
+          cli::cli_alert_warning("There are {nrow(spell_check)} spelling error{?s}.")
+          if (nrow(spell_check) > 0) {
+            print(spell_check)
+          }
           quit(status = nrow(spell_check) > 0)
           
