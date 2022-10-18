@@ -53,16 +53,16 @@ lint_path <- function(path) {
 check_paths <- function(paths) {
   readable <- fs::file_access(paths, mode = "read")
 
-  if (any(!readable))
+  if (any(!readable)) {
     cli::cli_abort(
       c(
         "Cannot lint an invalid path.",
-        i = "Please check that {cli::col_blue('paths')} contain only valid paths.",
+        i = "Please check that {.arg paths} contain only valid paths.",
         i = "The following path{?s} cannot be read: {.file {paths[!readable]}}."
-      )
+      ),
+      call = NULL
     )
-
-  paths
+  }
 }
 
 #' Lint R
@@ -86,7 +86,7 @@ lint_r <- function(paths = NULL) {
   if (is.null(paths)) {
     paths <- c("app", "tests/testthat")
   }
-  paths <- check_paths(paths)
+  check_paths(paths)
   max_errors <- read_config()$legacy_max_lint_r_errors
   if (is.null(max_errors)) max_errors <- 0
 
