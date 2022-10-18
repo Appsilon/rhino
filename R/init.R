@@ -32,7 +32,7 @@ init <- function(
   force = FALSE
 )  {
   is_home <- is_dir_home(dir = dir)
-  
+
   if (!is_home || force) {
     init_impl(
       dir = dir,
