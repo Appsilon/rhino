@@ -40,10 +40,13 @@ init <- function(
       new_project_wizard = FALSE
     )
   } else {
-    cli::cli_abort(c(
-      "Refusing to create a Rhino app in home directory {.path {dir}}!",
-      i = "Set {.code force = TRUE} to force initialization."
-    ), call = FALSE)
+    cli::cli_abort(
+      c(
+        "Refusing to create a Rhino app in home directory {.path {dir}}!",
+        i = "Set {.code force = TRUE} to force initialization."
+      ),
+      call = NULL
+    )
   }
 }
 
