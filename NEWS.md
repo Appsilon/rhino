@@ -1,4 +1,5 @@
-# rhino (dvelopment version)
+# rhino (development version)
 
 * Added a `NEWS.md` file to track changes to the package.
-* Prevents `init()` in home directory or directory with an existing `rhino` app.
+* Added a `paths` argument to `lint_r()`.
+* Prevent `init()` in home directory.

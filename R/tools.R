@@ -26,6 +26,45 @@ lint_dir <- function(path) {
   lints
 }
 
+lint_file <- function(path) {
+  if (interactive()) {
+    message(cli::format_inline("Linting {.file {path}}"))
+  }
+  lints <- lintr::lint(path)
+  # Use the actual path provided by the user (typically relative) to make results more readable.
+  # (`lintr::lint()` normalizes paths, e.g. `app/main.R` becomes a full absolute path.)
+  for (i in seq_along(lints)) {
+    lints[[i]]$filename <- path
+  }
+  lints
+}
+
+lint_path <- function(path) {
+  # Check if path is a directory or a file such that nothing happens when the path is invalid.
+  if (fs::is_dir(path)) {
+    lint_dir(path)
+  } else if (fs::is_file(path)) {
+    lint_file(path)
+  } else {
+    cli::cli_abort("Unexpected invalid path: {.file {path}}.")
+  }
+}
+
+check_paths <- function(paths) {
+  readable <- fs::file_access(paths, mode = "read")
+
+  if (any(!readable)) {
+    cli::cli_abort(
+      c(
+        "Cannot lint an invalid path.",
+        i = "Please check that {.arg paths} contain only valid paths.",
+        i = "The following path{?s} cannot be read: {.file {paths[!readable]}}."
+      ),
+      call = NULL
+    )
+  }
+}
+
 #' Lint R
 #'
 #' Uses the `{lintr}` package to check all R sources in the `app` and `tests/testthat` directories
@@ -37,17 +76,22 @@ lint_dir <- function(path) {
 #' with the `legacy_max_lint_r_errors` option in `rhino.yml`.
 #' This can be useful when inheriting legacy code with multiple styling issues.
 #'
+#' @param paths Character vector of directories and files to lint.
+#' When `NULL` (the default), check `app` and `tests/testthat` directories.
+#'
 #' @return None. This function is called for side effects.
 #'
 #' @export
-lint_r <- function() {
+lint_r <- function(paths = NULL) {
+  if (is.null(paths)) {
+    paths <- c("app", "tests/testthat")
+  }
+  check_paths(paths)
   max_errors <- read_config()$legacy_max_lint_r_errors
   if (is.null(max_errors)) max_errors <- 0
 
-  lints <- c(
-    lint_dir("app"),
-    lint_dir(fs::path("tests", "testthat"))
-  )
+  lints <- do.call(c, lapply(paths, lint_path))
+
   # Applying `c()` removes the `lints` class which is responsible for pretty-printing.
   class(lints) <- "lints"
 
@@ -60,8 +104,11 @@ lint_r <- function() {
       "Found {errors} style error{?s}.",
       i = if (max_errors > 0) "At most {max_errors} error{?s} allowed."
     )
-    if (errors <= max_errors) cli::cli_inform(message)
-    else cli::cli_abort(message, call = NULL)
+    if (errors <= max_errors) {
+      cli::cli_inform(message)
+    } else {
+      cli::cli_abort(message, call = NULL)
+    }
   }
 }
 
@@ -138,8 +185,11 @@ format_r <- function(paths) {
 #' }
 #' @export
 build_js <- function(watch = FALSE) {
-  if (watch) yarn("build-js", "--watch", status_ok = 2)
-  else yarn("build-js")
+  if (watch) {
+    yarn("build-js", "--watch", status_ok = 2)
+  } else {
+    yarn("build-js")
+  }
 }
 
 # nolint start
@@ -223,8 +273,11 @@ build_sass <- function(watch = FALSE) {
 }
 
 build_sass_node <- function(watch = FALSE) {
-  if (watch) yarn("build-sass", "--watch", status_ok = 2)
-  else yarn("build-sass")
+  if (watch) {
+    yarn("build-sass", "--watch", status_ok = 2)
+  } else {
+    yarn("build-sass")
+  }
 }
 
 build_sass_r <- function() {
