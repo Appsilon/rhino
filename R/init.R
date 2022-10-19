@@ -19,20 +19,35 @@
 #' @param rhino_version When using an existing `renv.lock` file,
 #' Rhino will install itself using `renv::install(rhino_version)`.
 #' You can provide this argument to use a specific version / source, e.g.`"Appsilon/rhino@v0.4.0"`.
+#' @param force Boolean; force initialization?
+#' By default, Rhino will refuse to initialize a project in the home directory.
 #' @return None. This function is called for side effects.
 #'
 #' @export
 init <- function(
   dir = ".",
   github_actions_ci = TRUE,
-  rhino_version = "rhino"
-) {
-  init_impl(
-    dir = dir,
-    github_actions_ci = github_actions_ci,
-    rhino_version = rhino_version,
-    new_project_wizard = FALSE
-  )
+  rhino_version = "rhino",
+  force = FALSE
+)  {
+  is_home <- is_dir_home(dir = dir)
+
+  if (!is_home || force) {
+    init_impl(
+      dir = dir,
+      github_actions_ci = github_actions_ci,
+      rhino_version = rhino_version,
+      new_project_wizard = FALSE
+    )
+  } else {
+    cli::cli_abort(
+      c(
+        "Refusing to create a Rhino app in home directory {.path {dir}}!",
+        i = "Set {.code force = TRUE} to force initialization."
+      ),
+      call = NULL
+    )
+  }
 }
 
 init_rstudio <- function(
@@ -41,6 +56,8 @@ init_rstudio <- function(
   rhino_version = "rhino"
 ) {
   init_impl(
+    # No need to check if `dir` is home,
+    # because RStudio's new project wizard always creates a new directory.
     dir = dir,
     github_actions_ci = github_actions_ci,
     rhino_version = rhino_version,
@@ -132,4 +149,12 @@ create_unit_tests_structure <- function() {
 create_e2e_tests_structure <- function() {
   copy_template("e2e_tests")
   cli::cli_alert_success("E2E tests structure created.")
+}
+
+is_dir_home <- function(dir) {
+  # For Windows, home by default should be C:\Users\user\Documents.
+  # For Unix, home by default should be /home/user.
+  home_path <- normalizePath("~")
+  dir_path <- normalizePath(dir, mustWork = FALSE)
+  dir_path == home_path
 }
