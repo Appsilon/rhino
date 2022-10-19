@@ -48,6 +48,7 @@ jobs:
             unlist()
           warnings_found <- any(grepl("expectation_warning", expectations))
           quit(status = warnings_found)
+          
       - name: Spell Check
         if : always()
         shell: Rscript {0}
@@ -58,4 +59,3 @@ jobs:
             print(spell_check)
           }
           quit(status = nrow(spell_check) > 0)
-          
