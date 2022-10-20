@@ -116,7 +116,7 @@ It is a fair question to ask if we really need a separate `main.R` file.
 Couldn't we just define the top-level `ui` and `server` in `app.R`
 and pass it to `rhino::app()` as arguments as we would with a normal `shiny::shinyApp() call`?
 
-The reasoning behind this stucture is to enforce consistent use of the `{box}` modules
+The reasoning behind this structure is to enforce consistent use of the `{box}` modules
 throughout the application.
 A file loaded with `box::use()` can only load other modules/packages with `box::use()`.
 In short, this means that we cannot use the `library()` or `source()` functions in our app.
