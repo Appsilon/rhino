@@ -58,6 +58,11 @@ Step-by-step instructions for common tasks.
 4. **Reference**:
 A list of Rhino functions with technical details.
 
+You can also learn about Rhino by watching the video from one of our workshops:
+[Creating Shiny Apps with Rhino: the new framework Shiny apps](https://www.youtube.com/watch?v=8H_ZHUy8Yj4).
+A repository with step-by-step commits for the workshop application can be found
+[here](https://github.com/Appsilon/rhino-workshop/tree/workshop-2022-05-13).
+
 ---
 
 Developed with :heart: at [Appsilon](https://appsilon.com).
