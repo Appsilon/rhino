@@ -33,7 +33,7 @@
     
     <a class="navbar-brand me-2" href="../../index.html">rhino</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.1.1.9001</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.1.1.9002</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -173,7 +173,7 @@
 <li>Add head tags (favicon, CSS &amp; JS).</li>
 </ol>
 <p>It is a fair question to ask if we really need a separate <code>main.R</code> file. Couldn’t we just define the top-level <code>ui</code> and <code>server</code> in <code>app.R</code> and pass it to <code><a href="../../reference/app.html">rhino::app()</a></code> as arguments as we would with a normal <code>shiny::shinyApp() call</code>?</p>
-<p>The reasoning behind this stucture is to enforce consistent use of the <a href="https://klmr.me/box/" class="external-link">box</a> modules throughout the application. A file loaded with <code><a href="http://klmr.me/box/reference/use.html" class="external-link">box::use()</a></code> can only load other modules/packages with <code><a href="http://klmr.me/box/reference/use.html" class="external-link">box::use()</a></code>. In short, this means that we cannot use the <code><a href="https://rdrr.io/r/base/library.html" class="external-link">library()</a></code> or <code><a href="https://rdrr.io/r/base/source.html" class="external-link">source()</a></code> functions in our app. This is an important distinction from traditional Shiny structure, where we are simply sourcing <code>app.R</code> when the app is loaded.</p>
+<p>The reasoning behind this structure is to enforce consistent use of the <a href="https://klmr.me/box/" class="external-link">box</a> modules throughout the application. A file loaded with <code><a href="http://klmr.me/box/reference/use.html" class="external-link">box::use()</a></code> can only load other modules/packages with <code><a href="http://klmr.me/box/reference/use.html" class="external-link">box::use()</a></code>. In short, this means that we cannot use the <code><a href="https://rdrr.io/r/base/library.html" class="external-link">library()</a></code> or <code><a href="https://rdrr.io/r/base/source.html" class="external-link">source()</a></code> functions in our app. This is an important distinction from traditional Shiny structure, where we are simply sourcing <code>app.R</code> when the app is loaded.</p>
 <p>As the entire Rhino application is loaded with <code>box::use(app/main)</code>, all its sources must be properly structured as box modules.</p>
 </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
