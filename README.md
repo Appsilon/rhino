@@ -7,6 +7,7 @@
 [![License: LGPL-3.0](https://img.shields.io/badge/License-LGPL--3.0-blue.svg)](https://opensource.org/licenses/LGPL-3.0)
 <!-- badges: end -->
 
+<!--
 ## Upcoming events
 
 Would you like to learn about Rhino hands-on? Join our events!
@@ -14,6 +15,7 @@ Would you like to learn about Rhino hands-on? Join our events!
 * October 11, 2022 at 7:00 PM (UTC+2): *Rhino Workshop*.
 It will be led by [Kamil Żyła](https://www.linkedin.com/in/kamil-zyla/)
 during the [LatinR 2022](https://latin-r.com/en) conference (in English).
+-->
 
 ## Why Rhino?
 Rhino allows you to create Shiny apps **The Appsilon Way**  - like a fullstack software engineer. Apply best software engineering practices, modularize your code, test it well, make UI beautiful, and think about user adoption from the very beginning. Rhino is an opinionated framework with a focus on software engineering practices and development tools.
