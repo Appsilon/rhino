@@ -1,5 +1,8 @@
 {
   "parser": "@babel/eslint-parser",
+  "parserOptions": {
+    "requireConfigFile": false
+  },
   "extends": ["airbnb-base"],
   "env": {
     "browser": true
@@ -8,9 +11,24 @@
     "$": "readonly",
     "Shiny": "readonly"
   },
+  "settings": {
+    "import/resolver": {
+      "webpack": {
+        "config": "./webpack.config.babel.js"
+      }
+    }
+  },
   "rules": {
     "import/prefer-default-export": "off",
     "no-alert": "off",
-    "no-console": "off"
+    "no-console": "off",
+    "import/no-extraneous-dependencies": [
+      "warn",
+      {
+        "devDependencies": true,
+        "optionalDependencies": true,
+        "peerDependencies": true
+      }
+    ]
   }
 }
