@@ -7,15 +7,28 @@
 [![License: LGPL-3.0](https://img.shields.io/badge/License-LGPL--3.0-blue.svg)](https://opensource.org/licenses/LGPL-3.0)
 <!-- badges: end -->
 
-<!--
-## Upcoming events
+## Events
 
+### Upcoming
 Would you like to learn about Rhino hands-on? Join our events!
+Upcoming events will be added to this section - stay tuned.
 
-* October 11, 2022 at 7:00 PM (UTC+2): *Rhino Workshop*.
-It will be led by [Kamil Żyła](https://www.linkedin.com/in/kamil-zyla/)
+### Past
+* May 13, 2022 at 6:00 PM (UTC+2):
+[*Creating Shiny Apps with Rhino: the new framework for Shiny apps*](https://www.youtube.com/watch?v=8H_ZHUy8Yj4).
+Workshop led by [Kamil Żyła](https://www.linkedin.com/in/kamil-zyla/).
+* August 23, 2022 at 11:00 AM (UTC-4):
+*Enterprise-grade Shiny App Development with {rhino}*.
+Workshop led by [Jakub Nowicki](https://www.linkedin.com/in/jakub-nowicki/)
+during the [R/Medicine](https://events.linuxfoundation.org/r-medicine/) conference.
+* September 7, 2022 at 11:30 AM (UTC+1):
+*Introducing Rhino: Shiny application framework for enterprise*.
+Talk given by [Jakub Nowicki](https://www.linkedin.com/in/jakub-nowicki/)
+during the [EARL](https://www.ascent.io/earl) conference.
+* October 11, 2022 at 7:00 PM (UTC+2):
+*Rhino Workshop*.
+Led by [Kamil Żyła](https://www.linkedin.com/in/kamil-zyla/)
 during the [LatinR 2022](https://latin-r.com/en) conference (in English).
--->
 
 ## Why Rhino?
 Rhino allows you to create Shiny apps **The Appsilon Way**  - like a fullstack software engineer. Apply best software engineering practices, modularize your code, test it well, make UI beautiful, and think about user adoption from the very beginning. Rhino is an opinionated framework with a focus on software engineering practices and development tools.
@@ -59,7 +72,7 @@ Step-by-step instructions for common tasks.
 A list of Rhino functions with technical details.
 
 You can also learn about Rhino by watching the video from one of our workshops:
-[Creating Shiny Apps with Rhino: the new framework Shiny apps](https://www.youtube.com/watch?v=8H_ZHUy8Yj4).
+[Creating Shiny Apps with Rhino: the new framework for Shiny apps](https://www.youtube.com/watch?v=8H_ZHUy8Yj4).
 A repository with step-by-step commits for the workshop application can be found
 [here](https://github.com/Appsilon/rhino-workshop/tree/workshop-2022-05-13).
 
