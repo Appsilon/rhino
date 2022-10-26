@@ -105,7 +105,9 @@
 
     
     
-<p>To use Shiny <a href="https://shiny.rstudio.com/articles/bookmarking-state.html" class="external-link">bookmarking</a>, call <code><a href="https://rdrr.io/pkg/shiny/man/enableBookmarking.html" class="external-link">shiny::enableBookmarking()</a></code> somewhere in your <code>main.R</code>:</p>
+<p>To use Shiny <a href="https://shiny.rstudio.com/articles/bookmarking-state.html" class="external-link">bookmarking</a>,
+call <code><a href="https://rdrr.io/pkg/shiny/man/enableBookmarking.html" class="external-link">shiny::enableBookmarking()</a></code> somewhere in your
+<code>main.R</code>:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">box</span><span class="fu">::</span><span class="fu"><a href="http://klmr.me/box/reference/use.html" class="external-link">use</a></span><span class="op">(</span></span>
 <span>  <span class="va">shiny</span>,</span>
@@ -129,7 +131,9 @@
 <span>    <span class="va">output</span><span class="op">$</span><span class="va">message</span> <span class="op">&lt;-</span> <span class="va">shiny</span><span class="op">$</span><span class="fu">renderText</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="st">"Hello "</span>, <span class="va">input</span><span class="op">$</span><span class="va">name</span>, <span class="st">"!"</span><span class="op">)</span><span class="op">)</span></span>
 <span>  <span class="op">}</span><span class="op">)</span></span>
 <span><span class="op">}</span></span></code></pre></div>
-<p>If you are using a <a href="https://appsilon.github.io/rhino/reference/app.html#legacy-entrypoint">legacy entrypoint</a>, be sure to make your UI a function as described in the details section of <code><a href="https://rdrr.io/pkg/shiny/man/enableBookmarking.html" class="external-link">shiny::enableBookmarking()</a></code>.</p>
+<p>If you are using a <a href="https://appsilon.github.io/rhino/reference/app.html#legacy-entrypoint">legacy
+entrypoint</a>, be sure to make your UI a function as described in the
+details section of <code><a href="https://rdrr.io/pkg/shiny/man/enableBookmarking.html" class="external-link">shiny::enableBookmarking()</a></code>.</p>
   </main>
 </div>
 

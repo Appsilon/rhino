@@ -108,8 +108,14 @@
 <div class="section level2">
 <h2 id="rationale">Rationale<a class="anchor" aria-label="anchor" href="#rationale"></a>
 </h2>
-<p>With large applications it is critical for maintainability to properly structure your code using files and directories. R comes with the <code><a href="https://rdrr.io/r/base/library.html" class="external-link">library()</a></code> and <code><a href="https://rdrr.io/r/base/source.html" class="external-link">source()</a></code> functions, but its functionality is limited when it comes to dividing your code into modules and expressing their dependencies.</p>
-<p>To address this, Rhino uses the <a href="https://klmr.me/box/" class="external-link">box</a> R package, which allows you to modularize your code in a similar way to languages like Python and Java:</p>
+<p>With large applications it is critical for maintainability to
+properly structure your code using files and directories. R comes with
+the <code><a href="https://rdrr.io/r/base/library.html" class="external-link">library()</a></code> and <code><a href="https://rdrr.io/r/base/source.html" class="external-link">source()</a></code> functions, but its
+functionality is limited when it comes to dividing your code into
+modules and expressing their dependencies.</p>
+<p>To address this, Rhino uses the <a href="https://klmr.me/box/" class="external-link">box</a> R package, which allows you to
+modularize your code in a similar way to languages like Python and
+Java:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">box</span><span class="fu">::</span><span class="fu"><a href="http://klmr.me/box/reference/use.html" class="external-link">use</a></span><span class="op">(</span></span>
 <span>  <span class="va">dplyr</span>, <span class="co"># Import dplyr. Its functions can be used via `$`, e.g. `dplyr$filter`.</span></span>
@@ -118,46 +124,62 @@
 <span><span class="fu">box</span><span class="fu">::</span><span class="fu"><a href="http://klmr.me/box/reference/use.html" class="external-link">use</a></span><span class="op">(</span></span>
 <span>  <span class="va">logic</span><span class="op">/</span><span class="va">data_validation</span>, <span class="co"># Import the `logic/data_validation.R` module.</span></span>
 <span><span class="op">)</span></span></code></pre></div>
-<p>Box modules force you to be explicit about the dependencies between your files and packages. The graph of dependencies is visible at a glance in an app developed with box, while the traditional approach (<code>global.R</code>, <code><a href="https://rdrr.io/r/base/library.html" class="external-link">library()</a></code>, <code><a href="https://rdrr.io/r/base/source.html" class="external-link">source()</a></code>) makes it easy to build an app which only the author understands. Introduction of box to existing apps written without it has helped to improve the code structure and find bugs.</p>
+<p>Box modules force you to be explicit about the dependencies between
+your files and packages. The graph of dependencies is visible at a
+glance in an app developed with box, while the traditional approach
+(<code>global.R</code>, <code><a href="https://rdrr.io/r/base/library.html" class="external-link">library()</a></code>, <code><a href="https://rdrr.io/r/base/source.html" class="external-link">source()</a></code>)
+makes it easy to build an app which only the author understands.
+Introduction of box to existing apps written without it has helped to
+improve the code structure and find bugs.</p>
 </div>
 <div class="section level2">
 <h2 id="features">Features<a class="anchor" aria-label="anchor" href="#features"></a>
 </h2>
-<p>The best place to learn about box is its official <a href="https://klmr.me/box/" class="external-link">documentation</a>. Some useful box features are also explained in the sections below.</p>
+<p>The best place to learn about box is its official <a href="https://klmr.me/box/" class="external-link">documentation</a>. Some useful box features
+are also explained in the sections below.</p>
 <div class="section level3">
 <h3 id="init-files">Init files<a class="anchor" aria-label="anchor" href="#init-files"></a>
 </h3>
-<p>Objects exported by an <code>__init__.R</code> file can be imported from its parent directory.</p>
+<p>Objects exported by an <code>__init__.R</code> file can be imported
+from its parent directory.</p>
 <div class="section level4">
 <h4 id="example">Example<a class="anchor" aria-label="anchor" href="#example"></a>
 </h4>
-<p>Assume we have an <code>app/foo/__init__.R</code> file with the following content:</p>
+<p>Assume we have an <code>app/foo/__init__.R</code> file with the
+following content:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">#' @export</span></span>
 <span><span class="va">bar</span> <span class="op">&lt;-</span> <span class="st">"Hello!"</span></span></code></pre></div>
-<p>We can now import <code>bar</code> as if it was defined in <code>app/foo.R</code>:</p>
+<p>We can now import <code>bar</code> as if it was defined in
+<code>app/foo.R</code>:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">box</span><span class="fu">::</span><span class="fu"><a href="http://klmr.me/box/reference/use.html" class="external-link">use</a></span><span class="op">(</span></span>
 <span>  <span class="va">app</span><span class="op">/</span><span class="va">foo</span><span class="op">[</span><span class="va">bar</span><span class="op">]</span></span>
 <span><span class="op">)</span></span></code></pre></div>
-<p>This mechanism can be used in combination with reexports to make it easier to import multiple modules from a single directory.</p>
+<p>This mechanism can be used in combination with reexports to make it
+easier to import multiple modules from a single directory.</p>
 </div>
 </div>
 <div class="section level3">
 <h3 id="reexports">Reexports<a class="anchor" aria-label="anchor" href="#reexports"></a>
 </h3>
-<p>A module can reexport objects imported from a different module by applying <code>#' @export</code> to a <code><a href="http://klmr.me/box/reference/use.html" class="external-link">box::use()</a></code> statement.</p>
+<p>A module can reexport objects imported from a different module by
+applying <code>#' @export</code> to a <code><a href="http://klmr.me/box/reference/use.html" class="external-link">box::use()</a></code>
+statement.</p>
 <div class="section level4">
 <h4 id="example-1">Example<a class="anchor" aria-label="anchor" href="#example-1"></a>
 </h4>
-<p>Assume we have modules <code>analysis_tab.R</code> and <code>download_tab.R</code> in the <code>app/view</code> directory. We can reexport them from <code>app/view/__init__.R</code> like this:</p>
+<p>Assume we have modules <code>analysis_tab.R</code> and
+<code>download_tab.R</code> in the <code>app/view</code> directory. We
+can reexport them from <code>app/view/__init__.R</code> like this:</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">#' @export</span></span>
 <span><span class="fu">box</span><span class="fu">::</span><span class="fu"><a href="http://klmr.me/box/reference/use.html" class="external-link">use</a></span><span class="op">(</span></span>
 <span>  <span class="va">app</span><span class="op">/</span><span class="va">view</span><span class="op">/</span><span class="va">analysis_tab</span>,</span>
 <span>  <span class="va">app</span><span class="op">/</span><span class="va">view</span><span class="op">/</span><span class="va">download_tab</span></span>
 <span><span class="op">)</span></span></code></pre></div>
-<p>The following <code><a href="http://klmr.me/box/reference/use.html" class="external-link">box::use()</a></code> statements are now equivalent:</p>
+<p>The following <code><a href="http://klmr.me/box/reference/use.html" class="external-link">box::use()</a></code> statements are now
+equivalent:</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">box</span><span class="fu">::</span><span class="fu"><a href="http://klmr.me/box/reference/use.html" class="external-link">use</a></span><span class="op">(</span></span>
 <span>  <span class="va">app</span><span class="op">/</span><span class="va">view</span><span class="op">/</span><span class="va">analysis_tab</span>,</span>
@@ -175,12 +197,17 @@
 <div class="section level4">
 <h4 id="lazy-loaded-data">Lazy-loaded data<a class="anchor" aria-label="anchor" href="#lazy-loaded-data"></a>
 </h4>
-<p>Box 1.1.0 doesn’t support lazy-loaded <a href="https://r-pkgs.org/data.html#data-data" class="external-link">data</a>, so e.g. <code>box::use(datasets[mtcars])</code> won’t work. This feature should be available in the next release (see this <a href="https://github.com/klmr/box/issues/219" class="external-link">issue</a>). For now please use <code><a href="https://rdrr.io/r/datasets/mtcars.html" class="external-link">datasets::mtcars</a></code> in your code.</p>
+<p>Box 1.1.0 doesn’t support lazy-loaded <a href="https://r-pkgs.org/data.html#data-data" class="external-link">data</a>, so
+e.g. <code>box::use(datasets[mtcars])</code> won’t work. This feature
+should be available in the next release (see this <a href="https://github.com/klmr/box/issues/219" class="external-link">issue</a>). For now please
+use <code><a href="https://rdrr.io/r/datasets/mtcars.html" class="external-link">datasets::mtcars</a></code> in your code.</p>
 </div>
 <div class="section level4">
 <h4 id="trailing-commas">Trailing commas<a class="anchor" aria-label="anchor" href="#trailing-commas"></a>
 </h4>
-<p>Box 1.1.0 allows trailing commas in <code><a href="http://klmr.me/box/reference/use.html" class="external-link">box::use()</a></code> statements and code, but they can cause problems in some circumstances:</p>
+<p>Box 1.1.0 allows trailing commas in <code><a href="http://klmr.me/box/reference/use.html" class="external-link">box::use()</a></code>
+statements and code, but they can cause problems in some
+circumstances:</p>
 <ol style="list-style-type: decimal">
 <li>Reexports (<a href="https://github.com/klmr/box/issues/263" class="external-link">issue</a>).</li>
 <li>Functions accessed via <code>$</code> (<a href="https://github.com/klmr/box/issues/266" class="external-link">issue</a>).</li>

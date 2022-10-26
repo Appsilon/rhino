@@ -105,20 +105,38 @@
 
     
     
-<p><a href="https://nodejs.org/en/about/" class="external-link">Node.js</a> is a runtime environment which can execute JavaScript code outside a web browser. It is used widely for web development. Its package manager, <a href="https://docs.npmjs.com/about-npm" class="external-link">npm</a>, makes it easy to install virtually any JavaScript library.</p>
-<p>Rhino uses Node.js to provide state of the art tools for working with JavaScript and Sass. In the future it might also become an easy way to add any JS library to your Shiny app.</p>
+<p><a href="https://nodejs.org/en/about/" class="external-link">Node.js</a> is a runtime
+environment which can execute JavaScript code outside a web browser. It
+is used widely for web development. Its package manager, <a href="https://docs.npmjs.com/about-npm" class="external-link">npm</a>, makes it easy to
+install virtually any JavaScript library.</p>
+<p>Rhino uses Node.js to provide state of the art tools for working with
+JavaScript and Sass. In the future it might also become an easy way to
+add any JS library to your Shiny app.</p>
 <p>The following functions require Node.js to work:</p>
 <ol style="list-style-type: decimal">
 <li><code><a href="../../reference/build_js.html">build_js()</a></code></li>
 <li>
-<code><a href="../../reference/build_sass.html">build_sass()</a></code> (with <code>sass: node</code> configuration in <code>rhino.yml</code>)</li>
+<code><a href="../../reference/build_sass.html">build_sass()</a></code> (with <code>sass: node</code>
+configuration in <code>rhino.yml</code>)</li>
 <li><code><a href="../../reference/lint_js.html">lint_js()</a></code></li>
 <li><code><a href="../../reference/lint_sass.html">lint_sass()</a></code></li>
 <li><code><a href="../../reference/test_e2e.html">test_e2e()</a></code></li>
 </ol>
-<p>You don’t need to worry about Node.js most of the time. You need to install it on your system along with <a href="https://classic.yarnpkg.com/lang/en/" class="external-link">yarn</a> (an alternative package manager for Node.js). The rest will be handled automatically.</p>
-<p>Under the hood Rhino will create a <code>.rhino/node</code> directory in your project to store the specific libraries needed by these tools. This directory is git-ignored by default and safe to remove.</p>
-<p>The <code><a href="../../reference/build_sass.html">build_sass()</a></code> function is worth an additional comment. Depending on the configuration in <code>rhino.yml</code> it can use either the <a href="https://www.npmjs.com/package/sass" class="external-link">sass</a> Node.js package or the <a href="https://rstudio.github.io/sass/" class="external-link">sass</a> R package. We recommend the Node.js version, as it is the primary, actively developed implementation of Sass. In contrast, the R package uses the deprecated <a href="https://sass-lang.com/blog/libsass-is-deprecated" class="external-link">LibSass</a> implementation.</p>
+<p>You don’t need to worry about Node.js most of the time. You need to
+install it on your system along with <a href="https://classic.yarnpkg.com/lang/en/" class="external-link">yarn</a> (an alternative
+package manager for Node.js). The rest will be handled
+automatically.</p>
+<p>Under the hood Rhino will create a <code>.rhino/node</code> directory
+in your project to store the specific libraries needed by these tools.
+This directory is git-ignored by default and safe to remove.</p>
+<p>The <code><a href="../../reference/build_sass.html">build_sass()</a></code> function is worth an additional
+comment. Depending on the configuration in <code>rhino.yml</code> it can
+use either the <a href="https://www.npmjs.com/package/sass" class="external-link">sass</a>
+Node.js package or the <a href="https://rstudio.github.io/sass/" class="external-link">sass</a> R package. We recommend
+the Node.js version, as it is the primary, actively developed
+implementation of Sass. In contrast, the R package uses the deprecated
+<a href="https://sass-lang.com/blog/libsass-is-deprecated" class="external-link">LibSass</a>
+implementation.</p>
   </main>
 </div>
 
