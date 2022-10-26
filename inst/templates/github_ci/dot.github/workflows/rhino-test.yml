@@ -7,11 +7,13 @@ jobs:
     name: Run linters and tests
     runs-on: ubuntu-20.04
     env:
-      R_VERSION: '4.1.0'
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
     steps:
       - name: Checkout repo
         uses: actions/checkout@v2
+        
+      - name: Extract R version from lockfile
+        run: printf 'R_VERSION=%s\n' "$(jq --raw-output .R.Version renv.lock)" >> $GITHUB_ENV
 
       - name: Setup R
         uses: r-lib/actions/setup-r@v1
