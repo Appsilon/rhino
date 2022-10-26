@@ -12,10 +12,8 @@ jobs:
       - name: Checkout repo
         uses: actions/checkout@v2
         
-      - name: Extract R.version from renv.lock
-        run: |
-          r_version=`jq .R.Version renv.lock | xargs`
-          echo "R_VERSION=$r_version" >> $GITHUB_ENV
+      - name: Extract R version from lockfile
+        run: printf 'R_VERSION=%s\n' "$(jq --raw-output .R.Version renv.lock)" >> $GITHUB_ENV
 
       - name: Setup R
         uses: r-lib/actions/setup-r@v1
