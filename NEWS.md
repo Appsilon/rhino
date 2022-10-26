@@ -4,4 +4,4 @@
 * Added a `paths` argument to `lint_r()`.
 * Prevent `init()` in home directory.
 * Included `build_js()` and `build_sass()` in template CI.
-* Changed CI `R_VERSION` to `renv.lock` `R_VERSION`.
+* Use R version from the lockfile in CI.
