@@ -1,10 +1,12 @@
 Appsilon
 Boxifying
 ESLint
+GTM
 Init
 JS
 LatinR
 LibSass
+README
 RStudio
 Renv
 Renviron
@@ -12,6 +14,7 @@ Rprofile
 Stylelint
 UI
 config
+css
 devtools
 entrypoint
 favicon
@@ -23,6 +26,7 @@ isolatable
 js
 linter
 linters
+lintr
 lockfile
 minified
 modularization
@@ -31,10 +35,14 @@ modularized
 namespaced
 npm
 overridable
+pkgdown
 preconfigured
 renv
+roxygen
+rscignore
 scalable
 shinyapps
+stylelint
 ui
 unintuitive
 usethis
