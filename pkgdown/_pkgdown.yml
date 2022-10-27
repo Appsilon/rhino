@@ -14,7 +14,7 @@ url: https://appsilon.github.io/rhino/
 
 navbar:
   structure:
-    left: [tutorial, explanation, how-to-guides, reference]
+    left: [tutorial, explanation, how-to-guides, reference, news]
   components:
     tutorial:
       text: Tutorial
@@ -82,3 +82,10 @@ reference:
 - title: Data
   contents:
   - rhinos
+
+news:
+  releases:
+  - text: "Version 1.1.1"
+    href: https://github.com/Appsilon/rhino/releases/tag/v1.1.1
+  - text: "Version 1.1.0"
+    href: https://github.com/Appsilon/rhino/releases/tag/v1.1.0
