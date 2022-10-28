@@ -87,10 +87,3 @@ reference:
 - title: Data
   contents:
   - rhinos
-
-news:
-  releases:
-  - text: "Version 1.1.1"
-    href: https://github.com/Appsilon/rhino/releases/tag/v1.1.1
-  - text: "Version 1.1.0"
-    href: https://github.com/Appsilon/rhino/releases/tag/v1.1.0
