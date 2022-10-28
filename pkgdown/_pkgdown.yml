@@ -4,7 +4,6 @@ template:
   bslib:
     pkgdown-nav-height: 100px
   includes:
-    # For details on GTM refer to https://appsilon.getoutline.com/doc/marketing-analytics-s069fvUVag
     in_header: |
       <!-- Google tag (gtag.js) -->
       <script async src="https://www.googletagmanager.com/gtag/js?id=G-NEHZJ9B11D"></script>
