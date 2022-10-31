@@ -5,3 +5,20 @@
 * Prevent `init()` in home directory.
 * Included `build_js()` and `build_sass()` in template CI.
 * Use R version from the lockfile in CI.
+
+# [rhino 1.1.1](https://github.com/Appsilon/rhino/releases/tag/v1.1.1)
+
+Minor release to fix CRAN check failures (upgrade roxygen2 to 7.2.1 and regenerate documentation).
+
+# [rhino 1.1.0](https://github.com/Appsilon/rhino/releases/tag/v1.1.0)
+
+## Highlights
+1. New guide:  "How to manage secrets and environments" (#263).
+2. Sass-specific at-rules are now recognized by `rhino::lint_sass()` (#289).
+3. Shiny bookmarking now works (#294).
+4. RStudio no longer complains about "too many files" during push-button deployment (#299).
+5. Issues with server reloading during development resolved (#297).
+
+# [rhino 1.0.0](https://github.com/Appsilon/rhino/releases/tag/v1.0.0)
+
+First stable version.

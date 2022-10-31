@@ -33,6 +33,7 @@ npm
 overridable
 preconfigured
 renv
+roxygen
 scalable
 shinyapps
 ui
