@@ -1,39 +1,37 @@
-name: Bug report
-description: Report a problem you encountered
+name: Feature request
+description: Request a new feature
 labels: ['status: triage']
 body:
   - type: markdown
     attributes:
       value: >
-        Thank you for taking the time to complete this bug report!
+        Thank you for taking the time to complete this feature request!
         Please [search](https://github.com/Appsilon/rhino/issues)
         through existing issues first to make sure you are not creating a duplicate.
 
   - type: textarea
     attributes:
-      label: Steps to reproduce
-      value: '1. '
+      label: Motivation
+      description: What is your need? What problem are you trying to solve?
     validations:
       required: true
 
   - type: textarea
     attributes:
-      label: Bug description
-      description: What happened? Attach error messages and screenshots if applicable.
+      label: Feature description
+      description: How would this feature work from user's perspective?
     validations:
       required: true
 
   - type: textarea
     attributes:
-      label: Expected behavior
-      description: What should have happened?
-    validations:
-      required: true
+      label: Implementation ideas
+      description: How would this feature work under the hood?
 
   - type: textarea
     attributes:
-      label: Rhino diagnostics
-      description: Paste the output of `rhino::diagnostics()` below.
+      label: Impact
+      description: How often would this feature be used? What if we don't implement it?
 
   - type: textarea
     attributes:
