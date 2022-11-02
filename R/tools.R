@@ -186,9 +186,9 @@ format_r <- function(paths) {
 #' @export
 build_js <- function(watch = FALSE) {
   if (watch) {
-    yarn("build-js", "--watch", status_ok = 2)
+    npm("run", "build-js", "--", "--watch", status_ok = 2)
   } else {
-    yarn("build-js")
+    npm("run", "build-js")
   }
 }
 
@@ -224,7 +224,11 @@ build_js <- function(watch = FALSE) {
 #' @export
 # nolint end
 lint_js <- function(fix = FALSE) {
-  yarn("lint-js", if (fix) "--fix")
+  if (fix) {
+    npm("run", "lint-js", "--", "--fix")
+  } else {
+    npm("run", "lint-js")
+  }
 }
 
 #' Build Sass
@@ -274,9 +278,9 @@ build_sass <- function(watch = FALSE) {
 
 build_sass_node <- function(watch = FALSE) {
   if (watch) {
-    yarn("build-sass", "--watch", status_ok = 2)
+    npm("run", "build-sass", "--", "--watch", status_ok = 2)
   } else {
-    yarn("build-sass")
+    npm("run", "build-sass")
   }
 }
 
@@ -305,7 +309,11 @@ build_sass_r <- function() {
 #' }
 #' @export
 lint_sass <- function(fix = FALSE) {
-  yarn("lint-sass", if (fix) "--fix")
+  if (fix) {
+    npm("run", "lint-sass", "--", "--fix")
+  } else {
+    npm("run", "lint-sass")
+  }
 }
 
 #' Run Cypress end-to-end tests
@@ -324,7 +332,9 @@ lint_sass <- function(fix = FALSE) {
 #' }
 #' @export
 test_e2e <- function(interactive = FALSE) {
-  command <- ifelse(isTRUE(interactive), "test-e2e-interactive", "test-e2e")
-
-  yarn(command)
+  if (interactive) {
+    npm("run", "test-e2e-interactive")
+  } else {
+    npm("run", "test-e2e")
+  }
 }

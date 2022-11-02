@@ -98,7 +98,6 @@ diagnostics <- function() {
     paste(Sys.info()[c("sysname", "release", "version")], collapse = " "),
     R.version.string,
     paste("rhino:", utils::packageVersion("rhino")),
-    paste("node:", system_cmd_version("node")),
-    paste("yarn:", system_cmd_version("yarn"))
+    paste("node:", system_cmd_version("node"))
   ))
 }
