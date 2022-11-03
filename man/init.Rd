@@ -20,9 +20,8 @@ init(
 Rhino will install itself using \code{renv::install(rhino_version)}.
 You can provide this argument to use a specific version / source, e.g.\code{"Appsilon/rhino@v0.4.0"}.}
 
-\item{force}{Create a \code{rhino} app without checking for if working directory is home directory.
-Defaults to \code{FALSE} to prevent creating a \code{rhino} app in the home directory
-Set to \code{TRUE} to create a \code{rhino} app in the home directory.}
+\item{force}{Boolean; force initialization?
+By default, Rhino will refuse to initialize a project in the home directory.}
 }
 \value{
 None. This function is called for side effects.

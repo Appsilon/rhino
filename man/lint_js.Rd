@@ -14,7 +14,7 @@ None. This function is called for side effects.
 }
 \description{
 Runs \href{https://eslint.org}{ESLint} on the JavaScript sources in the \code{app/js} directory.
-Requires Node.js and the \code{yarn} command to be available on the system.
+Requires Node.js to be available on the system.
 }
 \details{
 If your JS code uses global objects defined by other JS libraries or R packages,

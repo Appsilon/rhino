@@ -15,7 +15,7 @@ None. This function is called for side effects.
 \description{
 Uses \href{https://www.cypress.io/}{Cypress} to run end-to-end tests
 defined in the \code{tests/cypress} directory.
-Requires Node.js and the \code{yarn} command to be available on the system.
+Requires Node.js to be available on the system.
 }
 \examples{
 if (interactive()) {

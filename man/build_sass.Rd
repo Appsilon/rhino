@@ -20,13 +20,13 @@ Builds the \code{app/styles/main.scss} file into \code{app/static/css/app.min.cs
 The build method can be configured using the \code{sass} option in \code{rhino.yml}:
 \enumerate{
 \item \code{node}: Use \href{https://sass-lang.com/dart-sass}{Dart Sass}
-(requires Node.js and the \code{yarn} command to be available on the system).
+(requires Node.js to be available on the system).
 \item \code{r}: Use the \code{{sass}} R package.
 }
 
 It is recommended to use Dart Sass which is the primary,
 actively developed implementation of Sass.
-On systems without \code{yarn} you can use the \code{{sass}} R package as a fallback.
+On systems without Node.js you can use the \code{{sass}} R package as a fallback.
 It is not advised however, as it uses the deprecated
 \href{https://sass-lang.com/blog/libsass-is-deprecated}{LibSass} implementation.
 }
