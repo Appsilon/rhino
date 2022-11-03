@@ -22,18 +22,10 @@ install.packages("rhino")
 This tutorial uses the native pipe operator (`|>`) introduced in R 4.1 release. If you use an earlier R version, then you can use the `%>%` pipe operator found in `{magrittr}` and `{dplyr}` packages instead.
 
 To use the state of the art JavaScript and Sass development tools provided by Rhino,
-you'll need to have Node.js and Yarn available on your system.
-Follow the links for installation instructions:
+you'll need to [install Node.js](https://nodejs.org/en/download/) (v12 or later) on your system.
 
-* [Node.js](https://nodejs.org/en/download/).
-You need v12 or later.
-* [Yarn](https://classic.yarnpkg.com/lang/en/).
-You need v1 (Yarn Classic). **Yarn v2 and later won't work**.
-
-Don't be discouraged if you are not able to get Node.js and Yarn on your machine.
-Rhino will still work for you
-(with some small limitations described in
-[JavaScript](#add-javascript-code) and [Sass](#add-custom-styles) sections).
+Rhino will still work without Node.js but with some limitations
+(described in [JavaScript](#add-javascript-code) and [Sass](#add-custom-styles) sections).
 
 ----
 
