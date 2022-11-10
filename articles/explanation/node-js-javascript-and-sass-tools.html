@@ -39,7 +39,7 @@
     
     <a class="navbar-brand me-2" href="../../index.html">rhino</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.1.1.9004</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.1.1.9005</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -119,9 +119,8 @@ environment which can execute JavaScript code outside a web browser. It
 is used widely for web development. Its package manager, <a href="https://docs.npmjs.com/about-npm" class="external-link">npm</a>, makes it easy to
 install virtually any JavaScript library.</p>
 <p>Rhino uses Node.js to provide state of the art tools for working with
-JavaScript and Sass. In the future it might also become an easy way to
-add any JS library to your Shiny app.</p>
-<p>The following functions require Node.js to work:</p>
+JavaScript and Sass. The following functions require Node.js to
+work:</p>
 <ol style="list-style-type: decimal">
 <li><code><a href="../../reference/build_js.html">build_js()</a></code></li>
 <li>
@@ -131,10 +130,6 @@ configuration in <code>rhino.yml</code>)</li>
 <li><code><a href="../../reference/lint_sass.html">lint_sass()</a></code></li>
 <li><code><a href="../../reference/test_e2e.html">test_e2e()</a></code></li>
 </ol>
-<p>You don’t need to worry about Node.js most of the time. You need to
-install it on your system along with <a href="https://classic.yarnpkg.com/lang/en/" class="external-link">yarn</a> (an alternative
-package manager for Node.js). The rest will be handled
-automatically.</p>
 <p>Under the hood Rhino will create a <code>.rhino/node</code> directory
 in your project to store the specific libraries needed by these tools.
 This directory is git-ignored by default and safe to remove.</p>
