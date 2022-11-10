@@ -5,6 +5,7 @@
 * Prevent `init()` in home directory.
 * Included `build_js()` and `build_sass()` in template CI.
 * Use R version from the lockfile in CI.
+* Dropped dependency on Yarn - only Node.js is now required.
 
 # [rhino 1.1.1](https://github.com/Appsilon/rhino/releases/tag/v1.1.1)
 

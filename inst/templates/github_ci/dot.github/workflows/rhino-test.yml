@@ -11,7 +11,7 @@ jobs:
     steps:
       - name: Checkout repo
         uses: actions/checkout@v2
-        
+
       - name: Extract R version from lockfile
         run: printf 'R_VERSION=%s\n' "$(jq --raw-output .R.Version renv.lock)" >> $GITHUB_ENV
 
@@ -59,12 +59,12 @@ jobs:
         if: always()
         shell: Rscript {0}
         run: rhino::lint_sass()
-        
+
       - name: Build JavaScript
         if: always()
         shell: Rscript {0}
         run: rhino::build_js()
-        
+
       - name: Build Sass
         if: always()
         shell: Rscript {0}
@@ -80,5 +80,5 @@ jobs:
         uses: cypress-io/github-action@v2
         with:
           working-directory: .rhino/node # Created by earlier commands which use Node.js
-          start: yarn run-app
+          start: npm run run-app
           project: root/tests

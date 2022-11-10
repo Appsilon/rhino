@@ -154,7 +154,7 @@ format_r <- function(paths) {
 #' using [Babel](https://babeljs.io) and [webpack](https://webpack.js.org),
 #' so the latest JavaScript features can be used
 #' (including ECMAScript 2015 aka ES6 and newer standards).
-#' Requires Node.js and the `yarn` command to be available on the system.
+#' Requires Node.js to be available on the system.
 #'
 #' Functions/objects defined in the global scope do not automatically become `window` properties,
 #' so the following JS code:
@@ -186,9 +186,9 @@ format_r <- function(paths) {
 #' @export
 build_js <- function(watch = FALSE) {
   if (watch) {
-    yarn("build-js", "--watch", status_ok = 2)
+    npm("run", "build-js", "--", "--watch", status_ok = 2)
   } else {
-    yarn("build-js")
+    npm("run", "build-js")
   }
 }
 
@@ -196,7 +196,7 @@ build_js <- function(watch = FALSE) {
 #' Lint JavaScript
 #'
 #' Runs [ESLint](https://eslint.org) on the JavaScript sources in the `app/js` directory.
-#' Requires Node.js and the `yarn` command to be available on the system.
+#' Requires Node.js to be available on the system.
 #'
 #' If your JS code uses global objects defined by other JS libraries or R packages,
 #' you'll need to let the linter know or it will complain about undefined objects.
@@ -224,7 +224,11 @@ build_js <- function(watch = FALSE) {
 #' @export
 # nolint end
 lint_js <- function(fix = FALSE) {
-  yarn("lint-js", if (fix) "--fix")
+  if (fix) {
+    npm("run", "lint-js", "--", "--fix")
+  } else {
+    npm("run", "lint-js")
+  }
 }
 
 #' Build Sass
@@ -233,12 +237,12 @@ lint_js <- function(fix = FALSE) {
 #'
 #' The build method can be configured using the `sass` option in `rhino.yml`:
 #' 1. `node`: Use [Dart Sass](https://sass-lang.com/dart-sass)
-#' (requires Node.js and the `yarn` command to be available on the system).
+#' (requires Node.js to be available on the system).
 #' 2. `r`: Use the `{sass}` R package.
 #'
 #' It is recommended to use Dart Sass which is the primary,
 #' actively developed implementation of Sass.
-#' On systems without `yarn` you can use the `{sass}` R package as a fallback.
+#' On systems without Node.js you can use the `{sass}` R package as a fallback.
 #' It is not advised however, as it uses the deprecated
 #' [LibSass](https://sass-lang.com/blog/libsass-is-deprecated) implementation.
 #'
@@ -260,7 +264,7 @@ build_sass <- function(watch = FALSE) {
       error = function(error) {
         cli::cli_abort(c(
           error$message, error$body,
-          i = "If you can't use Node.js and yarn, try using sass: 'r' configuration."
+          i = "If you can't use Node.js, try using sass: 'r' configuration."
         ))
       }
     )
@@ -274,9 +278,9 @@ build_sass <- function(watch = FALSE) {
 
 build_sass_node <- function(watch = FALSE) {
   if (watch) {
-    yarn("build-sass", "--watch", status_ok = 2)
+    npm("run", "build-sass", "--", "--watch", status_ok = 2)
   } else {
-    yarn("build-sass")
+    npm("run", "build-sass")
   }
 }
 
@@ -293,7 +297,7 @@ build_sass_r <- function() {
 #' Lint Sass
 #'
 #' Runs [Stylelint](https://stylelint.io/) on the Sass sources in the `app/styles` directory.
-#' Requires Node.js and the `yarn` command to be available on the system.
+#' Requires Node.js to be available on the system.
 #'
 #' @param fix Automatically fix problems.
 #' @return None. This function is called for side effects.
@@ -305,14 +309,18 @@ build_sass_r <- function() {
 #' }
 #' @export
 lint_sass <- function(fix = FALSE) {
-  yarn("lint-sass", if (fix) "--fix")
+  if (fix) {
+    npm("run", "lint-sass", "--", "--fix")
+  } else {
+    npm("run", "lint-sass")
+  }
 }
 
 #' Run Cypress end-to-end tests
 #'
 #' Uses [Cypress](https://www.cypress.io/) to run end-to-end tests
 #' defined in the `tests/cypress` directory.
-#' Requires Node.js and the `yarn` command to be available on the system.
+#' Requires Node.js to be available on the system.
 #'
 #' @param interactive Should Cypress be run in the interactive mode?
 #' @return None. This function is called for side effects.
@@ -324,7 +332,9 @@ lint_sass <- function(fix = FALSE) {
 #' }
 #' @export
 test_e2e <- function(interactive = FALSE) {
-  command <- ifelse(isTRUE(interactive), "test-e2e-interactive", "test-e2e")
-
-  yarn(command)
+  if (interactive) {
+    npm("run", "test-e2e-interactive")
+  } else {
+    npm("run", "test-e2e")
+  }
 }

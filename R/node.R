@@ -1,10 +1,9 @@
-system_yarn <- function(..., status_ok = 0) {
-  status <- system2(
-    command = "yarn",
-    args = c("--cwd", shQuote(node_path()), ...)
-  )
+system_npm <- function(..., status_ok = 0) {
+  withr::with_dir(node_path(), {
+    status <- system2(command = "npm", args = c(...))
+  })
   if (status != status_ok) {
-    cli::cli_abort("System command 'yarn' exited with status {status}.")
+    cli::cli_abort("System command 'npm' exited with status {status}.")
   }
 }
 
@@ -45,28 +44,15 @@ add_node <- function(clean = FALSE) {
   })
 }
 
-yarn <- function(...) {
-  check_js_dependencies()
-
-  if (!fs::dir_exists(node_path())) {
-    add_node()
-    system_yarn("install")
-  }
-  system_yarn(...)
-}
-
-check_js_dependencies <- function() {
-  documentation_url <- "https://go.appsilon.com/rhino-system-dependencies"
-
+npm <- function(...) {
   check_system_dependency(
     cmd = "node",
     dependency_name = "Node.js",
-    documentation_url = documentation_url
+    documentation_url = "https://go.appsilon.com/rhino-system-dependencies"
   )
-
-  check_system_dependency(
-    cmd = "yarn",
-    dependency_name = "yarn",
-    documentation_url = documentation_url
-  )
+  if (!fs::dir_exists(node_path())) {
+    add_node()
+    system_npm("install")
+  }
+  system_npm(...)
 }

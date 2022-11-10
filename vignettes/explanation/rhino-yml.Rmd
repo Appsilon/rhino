@@ -22,10 +22,10 @@ legacy_entrypoint: string  # optional | one of: "app_dir", "source", "box_top_le
 ```
 
 ### `sass`
-Configures whether [SASS](https://sass-lang.com/) should be build using [R
-package](https://cran.r-project.org/package=sass) or [Node
-package](https://www.npmjs.com/package/sass). The latter provides newest implementation, at a cost
-of additional system dependencies for development (`node` and `yarn`).
+Configures whether [Sass](https://sass-lang.com/) should be built
+using the [R package](https://cran.r-project.org/package=sass)
+or the [Node.js package](https://www.npmjs.com/package/sass).
+Read more in [Explanation: Node.js - JavaScript and Sass tools](https://appsilon.github.io/rhino/articles/explanation/node-js-javascript-and-sass-tools.html).
 
 ### `legacy_entrypoint`
 This setting is useful when migrating an existing Shiny application to Rhino. For more details see
