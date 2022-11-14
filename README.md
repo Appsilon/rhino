@@ -10,27 +10,33 @@
 ## Events
 
 ### Upcoming
+
 Would you like to learn about Rhino hands-on? Join our events!
 Upcoming events will be added to this section - stay tuned.
 
 ### Past
-* May 13, 2022 at 6:00 PM (UTC+2):
-[*Creating Shiny Apps with Rhino: the new framework for Shiny apps*](https://www.youtube.com/watch?v=8H_ZHUy8Yj4).
-Workshop led by [Kamil Żyła](https://www.linkedin.com/in/kamil-zyla/).
-* August 23, 2022 at 11:00 AM (UTC-4):
-*Enterprise-grade Shiny App Development with {rhino}*.
+
+* [**Creating Shiny Apps with Rhino: the new framework for Shiny apps**](https://www.youtube.com/watch?v=8H_ZHUy8Yj4)<br>
+2022-05-13 at 18:00 (UTC+2)<br>
+Online workshop led by [Kamil Żyła](https://www.linkedin.com/in/kamil-zyla/)
+
+* **Enterprise-grade Shiny App Development with {rhino}**<br>
+2022-08-23 at 11:00 (UTC-4)<br>
 Workshop led by [Jakub Nowicki](https://www.linkedin.com/in/jakub-nowicki/)
-during the [R/Medicine](https://events.linuxfoundation.org/r-medicine/) conference.
-* September 7, 2022 at 11:30 AM (UTC+1):
-*Introducing Rhino: Shiny application framework for enterprise*.
+at [R/Medicine 2022](https://events.linuxfoundation.org/r-medicine/)
+
+* **Introducing Rhino: Shiny application framework for enterprise**<br>
+2022-09-07 at 11:30 (UTC+1)<br>
 Talk given by [Jakub Nowicki](https://www.linkedin.com/in/jakub-nowicki/)
-during the [EARL](https://www.ascent.io/earl) conference.
-* October 11, 2022 at 7:00 PM (UTC+2):
-*Rhino Workshop*.
+at [EARL 2022](https://www.ascent.io/earl)
+
+* **Rhino Workshop**<br>
+2022-10-11 at 19:00 (UTC+2)<br>
 Led by [Kamil Żyła](https://www.linkedin.com/in/kamil-zyla/)
-during the [LatinR 2022](https://latin-r.com/en) conference (in English).
+at [LatinR 2022](https://latin-r.com/en)
 
 ## Why Rhino?
+
 Rhino allows you to create Shiny apps **The Appsilon Way**  - like a fullstack software engineer. Apply best software engineering practices, modularize your code, test it well, make UI beautiful, and think about user adoption from the very beginning. Rhino is an opinionated framework with a focus on software engineering practices and development tools.
 
 Rhino supports your work in 3 main areas:
@@ -47,6 +53,7 @@ Read more:
 [What is Rhino?](https://appsilon.github.io/rhino/articles/explanation/what-is-rhino.html)
 
 ## Installation
+
 Stable version:
 ```r
 install.packages("rhino")
