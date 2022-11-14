@@ -20,6 +20,11 @@ Upcoming events will be added to this section - stay tuned.
 2022-05-13 at 18:00 (UTC+2)<br>
 Online workshop led by [Kamil Żyła](https://www.linkedin.com/in/kamil-zyla/)
 
+* [**Introducing Rhino: Shiny application framework for enterprise**](https://www.rstudio.com/conference/2022/talks/introducing-rhino-shiny-application-framework/)<br>
+2022-07-28 at 15:20 (UTC-4)<br>
+Talk given by [Kamil Żyła](https://www.linkedin.com/in/kamil-zyla/)
+at [rstudio::conf(2022)](https://www.rstudio.com/conference/2022/2022-conf-talks/)
+
 * **Enterprise-grade Shiny App Development with {rhino}**<br>
 2022-08-23 at 11:00 (UTC-4)<br>
 Workshop led by [Jakub Nowicki](https://www.linkedin.com/in/jakub-nowicki/)
