@@ -1,0 +1,240 @@
+---
+title: "How-to: Use global variables"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{How-to: Use Global Definitions}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+# Introduction
+
+Rhino uses [`box`](https://appsilon.github.io/rhino/articles/explanation/box-modules.html) to ensure reusable and modular code, both from using packages and using the scripts within the app itself. Rhino favors the explicit over the implicit, and a local scope over  a global scope.
+
+However, there are some instances when developers may need to use global definitions in their app. In such cases, Rhino suggests the following ways to handle global definitions.
+
+# A Note on Global Definitions
+
+Rhino **DOES NOT** encourage the use of global definitions. Rhino encourages modular code with definitions limited to their own scope as much as possible. It is only at the greatest of needs that global definitions should be used.
+
+# Creating Constants
+
+Storing constants is the most common reason and usage for a global definition. If a developer intends to use the same value throughout the app, it might be reasonable to store that value as a global constant. 
+
+The suggested way to create global constants in Rhino is to define and export the constant inside its own `R` script in `app/logic`.
+
+```r
+# In app/logic/constant.R
+
+#' @export
+answer <- 42
+
+# The global constant can be imported and used in other modules
+box::use(app/logic/constant[answer])
+```
+
+# Updating a Global Variable
+
+When mentioning global definitions, headaches and problems usually arise from global mutable states. They are global variables that can be accessed anywhere (global) in the app. Their values can change (mutable). Their current value (state) at any point in the app will depend on what processes they have gone through so far. It forces developers to think of how the whole app works instead of just focusing on one aspect of it. It can cause headaches.
+
+Rhino advises to keep variables within its own local scope as much as possible. Local scopes and modules helps developers focus on a single aspect of an app instead of the whole app. Before using global mutable state, please consider if it is really necessary, at least twice or thrice, and if a functional and modular approach will work instead. 
+
+In `R`, global definitions live inside `.GlobalEnv`. Global variables can be updated within a function using `<<-`.
+
+```{r base-r-global-variable, eval=TRUE, collapse=TRUE, comment=">"}
+answer <- 42
+
+change_answer <- function(new_answer, is_global = FALSE) {
+  if (is_global) {
+    answer <<- new_answer
+  } else {
+    answer <- new_answer
+  }
+
+  answer
+}
+
+change_answer(25)
+
+answer
+
+change_answer(25, is_global = TRUE)
+
+answer
+```
+
+When code is loaded with `box::use()`, global definitions live inside the module's own immutable environment. Updating global variables with `<<-` will not work.
+
+```r
+# app/logic/answer.R
+answer <- 42
+```
+
+```r
+# app/logic/update_answer.R
+box::use(app/logic/answer[answer])
+
+#' @export
+update_answer <- function() {
+  answer <<- 25
+}
+```
+
+```r
+# app/logic/get_answer.R
+box::use(
+  app/logic/answer,
+  app/logic/update_answer[update_answer]
+)
+
+update_answer()
+
+answer # This still returns 42
+```
+
+
+## Adding and Updating Variables in `.GlobalEnv`
+
+To overcome `box`'s feature of limiting scope, variables can be stored and imported from `.GlobalEnv`. The variable must also be defined and updated using `<-`.
+
+```r
+# app/logic/answer.R
+.GlobalEnv$answer <- 42
+```
+
+```r
+# app/logic/update_answer.R
+box::use(app/logic/answer)
+
+#' @export
+update_answer <- function() {
+  .GlobalEnv$answer <- 25
+}
+```
+
+```r
+# app/logic/get_answer.R
+box::use(
+  app/logic/answer,
+  app/logic/update_answer[update_answer]
+)
+
+update_answer()
+
+answer # This returns 25
+```
+
+## Variables in a New Environment
+
+Using `.GlobalEnv` works, but Rhino does not suggest it. The more explicit way would be to create a new environment and use that environment to contain the global variables.
+
+```r
+# app/logic/global.R
+#' @export
+global <- new.env()
+```
+
+```r
+# app/logic/answer.R
+box::use()
+
+global$answer <- 42
+```
+
+```r
+# app/logic/update_answer.R
+box::use(
+  app/logic/global[global],
+  app/logic/answer
+)
+
+#' @export
+update_answer <- function() {
+  .GlobalEnv$answer <- 25
+}
+```
+
+```r
+# app/logic/get_answer.R
+box::use(
+  app/logic/global[global],
+  app/logic/answer,
+  app/logic/update_answer[update_answer]
+)
+
+update_answer()
+
+answer # This returns 25
+```
+
+Rhino favors using a new environment because it is more explicit. It is not advisable, but if the developer insists on going the path of global mutable states, this is the path they should take.
+
+Again, Rhino does not encourage the use of a global mutable state. In case of great need, it is possible, but avoid it as much as possible.
+
+## User Data in `shiny`
+
+In `shiny`, [`session$userData`](https://shiny.rstudio.com/reference/shiny/latest/session.html) is an environment that can store session-specific data. 
+
+```r
+
+module_ui <- function(id) {
+  ns <- NS(id)
+  textOutput(ns("answer"))
+}
+
+module_server <- function(id) {
+  moduleServer(id, function(input, output, session) {
+    output$answer <- renderText(session$userData$answer())
+  })
+}
+
+shinyApp(
+  ui = bootstrapPage(
+    textInput("answer", "Answer"),
+    module_ui("module")
+  ),
+  server = function(input, output, session) {
+    session$userData$answer <- reactiveVal()
+    observeEvent(input$answer, session$userData$answer(input$answer))
+
+    module_server("module")
+  }
+)
+```
+
+All modules have access to the variables inside `session$userData`. This may sound like an improvement, but this can cause problems when the app becomes complicated and the  `session$userData` is used or updated at different points in the app.
+
+Rhino suggests to avoid the use of `session$userData` and be more explicit by adding arguments to the module server instead.
+
+```r
+
+module_ui <- function(id) {
+  ns <- NS(id)
+  textOutput(ns("answer"))
+}
+
+module_server <- function(id, answer) {
+  moduleServer(id, function(input, output, session) {
+    output$answer <- renderText(answer())
+  })
+}
+
+shinyApp(
+  ui = bootstrapPage(
+    textInput("answer", "Answer"),
+    module_ui("module")
+  ),
+  server = function(input, output, session) {
+    answer <- reactiveVal()
+    observeEvent(input$answer, answer(input$answer))
+
+    module_server("module", answer())
+  }
+)
+```
+
+Again, Rhino suggests avoiding the use of global variables as much as possible. A more explicit solution with limited scope will be better.
+
+# Conclusion
+
+Rhino encourages explicit, reusable, and modular code. The more explicit the code and limited it is to its own scope the better. As was pointed out, it is still possible to use global definitions, both immutable and mutable. However, just because it can be done, does not mean that it should be done. A lot of solutions do not require a global definition. Avoid it as much as possible.
