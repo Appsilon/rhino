@@ -5,6 +5,5 @@ linters:
 exclusions:
   c(
     "inst/rstudio",
-    "inst/templates",
-    "vignettes"
+    "inst/templates"
   )
