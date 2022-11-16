@@ -24,7 +24,7 @@ Imports:
   config,
   fs,
   glue,
-  lintr (>= 2.0.0),
+  lintr (>= 3.0.0),
   logger,
   purrr,
   renv,
