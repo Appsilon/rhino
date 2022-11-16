@@ -38,20 +38,107 @@ The best place to learn about box is its official [documentation](https://klmr.m
 The discussion here will mainly focus on how to use box inside Rhino.
 
 Rhino suggests the use of [`app/logic` and `app/view`](https://appsilon.github.io/rhino/articles/explanation/application-structure.html).
-Rhino creates these directories as a default Rhino app structure. 
+Rhino creates these directories by default. 
 Code that is independent of Shiny should be kept in `app/logic` 
-while code using or related to Shiny modules should be kept in `app/view`. 
-This app structure works well with box as it treats files and folders of R code as independent.
-It makes code modular and reusable without the need of writing a package.
-Code is also better organized and encourages nesting with this structure.
+while code using or related to Shiny modules should be kept in `app/view`.
+This structure makes it easy to make a nested hierarchy of code with the help of box.
 
-Importing reusable code from existing R packages or from the modules inside Rhino
-requires `box::use()`. 
-`library()` and `require()` [does not work](https://klmr.me/box/articles/faq.html#can-i-call-library-require-source-inside-a-module) inside a box module.
-`box::use()` imports code locally, unlike `library()`, `require()`, `source()`, or `global.R`
-that attaches names globally. 
+```r
+# app/logic/messages.R
+#' @export
+say_hello <- function(name) {
+  paste0("Hello, ", name, "!")
+}
 
-# Other Features
+#' @export
+say_bye <- function(name) {
+  paste0("Goodbye, ", name, "!")
+}
+
+```
+
+Both `say_hello()` and `say_bye()` can be exported from `app/logic/messages.R`.
+
+```r
+box::use(app/logic/messages[say_hello, say_bye])
+
+#' @export
+greet <- function(name) {
+  paste(
+    say_hello(name), say_bye(name)
+  )
+}
+
+```
+
+Note that `box::use()` allows for explicit attaching of function names from a module as shown above.
+Modules can also be imported across directories; use code from `app/logic` in `app/view`.
+
+```r
+# app/view/greet_module.R
+box::use(
+  shiny[moduleServer, NS, renderText, div, textOutput, req],
+  shiny.semantic[textInput],
+)
+
+box::use(
+  app/logic/greet[greet],
+)
+
+#' @export
+ui <- function(id) {
+  ns <- NS(id)
+  div(
+    textInput(ns("name"), "Name"),
+    textOutput(ns("message"))
+  )
+}
+
+#' @export
+server <- function(id) {
+  moduleServer(id, function(input, output, session) {
+    output$message <- renderText({
+      req(input$name)
+      greet(input$name)
+    })
+  })
+}
+
+```
+
+With explicit attaching of function names, it is clear from above that the code 
+uses `shiny.semantic::textInput()` and not `shiny::textInput()`.
+
+```r
+# app/main.R
+box::use(
+  shiny[moduleServer, NS],
+  shiny.semantic[semanticPage]
+)
+
+box::use(app/view/greet_module)
+
+#' @export
+ui <- function(id) {
+  ns <- NS(id)
+  semanticPage(
+    greet_module$ui(ns("message"))
+  )
+}
+
+#' @export
+server <- function(id) {
+  moduleServer(id, function(input, output, session) {
+    greet_module$server("message")
+  })
+}
+
+```
+
+In `main.R`, Shiny modules can be attached without attaching the function names.
+The Shiny module functions are accessed via `$`.
+
+# Advance Features
 Some useful box features are also explained in the sections below.
 
 ## Init files
