@@ -1,6 +1,5 @@
 linters:
-  with_defaults(
+  linters_with_defaults(
     line_length_linter = line_length_linter(100),
-    infix_spaces_linter = NULL,
-    object_usage_linter = NULL
+    object_usage_linter = NULL  # Does not work with `box::use()`.
   )
