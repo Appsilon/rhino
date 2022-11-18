@@ -52,7 +52,7 @@ npm <- function(...) {
   )
   if (!fs::dir_exists(node_path())) {
     add_node()
-    system_npm("install")
+    system_npm(c("install", "--silent"))
   }
   system_npm(...)
 }
