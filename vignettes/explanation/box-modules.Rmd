@@ -138,7 +138,7 @@ server <- function(id) {
 In `main.R`, Shiny modules can be attached without attaching the function names.
 The Shiny module functions are accessed via `$`.
 
-# Advance Features
+# Advanced Features
 Some useful box features are also explained in the sections below.
 
 ## Init files
