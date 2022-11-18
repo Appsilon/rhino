@@ -142,10 +142,106 @@ Introduction of box to existing apps written without it has helped to
 improve the code structure and find bugs.</p>
 </div>
 <div class="section level2">
-<h2 id="features">Features<a class="anchor" aria-label="anchor" href="#features"></a>
+<h2 id="usage">Usage<a class="anchor" aria-label="anchor" href="#usage"></a>
 </h2>
-<p>The best place to learn about box is its official <a href="https://klmr.me/box/" class="external-link">documentation</a>. Some useful box features
-are also explained in the sections below.</p>
+<p>The best place to learn about box is its official <a href="https://klmr.me/box/" class="external-link">documentation</a>. The discussion here will
+mainly focus on how to use box inside Rhino.</p>
+<p>Rhino suggests the use of <a href="https://appsilon.github.io/rhino/articles/explanation/application-structure.html"><code>app/logic</code>
+and <code>app/view</code></a>. Rhino creates these directories by
+default. Code that is independent of Shiny should be kept in
+<code>app/logic</code> while code using or related to Shiny modules
+should be kept in <code>app/view</code>. This structure makes it easy to
+make a nested hierarchy of code with the help of box.</p>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># app/logic/messages.R</span></span>
+<span><span class="co">#' @export</span></span>
+<span><span class="va">say_hello</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">name</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="st">"Hello, "</span>, <span class="va">name</span>, <span class="st">"!"</span><span class="op">)</span></span>
+<span><span class="op">}</span></span>
+<span></span>
+<span><span class="co">#' @export</span></span>
+<span><span class="va">say_bye</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">name</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="st">"Goodbye, "</span>, <span class="va">name</span>, <span class="st">"!"</span><span class="op">)</span></span>
+<span><span class="op">}</span></span></code></pre></div>
+<p>Both <code>say_hello()</code> and <code>say_bye()</code> can be
+exported from <code>app/logic/messages.R</code>.</p>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">box</span><span class="fu">::</span><span class="fu"><a href="http://klmr.me/box/reference/use.html" class="external-link">use</a></span><span class="op">(</span><span class="va">app</span><span class="op">/</span><span class="va">logic</span><span class="op">/</span><span class="va">messages</span><span class="op">[</span><span class="va">say_hello</span>, <span class="va">say_bye</span><span class="op">]</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co">#' @export</span></span>
+<span><span class="va">greet</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">name</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span></span>
+<span>    <span class="fu">say_hello</span><span class="op">(</span><span class="va">name</span><span class="op">)</span>, <span class="fu">say_bye</span><span class="op">(</span><span class="va">name</span><span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">}</span></span></code></pre></div>
+<p>Note that <code><a href="http://klmr.me/box/reference/use.html" class="external-link">box::use()</a></code> allows for explicit attaching of
+function names from a module as shown above. Modules can also be
+imported across directories; use code from <code>app/logic</code> in
+<code>app/view</code>.</p>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># app/view/greet_module.R</span></span>
+<span><span class="fu">box</span><span class="fu">::</span><span class="fu"><a href="http://klmr.me/box/reference/use.html" class="external-link">use</a></span><span class="op">(</span></span>
+<span>  <span class="va">shiny</span><span class="op">[</span><span class="va">moduleServer</span>, <span class="va">NS</span>, <span class="va">renderText</span>, <span class="va">div</span>, <span class="va">textOutput</span>, <span class="va">req</span><span class="op">]</span>,</span>
+<span>  <span class="va">shiny.semantic</span><span class="op">[</span><span class="va">textInput</span><span class="op">]</span>,</span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">box</span><span class="fu">::</span><span class="fu"><a href="http://klmr.me/box/reference/use.html" class="external-link">use</a></span><span class="op">(</span></span>
+<span>  <span class="va">app</span><span class="op">/</span><span class="va">logic</span><span class="op">/</span><span class="va">greet</span><span class="op">[</span><span class="va">greet</span><span class="op">]</span>,</span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="co">#' @export</span></span>
+<span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">id</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="va">ns</span> <span class="op">&lt;-</span> <span class="fu">NS</span><span class="op">(</span><span class="va">id</span><span class="op">)</span></span>
+<span>  <span class="fu">div</span><span class="op">(</span></span>
+<span>    <span class="fu">textInput</span><span class="op">(</span><span class="fu">ns</span><span class="op">(</span><span class="st">"name"</span><span class="op">)</span>, <span class="st">"Name"</span><span class="op">)</span>,</span>
+<span>    <span class="fu">textOutput</span><span class="op">(</span><span class="fu">ns</span><span class="op">(</span><span class="st">"message"</span><span class="op">)</span><span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">}</span></span>
+<span></span>
+<span><span class="co">#' @export</span></span>
+<span><span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">id</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="fu">moduleServer</span><span class="op">(</span><span class="va">id</span>, <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span></span>
+<span>    <span class="va">output</span><span class="op">$</span><span class="va">message</span> <span class="op">&lt;-</span> <span class="fu">renderText</span><span class="op">(</span><span class="op">{</span></span>
+<span>      <span class="fu">req</span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">name</span><span class="op">)</span></span>
+<span>      <span class="fu">greet</span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">name</span><span class="op">)</span></span>
+<span>    <span class="op">}</span><span class="op">)</span></span>
+<span>  <span class="op">}</span><span class="op">)</span></span>
+<span><span class="op">}</span></span></code></pre></div>
+<p>With explicit attaching of function names, it is clear from above
+that the code uses <code>shiny.semantic::textInput()</code> and not
+<code><a href="https://rdrr.io/pkg/shiny/man/textInput.html" class="external-link">shiny::textInput()</a></code>.</p>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># app/main.R</span></span>
+<span><span class="fu">box</span><span class="fu">::</span><span class="fu"><a href="http://klmr.me/box/reference/use.html" class="external-link">use</a></span><span class="op">(</span></span>
+<span>  <span class="va">shiny</span><span class="op">[</span><span class="va">moduleServer</span>, <span class="va">NS</span><span class="op">]</span>,</span>
+<span>  <span class="va">shiny.semantic</span><span class="op">[</span><span class="va">semanticPage</span><span class="op">]</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">box</span><span class="fu">::</span><span class="fu"><a href="http://klmr.me/box/reference/use.html" class="external-link">use</a></span><span class="op">(</span><span class="va">app</span><span class="op">/</span><span class="va">view</span><span class="op">/</span><span class="va">greet_module</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co">#' @export</span></span>
+<span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">id</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="va">ns</span> <span class="op">&lt;-</span> <span class="fu">NS</span><span class="op">(</span><span class="va">id</span><span class="op">)</span></span>
+<span>  <span class="fu">semanticPage</span><span class="op">(</span></span>
+<span>    <span class="va">greet_module</span><span class="op">$</span><span class="fu">ui</span><span class="op">(</span><span class="fu">ns</span><span class="op">(</span><span class="st">"message"</span><span class="op">)</span><span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">}</span></span>
+<span></span>
+<span><span class="co">#' @export</span></span>
+<span><span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">id</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="fu">moduleServer</span><span class="op">(</span><span class="va">id</span>, <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span></span>
+<span>    <span class="va">greet_module</span><span class="op">$</span><span class="fu">server</span><span class="op">(</span><span class="st">"message"</span><span class="op">)</span></span>
+<span>  <span class="op">}</span><span class="op">)</span></span>
+<span><span class="op">}</span></span></code></pre></div>
+<p>In <code>main.R</code>, Shiny modules can be attached without
+attaching the function names. The Shiny module functions are accessed
+via <code>$</code>.</p>
+</div>
+<div class="section level2">
+<h2 id="advanced-features">Advanced Features<a class="anchor" aria-label="anchor" href="#advanced-features"></a>
+</h2>
+<p>Some useful box features are also explained in the sections
+below.</p>
 <div class="section level3">
 <h3 id="init-files">Init files<a class="anchor" aria-label="anchor" href="#init-files"></a>
 </h3>
@@ -156,12 +252,12 @@ from its parent directory.</p>
 </h4>
 <p>Assume we have an <code>app/foo/__init__.R</code> file with the
 following content:</p>
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">#' @export</span></span>
 <span><span class="va">bar</span> <span class="op">&lt;-</span> <span class="st">"Hello!"</span></span></code></pre></div>
 <p>We can now import <code>bar</code> as if it was defined in
 <code>app/foo.R</code>:</p>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">box</span><span class="fu">::</span><span class="fu"><a href="http://klmr.me/box/reference/use.html" class="external-link">use</a></span><span class="op">(</span></span>
 <span>  <span class="va">app</span><span class="op">/</span><span class="va">foo</span><span class="op">[</span><span class="va">bar</span><span class="op">]</span></span>
 <span><span class="op">)</span></span></code></pre></div>
@@ -181,7 +277,7 @@ statement.</p>
 <p>Assume we have modules <code>analysis_tab.R</code> and
 <code>download_tab.R</code> in the <code>app/view</code> directory. We
 can reexport them from <code>app/view/__init__.R</code> like this:</p>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">#' @export</span></span>
 <span><span class="fu">box</span><span class="fu">::</span><span class="fu"><a href="http://klmr.me/box/reference/use.html" class="external-link">use</a></span><span class="op">(</span></span>
 <span>  <span class="va">app</span><span class="op">/</span><span class="va">view</span><span class="op">/</span><span class="va">analysis_tab</span>,</span>
@@ -189,7 +285,7 @@ can reexport them from <code>app/view/__init__.R</code> like this:</p>
 <span><span class="op">)</span></span></code></pre></div>
 <p>The following <code><a href="http://klmr.me/box/reference/use.html" class="external-link">box::use()</a></code> statements are now
 equivalent:</p>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">box</span><span class="fu">::</span><span class="fu"><a href="http://klmr.me/box/reference/use.html" class="external-link">use</a></span><span class="op">(</span></span>
 <span>  <span class="va">app</span><span class="op">/</span><span class="va">view</span><span class="op">/</span><span class="va">analysis_tab</span>,</span>
 <span>  <span class="va">app</span><span class="op">/</span><span class="va">view</span><span class="op">/</span><span class="va">download_tab</span>,</span>
