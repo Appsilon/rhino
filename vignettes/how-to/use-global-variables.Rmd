@@ -88,6 +88,11 @@ To overcome `box`'s feature of limiting scope, Rhino suggests creating a new env
 # app/logic/global.R
 #' @export
 global <- new.env()
+
+#' @export
+update_answer <- function() {
+  global$answer <- 25
+}
 ```
 
 ```r
@@ -95,11 +100,6 @@ global <- new.env()
 box::use(app/logic/global[global])
 
 global$answer <- 42
-
-#' @export
-update_answer <- function() {
-  global$answer <- 25
-}
 ```
 
 ```r
