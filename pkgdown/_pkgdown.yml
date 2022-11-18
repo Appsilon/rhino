@@ -58,6 +58,8 @@ navbar:
           href: articles/how-to/keep-multiple-apps-in-a-single-repository.html
         - text: Use Rhino on Windows
           href: articles/how-to/use-rhino-on-windows.html
+        - text: Use global variables
+          href: articles/how-to/use-global-variables.html
 
 reference:
 - title: Project initialization

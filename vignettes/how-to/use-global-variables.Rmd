@@ -9,15 +9,7 @@ vignette: >
 
 Rhino uses [`box`](https://appsilon.github.io/rhino/articles/explanation/box-modules.html) to ensure reusable and modular code, both from using packages and using the scripts within the app itself. Rhino favors the explicit over the implicit, and a local scope over  a global scope.
 
-However, there are some instances when developers may need to use global variables in their app. In such cases, Rhino suggests the following ways to handle global variables.
-
-> Rhino **DOES NOT** encourage the use of global variables. Rhino encourages modular code with definitions limited to their own scope as much as possible. It is only at the greatest of needs that global variables should be used.
-
-# Global Variables 
-
-## Creating Constants
-
-Storing constants is the most common reason and usage for a global variable.
+Storing constants is the most common reason for a global definition.
 
 The suggested way to create global constants in Rhino is to define and export the constant inside its own `R` script in `app/logic`.
 
@@ -34,59 +26,58 @@ The global constant can be imported and used in other modules.
 box::use(app/logic/constant[answer])
 ```
 
+Most of the time, it is sufficient to define a constant and then export and use it throughout the app.
+
+However, there are instances when an object may need to change its value as the app runs. In such cases, Rhino suggests the following ways to handle global variables.
+
+Note: Using global variables can make the app more difficult to manage and understand. 
+If the variable can change its value at any point in the app, future changes to the app must consider how this global variable will be affected. A changing global variable may also make testing difficult because tests may affect the global variables. The tests are no longer independent of each other. The global variable's value depends on the steps it takes; concurrency issues may occur.
+
+# Global Variables 
+
 ## Updating a Global Variable
+
+### Vanilla R
 
 In `R`, [global variables live inside `.GlobalEnv`](http://adv-r.had.co.nz/Environments.html). Global variables can be updated within a function using `<<-`.
 
-```{r base-r-global-variable, eval=TRUE, collapse=TRUE, comment=">"}
+```r
+# constants.R
 answer <- 42
-
-change_answer <- function(new_answer, is_global = FALSE) {
-  if (is_global) {
-    answer <<- new_answer
-  } else {
-    answer <- new_answer
-  }
-
-  answer
+set_answer <- function(new_answer) {
+  answer <<- new_answer
 }
+```
 
-change_answer(25)
+```r
+# main.R
+source("constants.R")
 
-answer
-
-change_answer(25, is_global = TRUE)
-
-answer
+print(answer) # 42
+set_answer(0)
+print(answer) # 0
 ```
 
 When code is loaded with `box::use()`, global variables live inside the [module's own immutable environment](https://klmr.me/box/articles/mod-env-hierarchy.html#environments-1). Updating global variables with `<<-` will not work.
 
 ```r
-# app/logic/answer.R
-answer <- 42
-```
-
-```r
-# app/logic/update_answer.R
-box::use(app/logic/answer[answer])
+# app/logic/constants.R
 
 #' @export
-update_answer <- function() {
-  answer <<- 25
+answer <- 42
+
+#' @export
+set_answer <- function(new_answer) {
+  answer <<- new_answer
 }
 ```
 
 ```r
-# app/logic/get_answer.R
-box::use(
-  app/logic/answer,
-  app/logic/update_answer[update_answer]
-)
+# app/main.R
+box::use(app/logic/constants)
 
-update_answer()
-
-answer # This still returns 42
+print(constants$answer) # 42
+constants$set_answer(0) # Error: cannot change value of locked binding.
 ```
 
 ### Variables in a New Environment
@@ -101,21 +92,13 @@ global <- new.env()
 
 ```r
 # app/logic/answer.R
-box::use()
+box::use(app/logic/global[global])
 
 global$answer <- 42
-```
-
-```r
-# app/logic/update_answer.R
-box::use(
-  app/logic/global[global],
-  app/logic/answer
-)
 
 #' @export
 update_answer <- function() {
-  .GlobalEnv$answer <- 25
+  global$answer <- 25
 }
 ```
 
@@ -123,13 +106,14 @@ update_answer <- function() {
 # app/logic/get_answer.R
 box::use(
   app/logic/global[global],
-  app/logic/answer,
-  app/logic/update_answer[update_answer]
+  app/logic/answer[update_answer]
 )
+
+global$answer # This is still 42
 
 update_answer()
 
-answer # This returns 25
+global$answer # This returns 25
 ```
 
 ### Variables in `.GlobalEnv`
@@ -189,7 +173,7 @@ shinyApp(
     answer <- reactiveVal()
     observeEvent(input$answer, answer(input$answer))
 
-    module_server("module", answer())
+    module_server("module", answer)
   }
 )
 ```
