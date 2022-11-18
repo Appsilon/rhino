@@ -105,8 +105,8 @@ global$answer <- 42
 ```r
 # app/logic/get_answer.R
 box::use(
-  app/logic/global[global],
-  app/logic/answer[update_answer]
+  app/logic/global[global, update_answer],
+  app/logic/answer
 )
 
 global$answer # This is still 42
