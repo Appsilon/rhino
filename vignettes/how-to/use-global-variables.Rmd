@@ -1,0 +1,189 @@
+---
+title: "How-to: Use global variables"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{How-to: Use global variables}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+Rhino uses [`box`](https://appsilon.github.io/rhino/articles/explanation/box-modules.html) to ensure reusable and modular code, both from using packages and using the scripts within the app itself. Rhino favors the explicit over the implicit, and a local scope over  a global scope.
+
+Sometimes we need global definitions however and storing constants is the most common reason for that.
+The suggested way to create global constants in Rhino is to define and export the constant inside its own `R` script in `app/logic`.
+
+```r
+# app/logic/constant.R
+#' @export
+answer <- 42
+```
+
+The global constant can be imported and used in other modules.
+
+```r
+# app/logic/another_module.R
+box::use(app/logic/constant[answer])
+```
+
+Most of the time, it is sufficient to define a constant and then export and use it throughout the app.
+
+However, there are instances when an object may need to change its value as the app runs. In such cases, Rhino suggests the following ways to handle global variables.
+
+Note: Using global variables can make the app more difficult to manage and understand.
+If the variable can change its value at any point in the app, future changes to the app must consider how this global variable will be affected. A changing global variable may also make testing difficult because tests may affect the global variables. The tests are no longer independent of each other.
+
+# Global Variables
+
+## Vanilla R
+
+In `R`, [global variables live inside `.GlobalEnv`](http://adv-r.had.co.nz/Environments.html). Global variables can be updated within a function using `<<-`.
+
+```r
+# constants.R
+answer <- 42
+set_answer <- function(new_answer) {
+  answer <<- new_answer
+}
+```
+
+```r
+# main.R
+source("constants.R")
+
+print(answer) # 42
+set_answer(0)
+print(answer) # 0
+```
+
+When code is loaded with `box::use()`, global variables live inside the [module's own immutable environment](https://klmr.me/box/articles/mod-env-hierarchy.html#environments-1). Updating global variables with `<<-` will not work.
+
+```r
+# app/logic/constants.R
+
+#' @export
+answer <- 42
+
+#' @export
+set_answer <- function(new_answer) {
+  answer <<- new_answer
+}
+```
+
+```r
+# app/main.R
+box::use(app/logic/constants)
+
+print(constants$answer) # 42
+constants$set_answer(0) # Error: cannot change value of locked binding.
+```
+
+## Variables in a new environment
+
+To overcome `box`'s feature of limiting scope, Rhino suggests creating a new environment and use that environment to contain the global variables.
+
+```r
+# app/logic/__init__.R
+
+#' @export
+global <- new.env()
+global$answer <- 42
+
+#' @export
+set_answer <- function(new_answer) {
+  global$answer <- new_answer
+}
+```
+
+```r
+# app/logic/get_answer.R
+box::use(
+  app/logic[global, set_answer],
+)
+
+print(global$answer) # 42
+set_answer(0)
+print(global$answer) # 0
+```
+
+## Variables in `.GlobalEnv`
+
+Alternatively, variables can still be stored in and imported from `.GlobalEnv`. The variable must also be defined and updated using `<-`.
+
+```r
+# app/logic/__init__.R
+.GlobalEnv$answer <- 42
+
+#' @export
+set_answer <- function(new_answer) {
+  .GlobalEnv$answer <- new_answer
+}
+```
+
+```r
+# app/logic/get_answer.R
+box::use(app/logic[set_answer])
+
+print(.GlobalEnv$answer) # 42
+set_answer(0)
+print(.GlobalEnv$answer) # 0
+```
+
+# Session Variables
+
+Rhino suggests using arguments in module servers for explicit handling of session variables or user inputs.
+
+```r
+module_ui <- function(id) {
+  ns <- NS(id)
+  textOutput(ns("answer"))
+}
+
+module_server <- function(id, answer) {
+  moduleServer(id, function(input, output, session) {
+    output$answer <- renderText(answer())
+  })
+}
+
+shinyApp(
+  ui = bootstrapPage(
+    textInput("answer", "Answer"),
+    module_ui("module")
+  ),
+  server = function(input, output, session) {
+    answer <- reactiveVal()
+    observeEvent(input$answer, answer(input$answer))
+
+    module_server("module", answer)
+  }
+)
+```
+
+However, `shiny` has support for [`session$userData`](https://shiny.rstudio.com/reference/shiny/latest/session.html), an environment that can store session-specific data.
+
+```r
+module_ui <- function(id) {
+  ns <- NS(id)
+  textOutput(ns("answer"))
+}
+
+module_server <- function(id) {
+  moduleServer(id, function(input, output, session) {
+    output$answer <- renderText(session$userData$answer())
+  })
+}
+
+shinyApp(
+  ui = bootstrapPage(
+    textInput("answer", "Answer"),
+    module_ui("module")
+  ),
+  server = function(input, output, session) {
+    session$userData$answer <- reactiveVal()
+    observeEvent(input$answer, session$userData$answer(input$answer))
+
+    module_server("module")
+  }
+)
+```
+
+All modules have access to the variables inside `session$userData`.
