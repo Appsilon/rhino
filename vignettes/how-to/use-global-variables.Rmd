@@ -9,8 +9,7 @@ vignette: >
 
 Rhino uses [`box`](https://appsilon.github.io/rhino/articles/explanation/box-modules.html) to ensure reusable and modular code, both from using packages and using the scripts within the app itself. Rhino favors the explicit over the implicit, and a local scope over  a global scope.
 
-Storing constants is the most common reason for a global definition.
-
+Sometimes we need global definitions however and storing constants is the most common reason for that.
 The suggested way to create global constants in Rhino is to define and export the constant inside its own `R` script in `app/logic`.
 
 ```r
@@ -30,14 +29,12 @@ Most of the time, it is sufficient to define a constant and then export and use 
 
 However, there are instances when an object may need to change its value as the app runs. In such cases, Rhino suggests the following ways to handle global variables.
 
-Note: Using global variables can make the app more difficult to manage and understand. 
-If the variable can change its value at any point in the app, future changes to the app must consider how this global variable will be affected. A changing global variable may also make testing difficult because tests may affect the global variables. The tests are no longer independent of each other. The global variable's value depends on the steps it takes; concurrency issues may occur.
+Note: Using global variables can make the app more difficult to manage and understand.
+If the variable can change its value at any point in the app, future changes to the app must consider how this global variable will be affected. A changing global variable may also make testing difficult because tests may affect the global variables. The tests are no longer independent of each other.
 
-# Global Variables 
+# Global Variables
 
-## Updating a Global Variable
-
-### Vanilla R
+## Vanilla R
 
 In `R`, [global variables live inside `.GlobalEnv`](http://adv-r.had.co.nz/Environments.html). Global variables can be updated within a function using `<<-`.
 
@@ -80,71 +77,55 @@ print(constants$answer) # 42
 constants$set_answer(0) # Error: cannot change value of locked binding.
 ```
 
-### Variables in a New Environment
+## Variables in a new environment
 
 To overcome `box`'s feature of limiting scope, Rhino suggests creating a new environment and use that environment to contain the global variables.
 
 ```r
-# app/logic/global.R
+# app/logic/__init__.R
+
 #' @export
 global <- new.env()
+global$answer <- 42
 
 #' @export
-update_answer <- function() {
-  global$answer <- 25
+set_answer <- function(new_answer) {
+  global$answer <- new_answer
 }
-```
-
-```r
-# app/logic/answer.R
-box::use(app/logic/global[global])
-
-global$answer <- 42
 ```
 
 ```r
 # app/logic/get_answer.R
 box::use(
-  app/logic/global[global, update_answer],
-  app/logic/answer
+  app/logic[global, set_answer],
 )
 
-global$answer # This is still 42
-
-update_answer()
-
-global$answer # This returns 25
+print(global$answer) # 42
+set_answer(0)
+print(global$answer) # 0
 ```
 
-### Variables in `.GlobalEnv`
+## Variables in `.GlobalEnv`
 
 Alternatively, variables can still be stored in and imported from `.GlobalEnv`. The variable must also be defined and updated using `<-`.
 
 ```r
-# app/logic/answer.R
+# app/logic/__init__.R
 .GlobalEnv$answer <- 42
-```
-
-```r
-# app/logic/update_answer.R
-box::use(app/logic/answer)
 
 #' @export
-update_answer <- function() {
-  .GlobalEnv$answer <- 25
+set_answer <- function(new_answer) {
+  .GlobalEnv$answer <- new_answer
 }
 ```
 
 ```r
 # app/logic/get_answer.R
-box::use(
-  app/logic/answer,
-  app/logic/update_answer[update_answer]
-)
+box::use(app/logic[set_answer])
 
-update_answer()
-
-answer # This returns 25
+print(.GlobalEnv$answer) # 42
+set_answer(0)
+print(.GlobalEnv$answer) # 0
 ```
 
 # Session Variables
@@ -152,7 +133,6 @@ answer # This returns 25
 Rhino suggests using arguments in module servers for explicit handling of session variables or user inputs.
 
 ```r
-
 module_ui <- function(id) {
   ns <- NS(id)
   textOutput(ns("answer"))
@@ -178,10 +158,9 @@ shinyApp(
 )
 ```
 
-However, `shiny` has support for [`session$userData`](https://shiny.rstudio.com/reference/shiny/latest/session.html), an environment that can store session-specific data. 
+However, `shiny` has support for [`session$userData`](https://shiny.rstudio.com/reference/shiny/latest/session.html), an environment that can store session-specific data.
 
 ```r
-
 module_ui <- function(id) {
   ns <- NS(id)
   textOutput(ns("answer"))
