@@ -1,7 +1,3 @@
-node_path <- function(...) {
-  fs::path(".rhino", "node", ...)
-}
-
 rename_template_path <- function(path) {
   path <- fs::path_split(path)[[1]]
   path <- sub("^dot\\.", ".", path)

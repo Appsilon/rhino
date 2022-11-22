@@ -1,10 +1,5 @@
-system_npm <- function(..., status_ok = 0) {
-  withr::with_dir(node_path(), {
-    status <- system2(command = "npm", args = c(...))
-  })
-  if (status != status_ok) {
-    cli::cli_abort("System command 'npm' exited with status {status}.")
-  }
+node_path <- function(...) {
+  fs::path(".rhino", "node", ...)
 }
 
 link_root_mklink <- function() {
@@ -44,6 +39,17 @@ add_node <- function(clean = FALSE) {
   })
 }
 
+# Run `npm` command (assume node directory already exists in the project).
+npm_raw <- function(..., status_ok = 0) {
+  withr::with_dir(node_path(), {
+    status <- system2(command = "npm", args = c(...))
+  })
+  if (status != status_ok) {
+    cli::cli_abort("System command 'npm' exited with status {status}.")
+  }
+}
+
+# Run `npm` command (create node directory in the project if needed).
 npm <- function(...) {
   check_system_dependency(
     cmd = "node",
@@ -52,7 +58,7 @@ npm <- function(...) {
   )
   if (!fs::dir_exists(node_path())) {
     add_node()
-    system_npm("install", "--no-audit", "--no-fund")
+    npm_raw("install", "--no-audit", "--no-fund")
   }
-  system_npm(...)
+  npm_raw(...)
 }
