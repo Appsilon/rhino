@@ -2,35 +2,71 @@
 title: "Explanation: Node.js - JavaScript and Sass tools"
 output: rmarkdown::html_vignette
 vignette: >
+  %\VignetteEncoding{UTF-8}
   %\VignetteIndexEntry{Explanation: Node.js - JavaScript and Sass tools}
   %\VignetteEngine{knitr::rmarkdown}
-  %\VignetteEncoding{UTF-8}
 ---
 
-[Node.js](https://nodejs.org/en/about/) is a runtime environment
-which can execute JavaScript code outside a web browser.
-It is used widely for web development.
-Its package manager, [npm](https://docs.npmjs.com/about-npm),
-makes it easy to install virtually any JavaScript library.
+## About
 
-Rhino uses Node.js to provide state of the art tools
-for working with JavaScript and Sass.
-The following functions require Node.js to work:
+[Node.js](https://nodejs.org/en/about/) is a runtime environment which
+can execute JavaScript code outside a web browser. It is used widely for
+web development. Its package manager,
+[npm](https://docs.npmjs.com/about-npm), makes it easy to install
+virtually any JavaScript library.
 
-1. `build_js()`
-2. `build_sass()` (with `sass: node` configuration in `rhino.yml`)
-3. `lint_js()`
-4. `lint_sass()`
-5. `test_e2e()`
+Rhino uses Node.js to provide state of the art tools for working with
+JavaScript and Sass. The following functions require Node.js to work:
 
-Under the hood Rhino will create a `.rhino/node` directory in your project
-to store the specific libraries needed by these tools.
-This directory is git-ignored by default and safe to remove.
+1.  `build_js()`
+2.  `build_sass()` (with `sass: node` configuration in `rhino.yml`)
+3.  `lint_js()`
+4.  `lint_sass()`
+5.  `test_e2e()`
 
-The `build_sass()` function is worth an additional comment.
-Depending on the configuration in `rhino.yml`
-it can use either the [sass](https://www.npmjs.com/package/sass) Node.js package
-or the [sass](https://rstudio.github.io/sass/) R package.
-We recommend the Node.js version, as it is the primary, actively developed implementation of Sass.
-In contrast, the R package uses the deprecated
-[LibSass](https://sass-lang.com/blog/libsass-is-deprecated) implementation.
+### Node directory
+
+Under the hood Rhino will create a `.rhino/node` directory in your
+project to store the specific libraries needed by these tools. This
+directory is git-ignored by default and safe to remove.
+
+### Node installation via nvm
+
+Node can be installed in various ways. One of them relies on
+[`nvm`](https://github.com/nvm-sh/nvm) (Node Version Manager).
+
+There's a known [issue](https://github.com/Appsilon/rhino/issues/345)
+when using multiple versions of `Node` that were installed with `nvm` that
+causes RStudio to not recognize properly the chosen version. It's caused
+by `nvm` and RStudio and can be easily mitigated by starting the RStudio
+through the terminal:
+
+**Ubuntu/Debian**
+Open your terminal of choice (i.e. Bash) and run
+```
+rstudio
+```
+
+**Windows**
+Open your Windows terminal of choice (i.e. Terminal, PowerShell, Git Bash) and
+run:
+```
+path/to/your/rstudio/folder/Rstudio.exe
+```
+
+**Mac**
+Open your Mac terminal of choice (i.e. default Terminal) and run:
+```
+open -na Rstudio
+```
+
+### build_sass() function
+
+The `build_sass()` function is worth an additional comment. Depending on
+the configuration in `rhino.yml` it can use either the
+[sass](https://www.npmjs.com/package/sass) Node.js package or the
+[sass](https://rstudio.github.io/sass/) R package. We recommend the
+Node.js version, as it is the primary, actively developed implementation
+of Sass. In contrast, the R package uses the deprecated
+[LibSass](https://sass-lang.com/blog/libsass-is-deprecated)
+implementation.
