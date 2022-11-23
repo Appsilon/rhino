@@ -5,9 +5,6 @@ vignette: >
   %\VignetteEncoding{UTF-8}
   %\VignetteIndexEntry{Explanation: Node.js - JavaScript and Sass tools}
   %\VignetteEngine{knitr::rmarkdown}
-editor_options: 
-  markdown: 
-    wrap: 72
 ---
 
 ## About
@@ -18,8 +15,6 @@ web development. Its package manager,
 [npm](https://docs.npmjs.com/about-npm), makes it easy to install
 virtually any JavaScript library.
 
-## Usage
-
 Rhino uses Node.js to provide state of the art tools for working with
 JavaScript and Sass. The following functions require Node.js to work:
 
@@ -29,13 +24,11 @@ JavaScript and Sass. The following functions require Node.js to work:
 4.  `lint_sass()`
 5.  `test_e2e()`
 
-## Node directory
+### Node directory
 
 Under the hood Rhino will create a `.rhino/node` directory in your
 project to store the specific libraries needed by these tools. This
 directory is git-ignored by default and safe to remove.
-
-## Details
 
 ### Node installation via nvm
 
@@ -48,20 +41,20 @@ causes RStudio to not recognize properly the chosen version. It's caused
 by `nvm` and RStudio and can be easily mitigated by starting the RStudio
 through the terminal:
 
-### Ubuntu/Debian
+**Ubuntu/Debian**
 Open your terminal of choice (i.e. Bash) and run
 ```
 rstudio
 ```
 
-#### Windows
+**Windows**
 Open your Windows terminal of choice (i.e. Terminal, PowerShell, Git Bash) and
 run:
 ```
-
+path/to/your/rstudio/folder/Rstudio.exe
 ```
 
-#### Mac
+**Mac**
 Open your Mac terminal of choice (i.e. default Terminal) and run:
 ```
 open -na Rstudio

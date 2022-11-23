@@ -5,6 +5,7 @@ Init
 JS
 LatinR
 LibSass
+PowerShell
 RStudio
 Renv
 Renviron
@@ -30,6 +31,7 @@ modularize
 modularized
 namespaced
 npm
+nvm
 overridable
 preconfigured
 renv
@@ -42,5 +44,3 @@ usethis
 webpack
 yml
 Żyła
-nvm
-PowerShell
