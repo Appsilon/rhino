@@ -1,7 +1,7 @@
-# Contributing Guidelines
+# Contributing guidelines
 
-This document contains guidelines specific to Rhino. [Appsilon's general contributing
-guidelines](https://github.com/Appsilon/.github/blob/main/CONTRIBUTING.md) still apply.
+This document contains guidelines specific to Rhino.
+[Appsilon's general contributing guidelines](https://github.com/Appsilon/.github/blob/main/CONTRIBUTING.md) still apply.
 
 ## Development tools
 
@@ -23,7 +23,7 @@ guidelines](https://github.com/Appsilon/.github/blob/main/CONTRIBUTING.md) still
 6. Build package<br>
 `devtools::build()` or `pkgbuild::build()`
 
-## Development Process
+## Development process
 
 1. All changes are introduced in pull requests to the `main` branch,
 which must be always kept in a "potentially shippable" state.
@@ -36,5 +36,5 @@ Starting with `1.0.0`, all versions should be released to CRAN.
 ## Definition of Done
 
 1. The PR has at least 1 approval and 0 change requests.
-2. The CI passes (`R CMD check`, linter, unit tests).
+2. The CI passes (`R CMD check`, linter, unit tests, spelling).
 3. The change is thoroughly documented.
