@@ -1,6 +1,6 @@
-import { join } from 'path';
+const { join } = require('path');
 
-export default {
+module.exports = {
   mode: 'production',
   entry: join(__dirname, 'root', 'app', 'js', 'index.js'),
   output: {
