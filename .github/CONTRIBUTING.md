@@ -3,16 +3,25 @@
 This document contains guidelines specific to Rhino. [Appsilon's general contributing
 guidelines](https://github.com/Appsilon/.github/blob/main/CONTRIBUTING.md) still apply.
 
-## Contributing to Rhino
+## Development tools
 
-Pull requests to Rhino are welcome!
+1. R CMD check<br>
+`devtools::check()` or `rcmdcheck::rcmdcheck()`
 
-| Tool           | Command                  | `devtools` equivalent    | Comment
-|----------------|--------------------------|--------------------------|-
-| Unit tests     | `testthat::test_local()` | `devtools::test()`       |
-| Linter         | `lintr::lint_package()`  | `devtools::lint()`       |
-| `pkgdown` site | `pkgdown::build_site()`  | `devtools::build_site()` | If built successfully, the website will be in `docs` directory. Requires `pkgdown` version >= 2.0.0.
+2. Run linter<br>
+`devtools::lint()` or `lintr::lint_package()`
 
+3. Run unit tests<br>
+`devtools::test()`or `testthat::test_local()`
+
+4. Check spelling<br>
+`devtools::spell_check()` or `spelling::spell_check_package()`
+
+5. Build documentation<br>
+`devtools::build_site()` or `pkgdown::build_site()`
+
+6. Build package<br>
+`devtools::build()` or `pkgbuild::build()`
 
 ## Development Process
 
