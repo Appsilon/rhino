@@ -1,11 +1,13 @@
 const { join } = require('path');
 
+const appDir = join(__dirname, '..', 'app');
+
 module.exports = {
   mode: 'production',
-  entry: join(__dirname, 'root', 'app', 'js', 'index.js'),
+  entry: join(appDir, 'js', 'index.js'),
   output: {
     library: 'App',
-    path: join(__dirname, 'root', 'app', 'static', 'js'),
+    path: join(appDir, 'static', 'js'),
     filename: 'app.min.js',
   },
   module: {

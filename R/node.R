@@ -2,41 +2,11 @@ node_path <- function(...) {
   fs::path(".rhino", ...)
 }
 
-link_root_mklink <- function() {
-  tryCatch({
-    system2("cmd.exe", input = "mklink root ..", stdout = TRUE, stderr = TRUE)
-  }, error = function(error) {
-    cli::cli_abort(c(
-      "Node.js setup: Failed to create root link with {.code mklink}: {error$message}",
-      i = "You might need to enable Developer Mode: https://go.appsilon.com/rhino-windows"
-    ))
-  })
-}
-
-link_root_fs <- function() {
-  tryCatch({
-    fs::link_create(path = "..", new_path = "root")
-  }, error = function(error) {
-    cli::cli_abort(
-      "Node.js setup: Failed to create root link with {.pkg fs}: {error$message}"
-    )
-  })
-}
-
-is_windows <- function() {
-  Sys.info()[["sysname"]] == "Windows"
-}
-
 add_node <- function(clean = FALSE) {
   if (clean && fs::dir_exists(node_path())) {
     fs::dir_delete(node_path())
   }
-
   copy_template("node", node_path())
-  withr::with_dir(node_path(), {
-    if (is_windows()) link_root_mklink()
-    else link_root_fs()
-  })
 }
 
 # Run `npm` command (assume node directory already exists in the project).

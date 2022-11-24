@@ -2,12 +2,12 @@
   "private": true,
   "scripts": {
     "build-js": "webpack",
-    "build-sass": "sass --no-source-map --style=compressed root/app/styles/main.scss:root/app/static/css/app.min.css",
-    "lint-js": "eslint root/app/js",
-    "lint-sass": "stylelint root/app/styles",
-    "run-app": "cd ../.. && Rscript -e \"shiny::runApp(port = 3333)\"",
-    "run-cypress": "cypress run --project root/tests",
-    "open-cypress": "cypress open --project root/tests",
+    "build-sass": "sass --no-source-map --style=compressed ../app/styles/main.scss:../app/static/css/app.min.css",
+    "lint-js": "eslint --config .eslintrc.json ../app/js",
+    "lint-sass": "stylelint ../app/styles",
+    "run-app": "cd .. && Rscript -e \"shiny::runApp(port = 3333)\"",
+    "run-cypress": "cypress run --project ../tests",
+    "open-cypress": "cypress open --project ../tests",
     "test-e2e": "start-server-and-test run-app http://localhost:3333 run-cypress",
     "test-e2e-interactive": "start-server-and-test run-app http://localhost:3333 open-cypress"
   },
