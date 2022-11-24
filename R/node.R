@@ -1,10 +1,10 @@
 node_path <- function(...) {
-  fs::path(".rhino", "node", ...)
+  fs::path(".rhino", ...)
 }
 
 link_root_mklink <- function() {
   tryCatch({
-    system2("cmd.exe", input = "mklink root ..\\..", stdout = TRUE, stderr = TRUE)
+    system2("cmd.exe", input = "mklink root ..", stdout = TRUE, stderr = TRUE)
   }, error = function(error) {
     cli::cli_abort(c(
       "Node.js setup: Failed to create root link with {.code mklink}: {error$message}",
@@ -15,7 +15,7 @@ link_root_mklink <- function() {
 
 link_root_fs <- function() {
   tryCatch({
-    fs::link_create(path = fs::path("..", ".."), new_path = "root")
+    fs::link_create(path = "..", new_path = "root")
   }, error = function(error) {
     cli::cli_abort(
       "Node.js setup: Failed to create root link with {.pkg fs}: {error$message}"
