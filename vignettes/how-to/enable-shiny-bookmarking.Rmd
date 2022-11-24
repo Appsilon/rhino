@@ -36,5 +36,6 @@ server <- function(id) {
 ```
 
 If you are using a [legacy entrypoint](https://appsilon.github.io/rhino/reference/app.html#legacy-entrypoint),
-be sure to make your UI a function
-as described in the details section of `shiny::enableBookmarking()`.
+be sure to make your UI a function with `request` parameter that has nothing
+declared
+(as described in the details section of `shiny::enableBookmarking()`).
