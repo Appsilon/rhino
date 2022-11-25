@@ -1,6 +1,6 @@
 # rhino (development version)
 
-# [rhino 1.2.0](https://github.com/Appsilon/rhino/releases/tag/v1.2.0)
+# [rhino 1.2.0](https://github.com/Appsilon/rhino/releases/tag/v1.2.0-rc.2)
 
 ## Highlights
 1. Don't use symbolic links internally.
