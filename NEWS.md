@@ -1,19 +1,23 @@
+# rhino (development version)
+
 # [rhino 1.2.0](https://github.com/Appsilon/rhino/releases/tag/v1.2.0)
 
 ## Highlights
-* Added a `NEWS.md` file to track changes to the package.
-* Added a `paths` argument to `lint_r()`.
-* Prevent `init()` in home directory.
-* Included `build_js()` and `build_sass()` in template CI.
-* Use R version from the lockfile in CI.
-* Dropped dependency on Yarn - only Node.js is now required.
-* Upgraded to `r-lib/actions/setup-r@v2`.
-* Upgraded to `lintr >= 3.0.0`.
-* Silence audit and funding messages when using Node.js.
-* Developer Mode is no longer needed on Windows to use Node.js tools.
-* The `build_js()` and `build_sass()` functions should now work on Windows with `watch = TRUE`.
-* The `lint_js()` function should now work on Windows when imports are used in JavaScript.
-* Improve behavior of with_head_tags() it won't cause problems with `legacy_entrypoint: source`
+1. Don't use symbolic links internally.
+This fixes a couple of issues with Node.js tools on Windows:
+    * Developer Mode is no longer needed.
+    * The `build_js()` and `build_sass()` functions now work with `watch = TRUE`.
+    * The `lint_js()` function now works when imports are used in JavaScript.
+2. Drop dependency on Yarn - only Node.js is now required.
+3. Improved Rhino CI:
+    * Run `build_js()` and `build_sass()` CI.
+    * Use R version from the lockfile.
+    * Upgrade to `r-lib/actions/setup-r@v2`.
+4. The `lint_r()` now accepts a `paths` argument which can be used to run it on specific files.
+5. The `init()` function will refuse to run in the home directory unless `force = TRUE` is passed.
+6. Shiny bookmarking works better with `legacy_entrypoint: source`
+(the UI function no longer needs to take an argument).
+7. Upgraded to `lintr >= 3.0.0` and updated linter rules.
 
 # [rhino 1.1.1](https://github.com/Appsilon/rhino/releases/tag/v1.1.1)
 
