@@ -1,5 +1,6 @@
-# rhino (development version)
+# [rhino 1.2.0](https://github.com/Appsilon/rhino/releases/tag/v1.2.0)
 
+## Highlights
 * Added a `NEWS.md` file to track changes to the package.
 * Added a `paths` argument to `lint_r()`.
 * Prevent `init()` in home directory.
