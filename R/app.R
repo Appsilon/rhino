@@ -66,7 +66,7 @@ attach_head_tags <- function(ui) {
 
 with_head_tags <- function(ui) {
   # The top-level UI must be a function for Shiny bookmarking to work.
-  if (is.function(ui)) function(request) attach_head_tags(ui(request))
+  if (is.function(ui)) function() attach_head_tags(ui())
   else attach_head_tags(ui)
 }
 

@@ -38,3 +38,15 @@ server <- function(id) {
 If you are using a [legacy entrypoint](https://appsilon.github.io/rhino/reference/app.html#legacy-entrypoint),
 be sure to make your UI a function
 as described in the details section of `shiny::enableBookmarking()`.
+It should take `request` as a parameter,
+though it shouldn't be used in any way in the function body.
+
+For example, with `legacy_entrypoint: source` in `rhino.yml` you might use:
+```r
+ui <- function(request) {
+  bootstrapPage(
+    bookmarkButton(),
+    textField("text", "Text")
+  )
+}
+```

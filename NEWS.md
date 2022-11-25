@@ -12,6 +12,7 @@
 * Developer Mode is no longer needed on Windows to use Node.js tools.
 * The `build_js()` and `build_sass()` functions should now work on Windows with `watch = TRUE`.
 * The `lint_js()` function should now work on Windows when imports are used in JavaScript.
+* Improve behavior of with_head_tags() it won't cause problems with `legacy_entrypoint: source`
 
 # [rhino 1.1.1](https://github.com/Appsilon/rhino/releases/tag/v1.1.1)
 
