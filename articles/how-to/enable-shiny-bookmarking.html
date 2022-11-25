@@ -142,7 +142,18 @@ call <code><a href="https://rdrr.io/pkg/shiny/man/enableBookmarking.html" class=
 <span><span class="op">}</span></span></code></pre></div>
 <p>If you are using a <a href="https://appsilon.github.io/rhino/reference/app.html#legacy-entrypoint">legacy
 entrypoint</a>, be sure to make your UI a function as described in the
-details section of <code><a href="https://rdrr.io/pkg/shiny/man/enableBookmarking.html" class="external-link">shiny::enableBookmarking()</a></code>.</p>
+details section of <code><a href="https://rdrr.io/pkg/shiny/man/enableBookmarking.html" class="external-link">shiny::enableBookmarking()</a></code>. It should
+take <code>request</code> as a parameter, though it shouldn’t be used in
+any way in the function body.</p>
+<p>For example, with <code>legacy_entrypoint: source</code> in
+<code>rhino.yml</code> you might use:</p>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">request</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="fu">bootstrapPage</span><span class="op">(</span></span>
+<span>    <span class="fu">bookmarkButton</span><span class="op">(</span><span class="op">)</span>,</span>
+<span>    <span class="fu">textField</span><span class="op">(</span><span class="st">"text"</span>, <span class="st">"Text"</span><span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">}</span></span></code></pre></div>
   </main>
 </div>
 
