@@ -5,6 +5,11 @@ const appDir = join(__dirname, '..', 'app');
 module.exports = {
   mode: 'production',
   entry: join(appDir, 'js', 'index.js'),
+  resolve: {
+    alias: {
+      js: resolve(__dirname, 'root/app/js'),
+    },
+  },
   output: {
     library: 'App',
     path: join(appDir, 'static', 'js'),
