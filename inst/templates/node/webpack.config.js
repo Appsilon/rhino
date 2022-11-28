@@ -1,4 +1,5 @@
 const { join } = require('path');
+const { resolve } = require('path');
 
 const appDir = join(__dirname, '..', 'app');
 
