@@ -1,5 +1,6 @@
-# rhino (development version)
-1. Fix Cypress in CI.
+# rhino 1.2.1
+
+1. Fix Rhino GitHub Actions (Cypress used to fail).
 
 # [rhino 1.2.0](https://github.com/Appsilon/rhino/releases/tag/v1.2.0)
 
