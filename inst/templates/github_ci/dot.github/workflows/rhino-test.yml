@@ -79,6 +79,6 @@ jobs:
         if: always()
         uses: cypress-io/github-action@v2
         with:
-          working-directory: .rhino/node # Created by earlier commands which use Node.js
+          working-directory: .rhino # Created by earlier commands which use Node.js
           start: npm run run-app
-          project: root/tests
+          project: ../tests
