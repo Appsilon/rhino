@@ -16,7 +16,7 @@
     
     <a class="navbar-brand me-2" href="index.html">rhino</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.2.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.2.0.9000</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -87,20 +87,58 @@
 <li><p>Run unit tests<br><code>devtools::test()</code>or <code><a href="https://testthat.r-lib.org/reference/test_package.html" class="external-link">testthat::test_local()</a></code></p></li>
 <li><p>Check spelling<br><code>devtools::spell_check()</code> or <code><a href="https://docs.ropensci.org/spelling/reference/spell_check_package.html" class="external-link">spelling::spell_check_package()</a></code></p></li>
 <li><p>Build documentation<br><code>devtools::build_site()</code> or <code><a href="https://pkgdown.r-lib.org/reference/build_site.html" class="external-link">pkgdown::build_site()</a></code></p></li>
-<li><p>Build package<br><code>devtools::build()</code> or <code><a href="https://rdrr.io/pkg/pkgbuild/man/build.html" class="external-link">pkgbuild::build()</a></code></p></li>
+<li><p>Build package<br><code>devtools::build()</code> or <code><a href="https://r-lib.github.io/pkgbuild/reference/build.html" class="external-link">pkgbuild::build()</a></code></p></li>
 </ol></div>
 <div class="section level2">
 <h2 id="release-process">Release process<a class="anchor" aria-label="anchor" href="#release-process"></a></h2>
-<ol style="list-style-type: decimal"><li>Bump the package version in <code>DESCRIPTION</code> according to <a href="https://semver.org/" class="external-link">SemVer</a>. Drop the development version (last component, e.g. <code>.9001</code>).</li>
-<li>Update <code>NEWS.md</code>. Create a new header for the release. Edit the list of changes: reorder, reword, and add or remove details as appropriate. See <a href="https://keepachangelog.com/" class="external-link">keep a changelog</a> for some guidelines.</li>
+<div class="section level3">
+<h3 id="preparation">Preparation<a class="anchor" aria-label="anchor" href="#preparation"></a></h3>
+<ol style="list-style-type: decimal"><li>Announce the planned release on <code>#proj-rhino</code> (approximate date and scope).</li>
+<li>Bump the package version in <code>DESCRIPTION</code> according to <a href="https://semver.org/" class="external-link">SemVer</a>. Drop the development version (last component, e.g. <code>.9001</code>).</li>
+<li>Update <code>NEWS.md</code>.
+<ol style="list-style-type: decimal"><li>Replace the <code>(development version)</code> with <code>X.Y.Z</code> in the header. Do add a link to GitHub releases yet - the link won’t work and will fail CRAN checks.</li>
+<li>Edit the list of changes to make it useful and understandable for our users. See <a href="https://keepachangelog.com/" class="external-link">keep a changelog</a> for some guidelines.</li>
+</ol></li>
 <li>Submit the changes in a pull request titled “Release X.Y.Z”. Get it approved and merged.</li>
-<li>
-<a href="https://github.com/Appsilon/rhino/releases/new" class="external-link">Publish a new pre-release</a> on GitHub. Create a new <code>vX.Y.Z-rc.1</code> tag on the <code>main</code> branch (<code>rc</code> stands for release candidate). Use the same string for title, leave description blank.</li>
-<li>Build the package with <code>devtools::build()</code> and <a href="https://cran.r-project.org/submit.html" class="external-link">submit it to CRAN</a>. Use your own name and email. You will need access to <code>opensource@appsilon.com</code> to receive the confirmation link.</li>
-<li>If CRAN reviewers ask for changes, implement them and return to step 4 (use <code>rc.2</code>, <code>rc.3</code> and so on for subsequent submissions).</li>
-<li>Once the package is accepted to CRAN, <a href="https://github.com/Appsilon/rhino/releases/new" class="external-link">publish a new release</a> on GitHub. Create a new <code>vX.Y.Z</code> tag on the <code>main</code> branch. Use the same string for title, fill the description from <code>NEWS.md</code>.</li>
-<li>Announce the release on <code>#proj-rhino</code>.</li>
 </ol></div>
+<div class="section level3">
+<h3 id="submitting-to-cran">Submitting to CRAN<a class="anchor" aria-label="anchor" href="#submitting-to-cran"></a></h3>
+<ol style="list-style-type: decimal"><li>Build and test the package.
+<ol style="list-style-type: decimal"><li>Checkout the <code>main</code> branch and ensure it is up to date.</li>
+<li>Build the package with <code>devtools::build()</code>.</li>
+<li>Test the package with <code>R CMD check --as-cran rhino_X.Y.Z.tar.gz</code>. There should be no errors, warnings nor notes.</li>
+</ol></li>
+<li>
+<a href="https://github.com/Appsilon/rhino/releases/new" class="external-link">Publish a new pre-release</a> on GitHub.
+<ol style="list-style-type: decimal"><li>Create a new <code>vX.Y.Z-rc.1</code> tag on the <code>main</code> branch (<code>rc</code> stands for release candidate).</li>
+<li>Use the tag name for title.</li>
+<li>Leave description blank.</li>
+</ol></li>
+<li>
+<a href="https://cran.r-project.org/submit.html" class="external-link">Submit the package to CRAN</a>.
+<ol style="list-style-type: decimal"><li>Use your own name and email.</li>
+<li>Click the confirmation link sent to <code>opensource@appsilon.com</code>.</li>
+</ol></li>
+<li>If CRAN reviewers ask for changes, implement them and return to step 1. Use <code>rc.2</code>, <code>rc.3</code> and so on for subsequent submissions.</li>
+</ol></div>
+<div class="section level3">
+<h3 id="once-accepted-to-cran">Once accepted to CRAN<a class="anchor" aria-label="anchor" href="#once-accepted-to-cran"></a></h3>
+<ol style="list-style-type: decimal"><li>
+<a href="https://github.com/Appsilon/rhino/releases/new" class="external-link">Publish a new release</a> on GitHub.
+<ol style="list-style-type: decimal"><li>Create a new <code>vX.Y.Z</code> tag on the <code>main</code> branch.</li>
+<li>Use the tag name for title.</li>
+<li>Fill in the description from <code>NEWS.md</code>.</li>
+</ol></li>
+<li>Prepare the package for further development.
+<ol style="list-style-type: decimal"><li>Add a development version <code>.9000</code> in <code>DESCRIPTION</code>.</li>
+<li>Add a <code># rhino (development version)</code> header in <code>NEWS.md</code>.</li>
+<li>Link the <code># rhino X.Y.Z</code> header to the GitHub release in <code>NEWS.md</code>.</li>
+</ol></li>
+<li>Create a task to upgrade <a href="https://github.com/Appsilon/rhino-showcase" class="external-link">Rhino Showcase</a>.</li>
+<li>Announce the release on <code>#proj-rhino</code>.</li>
+<li>Plan promotion (social media, blog post, …).</li>
+</ol></div>
+</div>
 <div class="section level2">
 <h2 id="development-process">Development process<a class="anchor" aria-label="anchor" href="#development-process"></a></h2>
 <ol style="list-style-type: decimal"><li>All changes are introduced in pull requests to the <code>main</code> branch, which must be always kept in a “potentially shippable” state.</li>
