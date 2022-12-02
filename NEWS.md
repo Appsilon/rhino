@@ -1,10 +1,11 @@
-# rhino 1.2.1
+# rhino (development version)
+
+# [rhino 1.2.1](https://github.com/Appsilon/rhino/releases/tag/v1.2.1)
 
 1. Fix Rhino GitHub Actions (Cypress used to fail).
 
 # [rhino 1.2.0](https://github.com/Appsilon/rhino/releases/tag/v1.2.0)
 
-## Highlights
 1. Don't use symbolic links internally.
 This fixes a couple of issues with Node.js tools on Windows:
     * Developer Mode is no longer needed.
@@ -27,7 +28,6 @@ Minor release to fix CRAN check failures (upgrade roxygen2 to 7.2.1 and regenera
 
 # [rhino 1.1.0](https://github.com/Appsilon/rhino/releases/tag/v1.1.0)
 
-## Highlights
 1. New guide:  "How to manage secrets and environments" (#263).
 2. Sass-specific at-rules are now recognized by `rhino::lint_sass()` (#289).
 3. Shiny bookmarking now works (#294).
