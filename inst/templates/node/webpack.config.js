@@ -8,7 +8,7 @@ module.exports = {
   entry: join(appDir, 'js', 'index.js'),
   resolve: {
     alias: {
-      js: resolve(__dirname, 'root', 'app', 'js'),
+      js: resolve(appDir, 'js'),
     },
   },
   output: {
