@@ -58,6 +58,8 @@ navbar:
           href: articles/how-to/keep-multiple-apps-in-a-single-repository.html
         - text: Use global variables
           href: articles/how-to/use-global-variables.html
+        - text: Use shinytest2
+          href: articles/how-to/use-shinytest2.html
 
 reference:
 - title: Project initialization
