@@ -1,3 +1,7 @@
+# rhino (development version)
+
+1. Allow importing JavaScript relative to `app/js` using the `js` alias.
+
 # rhino 1.2.1
 
 1. Fix Rhino GitHub Actions (Cypress used to fail).
