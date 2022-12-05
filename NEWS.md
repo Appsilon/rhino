@@ -1,5 +1,7 @@
 # rhino (development version)
 
+1. Rhino now works with `shinytest2` out of the box.
+
 # [rhino 1.2.1](https://github.com/Appsilon/rhino/releases/tag/v1.2.1)
 
 1. Fix Rhino GitHub Actions (Cypress used to fail).

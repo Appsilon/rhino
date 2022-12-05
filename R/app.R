@@ -1,3 +1,11 @@
+setup_box_path <- function() {
+  # Normally `box.path` is set in `.Rprofile` and used for the whole R session,
+  # however `shinytest2` launches the application in a new process which doesn't source `.Rprofile`.
+  if (is.null(getOption("box.path"))) {
+    options(box.path = getwd())
+  }
+}
+
 # Make it possible to reload the app without restarting the R session.
 purge_box_cache <- function() {
   loaded_mods <- loadNamespace("box")$loaded_mods
@@ -115,6 +123,7 @@ with_head_tags <- function(ui) {
 #' }
 #' @export
 app <- function() {
+  setup_box_path()
   purge_box_cache()
   configure_logger()
   shiny::addResourcePath("static", fs::path_wd("app", "static"))
