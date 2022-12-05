@@ -83,6 +83,9 @@ Step-by-step instructions for common tasks.
 4. **Reference**:
 A list of Rhino functions with technical details.
 
+Check out our [Rhino Showcase](https://github.com/Appsilon/rhino-showcase),
+an example Shiny application built using Rhino.
+
 You can also learn about Rhino by watching the video from one of our workshops:
 [Creating Shiny Apps with Rhino: the new framework for Shiny apps](https://www.youtube.com/watch?v=8H_ZHUy8Yj4).
 A repository with step-by-step commits for the workshop application can be found
