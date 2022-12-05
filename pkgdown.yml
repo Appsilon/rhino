@@ -14,11 +14,12 @@ articles:
   manage-secrets-and-environments: how-to/manage-secrets-and-environments.html
   migrate-app-to-rhino: how-to/migrate-app-to-rhino.html
   use-global-variables: how-to/use-global-variables.html
+  use-shinytest2: how-to/use-shinytest2.html
   use-static-files: how-to/use-static-files.html
   write-javascript-code: how-to/write-javascript-code.html
   write-r-code: how-to/write-r-code.html
   create-your-first-rhino-app: tutorial/create-your-first-rhino-app.html
-last_built: 2022-12-02T08:02Z
+last_built: 2022-12-05T09:19Z
 urls:
   reference: https://appsilon.github.io/rhino/reference
   article: https://appsilon.github.io/rhino/articles
