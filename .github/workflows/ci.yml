@@ -64,8 +64,4 @@ jobs:
         if : always()
         shell: Rscript {0}
         run: |
-          covr::package_coverage(
-            path  = ".",
-            type  = "tests",
-            quiet = FALSE
-          )
+          covr::codecov(token = "${{secrets.CODECOV_TOKEN}}")
