@@ -59,3 +59,9 @@ jobs:
             print(spell_check)
           }
           quit(status = nrow(spell_check) > 0)
+          
+      - name: Test coverage
+        if : always()
+        shell: Rscript {0}
+        run: |
+          covr::codecov(token = "${{secrets.CODECOV_TOKEN}}")

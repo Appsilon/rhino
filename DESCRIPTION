@@ -39,6 +39,7 @@ Imports:
   withr,
   yaml
 Suggests:
+  covr,
   knitr,
   mockery,
   rcmdcheck,
