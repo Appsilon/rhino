@@ -2,10 +2,11 @@
 > _Build high quality, enterprise-grade [Shiny](https://shiny.rstudio.com/) apps at speed._
 
 <!-- badges: start -->
-[![CRAN status](https://www.r-pkg.org/badges/version/rhino)](https://cran.r-project.org/package=rhino)
-[![CI status](https://github.com/Appsilon/rhino/actions/workflows/ci.yml/badge.svg)](https://github.com/Appsilon/rhino/actions/workflows/ci.yml)
-[![cranlogs](https://cranlogs.r-pkg.org/badges/rhino)](https://CRAN.R-project.org/package=rhino)
-[![total](https://cranlogs.r-pkg.org/badges/grand-total/rhino)](https://CRAN.R-project.org/package=rhino)
+[![CRAN](https://www.r-pkg.org/badges/version/rhino)](https://cran.r-project.org/package=rhino)
+[![CI](https://github.com/Appsilon/rhino/actions/workflows/ci.yml/badge.svg)](https://github.com/Appsilon/rhino/actions/workflows/ci.yml)
+[![Rhino Test](https://github.com/Appsilon/rhino/actions/workflows/rhino-test.yml/badge.svg?branch=bot%2Fapp-push-test)](https://github.com/Appsilon/rhino/actions/workflows/rhino-test.yml)
+[![downloads monthly](https://cranlogs.r-pkg.org/badges/rhino)](https://CRAN.R-project.org/package=rhino)
+[![downloads total](https://cranlogs.r-pkg.org/badges/grand-total/rhino)](https://CRAN.R-project.org/package=rhino)
 [![License: LGPL-3.0](https://img.shields.io/badge/License-LGPL--3.0-blue.svg)](https://opensource.org/licenses/LGPL-3.0)
 <!--
 [![codecov](https://codecov.io/gh/Appsilon/rhino/branch/main/graph/badge.svg)](https://codecov.io/gh/Appsilon/rhino) 
