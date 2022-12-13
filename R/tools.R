@@ -192,7 +192,7 @@ build_js <- function(watch = FALSE) {
   }
 }
 
-# nolint start
+# nolint start: line_length_linter
 #' Lint JavaScript
 #'
 #' Runs [ESLint](https://eslint.org) on the JavaScript sources in the `app/js` directory.
