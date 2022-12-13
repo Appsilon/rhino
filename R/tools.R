@@ -322,6 +322,10 @@ lint_sass <- function(fix = FALSE) {
 #' defined in the `tests/cypress` directory.
 #' Requires Node.js to be available on the system.
 #'
+#' If you want to write end-to-end tests with `{shinytest2}`, see our
+#' [How-to: Use shinytest2](https://appsilon.github.io/rhino/articles/how-to/use-shinytest2.html)
+#' guide.
+#'
 #' @param interactive Should Cypress be run in the interactive mode?
 #' @return None. This function is called for side effects.
 #'

@@ -17,6 +17,11 @@ Uses \href{https://www.cypress.io/}{Cypress} to run end-to-end tests
 defined in the \code{tests/cypress} directory.
 Requires Node.js to be available on the system.
 }
+\details{
+If you want to write end-to-end tests with \code{{shinytest2}}, see our
+\href{https://appsilon.github.io/rhino/articles/how-to/use-shinytest2.html}{How-to: Use shinytest2}
+guide.
+}
 \examples{
 if (interactive()) {
   # Run the end-to-end tests in the `tests/cypress` directory.
