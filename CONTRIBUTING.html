@@ -91,16 +91,33 @@
 <li><p>Build package<br><code>devtools::build()</code> or <code><a href="https://r-lib.github.io/pkgbuild/reference/build.html" class="external-link">pkgbuild::build()</a></code></p></li>
 </ol></div>
 <div class="section level2">
+<h2 id="app-push-test">App Push Test<a class="anchor" aria-label="anchor" href="#app-push-test"></a></h2>
+<p>Rhino creates a <code>.github/workflows/rhino-test.yml</code> file on <code><a href="reference/init.html">rhino::init()</a></code>. This GitHub Actions workflow automatically runs all linters and tests once a project is pushed to GitHub. To test that it works correctly we have the <a href="https://github.com/Appsilon/rhino/actions/workflows/app-push-test.yml" class="external-link">App Push Test</a> workflow.</p>
+<p>The Push Test initializes a fresh Rhino application and pushes it to the <code>bot/app-push-test</code> branch. The Rhino Test of this application then runs and its results can be viewed in the <a href="https://github.com/Appsilon/rhino/actions/workflows/rhino-test.yml" class="external-link">list of workflow runs</a>. The App Push Test is triggered automatically on pushes to <code>main</code> and can also be triggered manually.</p>
+</div>
+<div class="section level2">
 <h2 id="release-process">Release process<a class="anchor" aria-label="anchor" href="#release-process"></a></h2>
 <div class="section level3">
 <h3 id="preparation">Preparation<a class="anchor" aria-label="anchor" href="#preparation"></a></h3>
 <ol style="list-style-type: decimal"><li>Announce the planned release on <code>#proj-rhino</code> (approximate date and scope).</li>
-<li>Bump the package version in <code>DESCRIPTION</code> according to <a href="https://semver.org/" class="external-link">SemVer</a>. Drop the development version (last component, e.g. <code>.9001</code>).</li>
-<li>Update <code>NEWS.md</code>.
-<ol style="list-style-type: decimal"><li>Replace the <code>(development version)</code> with <code>X.Y.Z</code> in the header. Do add a link to GitHub releases yet - the link won’t work and will fail CRAN checks.</li>
-<li>Edit the list of changes to make it useful and understandable for our users. See <a href="https://keepachangelog.com/" class="external-link">keep a changelog</a> for some guidelines.</li>
+<li>Plan promotion (social media, blog post, …). Coordinate efforts with the marketing team.</li>
+<li>Ensure that the <a href="#app-push-test">App Push Test</a> passes (the <a href="https://github.com/Appsilon/rhino/actions/workflows/rhino-test.yml" class="external-link">latest run</a> for the <code>main</code> branch should be green).</li>
+<li>Upgrade <a href="https://github.com/Appsilon/rhino-showcase" class="external-link">Rhino Showcase</a>.
+<ol style="list-style-type: decimal"><li>Create a task to track progress.</li>
+<li>Test upgrade by installing Rhino from the current <code>main</code> branch.</li>
+<li>Continue the release process. The upgrade can be completed and the task closed once the package is accepted to CRAN.</li>
 </ol></li>
+<li>Prepare the package for release.
+<ol style="list-style-type: decimal"><li>Create a <code>release-X.Y.Z</code> branch from <code>main</code>.</li>
+<li>Update <code>DESCRIPTION</code>.
+<ul><li>Bump the package version according to <a href="https://semver.org/" class="external-link">SemVer</a>. Drop the development version (last component, e.g. <code>.9001</code>).</li>
+</ul></li>
+<li>Update <code>NEWS.md</code>.
+<ul><li>Replace the <code>(development version)</code> with <code>X.Y.Z</code> in the header. Do not add a link to GitHub releases yet - the link won’t work and will fail CRAN checks.</li>
+<li>Edit the list of changes to make it useful and understandable for our users. See <a href="https://keepachangelog.com/" class="external-link">keep a changelog</a> for some guidelines.</li>
+</ul></li>
 <li>Submit the changes in a pull request titled “Release X.Y.Z”. Get it approved and merged.</li>
+</ol></li>
 </ol></div>
 <div class="section level3">
 <h3 id="submitting-to-cran">Submitting to CRAN<a class="anchor" aria-label="anchor" href="#submitting-to-cran"></a></h3>
@@ -114,10 +131,15 @@
 <ol style="list-style-type: decimal"><li>Create a new <code>vX.Y.Z-rc.1</code> tag on the <code>main</code> branch (<code>rc</code> stands for release candidate).</li>
 <li>Use the tag name for title.</li>
 <li>Leave description blank.</li>
+<li>Check “Set as a pre-release”.</li>
+<li>Click “Publish release”.</li>
 </ol></li>
 <li>
 <a href="https://cran.r-project.org/submit.html" class="external-link">Submit the package to CRAN</a>.
 <ol style="list-style-type: decimal"><li>Use your own name and email.</li>
+<li>Click “Choose File” and select <code>rhino_X.Y.Z.tar.gz</code> from step 1.</li>
+<li>Click “Upload the package”.</li>
+<li>Click “Submit package”.</li>
 <li>Click the confirmation link sent to <code>opensource@appsilon.com</code>.</li>
 </ol></li>
 <li>If CRAN reviewers ask for changes, implement them and return to step 1. Use <code>rc.2</code>, <code>rc.3</code> and so on for subsequent submissions.</li>
@@ -129,15 +151,15 @@
 <ol style="list-style-type: decimal"><li>Create a new <code>vX.Y.Z</code> tag on the <code>main</code> branch.</li>
 <li>Use the tag name for title.</li>
 <li>Fill in the description from <code>NEWS.md</code>.</li>
+<li>Check “Set as the latest release”.</li>
+<li>Click “Publish release”.</li>
 </ol></li>
 <li>Prepare the package for further development.
 <ol style="list-style-type: decimal"><li>Add a development version <code>.9000</code> in <code>DESCRIPTION</code>.</li>
 <li>Add a <code># rhino (development version)</code> header in <code>NEWS.md</code>.</li>
 <li>Link the <code># rhino X.Y.Z</code> header to the GitHub release in <code>NEWS.md</code>.</li>
 </ol></li>
-<li>Create a task to upgrade <a href="https://github.com/Appsilon/rhino-showcase" class="external-link">Rhino Showcase</a>.</li>
 <li>Announce the release on <code>#proj-rhino</code>.</li>
-<li>Plan promotion (social media, blog post, …).</li>
 </ol></div>
 </div>
 <div class="section level2">
