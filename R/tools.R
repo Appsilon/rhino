@@ -192,7 +192,7 @@ build_js <- function(watch = FALSE) {
   }
 }
 
-# nolint start
+# nolint start: line_length_linter
 #' Lint JavaScript
 #'
 #' Runs [ESLint](https://eslint.org) on the JavaScript sources in the `app/js` directory.
@@ -321,6 +321,10 @@ lint_sass <- function(fix = FALSE) {
 #' Uses [Cypress](https://www.cypress.io/) to run end-to-end tests
 #' defined in the `tests/cypress` directory.
 #' Requires Node.js to be available on the system.
+#'
+#' If you want to write end-to-end tests with `{shinytest2}`, see our
+#' [How-to: Use shinytest2](https://appsilon.github.io/rhino/articles/how-to/use-shinytest2.html)
+#' guide.
 #'
 #' @param interactive Should Cypress be run in the interactive mode?
 #' @return None. This function is called for side effects.
