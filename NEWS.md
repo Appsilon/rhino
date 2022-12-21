@@ -1,4 +1,4 @@
-# rhino (development version)
+# rhino 1.3.0
 
 1. Rhino now works with `shinytest2` out of the box.
 
