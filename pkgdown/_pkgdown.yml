@@ -61,6 +61,8 @@ navbar:
           href: articles/how-to/use-global-variables.html
         - text: Use shinytest2
           href: articles/how-to/use-shinytest2.html
+        - text: Add internationalization
+          href: articles/how-to/add-internationalization.html
     twitter:
       icon: fa-twitter fa-lg
       href: https://twitter.com/Appsilon
