@@ -20,6 +20,7 @@ url: https://appsilon.github.io/rhino/
 navbar:
   structure:
     left: [tutorial, explanation, how-to-guides, reference, news]
+    right: [search, github, twitter, mastodon]
   components:
     tutorial:
       text: Tutorial
@@ -60,6 +61,12 @@ navbar:
           href: articles/how-to/use-global-variables.html
         - text: Use shinytest2
           href: articles/how-to/use-shinytest2.html
+    twitter:
+      icon: fa-twitter fa-lg
+      href: https://twitter.com/Appsilon
+    mastodon:
+      icon: fab fa-mastodon fa-lg
+      href: https://fosstodon.org/@appsilon
 
 reference:
 - title: Project initialization
