@@ -8,6 +8,7 @@ articles:
   renv-configuration: explanation/renv-configuration.html
   rhino-yml: explanation/rhino-yml.html
   what-is-rhino: explanation/what-is-rhino.html
+  add-internationalization: how-to/add-internationalization.html
   enable-shiny-bookmarking: how-to/enable-shiny-bookmarking.html
   keep-multiple-apps-in-a-single-repository: how-to/keep-multiple-apps-in-a-single-repository.html
   manage-r-dependencies: how-to/manage-r-dependencies.html
@@ -19,7 +20,7 @@ articles:
   write-javascript-code: how-to/write-javascript-code.html
   write-r-code: how-to/write-r-code.html
   create-your-first-rhino-app: tutorial/create-your-first-rhino-app.html
-last_built: 2022-12-23T14:56Z
+last_built: 2022-12-23T15:04Z
 urls:
   reference: https://appsilon.github.io/rhino/reference
   article: https://appsilon.github.io/rhino/articles
