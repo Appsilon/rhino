@@ -63,6 +63,12 @@ Rhino brings them all working together out of the box!
 Read more:
 [What is Rhino?](https://appsilon.github.io/rhino/articles/explanation/what-is-rhino.html)
 
+## Share feedback
+
+Are you a Rhino user who want to share your feedback and shape the future of the package?
+
+If yes, we would be very happy to hear from you in [this anonymous developer survey](https://forms.gle/roNkgvwE1LYCHwED6)! It shouldn't take you more than 5 to 10 minutes to fill it in and it would definitely help us to understand your needs and plan new features.
+
 ## Installation
 
 Stable version:
