@@ -2,9 +2,22 @@
 % Please edit documentation in R/tools.R
 \name{covr_r}
 \alias{covr_r}
-\title{Run a test coverage check}
+\title{Run a covr test coverage check}
 \usage{
-covr_r()
+covr_r(
+  test_files = list.files("tests/testthat", pattern = "^test-.*\\\\.R", full.names =
+    TRUE),
+  line_exclusions = NULL,
+  function_exclusions = NULL
+)
+}
+\arguments{
+\item{test_files}{Character vector of test files with code to test the functions. Defaults to
+all test files in \code{tests/testthat} with the \verb{test-<name>.R} filename pattern.}
+
+\item{line_exclusions}{passed to \code{covr::file_coverage}}
+
+\item{function_exclusions}{passed to \code{covr::file_coverage}}
 }
 \value{
 A \code{covr} coverage dataset.
@@ -15,7 +28,7 @@ Uses the \code{{testhat}} package to run all unit tests in \code{tests/testthat}
 }
 \examples{
 if (interactive()) {
-  # Run a test coverage check for the entire rhino app 
+  # Run a test coverage check for the entire rhino app
   # using all tests in the `tests/testthat` directory.
   covr_r()
 }

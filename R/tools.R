@@ -348,6 +348,10 @@ test_e2e <- function(interactive = FALSE) {
 #' Uses the `{covr}` package to produce unit test coverage reports.
 #' Uses the `{testhat}` package to run all unit tests in `tests/testthat` directory.
 #'
+#' @param test_files Character vector of test files with code to test the functions. Defaults to
+#'   all test files in `tests/testthat` with the `test-<name>.R` filename pattern.
+#' @param line_exclusions passed to `covr::file_coverage`
+#' @param function_exclusions passed to `covr::file_coverage`
 #' @return A `covr` coverage dataset.
 #'
 #' @examples
@@ -358,7 +362,10 @@ test_e2e <- function(interactive = FALSE) {
 #' }
 #'
 #' @export
-covr_r <- function() {
+covr_r <- function(
+    test_files = list.files("tests/testthat", pattern = "^test-.*\\.R", full.names = TRUE),
+    line_exclusions = NULL,
+    function_exclusions = NULL) {
   withr::with_file("box_loader.R", {
     module_list <- sub(
       "__init__",
@@ -377,7 +384,9 @@ covr_r <- function() {
 
     coverage <- covr::file_coverage(
       source_files = "box_loader.R",
-      test_files = list.files("tests/testthat", pattern = "^test-.*\\.R", full.names = TRUE)
+      test_files = test_files,
+      line_exclusions = line_exclusions,
+      function_exclusions = function_exclusions
     )
   })
 
