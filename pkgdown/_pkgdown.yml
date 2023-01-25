@@ -32,6 +32,8 @@ navbar:
           href: articles/explanation/what-is-rhino.html
         - text: Application structure
           href: articles/explanation/application-structure.html
+        - text: Configuring Rhino - rhino.yml
+          href: articles/explanation/rhino-yml.html
         - text: Box modules
           href: articles/explanation/box-modules.html
         - text: Renv configuration
