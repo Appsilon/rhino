@@ -342,3 +342,67 @@ test_e2e <- function(interactive = FALSE) {
     npm("run", "test-e2e")
   }
 }
+
+#' Run a covr test coverage check
+#'
+#' Uses the `{covr}` package to produce unit test coverage reports.
+#' Uses the `{testhat}` package to run all unit tests in `tests/testthat` directory.
+#'
+#' @return A `covr` coverage dataset.
+#'
+#' @examples
+#' if (interactive()) {
+#'   # Run a test coverage check for the entire rhino app
+#'   # using all tests in the `tests/testthat` directory.
+#'   covr_r()
+#' }
+#'
+#' @export
+covr_r <- function() {
+  rm(list = ls(box:::loaded_mods), envir = box:::loaded_mods)
+
+  withr::with_file("box_loader.R", {
+    module_list <- sub(
+      "__init__",
+      "`__init__`",
+      paste0(
+        tools::file_path_sans_ext(
+          list.files("app", pattern = "\\.[rR]$", full.names = TRUE, recursive = TRUE)
+        ),
+        ","
+      )
+    )
+
+    loader_lines <- c("box::use(", module_list, ")")
+
+    writeLines(loader_lines, "box_loader.R")
+
+    coverage <- covr::file_coverage(
+      source_files = "box_loader.R",
+      test_files = list.files("tests/testthat", full.names = TRUE)
+    )
+  })
+
+  return(coverage)
+}
+
+#' Display rhino test coverage results using a standalone report
+#'
+#' Uses the `{covr}` package to produce unit test coverage reports.
+#' Uses the `{testhat}` package to run all unit tests in `tests/testthat` directory.
+#'
+#' @param rhino_coverage a rhino coverage dataset, a defaults to `covr_r()`.
+#' @param ... additional arguments to pass to
+#'        [`covr::report()`](https://covr.r-lib.org/reference/report.html)
+#' @return None. This function is called for side effects.
+#'
+#' @examples
+#' if (interactive()) {
+#'   # Run a test coverage report on a rhino app
+#'   covr_report()
+#' }
+#'
+#' @export
+covr_report <- function(rhino_coverage = covr_r(), ...) {
+  covr::report(x = rhino_coverage, ...)
+}
