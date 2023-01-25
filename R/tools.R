@@ -359,8 +359,6 @@ test_e2e <- function(interactive = FALSE) {
 #'
 #' @export
 covr_r <- function() {
-  rm(list = ls(box:::loaded_mods), envir = box:::loaded_mods)
-
   withr::with_file("box_loader.R", {
     module_list <- sub(
       "__init__",
