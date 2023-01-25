@@ -377,7 +377,7 @@ covr_r <- function() {
 
     coverage <- covr::file_coverage(
       source_files = "box_loader.R",
-      test_files = list.files("tests/testthat", full.names = TRUE)
+      test_files = list.files("tests/testthat", pattern = "^test-.*\\.R", full.names = TRUE)
     )
   })
 
