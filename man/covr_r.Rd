@@ -2,7 +2,7 @@
 % Please edit documentation in R/tools.R
 \name{covr_r}
 \alias{covr_r}
-\title{Run a covr test coverage check}
+\title{Run a unit test coverage check}
 \usage{
 covr_r(
   test_files = list.files("tests/testthat", pattern = "^test-.*\\\\.R", full.names =

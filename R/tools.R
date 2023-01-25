@@ -343,7 +343,7 @@ test_e2e <- function(interactive = FALSE) {
   }
 }
 
-#' Run a covr test coverage check
+#' Run a unit test coverage check
 #'
 #' Uses the `{covr}` package to produce unit test coverage reports.
 #' Uses the `{testhat}` package to run all unit tests in `tests/testthat` directory.
