@@ -186,3 +186,7 @@ RecursiveUnitTests <- R6::R6Class("RecursiveUnitTests",       # nolint
     }
   )
 )
+
+r_cmd_check_fix <- function() {
+  testthat::test_check()
+}
