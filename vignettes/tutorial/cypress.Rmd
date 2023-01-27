@@ -482,7 +482,7 @@ describe("Counting clicks", () => {
 
 Now, run your tests. You should see something similar to this
 (you might have noticed that now clicking test took more time than previously -
-that's because the clicking finally happend):
+that's because the clicking finally happened):
 
 ![](images/clicks_e2e_test_2.png)
 
@@ -536,7 +536,7 @@ in an automated way. Without end-to-end tests, this could go
 unnoticed, since the app still works - there are no errors, it
 is just the logic that has been changed in a way we didn't want it to be modified.
 
-# Continuonus Integration
+# Continuous Integration
 
 But here comes a question: __Do you need to run those tests each time you make a change?__
 
