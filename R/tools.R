@@ -401,7 +401,7 @@ covr_r <- function(
 #' Uses the `{covr}` package to produce unit test coverage reports.
 #' Uses the `{testhat}` package to run all unit tests in `tests/testthat` directory.
 #'
-#' @param rhino_coverage a rhino coverage dataset, a defaults to `covr_r()`.
+#' @param rhino_coverage a rhino coverage dataset, defaults to `covr_r()`.
 #' @param ... additional arguments to pass to
 #'        [`covr::report()`](https://covr.r-lib.org/reference/report.html)
 #' @return None. This function is called for side effects.

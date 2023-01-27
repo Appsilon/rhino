@@ -7,7 +7,7 @@
 covr_report(rhino_coverage = covr_r(), ...)
 }
 \arguments{
-\item{rhino_coverage}{a rhino coverage dataset, a defaults to \code{covr_r()}.}
+\item{rhino_coverage}{a rhino coverage dataset, defaults to \code{covr_r()}.}
 
 \item{...}{additional arguments to pass to
 \href{https://covr.r-lib.org/reference/report.html}{\code{covr::report()}}}
