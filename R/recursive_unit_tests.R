@@ -1,6 +1,9 @@
 RecursiveUnitTests <- R6::R6Class("RecursiveUnitTests",       # nolint
   public = list(
     initialize = function(path, filter = "test-.+\\.R$", recursive = TRUE) {
+      if (length(path) > 1) {
+        cli::cli_abort("Please provide a single path.")
+      }
       private$path <- path
       private$filter <- filter
       private$recursive <- recursive
