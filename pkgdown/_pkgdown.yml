@@ -19,12 +19,16 @@ url: https://appsilon.github.io/rhino/
 
 navbar:
   structure:
-    left: [tutorial, explanation, how-to-guides, reference, news]
+    left: [tutorials, explanation, how-to-guides, reference, news]
     right: [search, github, twitter, mastodon]
   components:
-    tutorial:
-      text: Tutorial
-      href: articles/tutorial/create-your-first-rhino-app.html
+    tutorials:
+      text: Tutorials
+      menu:
+        - text: Create your first Rhino application
+          href: articles/tutorial/create-your-first-rhino-app.html
+        - text: Write End-to-end tests with Cypress
+          href: articles/tutorial/cypress.html
     explanation:
       text: Explanation
       menu:
