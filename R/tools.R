@@ -363,7 +363,10 @@ test_e2e <- function(interactive = FALSE) {
 #'
 #' @export
 covr_r <- function(
-    test_files = list.files("tests/testthat", pattern = "^test-.*\\.R", full.names = TRUE),
+    test_files = list.files("tests/testthat",
+                            pattern = "^test-.*\\.R",
+                            full.names = TRUE,
+                            recursive = TRUE),
     line_exclusions = NULL,
     function_exclusions = NULL) {
   withr::with_file("box_loader.R", {

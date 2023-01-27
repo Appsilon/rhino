@@ -6,7 +6,7 @@
 \usage{
 covr_r(
   test_files = list.files("tests/testthat", pattern = "^test-.*\\\\.R", full.names =
-    TRUE),
+    TRUE, recursive = TRUE),
   line_exclusions = NULL,
   function_exclusions = NULL
 )
