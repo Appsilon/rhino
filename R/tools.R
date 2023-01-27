@@ -1,17 +1,29 @@
 #' Run R unit tests
 #'
 #' Uses the `{testhat}` package to run all unit tests in `tests/testthat` directory.
+#' Alternatively, a single unit test file can be provided.
 #'
+#' @param path Path to file or directory containing tests. Defaults to `tests/testthat`.
+#' @param recursive boolean, to run tests on all nested folders inside path. Defaults to TRUE
+#' @param ... Additional arguments to pass to `testthat::test_file()` or `testthat::test_dir()`.
 #' @return None. This function is called for side effects.
 #'
 #' @examples
 #' if (interactive()) {
-#'   # Run all unit tests in the `tests/testthat` directory.
+#'   # Run all unit tests in the `tests/testthat` directory, recursively.
 #'   test_r()
+#'
+#'   # Run all unit tests in the `tests/testthat` directory only.
+#'   test_r(recursive = FALSE)
+#'
+#'   # Run one unit test.
+#'   test_r("tests/testthat/main.R")
+#'
 #' }
 #' @export
-test_r <- function() {
-  testthat::test_dir(fs::path("tests", "testthat"))
+test_r <- function(path = fs::path("tests", "testthat"), recursive = TRUE, ...) {
+  test <- RecursiveUnitTests$new(path = path, recursive = recursive)
+  test$run_tests(...)
 }
 
 lint_dir <- function(path) {

@@ -4,17 +4,32 @@
 \alias{test_r}
 \title{Run R unit tests}
 \usage{
-test_r()
+test_r(path = fs::path("tests", "testthat"), recursive = TRUE, ...)
+}
+\arguments{
+\item{path}{Path to file or directory containing tests. Defaults to \code{tests/testthat}.}
+
+\item{recursive}{boolean, to run tests on all nested folders inside path. Defaults to TRUE}
+
+\item{...}{Additional arguments to pass to \code{testthat::test_file()} or \code{testthat::test_dir()}.}
 }
 \value{
 None. This function is called for side effects.
 }
 \description{
 Uses the \code{{testhat}} package to run all unit tests in \code{tests/testthat} directory.
+Alternatively, a single unit test file can be provided.
 }
 \examples{
 if (interactive()) {
-  # Run all unit tests in the `tests/testthat` directory.
+  # Run all unit tests in the `tests/testthat` directory, recursively.
   test_r()
+
+  # Run all unit tests in the `tests/testthat` directory only.
+  test_r(recursive = FALSE)
+
+  # Run one unit test.
+  test_r("tests/testthat/main.R")
+
 }
 }
