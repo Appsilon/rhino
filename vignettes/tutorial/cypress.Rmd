@@ -1,8 +1,8 @@
 ---
-title: "Tutorial: Write End-to-end tests with Cypress"
+title: "Tutorial: Write end-to-end tests with Cypress"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Tutorial: Write End-to-end tests with Cypress}
+  %\VignetteIndexEntry{Tutorial: Write end-to-end tests with Cypress}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
