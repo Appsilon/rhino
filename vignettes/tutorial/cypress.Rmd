@@ -171,7 +171,7 @@ where you can see Cypress interacting with your application.
 To use it, simply run tests with one additional argument: `rhino::test_e2e(interactive = TRUE)`
 Since we have just one simple test, there will be not much there, but soon this will change.
 
-# Test the message functionality message
+# Test the message functionality
 
 We are about to write our first end-to-end test. The goal is to check if
 clicking the button with "Show message" label will show the message.
