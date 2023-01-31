@@ -75,7 +75,7 @@ RecursiveUnitTests <- R6::R6Class("RecursiveUnitTests",       # nolint
       final_line_results <- colSums(test_results)
 
       cli::cat_line(
-        private$summary_line(final_line_results[["failed"]],
+        summary_line(final_line_results[["failed"]],
                              final_line_results[["warning"]],
                              final_line_results[["skipped"]],
                              final_line_results[["passed"]])
@@ -89,11 +89,11 @@ RecursiveUnitTests <- R6::R6Class("RecursiveUnitTests",       # nolint
       private$cat_cr()
 
       cli::cat_line(
-        private$colourise(cli::symbol$tick, "success"), " | ",
-        private$colourise("F", "failure"), " ",
-        private$colourise("W", "warning"), " ",
-        private$colourise("S", "skip"), " ",
-        private$colourise(" OK", "success"),
+        colourise(cli::symbol$tick, "success"), " | ",
+        colourise("F", "failure"), " ",
+        colourise("W", "warning"), " ",
+        colourise("S", "skip"), " ",
+        colourise(" OK", "success"),
         " | ", "Test Directory"
       )
 
@@ -140,48 +140,16 @@ RecursiveUnitTests <- R6::R6Class("RecursiveUnitTests",       # nolint
       if (n == 0) {
         " "
       } else {
-        private$colourise(n, type)
+        colourise(n, type)
       }
-    },
-    colourise = function(text, as = c("success", "skip", "warning", "failure", "error")) {
-      if (private$has_colour()) {
-        unclass(cli::make_ansi_style(private$testthat_style(as))(text))
-      } else {
-        text
-      }
-    },
-    has_colour = function() {
-      isTRUE(getOption("testthat.use_colours", TRUE)) &&
-        cli::num_ansi_colors() > 1
-    },
-    summary_line = function(n_fail, n_warn, n_skip, n_pass) {
-      colourise_if <- function(text, colour, cond) {
-        if (cond) private$colourise(text, colour) else text
-      }
-
-      # Ordered from most important to least important
-      paste0(
-        "[ ",
-        colourise_if("FAIL", "failure", n_fail > 0), " ", n_fail, " | ",
-        colourise_if("WARN", "warn", n_warn > 0),    " ", n_warn, " | ",
-        colourise_if("SKIP", "skip", n_skip > 0),    " ", n_skip, " | ",
-        colourise_if("PASS", "success", n_fail == 0), " ", n_pass,
-        " ]"
-      )
-    },
-    testthat_style = function(type = c("success", "skip", "warning", "failure", "error")) {
-      type <- match.arg(type)
-
-      c(
-        success = "green",
-        skip = "blue",
-        warning = "magenta",
-        failure = "orange",
-        error = "orange"
-      )[[type]]
     }
   )
 )
+
+colourise <- getFromNamespace("colourise", "testthat")
+has_colour <- getFromNamespace("has_colour", "testthat")
+summary_line <- getFromNamespace("summary_line", "testthat")
+testthat_style <- getFromNamespace("testthat_style", "testthat")
 
 r_cmd_check_fix <- function() {
   testthat::test_check()
