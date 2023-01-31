@@ -340,7 +340,6 @@ describe("Show message", () => {
 
   it("'Show message' button shows the message'", () => {
     cy.get(".message button").click();
-
     cy.get("#app-message-message_text").should("have.text", "This is a message");
   });
 });
