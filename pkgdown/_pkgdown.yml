@@ -28,7 +28,7 @@ navbar:
         - text: Create your first Rhino app
           href: articles/tutorial/create-your-first-rhino-app.html
         - text: Write end-to-end tests with Cypress
-          href: articles/tutorial/cypress.html
+          href: articles/tutorial/write-end-to-end-tests-with-cypress.html
     explanation:
       text: Explanation
       menu:
