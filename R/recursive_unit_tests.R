@@ -45,12 +45,8 @@ RecursiveUnitTests <- R6::R6Class("RecursiveUnitTests",       # nolint
       }
 
       if (length(private$valid_paths) == 0) {
-        abort_message <- paste(
-          "No valid test file/s found in",
-          private$path
-        )
-
-        cli::cli_abort(abort_message)
+        cli::cli_abort("No valid test file/s found in {.var {private$path}}.",
+                       call = rlang::caller_env(n = 3))
       }
     },
     is_single_test_file = function() {
