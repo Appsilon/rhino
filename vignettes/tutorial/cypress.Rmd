@@ -155,7 +155,7 @@ If you check the project structure, you will find `tests/cypress/` directory
 with an initial test in `tests/cypress/integration/app.spec.js` ready to use.
 
 It contains a simple test that just starts the application.
-If your app can start, it will pass, no matter if it crushes a few seconds later.
+If your app can start, it will pass, no matter if it crashes a few seconds later.
 
 Now, if you call `rhino::test_e2e()` the test will be run, but before that, since this is
 the first time you use one of the functionalities that depend on Node.js, it needs
