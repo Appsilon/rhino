@@ -19,7 +19,7 @@ url: https://appsilon.github.io/rhino/
 
 navbar:
   structure:
-    left: [tutorials, explanation, how-to-guides, reference, news]
+    left: [tutorials, explanation, how-to-guides, reference, news, faq]
     right: [search, github, twitter, mastodon]
   components:
     tutorials:
@@ -69,6 +69,9 @@ navbar:
           href: articles/how-to/use-shinytest2.html
         - text: Add internationalization
           href: articles/how-to/add-internationalization.html
+    faq:
+      text: FAQ
+      href: articles/faq.html
     twitter:
       icon: fa-twitter fa-lg
       href: https://twitter.com/Appsilon
