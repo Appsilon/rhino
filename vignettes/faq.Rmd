@@ -34,7 +34,7 @@ The same as in the case of a regular Shiny app, e.g. you can use "Deploy" button
 Instead of `server.R` and `ui.R`, Rhino uses a single file `main.R`.
 It includes both the server and UI part of the application.
 The main difference is that both are already Shiny modules so you
-need to use namespacing (`ns`) in the UI part.
+need to use namespace (`ns`) in the UI part.
 
 </details>
 
@@ -165,7 +165,7 @@ _Workaround:_ Add the following snippet to your `app/main.R` (just below the `bo
 suppressWarnings(library(shinyBS))
 ```
 
-You'll still need to explicitly `box::use()` whatever functions you need from shinyBS (`library()` doesn't work in a box module).
+You'll still need to explicitly `box::use()` whatever functions you need from `shinyBS` (`library()` doesn't work in a box module).
 
 More details can be found [here](https://github.com/Appsilon/rhino/discussions/279).
 
