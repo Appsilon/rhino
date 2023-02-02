@@ -15,14 +15,17 @@ test_r(
 Given a directory, R files in the directory will be included as test files.
 Defaults to all files in all directories recursively in \code{tests/testthat}.}
 
-\item{inline_issues}{If \code{TRUE}, test failure and skip messages are shown while the tests are running.
-If \code{FALSE}, test failure and skip messages are shown after all tests are run.}
+\item{inline_issues}{If \code{TRUE}, test failure and skip messages are shown while the
+tests are running. If \code{FALSE}, test failure and skip messages are shown after
+all tests are run.}
 
 \item{raw_testthat_output}{boolean, See return value.}
 }
 \value{
-If \code{raw_testthat_output = FALSE}, a data.frame (invisibly) containing data about the \code{testthat} test results.
-If \code{raw_testthat_output = TRUE}, a list (invisibly) of lists containing data returned by \code{testthat::test_file()}.
+If \code{raw_testthat_output = FALSE}, a data.frame (invisibly) containing data
+about the \code{testthat} test results.
+If \code{raw_testthat_output = TRUE}, a list (invisibly) of lists containing data
+returned by \code{testthat::test_file()}.
 }
 \description{
 Uses the \code{{testhat}} package to run all unit tests in the \code{tests/testthat} directory.

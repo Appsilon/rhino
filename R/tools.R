@@ -6,11 +6,14 @@
 #' @param paths A character vector of paths to R files or directories containing tests.
 #'   Given a directory, R files in the directory will be included as test files.
 #'   Defaults to all files in all directories recursively in `tests/testthat`.
-#' @param inline_issues If `TRUE`, test failure and skip messages are shown while the tests are running.
-#'    If `FALSE`, test failure and skip messages are shown after all tests are run.
+#' @param inline_issues If `TRUE`, test failure and skip messages are shown while the
+#'    tests are running. If `FALSE`, test failure and skip messages are shown after
+#'    all tests are run.
 #' @param raw_testthat_output boolean, See return value.
-#' @return If `raw_testthat_output = FALSE`, a data.frame (invisibly) containing data about the `testthat` test results.
-#'    If `raw_testthat_output = TRUE`, a list (invisibly) of lists containing data returned by `testthat::test_file()`.
+#' @return If `raw_testthat_output = FALSE`, a data.frame (invisibly) containing data
+#' about the `testthat` test results.
+#'    If `raw_testthat_output = TRUE`, a list (invisibly) of lists containing data
+#'    returned by `testthat::test_file()`.
 #'
 #' @examples
 #' if (interactive()) {
