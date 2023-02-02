@@ -1,33 +1,51 @@
 #' Run R unit tests
 #'
-#' Uses the `{testhat}` package to run all unit tests in `tests/testthat` directory.
-#' Alternatively, a single unit test file can be provided.
+#' Uses the `{testhat}` package to run all unit tests in the `tests/testthat` directory.
+#' Alternatively, a vector of paths (files and directories) can be provided.
 #'
-#' @param path Path to file or directory containing tests. Defaults to `tests/testthat`.
-#' @param recursive boolean, to run tests on all nested folders inside path. Defaults to TRUE
-#' @param ... Additional arguments to pass to `testthat::test_file()` or `testthat::test_dir()`.
-#' @return None. This function is called for side effects.
+#' @param paths A character vector of paths to R files or directories containing tests.
+#'   Given a directory, R files in the directory will be included as test files.
+#'   Defaults to all files in all directories recursively in `tests/testthat`.
+#' @param inline_issues If `TRUE`, test failure and skip messages are shown while the tests are running.
+#'    If `FALSE`, test failure and skip messages are shown after all tests are run.
+#' @param raw_testthat_output boolean, See return value.
+#' @return If `raw_testthat_output = FALSE`, a data.frame (invisibly) containing data about the `testthat` test results.
+#'    If `raw_testthat_output = TRUE`, a list (invisibly) of lists containing data returned by `testthat::test_file()`.
 #'
 #' @examples
 #' if (interactive()) {
 #'   # Run all unit tests in the `tests/testthat` directory, recursively.
 #'   test_r()
 #'
-#'   # Run all unit tests in the `tests/testthat` directory only.
-#'   test_r(recursive = FALSE)
+#'   # Run all unit tests in the `tests/testthat` directory only. Non-recursive.
+#'   test_r("tests/testthat")
 #'
 #'   # Run one unit test.
 #'   test_r("tests/testthat/main.R")
 #'
+#'   # Run unit tests on a collection of files and directories.
+#'   test_r(c("tests/testthat/test-main.R", "tests/testthat/logic"))
 #' }
 #' @export
 test_r <- function(
-    paths = fs::dir_ls("tests/testthat/", regexp = "\\.R$", recurse = TRUE, type = "file"),
-    inline_failures = FALSE,
-    raw_output = FALSE
+    paths = fs::dir_ls("tests/testthat/", glob = "*.R", recurse = TRUE, type = "file"),
+    inline_issues = FALSE,
+    raw_testthat_output = FALSE
 ) {
-  test <- RecursiveUnitTests$new()
-  test$run_tests(paths, inline_failures, raw_output)
+  files <- traverse_test_paths(paths)
+
+  show_test_header()
+  test_results <- test_files(files, inline_issues)
+  flat_test_results <- flatten_test_results(test_results)
+  show_test_summary(flat_test_results, inline_issues)
+
+  if (raw_testthat_output) {
+    output <- test_results
+  } else {
+    output <- flat_test_results
+  }
+
+  invisible(output)
 }
 
 lint_dir <- function(path) {

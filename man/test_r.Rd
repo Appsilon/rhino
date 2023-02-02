@@ -4,32 +4,42 @@
 \alias{test_r}
 \title{Run R unit tests}
 \usage{
-test_r(path = fs::path("tests", "testthat"), recursive = TRUE, ...)
+test_r(
+  paths = fs::dir_ls("tests/testthat/", glob = "*.R", recurse = TRUE, type = "file"),
+  inline_issues = FALSE,
+  raw_testthat_output = FALSE
+)
 }
 \arguments{
-\item{path}{Path to file or directory containing tests. Defaults to \code{tests/testthat}.}
+\item{paths}{A character vector of paths to R files or directories containing tests.
+Given a directory, R files in the directory will be included as test files.
+Defaults to all files in all directories recursively in \code{tests/testthat}.}
 
-\item{recursive}{boolean, to run tests on all nested folders inside path. Defaults to TRUE}
+\item{inline_issues}{If \code{TRUE}, test failure and skip messages are shown while the tests are running.
+If \code{FALSE}, test failure and skip messages are shown after all tests are run.}
 
-\item{...}{Additional arguments to pass to \code{testthat::test_file()} or \code{testthat::test_dir()}.}
+\item{raw_testthat_output}{boolean, See return value.}
 }
 \value{
-None. This function is called for side effects.
+If \code{raw_testthat_output = FALSE}, a data.frame (invisibly) containing data about the \code{testthat} test results.
+If \code{raw_testthat_output = TRUE}, a list (invisibly) of lists containing data returned by \code{testthat::test_file()}.
 }
 \description{
-Uses the \code{{testhat}} package to run all unit tests in \code{tests/testthat} directory.
-Alternatively, a single unit test file can be provided.
+Uses the \code{{testhat}} package to run all unit tests in the \code{tests/testthat} directory.
+Alternatively, a vector of paths (files and directories) can be provided.
 }
 \examples{
 if (interactive()) {
   # Run all unit tests in the `tests/testthat` directory, recursively.
   test_r()
 
-  # Run all unit tests in the `tests/testthat` directory only.
-  test_r(recursive = FALSE)
+  # Run all unit tests in the `tests/testthat` directory only. Non-recursive.
+  test_r("tests/testthat")
 
   # Run one unit test.
   test_r("tests/testthat/main.R")
 
+  # Run unit tests on a collection of files and directories.
+  test_r(c("tests/testthat/test-main.R", "tests/testthat/logic"))
 }
 }

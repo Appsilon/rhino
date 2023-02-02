@@ -1,208 +1,226 @@
-RecursiveUnitTests <- R6::R6Class("RecursiveUnitTests",       # nolint
-  public = list(
-    run_tests = function(
-        paths = fs::dir_ls("tests/testthat/", regexp = "\\.R$", recurse = TRUE, type = "file"),
-        inline_failures = FALSE,
-        raw_output = FALSE
-      ) {
-      files <- private$traverse_paths(paths)
+traverse_test_paths <- function(paths) {
+  list_of_files <- lapply(paths, function(path) {
+    if (fs::is_file(path)) {
+      return(path)
+    } else if (fs::is_dir(path)) {
+      return(
+        fs::dir_ls(path, glob = "*.R", recurse = FALSE, type = "file")
+      )
+    }
+  })
+  
+  unlist(list_of_files, use.names = FALSE)
+}
 
-      private$show_header()
-      test_results <- private$test_files(files, inline_failures)
-      flat_test_results <- private$flatten_test_results(test_results)
-      private$show_summary(flat_test_results, inline_failures)
+test_files <- function(files, inline_issues, min_time = 0.1) {
+  test_results <- lapply(files, function(file) {
+    invisible(utils::capture.output(
+      raw_result <- testthat::test_file(file, stop_on_failure = FALSE)
+    ))
 
-      if (raw_output) {
-        output <- test_results
+    if (length(raw_result) > 0) {
+      raw_result_df <- as.data.frame(raw_result)
+      raw_result_summary <- stats::aggregate(
+        cbind(failed, warning, skipped, passed, real) ~ context,
+        data = raw_result,
+        FUN = sum
+      )
+
+      if (raw_result_summary$failed > 0) {
+        status <- cli::col_red(cli::symbol$cross)
       } else {
-        output <- flat_test_results
+        status <- cli::col_green(cli::symbol$tick)
       }
 
-      invisible(output)
-    }
-  ),
-  private = list(
-    traverse_paths = function(paths) {
-      list_of_files <- lapply(paths, function(path) {
-        if (fs::is_file(path)) {
-          return(path)
-        } else if (fs::is_dir(path)) {
-          return(
-            fs::dir_ls(path, regexp = "\\.R$", recurse = FALSE, type = "file")
-          )
-        }
-      })
-      
-      unlist(list_of_files, use.names = FALSE)
-    },
-    test_files = function(files, inline_failures) {
-      test_results <- lapply(files, function(file) {
-        invisible(capture.output(
-          raw_result <- testthat::test_file(file, stop_on_failure = FALSE)
-        ))
-
-        if (length(raw_result) > 0) {
-          raw_result_df <- as.data.frame(raw_result)
-          raw_result_summary <- aggregate(
-            cbind(failed, warning, skipped, passed) ~ context,
-            data = raw_result,
-            FUN = sum
-          )
-
-          if (raw_result_summary$failed > 0) {
-            status <- cli::col_red(cli::symbol$cross)
-          } else {
-            status <- cli::col_green(cli::symbol$tick)
-          }
-
-          message <- paste0(
-            status, " | ",
-            private$col_format(raw_result_summary$failed, "fail"), " ",
-            private$col_format(raw_result_summary$warning, "warn"), " ",
-            private$col_format(raw_result_summary$skipped, "skip"), " ",
-            sprintf("%3d", raw_result_summary$passed),
-            " | ", raw_result_summary$context
-          )
-
-          cli::cat_line(message)
-
-          if (inline_failures & raw_result_summary$failed > 0) {
-            private$show_failures(raw_result_df)
-          }
-        }
-
-        return(raw_result)
-      })
-    },
-    flatten_test_results = function(test_results) {
-      results_df <- lapply(test_results, `as.data.frame`)
-      results_df <- private$compact(results_df)
-      do.call("rbind", results_df)
-    },
-    get_final_results = function(flat_test_results) {
-      colSums(flat_test_results[, c("failed", "warning", "skipped", "passed")])
-    },
-    show_header = function() {
-      cli::cat_line(
-        private$colourise(cli::symbol$tick, "success"), " | ",
-        private$colourise("F", "failure"), " ",
-        private$colourise("W", "warning"), " ",
-        private$colourise("S", "skip"), " ",
-        private$colourise(" OK", "success"),
-        " | ", "Context"
-      )
-    },
-    show_final_line = function(final_results) {
-      cli::cat_line(
-        private$summary_line(final_results[["failed"]],
-                             final_results[["warning"]],
-                             final_results[["skipped"]],
-                             final_results[["passed"]])
+      message <- paste0(
+        status, " | ",
+        col_format(raw_result_summary$failed, "fail"), " ",
+        col_format(raw_result_summary$warning, "warn"), " ",
+        col_format(raw_result_summary$skipped, "skip"), " ",
+        sprintf("%3d", raw_result_summary$passed),
+        " | ", raw_result_summary$context
       )
 
-      private$cat_cr()
-    },
-    show_failures = function(test_results) {
-      failed_tests <- test_results[test_results$failed > 0, "result"]
-
-      lapply(failed_tests, function(failed_test) {
-        result_body <- failed_test[[1]]
-        srcref <- result_body[["srcref"]]
-        srcfile <- attr(srcref, "srcfile")
-        filename <- srcfile$filename
-        line <- srcref[1]
-        col <- srcref[2]
-        test <- result_body[["test"]]
-        message <- result_body[["message"]]
-        
-        failure_type <- private$colourise("Failure", "failure")
-        location <- cli::format_inline("{.file {filename}:{line}}:{{col}}")
-        issue_message <- cli::format_inline(
-          cli::style_bold(
-            "{failure_type} ({location}): {test}"
-          )
+      if (raw_result_summary$real > min_time) {
+        message <- paste0(
+          message,
+          cli::col_grey(sprintf(" [%.1fs]", raw_result_summary$real))
         )
+      }
 
-        private$cat_cr()
-        cli::cat_line(issue_message)
-        cli::cat_line(message)
-      })
-    },
-    show_summary = function(flat_test_results, inline_failures) {
-      final_results <- private$get_final_results(flat_test_results)
+      cli::cat_line(message)
+
+      if (inline_issues & raw_result_summary$skipped > 0) {
+        show_test_issues("skip", raw_result_df)
+      }
+      if (inline_issues & raw_result_summary$failed > 0) {
+        show_test_issues("failure", raw_result_df)
+      }
       
-      if (!inline_failures & final_results[["failed"]] > 0) {
-        private$cat_cr()
-        cli::cat_rule(cli::style_bold("Failures"), line = 1)
-        private$show_failures(flat_test_results)
-      }
-
-      private$cat_cr()
-      cli::cat_rule(cli::style_bold("Results"), line = 2)
-      private$cat_cr()
-
-      private$show_final_line(final_results)
-    },
-    cat_cr = function() {
-      if (cli::is_dynamic_tty()) {
-        cli::cat_line("\r")
-      } else {
-        cli::cat_line("\n")
-      }
-    },
-    col_format = function(n, type) {
-      if (n == 0) {
-        " "
-      } else {
-        private$colourise(n, type)
-      }
-    },
-    colourise = function(text, as = c("success", "skip", "warning", "failure", "error")) {
-      if (private$has_colour()) {
-        unclass(cli::make_ansi_style(private$testthat_style(as))(text))
-      } else {
-        text
-      }
-    },
-    has_colour = function() {
-      isTRUE(getOption("testthat.use_colours", TRUE)) &&
-        cli::num_ansi_colors() > 1
-    },
-    summary_line = function(n_fail, n_warn, n_skip, n_pass) {
-      colourise_if <- function(text, colour, cond) {
-        if (cond) private$colourise(text, colour) else text
-      }
-
-      # Ordered from most important to least important
-      paste0(
-        "[ ",
-        colourise_if("FAIL", "failure", n_fail > 0), " ", n_fail, " | ",
-        colourise_if("WARN", "warn", n_warn > 0),    " ", n_warn, " | ",
-        colourise_if("SKIP", "skip", n_skip > 0),    " ", n_skip, " | ",
-        colourise_if("PASS", "success", n_fail == 0), " ", n_pass,
-        " ]"
-      )
-    },
-    testthat_style = function(type = c("success", "skip", "warning", "failure", "error")) {
-      type <- match.arg(type)
-
-      c(
-        success = "green",
-        skip = "blue",
-        warning = "magenta",
-        failure = "orange",
-        error = "orange"
-      )[[type]]
-    },
-    compact = function(x) {
-      x[private$viapply(x, length) != 0]
-    },
-    viapply = function(X, FUN, ...) {
-      vapply(X, FUN, ..., FUN.VALUE = integer(1))
     }
-  )
-)
 
-r_cmd_check_fix <- function() {
-  testthat::test_check()
+    return(raw_result)
+  })
+  
+  compact(test_results)
+}
+
+flatten_test_results <- function(test_results) {
+  results_df <- lapply(test_results, `as.data.frame`)
+  do.call("rbind", results_df)
+}
+
+get_final_test_results <- function(flat_test_results) {
+  colSums(flat_test_results[, c("failed", "warning", "skipped", "passed", "real")])
+}
+
+show_test_header <- function() {
+  cli::cat_line(
+    colourise(cli::symbol$tick, "success"), " | ",
+    colourise("F", "failure"), " ",
+    colourise("W", "warning"), " ",
+    colourise("S", "skip"), " ",
+    colourise(" OK", "success"),
+    " | ", "Context"
+  )
+}
+
+show_test_final_line <- function(final_results) {
+  cli::cat_line(
+    summary_line(final_results[["failed"]],
+                         final_results[["warning"]],
+                         final_results[["skipped"]],
+                         final_results[["passed"]])
+  )
+
+  cat_cr()
+}
+
+show_test_issues <- function(issue_type, test_results) {
+  df_column <- switch(
+    issue_type,
+    "failure" = "failed",
+    "skip" = "skipped"
+  )
+
+  issue_tests <- test_results[test_results[[df_column]] > 0, "result"]
+
+  lapply(issue_tests, function(issue_test) {
+    result_body <- issue_test[[1]]
+    srcref <- result_body[["srcref"]]
+    srcfile <- attr(srcref, "srcfile")
+    filename <- srcfile$filename
+    line <- srcref[1]
+    col <- srcref[2]
+    test <- result_body[["test"]]
+    message <- result_body[["message"]]
+    
+    issue_header <- colourise(first_upper(issue_type), issue_type)
+    location <- cli::format_inline("{.file {filename}:{line}:{col}}")
+    issue_message <- cli::format_inline(
+      cli::style_bold(
+        "{issue_header} ({location}): {test}"
+      )
+    )
+
+    message <- gsub(":?\n(\n|.)+", "", message) # only show first line
+
+    cat_cr()
+    cli::cat_line(issue_message)
+    cli::cat_line(message)
+  })
+}
+
+show_test_summary <- function(flat_test_results, inline_issues, min_time = 0.1) {
+  final_results <- get_final_test_results(flat_test_results)
+  
+  if (!inline_issues & final_results[["skipped"]] > 0) {
+    cat_cr()
+    cli::cat_rule(cli::style_bold("Skipped tests "), line = 1)
+    show_test_issues("skip", flat_test_results)
+  }
+
+  if (!inline_issues & final_results[["failed"]] > 0) {
+    cat_cr()
+    cli::cat_rule(cli::style_bold("Failures"), line = 1)
+    show_test_issues("failure", flat_test_results)
+  }
+
+  cat_cr()
+  cli::cat_rule(cli::style_bold("Results"), line = 2)
+  if (final_results[["real"]] > min_time) {
+    cli::cat_line("Duration: ", sprintf("%.1f s", final_results[["real"]]), col = "cyan")
+  }
+  cat_cr()
+  show_test_final_line(final_results)
+}
+
+cat_cr <- function() {
+  if (cli::is_dynamic_tty()) {
+    cli::cat_line("\r")
+  } else {
+    cli::cat_line("\n")
+  }
+}
+
+col_format <- function(n, type) {
+  if (n == 0) {
+    " "
+  } else {
+    colourise(n, type)
+  }
+}
+
+colourise <- function(text, as = c("success", "skip", "warning", "failure", "error")) {
+  if (has_colour()) {
+    unclass(cli::make_ansi_style(testthat_style(as))(text))
+  } else {
+    text
+  }
+}
+
+has_colour <- function() {
+  isTRUE(getOption("testthat.use_colours", TRUE)) &&
+    cli::num_ansi_colors() > 1
+}
+
+summary_line <- function(n_fail, n_warn, n_skip, n_pass) {
+  colourise_if <- function(text, colour, cond) {
+    if (cond) colourise(text, colour) else text
+  }
+
+  # Ordered from most important to least important
+  paste0(
+    "[ ",
+    colourise_if("FAIL", "failure", n_fail > 0), " ", n_fail, " | ",
+    colourise_if("WARN", "warn", n_warn > 0),    " ", n_warn, " | ",
+    colourise_if("SKIP", "skip", n_skip > 0),    " ", n_skip, " | ",
+    colourise_if("PASS", "success", n_fail == 0), " ", n_pass,
+    " ]"
+  )
+}
+
+testthat_style <- function(type = c("success", "skip", "warning", "failure", "error")) {
+  type <- match.arg(type)
+
+  c(
+    success = "green",
+    skip = "blue",
+    warning = "magenta",
+    failure = "orange",
+    error = "orange"
+  )[[type]]
+}
+
+compact <- function(x) {
+  x[viapply(x, length) != 0]
+}
+
+viapply <- function(X, FUN, ...) {
+  vapply(X, FUN, ..., FUN.VALUE = integer(1))
+}
+
+first_upper <- function(x) {
+  substr(x, 1, 1) <- toupper(substr(x, 1, 1))
+  x
 }
