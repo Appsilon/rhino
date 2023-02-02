@@ -9,7 +9,7 @@ test_that("test_r returns an invisible data.frame with the correct number of row
 
   expect_invisible(test_results <- test_r(paths))
   expect_s3_class(test_results, "data.frame")
-  expect_equal(nrow(test_results), 5)
+  expect_equal(nrow(test_results), 6)
 })
 
 test_that("test_r returns a list when raw_testthat_output = TRUE", {
@@ -24,7 +24,7 @@ test_that("test_r returns a list when raw_testthat_output = TRUE", {
 test_that("test_r shows the correct test summary", {
   paths <- fs::dir_ls("test_recursive", glob = "*.R", recurse = TRUE, type = "file")
 
-  expect_output(test_r(paths), "[ FAIL 1 | WARN 0 | SKIP 1 | PASS 3 ]", fixed = TRUE)
+  expect_output(test_r(paths), "[ FAIL 1 | WARN 1 | SKIP 1 | PASS 4 ]", fixed = TRUE)
 })
 
 test_that("test_r accepts a single test file", {
@@ -57,7 +57,7 @@ test_that("test_r accepts more than one directory as paths for tests", {
 
   test_results <- test_r(paths)
 
-  expect_equal(nrow(test_results), 4)
+  expect_equal(nrow(test_results), 5)
 })
 
 test_that("test_r accepts a mix of files and directories as paths", {
@@ -68,7 +68,7 @@ test_that("test_r accepts a mix of files and directories as paths", {
 
   test_results <- test_r(paths)
 
-  expect_equal(nrow(test_results), 4)
+  expect_equal(nrow(test_results), 5)
 })
 
 test_that("test_r shows a failed test", {
@@ -99,4 +99,18 @@ test_that("test_r shows a skipped test inline when inline_issues = TRUE", {
   # "Failures" section should not show
   expect_output(test_r(path, inline_issues = TRUE), "(?!Skipped tests).*$", perl = TRUE)
   expect_output(test_r(path, inline_issues = TRUE), "skip example", ignore.case = TRUE)
+})
+
+test_that("test_r shows warnings", {
+  path <-   "test_recursive/view/test-view_sample.R"
+  
+  expect_output(test_r(path), "Warnings")
+  expect_output(test_r(path), "warn warn warn")
+})
+
+test_that("test_r shows warnings inline when inline_issues = TRUE", {
+  path <-   "test_recursive/view/test-view_sample.R"
+
+  expect_output(test_r(path, inline_issues = TRUE), "(?!Warnings).*$", perl = TRUE)
+  expect_output(test_r(path, inline_issues = TRUE), "warn warn warn")
 })

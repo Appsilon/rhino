@@ -55,6 +55,11 @@ test_files <- function(files, inline_issues, min_time = 0.1) {
         show_test_issues("skip", raw_result_df)
         cli::cat_rule(line = 1)
       }
+      if (inline_issues & raw_result_summary$warning > 0) {
+        cli::cat_rule(line = 1)
+        show_test_issues("warning", raw_result_df)
+        cli::cat_rule(line = 1)
+      }
       if (inline_issues & raw_result_summary$failed > 0) {
         cli::cat_rule(line = 1)
         show_test_issues("failure", raw_result_df)
@@ -105,7 +110,8 @@ show_test_issues <- function(issue_type, test_results) {
   df_column <- switch(
     issue_type,
     "failure" = "failed",
-    "skip" = "skipped"
+    "skip" = "skipped",
+    "warning" = "warning"
   )
 
   issue_tests <- test_results[test_results[[df_column]] > 0, "result"]
@@ -142,8 +148,13 @@ show_test_summary <- function(flat_test_results, inline_issues, min_time = 0.1) 
   final_results <- get_final_test_results(flat_test_results)
   
   if (!inline_issues & final_results[["skipped"]] > 0) {
-    cli::cat_rule(cli::style_bold("Skipped tests "), line = 1)
+    cli::cat_rule(cli::style_bold("Skipped tests"), line = 1)
     show_test_issues("skip", flat_test_results)
+  }
+
+  if (!inline_issues & final_results[["warning"]] > 0) {
+    cli::cat_rule(cli::style_bold("Warnings"), line = 1)
+    show_test_issues("warning", flat_test_results)
   }
 
   if (!inline_issues & final_results[["failed"]] > 0) {

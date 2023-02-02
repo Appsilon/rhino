@@ -6,3 +6,8 @@ test_that("skip example", {
   skip("Skip this")
   expect_true(TRUE)
 })
+
+test_that("warning example", {
+  warning("warn warn warn")
+  expect_true(TRUE)
+})
