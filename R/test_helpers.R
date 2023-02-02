@@ -91,12 +91,13 @@ show_test_header <- function() {
 
 show_test_final_line <- function(final_results) {
   cli::cat_line(
-    summary_line(final_results[["failed"]],
-                         final_results[["warning"]],
-                         final_results[["skipped"]],
-                         final_results[["passed"]])
+    summary_line(
+      final_results[["failed"]],
+      final_results[["warning"]],
+      final_results[["skipped"]],
+      final_results[["passed"]]
+    )
   )
-
   cat_cr()
 }
 
