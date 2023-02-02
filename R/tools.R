@@ -21,9 +21,13 @@
 #'
 #' }
 #' @export
-test_r <- function(path = fs::path("tests", "testthat"), recursive = TRUE, ...) {
-  test <- RecursiveUnitTests$new(path = path, recursive = recursive)
-  test$run_tests(...)
+test_r <- function(
+    paths = fs::dir_ls("tests/testthat/", regexp = "\\.R$", recurse = TRUE, type = "file"),
+    inline_failures = FALSE,
+    raw_output = FALSE
+) {
+  test <- RecursiveUnitTests$new()
+  test$run_tests(paths, inline_failures, raw_output)
 }
 
 lint_dir <- function(path) {

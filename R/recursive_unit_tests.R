@@ -1,133 +1,147 @@
 RecursiveUnitTests <- R6::R6Class("RecursiveUnitTests",       # nolint
   public = list(
-    initialize = function(path, filter = "test-.+\\.R$", recursive = TRUE) {
-      if (length(path) > 1) {
-        cli::cli_abort("Please provide a single path.")
-      }
-      private$path <- path
-      private$filter <- filter
-      private$recursive <- recursive
+    run_tests = function(
+        paths = fs::dir_ls("tests/testthat/", regexp = "\\.R$", recurse = TRUE, type = "file"),
+        inline_failures = FALSE,
+        raw_output = FALSE
+      ) {
+      files <- private$traverse_paths(paths)
 
-      private$get_valid_test_paths()
-    },
-    run_tests = function(...) {
-      if (private$is_single_test_file()) {
-        testthat::test_file(path = private$valid_paths, ...)
-      } else if (private$is_single_test_dir()) {
-        testthat::test_dir(path = private$valid_paths, ...)
-      } else if (private$is_multiple_test_dirs()) {
-        private$test_recursive(...)
+      private$show_header()
+      test_results <- private$test_files(files, inline_failures)
+      flat_test_results <- private$flatten_test_results(test_results)
+      private$show_summary(flat_test_results, inline_failures)
+
+      if (raw_output) {
+        output <- test_results
       } else {
-        cli::cli_abort("Test run failed!")
+        output <- flat_test_results
       }
+
+      invisible(output)
     }
   ),
   private = list(
-    filter = NULL,
-    path = NULL,
-    valid_paths = NULL,
-    recursive = TRUE,
-    get_valid_test_paths = function() {
-      if (fs::is_file(private$path)) {
-        private$valid_paths <- fs::path_filter(private$path, regexp = private$filter)
-      }
+    traverse_paths = function(paths) {
+      list_of_files <- lapply(paths, function(path) {
+        if (fs::is_file(path)) {
+          return(path)
+        } else if (fs::is_dir(path)) {
+          return(
+            fs::dir_ls(path, regexp = "\\.R$", recurse = FALSE, type = "file")
+          )
+        }
+      })
+      
+      unlist(list_of_files, use.names = FALSE)
+    },
+    test_files = function(files, inline_failures) {
+      test_results <- lapply(files, function(file) {
+        invisible(capture.output(
+          raw_result <- testthat::test_file(file, stop_on_failure = FALSE)
+        ))
 
-      if (fs::is_dir(private$path)) {
-        valid_paths <- unique(
-          fs::path_dir(
-            fs::dir_ls(path = private$path,
-                       regexp = private$filter,
-                       recurse = private$recursive, type = "file")
+        if (length(raw_result) > 0) {
+          raw_result_df <- as.data.frame(raw_result)
+          raw_result_summary <- aggregate(
+            cbind(failed, warning, skipped, passed) ~ context,
+            data = raw_result,
+            FUN = sum
+          )
+
+          if (raw_result_summary$failed > 0) {
+            status <- cli::col_red(cli::symbol$cross)
+          } else {
+            status <- cli::col_green(cli::symbol$tick)
+          }
+
+          message <- paste0(
+            status, " | ",
+            private$col_format(raw_result_summary$failed, "fail"), " ",
+            private$col_format(raw_result_summary$warning, "warn"), " ",
+            private$col_format(raw_result_summary$skipped, "skip"), " ",
+            sprintf("%3d", raw_result_summary$passed),
+            " | ", raw_result_summary$context
+          )
+
+          cli::cat_line(message)
+
+          if (inline_failures & raw_result_summary$failed > 0) {
+            private$show_failures(raw_result_df)
+          }
+        }
+
+        return(raw_result)
+      })
+    },
+    flatten_test_results = function(test_results) {
+      results_df <- lapply(test_results, `as.data.frame`)
+      results_df <- private$compact(results_df)
+      do.call("rbind", results_df)
+    },
+    get_final_results = function(flat_test_results) {
+      colSums(flat_test_results[, c("failed", "warning", "skipped", "passed")])
+    },
+    show_header = function() {
+      cli::cat_line(
+        private$colourise(cli::symbol$tick, "success"), " | ",
+        private$colourise("F", "failure"), " ",
+        private$colourise("W", "warning"), " ",
+        private$colourise("S", "skip"), " ",
+        private$colourise(" OK", "success"),
+        " | ", "Context"
+      )
+    },
+    show_final_line = function(final_results) {
+      cli::cat_line(
+        private$summary_line(final_results[["failed"]],
+                             final_results[["warning"]],
+                             final_results[["skipped"]],
+                             final_results[["passed"]])
+      )
+
+      private$cat_cr()
+    },
+    show_failures = function(test_results) {
+      failed_tests <- test_results[test_results$failed > 0, "result"]
+
+      lapply(failed_tests, function(failed_test) {
+        result_body <- failed_test[[1]]
+        srcref <- result_body[["srcref"]]
+        srcfile <- attr(srcref, "srcfile")
+        filename <- srcfile$filename
+        line <- srcref[1]
+        col <- srcref[2]
+        test <- result_body[["test"]]
+        message <- result_body[["message"]]
+        
+        failure_type <- private$colourise("Failure", "failure")
+        location <- cli::format_inline("{.file {filename}:{line}}:{{col}}")
+        issue_message <- cli::format_inline(
+          cli::style_bold(
+            "{failure_type} ({location}): {test}"
           )
         )
 
-        private$valid_paths <- valid_paths[order(valid_paths)]
-      }
-
-      if (length(private$valid_paths) == 0) {
-        cli::cli_abort("No valid test file/s found in {.var {private$path}}.",
-                       call = rlang::caller_env(n = 3))
-      }
-    },
-    is_single_test_file = function() {
-      length(private$valid_paths) == 1 && fs::is_file(private$valid_paths)
-    },
-    is_single_test_dir = function() {
-      length(private$valid_paths) == 1
-    },
-    is_multiple_test_dirs = function() {
-      length(private$valid_paths) > 1
-    },
-    run_recursive_test_dir = function(...) {
-      t(
-        sapply(private$valid_paths, function(this_path) {
-          private$cat_cr()
-          cli::cat_line("Test Directory: ", this_path)
-
-          single_test_result <- as.data.frame(
-            testthat::test_dir(path = this_path, stop_on_failure = FALSE, ...))
-
-          colSums(single_test_result[, c("failed", "warning", "skipped", "passed")])
-        })
-      )
-    },
-    show_final_line = function(test_results) {
-      final_line_results <- colSums(test_results)
-
-      cli::cat_line(
-        summary_line(final_line_results[["failed"]],
-                             final_line_results[["warning"]],
-                             final_line_results[["skipped"]],
-                             final_line_results[["passed"]])
-      )
-
-      private$cat_cr()
-    },
-    show_summary = function(test_results) {
-      private$cat_cr()
-      cli::cat_rule(cli::style_bold("Rhino App Summary"), line = 2)
-      private$cat_cr()
-
-      cli::cat_line(
-        colourise(cli::symbol$tick, "success"), " | ",
-        colourise("F", "failure"), " ",
-        colourise("W", "warning"), " ",
-        colourise("S", "skip"), " ",
-        colourise(" OK", "success"),
-        " | ", "Test Directory"
-      )
-
-      summary_results <- as.data.frame(test_results)
-
-      sapply(row.names(summary_results), function(summary_row_name) {
-        path_test_result <- summary_results[summary_row_name, ]
-
-        if (path_test_result$failed > 0) {
-          status <- cli::col_red(cli::symbol$cross)
-        } else {
-          status <- cli::col_green(cli::symbol$tick)
-        }
-
-        message <- paste0(
-          status, " | ",
-          private$col_format(path_test_result$failed, "fail"), " ",
-          private$col_format(path_test_result$warning, "warn"), " ",
-          private$col_format(path_test_result$skipped, "skip"), " ",
-          sprintf("%3d", path_test_result$passed),
-          " | ", summary_row_name
-        )
-
+        private$cat_cr()
+        cli::cat_line(issue_message)
         cli::cat_line(message)
       })
+    },
+    show_summary = function(flat_test_results, inline_failures) {
+      final_results <- private$get_final_results(flat_test_results)
+      
+      if (!inline_failures & final_results[["failed"]] > 0) {
+        private$cat_cr()
+        cli::cat_rule(cli::style_bold("Failures"), line = 1)
+        private$show_failures(flat_test_results)
+      }
 
       private$cat_cr()
-    },
-    test_recursive = function(...) {
-      test_results <- private$run_recursive_test_dir(...)
+      cli::cat_rule(cli::style_bold("Results"), line = 2)
+      private$cat_cr()
 
-      private$show_summary(test_results)
-
-      private$show_final_line(test_results)
+      private$show_final_line(final_results)
     },
     cat_cr = function() {
       if (cli::is_dynamic_tty()) {
@@ -140,16 +154,54 @@ RecursiveUnitTests <- R6::R6Class("RecursiveUnitTests",       # nolint
       if (n == 0) {
         " "
       } else {
-        colourise(n, type)
+        private$colourise(n, type)
       }
+    },
+    colourise = function(text, as = c("success", "skip", "warning", "failure", "error")) {
+      if (private$has_colour()) {
+        unclass(cli::make_ansi_style(private$testthat_style(as))(text))
+      } else {
+        text
+      }
+    },
+    has_colour = function() {
+      isTRUE(getOption("testthat.use_colours", TRUE)) &&
+        cli::num_ansi_colors() > 1
+    },
+    summary_line = function(n_fail, n_warn, n_skip, n_pass) {
+      colourise_if <- function(text, colour, cond) {
+        if (cond) private$colourise(text, colour) else text
+      }
+
+      # Ordered from most important to least important
+      paste0(
+        "[ ",
+        colourise_if("FAIL", "failure", n_fail > 0), " ", n_fail, " | ",
+        colourise_if("WARN", "warn", n_warn > 0),    " ", n_warn, " | ",
+        colourise_if("SKIP", "skip", n_skip > 0),    " ", n_skip, " | ",
+        colourise_if("PASS", "success", n_fail == 0), " ", n_pass,
+        " ]"
+      )
+    },
+    testthat_style = function(type = c("success", "skip", "warning", "failure", "error")) {
+      type <- match.arg(type)
+
+      c(
+        success = "green",
+        skip = "blue",
+        warning = "magenta",
+        failure = "orange",
+        error = "orange"
+      )[[type]]
+    },
+    compact = function(x) {
+      x[private$viapply(x, length) != 0]
+    },
+    viapply = function(X, FUN, ...) {
+      vapply(X, FUN, ..., FUN.VALUE = integer(1))
     }
   )
 )
-
-colourise <- getFromNamespace("colourise", "testthat")
-has_colour <- getFromNamespace("has_colour", "testthat")
-summary_line <- getFromNamespace("summary_line", "testthat")
-testthat_style <- getFromNamespace("testthat_style", "testthat")
 
 r_cmd_check_fix <- function() {
   testthat::test_check()
