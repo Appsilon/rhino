@@ -51,10 +51,14 @@ test_files <- function(files, inline_issues, min_time = 0.1) {
       cli::cat_line(message)
 
       if (inline_issues & raw_result_summary$skipped > 0) {
+        cli::cat_rule(line = 1)
         show_test_issues("skip", raw_result_df)
+        cli::cat_rule(line = 1)
       }
       if (inline_issues & raw_result_summary$failed > 0) {
+        cli::cat_rule(line = 1)
         show_test_issues("failure", raw_result_df)
+        cli::cat_rule(line = 1)
       }
       
     }
@@ -123,11 +127,13 @@ show_test_issues <- function(issue_type, test_results) {
       )
     )
 
-    message <- gsub(":?\n(\n|.)+", "", message) # only show first line
+    if (issue_type == "skip") {
+      message <- gsub(":?\n(\n|.)+", "", message) # only show first line
+    }
 
-    cat_cr()
     cli::cat_line(issue_message)
     cli::cat_line(message)
+    cat_cr()
   })
 }
 
@@ -135,18 +141,15 @@ show_test_summary <- function(flat_test_results, inline_issues, min_time = 0.1) 
   final_results <- get_final_test_results(flat_test_results)
   
   if (!inline_issues & final_results[["skipped"]] > 0) {
-    cat_cr()
     cli::cat_rule(cli::style_bold("Skipped tests "), line = 1)
     show_test_issues("skip", flat_test_results)
   }
 
   if (!inline_issues & final_results[["failed"]] > 0) {
-    cat_cr()
     cli::cat_rule(cli::style_bold("Failures"), line = 1)
     show_test_issues("failure", flat_test_results)
   }
 
-  cat_cr()
   cli::cat_rule(cli::style_bold("Results"), line = 2)
   if (final_results[["real"]] > min_time) {
     cli::cat_line("Duration: ", sprintf("%.1f s", final_results[["real"]]), col = "cyan")

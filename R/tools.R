@@ -36,6 +36,7 @@ test_r <- function(
 
   show_test_header()
   test_results <- test_files(files, inline_issues)
+  cat_cr()
   flat_test_results <- flatten_test_results(test_results)
   show_test_summary(flat_test_results, inline_issues)
 
