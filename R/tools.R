@@ -35,6 +35,7 @@ test_r <- function(
     inline_issues = FALSE,
     raw_testthat_output = FALSE
 ) {
+  purge_box_cache()
   files <- traverse_test_paths(paths)
 
   show_test_header()
