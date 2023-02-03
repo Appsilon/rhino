@@ -39,7 +39,7 @@ need to use namespace (`ns`) in the UI part.
 </details>
 
 <details>
-<summary>Where is `global.R` file?</summary>
+<summary>Where is the `global.R` file?</summary>
 
 Rhino encourages you to work with encapsulated modules instead of using global objects,
 thus it does not include `global.R` file.
