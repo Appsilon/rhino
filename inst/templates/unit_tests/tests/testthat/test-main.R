@@ -8,6 +8,6 @@ box::use(
 
 test_that("main server works", {
   testServer(server, {
-    expect_equal(output$message, "Hello!")
+    expect_true(grepl(x = output$message$html, pattern = "Check out Rhino docs!"))
   })
 })
