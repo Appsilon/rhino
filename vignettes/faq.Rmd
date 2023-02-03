@@ -121,7 +121,7 @@ ui <- function(id) {
 </details>
 
 <details>
-<summary>Why my `output` is not visible?</summary>
+<summary>Why is my `output` not visible?</summary>
 
 Rhino uses Shiny modules to encapsulate the whole application,
 so the `id` of every output you create needs to be wrapped in `ns`, for example:
