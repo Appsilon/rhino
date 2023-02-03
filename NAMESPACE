@@ -3,6 +3,8 @@
 export(app)
 export(build_js)
 export(build_sass)
+export(covr_r)
+export(covr_report)
 export(diagnostics)
 export(format_r)
 export(init)
