@@ -1,17 +1,56 @@
 #' Run R unit tests
 #'
-#' Uses the `{testhat}` package to run all unit tests in `tests/testthat` directory.
+#' Uses the `{testhat}` package to run all unit tests in the `tests/testthat` directory.
+#' Alternatively, a vector of paths (files and directories) can be provided.
 #'
-#' @return None. This function is called for side effects.
+#' @param paths A character vector of paths to R files or directories containing tests.
+#'   Given a directory, R files in the directory will be included as test files.
+#'   Defaults to all files in all directories recursively in `tests/testthat`.
+#' @param inline_issues If `TRUE`, test failure, wanring, and skip messages are shown while the
+#'    tests are running. If `FALSE`, test failure, warning, and skip messages are shown after
+#'    all tests are run.
+#' @param raw_testthat_output boolean, See return value.
+#' @return If `raw_testthat_output = FALSE`, a data.frame (invisibly) containing data
+#' about the `testthat` test results.
+#'    If `raw_testthat_output = TRUE`, a list (invisibly) of lists containing data
+#'    returned by `testthat::test_file()`.
 #'
 #' @examples
 #' if (interactive()) {
-#'   # Run all unit tests in the `tests/testthat` directory.
+#'   # Run all unit tests in the `tests/testthat` directory, recursively.
 #'   test_r()
+#'
+#'   # Run all unit tests in the `tests/testthat` directory only. Non-recursive.
+#'   test_r("tests/testthat")
+#'
+#'   # Run one unit test.
+#'   test_r("tests/testthat/main.R")
+#'
+#'   # Run unit tests on a collection of files and directories.
+#'   test_r(c("tests/testthat/test-main.R", "tests/testthat/logic"))
 #' }
 #' @export
-test_r <- function() {
-  testthat::test_dir(fs::path("tests", "testthat"))
+test_r <- function(
+    paths = fs::dir_ls("tests/testthat/", glob = "*.R", recurse = TRUE, type = "file"),
+    inline_issues = FALSE,
+    raw_testthat_output = FALSE
+) {
+  purge_box_cache()
+  files <- traverse_test_paths(paths)
+
+  show_test_header()
+  test_results <- test_files(files, inline_issues)
+  cat_cr()
+  flat_test_results <- flatten_test_results(test_results)
+  show_test_summary(flat_test_results, inline_issues)
+
+  if (raw_testthat_output) {
+    output <- test_results
+  } else {
+    output <- flat_test_results
+  }
+
+  invisible(output)
 }
 
 lint_dir <- function(path) {
