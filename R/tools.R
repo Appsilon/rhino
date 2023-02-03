@@ -11,6 +11,7 @@
 #' }
 #' @export
 test_r <- function() {
+  purge_box_cache()
   testthat::test_dir(fs::path("tests", "testthat"))
 }
 
@@ -369,6 +370,7 @@ covr_r <- function(
                             recursive = TRUE),
     line_exclusions = NULL,
     function_exclusions = NULL) {
+  purge_box_cache()
   withr::with_file("box_loader.R", {
     module_list <- sub(
       "__init__",
