@@ -2,6 +2,7 @@
 #'
 #' Uses the `{testhat}` package to run all unit tests in `tests/testthat` directory.
 #'
+#' @param ... Additional arguments passed to `testthat::test_dir()`.
 #' @return None. This function is called for side effects.
 #'
 #' @examples
@@ -10,9 +11,12 @@
 #'   test_r()
 #' }
 #' @export
-test_r <- function() {
+test_r <- function(...) {
   purge_box_cache()
-  testthat::test_dir(fs::path("tests", "testthat"))
+  testthat::test_dir(
+    path = fs::path("tests", "testthat"),
+    ...
+  )
 }
 
 lint_dir <- function(path) {
