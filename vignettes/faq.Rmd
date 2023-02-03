@@ -31,7 +31,7 @@ The same as in the case of a regular Shiny app, e.g. you can use "Deploy" button
 <details>
 <summary>Where are `server.R` and `ui.R` files?</summary>
 
-Instead of `server.R` and `ui.R`, Rhino uses a single file `main.R`.
+Instead of `server.R` and `ui.R`, Rhino uses a single file `app/main.R`.
 It includes both the server and UI part of the application.
 The main difference is that both are already Shiny modules so you
 need to use namespace (`ns`) in the UI part.
