@@ -1,4 +1,4 @@
-# rhino 1.3.0
+# [rhino 1.3.0](https://github.com/Appsilon/rhino/releases/tag/v1.3.0)
 
 1. Rhino now works with `shinytest2` out of the box.
 
