@@ -12,7 +12,7 @@ vignette: >
 <details>
 <summary>How to run a Rhino application?</summary>
 
-You can run a Rhino application exactly the same, as a regular Shiny app:
+You can run a Rhino application exactly the same as a regular Shiny app:
 
 - using `shiny::runApp()`
 - using "Run app" button in RStudio
