@@ -1,3 +1,7 @@
+# rhino (development version)
+
+1. Adds `covr` support for `rhino` apps.
+
 # rhino 1.3.0
 
 1. Rhino now works with `shinytest2` out of the box.
