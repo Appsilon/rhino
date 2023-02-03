@@ -177,7 +177,7 @@ More details can be found [here](https://github.com/Appsilon/rhino/discussions/2
 <summary>Can I use multiple Sass files?</summary>
 
 Yes, you can have any file/directory structure in `app/styles` that you desire.
-The `app/styles/main.scss` is the entrypoint: you'll need to `@use` the other files from `main.scss`.
+The `app/styles/main.scss` is the entrypoint: you'll need to [`@use`](https://sass-lang.com/documentation/at-rules/use) the other files from `main.scss`.
 Then running `rhino::build_sass()` will be sufficient to include the styles in your application.
 
 </details>
