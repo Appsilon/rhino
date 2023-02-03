@@ -82,7 +82,7 @@ server <- function(id) {
 </details>
 
 <details>
-<summary>Where is `www` directory?</summary>
+<summary>Where is the `www` directory?</summary>
 
 Instead of `www`, Rhino uses `app/static`.
 To utilize it, you need to provide the path to your assets that include `static`,
