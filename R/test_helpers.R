@@ -8,7 +8,7 @@ traverse_test_paths <- function(paths) {
       )
     }
   })
-  
+
   unlist(list_of_files, use.names = FALSE)
 }
 
@@ -70,7 +70,7 @@ test_files <- function(files, inline_issues, min_time = 0.1) {
 
     return(raw_result)
   })
-  
+
   compact(test_results)
 }
 
@@ -120,14 +120,14 @@ show_test_issues <- function(issue_type, test_results) {
     result_body <- issue_test[[1]]
     srcref <- result_body[["srcref"]]
     srcfile <- attr(srcref, "srcfile")
-    filename <- srcfile$filename
-    line <- srcref[1]
-    col <- srcref[2]
-    test <- result_body[["test"]]
+    filename <- srcfile$filename      # nolint
+    line <- srcref[1]                 # nolint
+    col <- srcref[2]                  # nolint
+    test <- result_body[["test"]]     # nolint
     message <- result_body[["message"]]
-    
-    issue_header <- colourise(first_upper(issue_type), issue_type)
-    location <- cli::format_inline("{.file {filename}:{line}:{col}}")
+
+    issue_header <- colourise(first_upper(issue_type), issue_type)    # nolint
+    location <- cli::format_inline("{.file {filename}:{line}:{col}}") # nolint
     issue_message <- cli::format_inline(
       cli::style_bold(
         "{issue_header} ({location}): {test}"
@@ -147,17 +147,17 @@ show_test_issues <- function(issue_type, test_results) {
 show_test_summary <- function(flat_test_results, inline_issues, min_time = 0.1) {
   final_results <- get_final_test_results(flat_test_results)
   
-  if (!inline_issues & final_results[["skipped"]] > 0) {
+  if (!inline_issues && final_results[["skipped"]] > 0) {
     cli::cat_rule(cli::style_bold("Skipped tests"), line = 1)
     show_test_issues("skip", flat_test_results)
   }
 
-  if (!inline_issues & final_results[["warning"]] > 0) {
+  if (!inline_issues && final_results[["warning"]] > 0) {
     cli::cat_rule(cli::style_bold("Warnings"), line = 1)
     show_test_issues("warning", flat_test_results)
   }
 
-  if (!inline_issues & final_results[["failed"]] > 0) {
+  if (!inline_issues && final_results[["failed"]] > 0) {
     cli::cat_rule(cli::style_bold("Failures"), line = 1)
     show_test_issues("failure", flat_test_results)
   }
@@ -231,8 +231,8 @@ compact <- function(x) {
   x[viapply(x, length) != 0]
 }
 
-viapply <- function(X, FUN, ...) {
-  vapply(X, FUN, ..., FUN.VALUE = integer(1))
+viapply <- function(x, FUN, ...) {
+  vapply(x, FUN, ..., FUN.VALUE = integer(1))
 }
 
 first_upper <- function(x) {

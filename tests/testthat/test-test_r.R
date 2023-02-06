@@ -88,14 +88,14 @@ test_that("test_r shows a failed test inline when inline_issues = TRUE", {
 
 test_that("test_r shows a skipped test", {
   path <- "test_recursive/view/test-view_sample.R"
-  
+
   expect_output(test_r(path), "Skipped tests")
   expect_output(test_r(path), "skip example", ignore.case = TRUE)
 })
 
 test_that("test_r shows a skipped test inline when inline_issues = TRUE", {
   path <- "test_recursive/view/test-view_sample.R"
-  
+
   # "Failures" section should not show
   expect_output(test_r(path, inline_issues = TRUE), "(?!Skipped tests).*$", perl = TRUE)
   expect_output(test_r(path, inline_issues = TRUE), "skip example", ignore.case = TRUE)
@@ -103,7 +103,7 @@ test_that("test_r shows a skipped test inline when inline_issues = TRUE", {
 
 test_that("test_r shows warnings", {
   path <-   "test_recursive/view/test-view_sample.R"
-  
+
   expect_output(test_r(path), "Warnings")
   expect_output(test_r(path), "warn warn warn")
 })
