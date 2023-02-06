@@ -11,6 +11,7 @@
 #' }
 #' @export
 test_r <- function() {
+  purge_box_cache()
   testthat::test_dir(fs::path("tests", "testthat"))
 }
 
