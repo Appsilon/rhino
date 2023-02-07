@@ -15,7 +15,7 @@ vignette: >
 You can run a Rhino application exactly the same as a regular Shiny app:
 
 - using `shiny::runApp()`
-- using "Run app" button in RStudio
+- using the "Run app" button in RStudio
 
 </details>
 
@@ -42,42 +42,27 @@ need to use namespace (`ns`) in the UI part.
 <summary>Where is the `global.R` file?</summary>
 
 Rhino encourages you to work with encapsulated modules instead of using global objects,
-thus it does not include `global.R` file.
-Instead, you can add code outside the server and UI parts of a module - it will be available
-only in this particular one, e.g.:
+thus it does not include `global.R` file. Instead, objects are by default only available
+on the level of a particular script. Depending on the context, objects can be shared explicitly,
+by being passed as an argument or being exported with `@export`.
+
+</details>
+
+<details>
+<summary>Where should I put `library` calls?</summary>
+
+Rhino application doesn't use `library` to load packages.
+Instead, each script imports its dependencies with `box::use`:
 
 ```r
 box::use(
-  dplyr[collect, tbl]
-  shiny[moduleServer, NS],
-  pool[dbPool],
-  RSQLite[SQLite],
+  dplyr, # functions from `dplyr` are available using `$`, e.g. `dplyr$mutate()`
+  shiny[div, moduleServer, NS], # `div`, `moduleServer`, and `NS` are available (but other functions from `shiny` are not)
 )
-
-# connection would usually go to `global.R`
-connection <- dbPool(
-  SQLite(),
-  dbname = "database.sqlite"
-)
-
-#' @export
-ui <- function(id) {
-  ns <- NS(id)
-
-  ...
-}
-
-#' @export
-server <- function(id) {
-  moduleServer(id, function(input, output, session) {
-    ...
-
-    connection |>
-      tbl("data") |>
-      collect()
-  })
-}
 ```
+
+The only place where you should use `library` calls is the `dependencies.R` file.
+You can read more about managing R dependencies in [this article](https://appsilon.github.io/rhino/articles/how-to/manage-r-dependencies.html).
 
 </details>
 
@@ -171,13 +156,27 @@ More details can be found [here](https://github.com/Appsilon/rhino/discussions/2
 
 </details>
 
+<details>
+<summary>I have an R package installed, but `renv::snapshot()` didn't add it to the `renv.lock` file.</summary>
+
+In Rhino, `renv` only uses packages added to the `dependencies.R` file.
+This way you have full control over what libraries are used by your application.
+Adding `library(your package name)` to the `dependencies.R` file should fix the problem.
+
+Check also:
+
+- [`renv` configuration](https://appsilon.github.io/rhino/articles/explanation/renv-configuration.html)
+- [dependencies management](https://appsilon.github.io/rhino/articles/how-to/manage-r-dependencies.html).
+
+</details>
+
 # Styling Rhino application
 
 <details>
 <summary>Can I use multiple Sass files?</summary>
 
 Yes, you can have any file/directory structure in `app/styles` that you desire.
-The `app/styles/main.scss` is the entrypoint: you'll need to [`@use`](https://sass-lang.com/documentation/at-rules/use) the other files from `main.scss`.
+The `app/styles/main.scss` is the entry point: you'll need to [`@use`](https://sass-lang.com/documentation/at-rules/use) the other files from `main.scss`.
 Then running `rhino::build_sass()` will be sufficient to include the styles in your application.
 
 </details>
