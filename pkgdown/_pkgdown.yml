@@ -69,6 +69,8 @@ navbar:
           href: articles/how-to/use-shinytest2.html
         - text: Add internationalization
           href: articles/how-to/add-internationalization.html
+        - text: Add routing
+          href: articles/how-to/add-routing.html
     faq:
       text: FAQ
       href: articles/faq.html
