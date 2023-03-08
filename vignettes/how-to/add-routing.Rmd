@@ -1,0 +1,13 @@
+---
+title: "How-to: Add routing"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{How-to: Add routing}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+In the Rhino application, routing can be introduced using
+[`shiny.router` package](https://appsilon.github.io/shiny.router/).
+A detailed tutorial on how to apply it in Rhino applications
+can be found [here](https://appsilon.github.io/shiny.router/articles/rhino.html).
