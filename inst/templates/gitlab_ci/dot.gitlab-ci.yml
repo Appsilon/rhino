@@ -2,6 +2,12 @@ variables:
   # For caching renv library
   RENV_PATHS_CACHE: ${CI_PROJECT_DIR}/cache
   RENV_PATHS_LIBRARY: ${CI_PROJECT_DIR}/renv/library
+  # Cache .rhino
+  DOT_RHINO_PATH: ${CI_PROJECT_DIR}/.rhino
+  # Necessary for cypress to run.
+  # https://docs.cypress.io/guides/references/error-messages#A-Cached-Cypress-Binary-Could-not-be-found
+  # https://docs.cypress.io/guides/continuous-integration/introduction#Caching
+  CYPRESS_CACHE_FOLDER: ${CI_PROJECT_DIR}/.cache/Cypress
 
 
 default:
@@ -13,10 +19,12 @@ default:
     paths:
       - ${RENV_PATHS_CACHE}
       - ${RENV_PATHS_LIBRARY}
+      - ${DOT_RHINO_PATH}
+      - ${CYPRESS_CACHE_FOLDER}
 
 Runs linters and tests:
   before_script:
-    # Restores renv if not yet cached
+    # Restores renv when cache is not available.
     - R -e "options(renv.config.cache.symlinks = FALSE); renv::restore(clean = TRUE);"
   script:
     - R -e "rhino::lint_r()"
