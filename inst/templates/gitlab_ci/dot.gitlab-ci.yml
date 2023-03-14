@@ -1,0 +1,28 @@
+variables:
+  # For caching renv library
+  RENV_PATHS_CACHE: ${CI_PROJECT_DIR}/cache
+  RENV_PATHS_LIBRARY: ${CI_PROJECT_DIR}/renv/library
+
+
+default:
+  # Use deployed image with .gitlab-ci.Dockerfile
+  image: your/image:latest
+  cache:
+    # This key needs to be constant so all jobs in all branches will share the same cache
+    key: rhino-ci
+    paths:
+      - ${RENV_PATHS_CACHE}
+      - ${RENV_PATHS_LIBRARY}
+
+Runs linters and tests:
+  before_script:
+    # Restores renv if not yet cached
+    - R -e "options(renv.config.cache.symlinks = FALSE); renv::restore(clean = TRUE);"
+  script:
+    - R -e "rhino::lint_r()"
+    - R -e "rhino::lint_sass()"
+    - R -e "rhino::lint_js()"
+    - R -e "rhino::build_sass()"
+    - R -e "rhino::build_js()"
+    - R -e "rhino::test_r()"
+    - R -e "rhino::test_e2e()"
