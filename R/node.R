@@ -3,8 +3,8 @@ node_path <- function(...) {
 }
 
 add_node <- function(clean = FALSE) {
-  if (clean && fs::dir_exists(node_path())) {
-    fs::dir_delete(node_path())
+  if (clean) {
+    fs::dir_delete(node_path(), recursive = TRUE)
   }
   copy_template("node", node_path())
 }
