@@ -10,9 +10,9 @@ add_node <- function(clean = FALSE) {
 }
 
 # Run `npm` command (assume node directory already exists in the project).
-npm_raw <- function(..., status_ok = 0) {
+npm_raw <- function(commands, status_ok = 0) {
   withr::with_dir(node_path(), {
-    status <- system2(command = "npm", args = c(...))
+    status <- system2(command = "npm", args = commands)
   })
   if (status != status_ok) {
     cli::cli_abort("System command 'npm' exited with status {status}.")
@@ -26,9 +26,11 @@ npm <- function(...) {
     dependency_name = "Node.js",
     documentation_url = "https://go.appsilon.com/rhino-system-dependencies"
   )
+  # Check if node directory exists, create it otherwise and install dependencies
   if (!fs::dir_exists(node_path())) {
     add_node()
-    npm_raw("install", "--no-audit", "--no-fund")
+    npm_raw("install", "--no-audit")
   }
-  npm_raw(...)
+  # Run npm commands with specified arguments
+  npm_raw(list(...))
 }
