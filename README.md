@@ -9,7 +9,7 @@
 [![downloads total](https://cranlogs.r-pkg.org/badges/grand-total/rhino)](https://CRAN.R-project.org/package=rhino)
 [![License: LGPL-3.0](https://img.shields.io/badge/License-LGPL--3.0-blue.svg)](https://opensource.org/licenses/LGPL-3.0)
 <!--
-[![codecov](https://codecov.io/gh/Appsilon/rhino/branch/main/graph/badge.svg)](https://codecov.io/gh/Appsilon/rhino) 
+[![codecov](https://codecov.io/gh/Appsilon/rhino/branch/main/graph/badge.svg)](https://codecov.io/gh/Appsilon/rhino)
 -->
 <!-- badges: end -->
 
@@ -108,9 +108,11 @@ A repository with step-by-step commits for the workshop application can be found
 Developed with :heart: at [Appsilon](https://appsilon.com).
 Get in touch: <opensource@appsilon.com>.
 
+Explore the [Rhinoverse](https://rhinoverse.dev) - a family of R packages built around [Rhino](https://appsilon.github.io/rhino/)!
+
 Appsilon is a
-[**Full Service Certified RStudio Partner**](https://www.rstudio.com/certified-partners/).
+[**Posit (formerly RStudio) Full Service Certified Partner**](https://www.rstudio.com/certified-partners/).
 
 <a href="https://appsilon.com/careers/">
-  <img src="http://d2v95fjda94ghc.cloudfront.net/hiring.png" alt="We are hiring!">
+  <img src="https://raw.githubusercontent.com/Appsilon/website-cdn/gh-pages/WeAreHiring1.png" alt="We are hiring!">
 </a>
