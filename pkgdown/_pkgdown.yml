@@ -79,6 +79,8 @@ navbar:
           href: articles/how-to/add-internationalization.html
         - text: Add routing
           href: articles/how-to/add-routing.html
+        - text: Use shiny.fluent
+          href: articles/how-to/use-shiny-fluent.html
     faq:
       text: FAQ
       href: articles/faq.html
