@@ -1,0 +1,74 @@
+---
+title: "How-to: Use shinymanager"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{How-to: Use shinymanager}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+To use [`shinymanager`](https://datastorm-open.github.io/shinymanager/) in Rhino
+you will need to setup a [legacy entrypoint](https://appsilon.github.io/rhino/reference/app.html#legacy-entrypoint)
+in your `rhino.yml`:
+
+```yml
+legacy_entrypoint: box_top_level
+```
+
+After adding `shinymanager` to your [dependencies](https://appsilon.github.io/rhino/articles/how-to/manage-r-dependencies.html)
+you can use it in `app/main.R` as follows:
+
+```r
+box::use(
+  shiny,
+  shinymanager,
+)
+
+# Define your `check_credentials` function.
+# This is just an example. Do not hard-code the credentials in your actual application.
+check_credentials <- shinymanager$check_credentials(
+  data.frame(user = "admin", password = "admin")
+)
+
+#' @export
+ui <- shinymanager$secure_app( # Wrap your entire UI in `secure_app()`.
+  shiny$bootstrapPage(
+    shiny$textInput("name", "Name"),
+    shiny$textOutput("message")
+  )
+)
+
+#' @export
+server <- function(input, output) {
+  # Call `secure_server()` at the beginning of your server function.
+  shinymanager$secure_server(check_credentials)
+  output$message <- shiny::renderText(paste0("Hello ", input$name, "!"))
+}
+```
+
+This is just an example.
+**Do not hard-code the credentials** in your actual application.
+Store them in a database or use
+[environment variables](https://appsilon.github.io/rhino/articles/how-to/manage-secrets-and-environments.html).
+
+### Bookmarking
+
+If you want to use [bookmarking](https://shiny.posit.co/r/articles/share/bookmarking-state/)
+together with `shinymanager`,
+you will need to wrap the UI passed to `secure_app()` in a function:
+
+```r
+shiny$enableBookmarking()
+
+#' @export
+ui <- shinymanager$secure_app(
+  # Wrap the UI passed to `secure_app()` in a function with a `request` parameter.
+  function(request) {
+    shiny$bootstrapPage(
+      shiny$bookmarkButton(),
+      shiny$textInput("name", "Name"),
+      shiny$textOutput("message")
+    )
+  }
+)
+```

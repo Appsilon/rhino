@@ -81,6 +81,8 @@ navbar:
           href: articles/how-to/add-routing.html
         - text: Use shiny.fluent
           href: articles/how-to/use-shiny-fluent.html
+        - text: Use shinymanager
+          href: articles/how-to/use-shinymanager.html
     faq:
       text: FAQ
       href: articles/faq.html
