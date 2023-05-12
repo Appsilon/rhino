@@ -64,7 +64,7 @@ jobs:
       - name: format_r() should format R scripts
         run: |
           cd RhinoApp
-          Rscript -e 'rhino::format_r()'
+          Rscript -e 'rhino::format_r("app")'
           
       - name: lint_js() should detect lint errors in JS
         run: |
@@ -79,7 +79,7 @@ jobs:
       - name: build_js() should build app.min.js
         run: |
           cd RhinoApp
-          Rscript ../test-build-js.R'
+          Rscript ../test-build-js.R
           
       - name: build_css() should build app.min.css
         run: |
