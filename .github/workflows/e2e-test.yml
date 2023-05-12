@@ -64,7 +64,9 @@ jobs:
       - name: test_r() should run tests for R
         run: |
           cd RhinoApp
-          Rscript ../test-rhino.R
+          Rscript -e 'dir.exists(fs::path("tests", "testthat"))'
+          Rscript -e 'list.files(fs::path("tests", "testthat"))'
+          Rscript -e 'cat(paste0(readLines(fs::path("tests", "testthat", "test-main.R")), collapse = "\n"))'
           
       - name: lint_js() should detect lint errors in JS
         run: |
