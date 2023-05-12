@@ -39,7 +39,7 @@ jobs:
           
       - name: Setup system dependencies
         run: |
-          sudo apt-get update && sudo apt-get install --yes libcurl4-openssl-dev
+          bash -e 'sudo apt-get update && sudo apt-get install --yes libcurl4-openssl-dev'
 
       - name: Install R package dependencies
         uses: r-lib/actions/setup-r-dependencies@v2
@@ -68,7 +68,7 @@ jobs:
       - name: test_r() should run tests for R
         run: |
           cd RhinoApp
-          Rscript -e test_r()
+          Rscript -e 'test_r()'
           
       - name: lint_js() should detect lint errors in JS
         run: |
