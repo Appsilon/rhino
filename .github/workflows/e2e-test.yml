@@ -46,7 +46,11 @@ jobs:
         run: |
           Rscript -e "install.packages('remotes')"
           Rscript -e "remotes::install_local('../../')"
+          
+      - name: Create Rhino App
+        run: |
+          Rscript -e 'rhino::init("RhinoApp")'
 
       - name: init() should create a Rhino directory
         run: |
-          Rscript test-rhino.R
+          Rscript -e 'stopifnot(file.exists(fs::path("RhinoApp", "RhinoApp.Rproj")))'
