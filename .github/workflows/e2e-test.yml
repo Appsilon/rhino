@@ -60,3 +60,13 @@ jobs:
         run: |
           cd RhinoApp
           Rscript -e 'rhino::lint_r()'
+          
+      - name: lint_js() should detect lint errors in JS
+        run: |
+          cd RhinoApp
+          Rscript -e 'rhino::lint_js()'
+          
+      - name: lint_sass() should detect lint errors in CSS
+        run: |
+          cd RhinoApp
+          Rscript -e 'rhino::lint_sass()'
