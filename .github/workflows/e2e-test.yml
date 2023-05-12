@@ -36,11 +36,20 @@ jobs:
         uses: r-lib/actions/setup-r@v2
         with:
           r-version: ${{ matrix.config.r }}
+          
+      - name: Setup system dependencies
+        run: |
+          sudo apt-get update && sudo apt-get install --yes libcurl4-openssl-dev
 
       - name: Install R package dependencies
         uses: r-lib/actions/setup-r-dependencies@v2
         with:
           extra-packages: local::. # Necessary to avoid object usage linter errors.
+
+      - name: Setup Node
+        uses: actions/setup-node@v2
+        with:
+          node-version: 16
 
       - name: Install rhino
         run: |
@@ -49,8 +58,29 @@ jobs:
 
       - name: init() should create a Rhino directory
         run: |
-          Rscript run_tests.R
-      
-      - name: Clean up RhinoApp
+          Rscript init-rhino.R
+          
+      - name: lint_r() should detect lint errors in R scripts
         run: |
-          rm -rf RhinoApp
+          cd RhinoApp
+          Rscript -e 'rhino::lint_r()'
+          
+      - name: test_r() should run tests for R
+        run: |
+          cd RhinoApp
+          Rscript -e test_r()
+          
+      - name: lint_js() should detect lint errors in JS
+        run: |
+          cd RhinoApp
+          Rscript -e 'rhino::lint_js()'
+          
+      - name: lint_sass() should detect lint errors in CSS
+        run: |
+          cd RhinoApp
+          Rscript -e 'rhino::lint_sass()'
+          
+      - name: test_e2e() should run cypress tests
+        run: |
+          cd RhinoApp
+          Rscript -e 'rhino::test_e2e()'
