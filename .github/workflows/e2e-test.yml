@@ -62,9 +62,9 @@ jobs:
           Rscript -e 'rhino::lint_r()'
           
       - name: test_r() should run tests for R
-        run: |
-          cd RhinoApp
-          Rscript -e 'options(box.path = getwd()); rhino::test_r()'
+        if: always()
+        shell: Rscript {0}
+        run: rhino::test_r()
           
       - name: lint_js() should detect lint errors in JS
         run: |
