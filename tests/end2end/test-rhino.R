@@ -1,0 +1,1 @@
+stopifnot(1 == 2)
