@@ -38,8 +38,9 @@ jobs:
           r-version: ${{ matrix.config.r }}
           
       - name: Setup system dependencies
+        shell: bash
         run: |
-          bash -e 'sudo apt-get update && sudo apt-get install --yes libcurl4-openssl-dev'
+          sudo apt-get update && sudo apt-get install --yes libcurl4-openssl-dev
 
       - name: Install R package dependencies
         uses: r-lib/actions/setup-r-dependencies@v2
