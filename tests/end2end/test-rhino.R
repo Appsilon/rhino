@@ -2,7 +2,6 @@ library(rhino)
 
 init("RhinoApp")
 
-stopifnot(file.exists("RhinoApp.Proj"))
-stopifnot(1 == 2)
+stopifnot(file.exists("RhinoApp.Rproj"))
 
 renv::deactivate()

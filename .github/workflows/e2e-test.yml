@@ -53,4 +53,4 @@ jobs:
       
       - name: Clean up RhinoApp
         run: |
-          rm -r RhinoApp/* RhinoApp/.*
+          rm -rf RhinoApp
