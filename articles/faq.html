@@ -44,7 +44,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">rhino</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.3.0.9002</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.3.0.9003</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -87,6 +87,7 @@
     <a class="dropdown-item" href="../articles/how-to/add-internationalization.html">Add internationalization</a>
     <a class="dropdown-item" href="../articles/how-to/add-routing.html">Add routing</a>
     <a class="dropdown-item" href="../articles/how-to/use-shiny-fluent.html">Use shiny.fluent</a>
+    <a class="dropdown-item" href="../articles/how-to/use-shinymanager.html">Use shinymanager</a>
   </div>
 </li>
 <li class="nav-item">
@@ -151,7 +152,7 @@ How to run a Rhino application?
 </summary><p>You can run a Rhino application exactly the same as a regular Shiny
 app:</p>
 <ul>
-<li>using <code><a href="https://shiny.rstudio.com/reference/shiny/latest/runApp.html" class="external-link">shiny::runApp()</a></code>
+<li>using <code><a href="https://rdrr.io/pkg/shiny/man/runApp.html" class="external-link">shiny::runApp()</a></code>
 </li>
 <li>using the “Run app” button in RStudio</li>
 </ul></details><details><summary>
@@ -247,7 +248,7 @@ Why is my <code>output</code> not visible?
 <span><span class="op">}</span></span></code></pre></div>
 </details><details><summary><code>shinyBS</code> is not working in my Rhino application.
 </summary><p><code>shinyBS</code> uses the <code>.onAttach()</code> hook to call
-<code><a href="https://shiny.rstudio.com/reference/shiny/latest/resourcePaths.html" class="external-link">shiny::addResourcePath()</a></code> which is necessary for its
+<code><a href="https://rdrr.io/pkg/shiny/man/resourcePaths.html" class="external-link">shiny::addResourcePath()</a></code> which is necessary for its
 resources (JS and CSS) to be loaded correctly. This hook is never run
 with <code><a href="http://klmr.me/box/reference/use.html" class="external-link">box::use()</a></code> (normally a <code><a href="https://rdrr.io/r/base/library.html" class="external-link">library()</a></code> call
 would run it). It is worth noting that the problem will be also present

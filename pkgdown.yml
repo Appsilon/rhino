@@ -18,13 +18,14 @@ articles:
   migrate-app-to-rhino: how-to/migrate-app-to-rhino.html
   use-global-variables: how-to/use-global-variables.html
   use-shiny-fluent: how-to/use-shiny-fluent.html
+  use-shinymanager: how-to/use-shinymanager.html
   use-shinytest2: how-to/use-shinytest2.html
   use-static-files: how-to/use-static-files.html
   write-javascript-code: how-to/write-javascript-code.html
   write-r-code: how-to/write-r-code.html
   create-your-first-rhino-app: tutorial/create-your-first-rhino-app.html
   write-end-to-end-tests-with-cypress: tutorial/write-end-to-end-tests-with-cypress.html
-last_built: 2023-05-05T07:51Z
+last_built: 2023-05-12T12:00Z
 urls:
   reference: https://appsilon.github.io/rhino/reference
   article: https://appsilon.github.io/rhino/articles
