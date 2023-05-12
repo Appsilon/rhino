@@ -1,7 +1,8 @@
-# rhino (development version)
+# rhino 1.3.1
 
 1. `test_r()` now clears the environment of loaded box modules before tests are run.
 This removes the need for `box::reload()` calls in tests.
+2. Added support for `shinymanager`.
 
 # [rhino 1.3.0](https://github.com/Appsilon/rhino/releases/tag/v1.3.0)
 
