@@ -61,6 +61,11 @@ jobs:
           cd RhinoApp
           Rscript -e 'rhino::lint_r()'
           
+      - name: test_r() should run tests for R
+        run: |
+          cd RhinoApp
+          Rscript -e 'rhino::test_r()'
+          
       - name: lint_js() should detect lint errors in JS
         run: |
           cd RhinoApp
@@ -70,3 +75,8 @@ jobs:
         run: |
           cd RhinoApp
           Rscript -e 'rhino::lint_sass()'
+          
+      - name: test_e2e() should run cypress tests
+        run: |
+          cd RhinoApp
+          Rscript -e 'rhino::test_e2e()'
