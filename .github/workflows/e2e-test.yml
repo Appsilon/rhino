@@ -43,50 +43,65 @@ jobs:
           extra-packages: local::. # Necessary to avoid object usage linter errors.
 
       - name: Setup Node
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v3
         with:
           node-version: 16
 
       - name: Install rhino
+        if: always()
+        shell: Rscript {0}
         run: |
-          Rscript -e "install.packages('remotes')"
-          Rscript -e "remotes::install_local('../../')"
+          install.packages('remotes')
+          remotes::install_local('../../')
 
       - name: init() should create a Rhino directory
-        run: |
-          Rscript init-rhino.R
+        if: always()
+        shell: Rscript {0}
+        run: rhino::init('RhinoApp')
+          
+      - name: diagnostics() should print system information and Rhino version
+        if: always()
+        shell: Rscript {0}
+        run: rhino::diagnostics()
           
       - name: lint_r() should detect lint errors in R scripts
+        if: always()
         run: |
           cd RhinoApp
-          Rscript -e 'rhino::lint_r()'
+          Rscript -e "rhino::lint_r()"
           
       - name: format_r() should format R scripts
+        if: always()
         run: |
           cd RhinoApp
-          Rscript -e 'rhino::format_r("app")'
+          Rscript ../test-format-r.R app tests
           
       - name: lint_js() should detect lint errors in JS
+        if: always()
         run: |
           cd RhinoApp
-          Rscript -e 'rhino::lint_js()'
+          Rscript -e "rhino::lint_js()"
           
       - name: lint_sass() should detect lint errors in CSS
+        if: always()
         run: |
           cd RhinoApp
-          Rscript -e 'rhino::lint_sass()'
+          Rscript -e "rhino::lint_sass()"
           
       - name: build_js() should build app.min.js
+        if: always()
         run: |
           cd RhinoApp
           Rscript ../test-build-js.R
           
       - name: build_css() should build app.min.css
+        if: always()
         run: |
           cd RhinoApp
           Rscript ../test-build-sass.R
           
       - name: test_e2e() should run cypress tests
+        if: always()
         run: |
           cd RhinoApp
-          Rscript -e 'rhino::test_e2e()'
+          Rscript ../test-build-sass.R

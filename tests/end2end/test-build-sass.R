@@ -1,2 +1,2 @@
 rhino::build_sass()
-stopifnot(file.exists(fs::path("app", "static", "js", "app.min.css")))
+stopifnot(file.exists(fs::path("app", "static", "css", "app.min.css")))
