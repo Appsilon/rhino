@@ -61,21 +61,22 @@ as_top_level <- function(shiny_module) {
   wrap(shiny_module)
 }
 
-attach_head_tags <- function(ui) {
-  shiny::tagList(
-    shiny::tags$head(
-      shiny::tags$script(src = "static/js/app.min.js"),
-      shiny::tags$link(rel = "stylesheet", href = "static/css/app.min.css", type = "text/css"),
-      shiny::tags$link(rel = "icon", href = "static/favicon.ico", sizes = "any")
-    ),
-    ui
-  )
-}
-
 with_head_tags <- function(ui) {
-  # The top-level UI must be a function for Shiny bookmarking to work.
-  if (is.function(ui)) function() attach_head_tags(ui())
-  else attach_head_tags(ui)
+  wrap <- function(tag) {
+    shiny::tagList(
+      shiny::tags$head(
+        shiny::tags$script(src = "static/js/app.min.js"),
+        shiny::tags$link(rel = "stylesheet", href = "static/css/app.min.css", type = "text/css"),
+        shiny::tags$link(rel = "icon", href = "static/favicon.ico", sizes = "any")
+      ),
+      tag
+    )
+  }
+  if (is.function(ui)) {
+    purrr::compose(wrap, ui)
+  } else {
+    wrap(ui)
+  }
 }
 
 #' Rhino application

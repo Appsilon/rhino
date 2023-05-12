@@ -15,3 +15,21 @@ test_that("configure_logger() works with missing config fields", {
   )
   expect_silent(configure_logger())
 })
+
+test_that("with_head_tags() handles UI defined as a tag", {
+  ui <- shiny::tags$div("test")
+  wrapped <- with_head_tags(ui)
+  expect_s3_class(wrapped, "shiny.tag.list")
+})
+
+test_that("with_head_tags() handles UI defined as a function without parameters", {
+  ui <- function() shiny::tags$div("test")
+  wrapped <- with_head_tags(ui)
+  expect_identical(formals(wrapped), formals(ui))
+})
+
+test_that("with_head_tags() handles UI defined as a function with a request parameter", {
+  ui <- function(request) shiny::tags$div("test")
+  wrapped <- with_head_tags(ui)
+  expect_identical(formals(wrapped), formals(ui))
+})

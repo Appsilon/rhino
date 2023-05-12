@@ -1,5 +1,4 @@
 Appsilon
-blogpost
 Boxifying
 ESLint
 Init
@@ -15,9 +14,9 @@ Rhinoverse
 Rprofile
 Stylelint
 UI
+blogpost
 conf
 config
-cranlogs
 devtools
 entrypoint
 favicon
@@ -44,6 +43,7 @@ roxygen
 rstudio
 scalable
 shinyapps
+shinymanager
 shinytest
 ui
 unintuitive
