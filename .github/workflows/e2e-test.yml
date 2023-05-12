@@ -69,7 +69,7 @@ jobs:
       - name: test_r() should run tests for R
         run: |
           cd RhinoApp
-          Rscript -e 'test_r()'
+          Rscript -e 'rhino::test_r()'
           
       - name: lint_js() should detect lint errors in JS
         run: |
