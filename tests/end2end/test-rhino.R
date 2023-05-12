@@ -1,7 +1,8 @@
 library(rhino)
+library(fs)
 
 init("RhinoApp")
 
-stopifnot(file.exists("RhinoApp.Rproj"))
+stopifnot(file.exists(fs::path("RhinoApp", "RhinoApp.Rproj")))
 
 renv::deactivate()
