@@ -54,7 +54,7 @@ jobs:
 
       - name: init() should create a Rhino directory
         run: |
-          Rscript test-rhino.R
+          Rscript init-rhino.R
           
       - name: lint_r() should detect lint errors in R scripts
         run: |
@@ -62,9 +62,9 @@ jobs:
           Rscript -e 'rhino::lint_r()'
           
       - name: test_r() should run tests for R
-        if: always()
-        shell: Rscript {0}
-        run: rhino::test_r()
+        run: |
+          cd RhinoApp
+          Rscript ../test-rhino.R
           
       - name: lint_js() should detect lint errors in JS
         run: |
