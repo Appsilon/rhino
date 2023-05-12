@@ -42,15 +42,21 @@ jobs:
         with:
           extra-packages: local::. # Necessary to avoid object usage linter errors.
 
+      - name: Setup Node
+        uses: actions/setup-node@v2
+        with:
+          node-version: 16
+
       - name: Install rhino
         run: |
           Rscript -e "install.packages('remotes')"
           Rscript -e "remotes::install_local('../../')"
-          
-      - name: Create Rhino App
-        run: |
-          Rscript -e 'rhino::init("RhinoApp")'
 
       - name: init() should create a Rhino directory
         run: |
-          Rscript -e 'stopifnot(file.exists(fs::path("RhinoApp", "RhinoApp.Rproj")))'
+          Rscript test-rhino.R
+          
+      - name: lint_r() should detect lint errors in R scripts
+        run: |
+          cd RhinoApp
+          Rscript -e 'rhino::lint_r()'
