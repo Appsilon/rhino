@@ -1,0 +1,56 @@
+on: push
+
+name: Rhino Usage Test
+
+defaults:
+ run:
+  working-directory: ./tests/end2end/
+
+jobs:
+  main:
+    name: ${{ matrix.config.os }} (${{ matrix.config.r }})
+
+    runs-on: ${{ matrix.config.os }}
+
+    timeout-minutes: 30
+
+    strategy:
+      fail-fast: false
+      matrix:
+        config:
+        - {os: macOS-latest,   r: 'release'}
+        - {os: windows-latest, r: 'release'}
+        - {os: ubuntu-22.04, r: 'devel'}
+        - {os: ubuntu-22.04, r: 'release'}
+        - {os: ubuntu-22.04, r: 'oldrel'}
+
+    env:
+      GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
+      BRANCH_NAME: ${{ github.head_ref || github.ref_name }}
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Install R
+        uses: r-lib/actions/setup-r@v2
+        with:
+          r-version: ${{ matrix.config.r }}
+
+      - name: Install R package dependencies
+        uses: r-lib/actions/setup-r-dependencies@v2
+        with:
+          extra-packages: local::. # Necessary to avoid object usage linter errors.
+
+      - name: Install rhino
+        run: |
+          Rscript -e "install.packages('remotes')"
+          Rscript -e "remotes::install_local('../../')"
+
+      - name: init() should create a Rhino directory
+        run: |
+          Rscript run_tests.R
+      
+      - name: Clean up RhinoApp
+        run: |
+          rm -rf RhinoApp
