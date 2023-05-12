@@ -7,9 +7,14 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 ---
 
-To use [`shinymanager`](https://datastorm-open.github.io/shinymanager/) in Rhino
-you will need to setup a [legacy entrypoint](https://appsilon.github.io/rhino/reference/app.html#legacy-entrypoint)
-in your `rhino.yml`:
+Rhino puts strong emphasis on modularisation
+and for consistency even the outermost UI and server are defined as a Shiny module.
+Unfortunately, [`shinymanager::secure_app()`](https://datastorm-open.github.io/shinymanager/reference/secure-app.html)
+cannot be placed in a Shiny module as it is designed to be passed directly to `shiny::shinyApp()`.
+
+To overcome this you can setup a [legacy entrypoint](https://appsilon.github.io/rhino/reference/app.html#legacy-entrypoint)
+in your `rhino.yml`.
+Please be aware that it is a workaround and not a setting recommended for all cases:
 
 ```yml
 legacy_entrypoint: box_top_level
