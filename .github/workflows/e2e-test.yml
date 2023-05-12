@@ -50,7 +50,3 @@ jobs:
       - name: init() should create a Rhino directory
         run: |
           Rscript test-rhino.R
-      
-      - name: Clean up RhinoApp
-        run: |
-          rm -rf RhinoApp
