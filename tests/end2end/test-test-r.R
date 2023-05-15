@@ -1,3 +1,1 @@
-rstudioapi::openProject("RhinoApp")
-fs::path("tests", "testthat")
-rhino::test_r()
+withr::with_dir("RhinoApp", rhino::test_r())

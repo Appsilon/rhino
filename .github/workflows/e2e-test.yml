@@ -93,5 +93,4 @@ jobs:
           
       - name: test_r() should run R unit tests
         run: |
-          cd RhinoApp
-          Rscript -e 'testthat::test_dir(fs::path("RhinoApp", "tests", "testthat"))'
+          Rscript test-test-r.R
