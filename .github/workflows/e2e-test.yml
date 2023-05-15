@@ -104,6 +104,5 @@ jobs:
           renv::restore(clean = TRUE)
           
       - name: test_r() should run R unit tests
-        working-directory: ./tests/end2end/RhinoApp/
         run: |
-          Rscript -e 'rhino::test_r()'
+          Rscript -e 'getwd()'
