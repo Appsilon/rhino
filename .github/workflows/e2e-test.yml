@@ -90,3 +90,7 @@ jobs:
         run: |
           cd RhinoApp
           Rscript -e 'rhino::test_e2e()'
+          
+      - name: test_r() should run R unit tests
+        run: |
+          Rscript test-test-r.R
