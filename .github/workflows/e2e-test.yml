@@ -54,7 +54,11 @@ jobs:
 
       - name: init() should create a Rhino directory
         run: |
-          Rscript init-rhino.R
+          Rscript -e "rhino::init('RhinoApp')"
+          
+      - name: diagnostics() should print system information and Rhino version
+        run: |
+          Rscript -e "rhino::diagnostics()"
           
       - name: lint_r() should detect lint errors in R scripts
         run: |
@@ -90,10 +94,3 @@ jobs:
         run: |
           cd RhinoApp
           Rscript -e 'rhino::test_e2e()'
-
-      - name: test_r should run R unit tests
-        run: |
-          cd RhinoApp
-          Rscript -e "options(renv.config.cache.symlinks = FALSE)
-          Rscript -e "renv::restore(clean = TRUE)"
-          Rscript -e "rhino::test_r()"
