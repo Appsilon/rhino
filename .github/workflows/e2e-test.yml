@@ -90,6 +90,11 @@ jobs:
         run: |
           cd RhinoApp
           Rscript -e 'rhino::test_e2e()'
+          
+      - name: Checkout RhinoApp
+        uses: actions/checkout@v3
+        with:
+          path: RhinoApp
 
       - name: Sync renv with lockfile
         working-directory: ./tests/end2end/RhinoApp/
