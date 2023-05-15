@@ -90,19 +90,10 @@ jobs:
         run: |
           cd RhinoApp
           Rscript -e 'rhino::test_e2e()'
-          
-      - name: Checkout RhinoApp
-        uses: actions/checkout@v3
-        with:
-          path: RhinoApp
 
-      - name: Sync renv with lockfile
-        working-directory: ./tests/end2end/RhinoApp/
-        shell: Rscript {0}
+      - name: test_r should run R unit tests
         run: |
-          options(renv.config.cache.symlinks = FALSE)
-          renv::restore(clean = TRUE)
-          
-      - name: test_r() should run R unit tests
-        run: |
-          Rscript -e 'getwd()'
+          cd RhinoApp
+          Rscript -e 'options(renv.config.cache.symlinks = FALSE)'
+          Rscript -e 'renv::restore(clean = TRUE)'
+          Rscript -e 'rhino::test_r()'
