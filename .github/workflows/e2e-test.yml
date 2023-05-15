@@ -49,8 +49,8 @@ jobs:
 
       - name: Install rhino
         run: |
-          Rscript -e "install.packages('remotes')"
-          Rscript -e "remotes::install_local('../../')"
+          Rscript -e 'install.packages("remotes")'
+          Rscript -e 'remotes::install_local("../../")'
 
       - name: init() should create a Rhino directory
         run: |
@@ -64,7 +64,7 @@ jobs:
       - name: format_r() should format R scripts
         run: |
           cd RhinoApp
-          Rscript -e 'rhino::format_r("app")'
+          Rscript ../test-format-r.R app,tests
           
       - name: lint_js() should detect lint errors in JS
         run: |
