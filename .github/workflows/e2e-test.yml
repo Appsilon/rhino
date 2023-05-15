@@ -104,4 +104,4 @@ jobs:
         if: always()
         run: |
           cd RhinoApp
-          Rscript ../test-build-sass.R
+          Rscript -e "rhino::test_e2e()"
