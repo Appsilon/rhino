@@ -92,5 +92,6 @@ jobs:
           Rscript -e 'rhino::test_e2e()'
           
       - name: test_r() should run R unit tests
+        working-directory: ./tests/end2end/RhinoApp/
         run: |
-          Rscript test-test-r.R
+          Rscript -e 'rhino::test_r()'
