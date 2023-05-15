@@ -64,7 +64,7 @@ jobs:
       - name: format_r() should format R scripts
         run: |
           cd RhinoApp
-          Rscript ../test-format-r.R app,tests
+          Rscript ../test-format-r.R app tests
           
       - name: lint_js() should detect lint errors in JS
         run: |

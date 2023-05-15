@@ -1,4 +1,3 @@
-paths <- args <- commandArgs(trailingOnly = TRUE)
-paths <- strsplit(paths, ",")
+paths <- commandArgs(trailingOnly = TRUE)
 
 rhino::format_r(paths)
