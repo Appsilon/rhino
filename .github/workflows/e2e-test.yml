@@ -49,8 +49,8 @@ jobs:
 
       - name: Install rhino
         run: |
-          Rscript -e 'install.packages("remotes")'
-          Rscript -e 'remotes::install_local("../../")'
+          Rscript -e "install.packages('remotes')"
+          Rscript -e "remotes::install_local('../../')"
 
       - name: init() should create a Rhino directory
         run: |
@@ -59,7 +59,7 @@ jobs:
       - name: lint_r() should detect lint errors in R scripts
         run: |
           cd RhinoApp
-          Rscript -e 'rhino::lint_r()'
+          Rscript -e "rhino::lint_r()"
           
       - name: format_r() should format R scripts
         run: |
@@ -69,12 +69,12 @@ jobs:
       - name: lint_js() should detect lint errors in JS
         run: |
           cd RhinoApp
-          Rscript -e 'rhino::lint_js()'
+          Rscript -e "rhino::lint_js()"
           
       - name: lint_sass() should detect lint errors in CSS
         run: |
           cd RhinoApp
-          Rscript -e 'rhino::lint_sass()'
+          Rscript -e "rhino::lint_sass()"
           
       - name: build_js() should build app.min.js
         run: |
@@ -94,6 +94,6 @@ jobs:
       - name: test_r should run R unit tests
         run: |
           cd RhinoApp
-          Rscript -e 'options(renv.config.cache.symlinks = FALSE)'
-          Rscript -e 'renv::restore(clean = TRUE)'
-          Rscript -e 'rhino::test_r()'
+          Rscript -e "options(renv.config.cache.symlinks = FALSE)
+          Rscript -e "renv::restore(clean = TRUE)"
+          Rscript -e "rhino::test_r()"
