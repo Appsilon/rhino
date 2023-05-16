@@ -76,6 +76,12 @@ jobs:
           cd RhinoApp
           Rscript ../test-format-r.R app tests
           
+      - name: test_r() should run unit tests in tests/testthat
+        if: always()
+        run: |
+          cd RhinoApp
+          Rscript -e "renv::install('mockery'); renv::restore(clean = TRUE); testthat::test_local('.')"
+          
       - name: lint_js() should detect lint errors in JS
         if: always()
         run: |
