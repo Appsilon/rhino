@@ -83,6 +83,8 @@ navbar:
           href: articles/how-to/use-shiny-fluent.html
         - text: Use shinymanager
           href: articles/how-to/use-shinymanager.html
+        - text: Publish on Hugging Face
+          href: articles/how-to/publish-on-huggingface.html
     faq:
       text: FAQ
       href: articles/faq.html
