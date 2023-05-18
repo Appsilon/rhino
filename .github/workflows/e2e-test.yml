@@ -1,0 +1,96 @@
+on: push
+
+name: E2E Test
+
+defaults:
+ run:
+  working-directory: ./tests/e2e/
+
+jobs:
+  main:
+    name: ${{ matrix.config.os }} (${{ matrix.config.r }})
+
+    runs-on: ${{ matrix.config.os }}
+
+    timeout-minutes: 30
+
+    strategy:
+      fail-fast: false
+      matrix:
+        config:
+        - {os: macOS-latest,   r: 'release'}
+        - {os: windows-latest, r: 'release'}
+        - {os: ubuntu-22.04, r: 'devel'}
+        - {os: ubuntu-22.04, r: 'release'}
+        - {os: ubuntu-22.04, r: 'oldrel'}
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Install R
+        uses: r-lib/actions/setup-r@v2
+        with:
+          r-version: ${{ matrix.config.r }}
+
+      - name: Install R package dependencies
+        uses: r-lib/actions/setup-r-dependencies@v2
+        with:
+          extra-packages: local::.
+
+      - name: Setup Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16
+
+      - name: init() should create a Rhino directory
+        if: always()
+        shell: Rscript {0}
+        run: rhino::init('RhinoApp')
+
+      - name: diagnostics() should print system information and Rhino version
+        if: always()
+        shell: Rscript {0}
+        run: rhino::diagnostics()
+
+      - name: lint_r() should detect lint errors in R scripts
+        if: always()
+        run: |
+          cd RhinoApp
+          Rscript -e "rhino::lint_r()"
+
+      - name: format_r() should format R scripts
+        if: always()
+        run: |
+          cd RhinoApp
+          Rscript ../test-format-r.R
+
+      - name: lint_js() should detect lint errors in JS
+        if: always()
+        run: |
+          cd RhinoApp
+          Rscript -e "rhino::lint_js()"
+
+      - name: lint_sass() should detect lint errors in CSS
+        if: always()
+        run: |
+          cd RhinoApp
+          Rscript -e "rhino::lint_sass()"
+
+      - name: build_js() should build app.min.js
+        if: always()
+        run: |
+          cd RhinoApp
+          Rscript ../test-build-js.R
+
+      - name: build_css() should build app.min.css
+        if: always()
+        run: |
+          cd RhinoApp
+          Rscript ../test-build-sass.R
+
+      - name: test_e2e() should run cypress tests
+        if: always()
+        run: |
+          cd RhinoApp
+          Rscript -e "rhino::test_e2e()"
