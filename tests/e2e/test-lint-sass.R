@@ -5,7 +5,7 @@ test_scss_path <- fs::path("app", "styles", "bad-style.scss")
 cat(".myClass{color: #FFFFFF}", file = test_scss_path)
 testthat::expect_error(rhino::lint_sass())
 rhino::lint_sass(fix = TRUE)
-testthat::expect_equal(
+testthat::expect_identical(
   readLines(test_scss_path),
   ".myClass { color: #fff; }"
 )

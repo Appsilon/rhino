@@ -4,7 +4,7 @@ rhino::format_r(paths = c("app", "tests"))
 test_file_path <- fs::path("app", "logic", "bad-style.R")
 cat("bad_object_style=12", file = test_file_path)
 rhino::format_r(paths = "app")
-testthat::expect_equal(
+testthat::expect_identical(
   readLines(test_file_path),
   "bad_object_style <- 12"
 )
