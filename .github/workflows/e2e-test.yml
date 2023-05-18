@@ -57,7 +57,7 @@ jobs:
         if: always()
         run: |
           cd RhinoApp
-          Rscript -e "rhino::lint_r()"
+          Rscript ../test-lint-r.R
 
       - name: format_r() should format R scripts
         if: always()
@@ -69,13 +69,13 @@ jobs:
         if: always()
         run: |
           cd RhinoApp
-          Rscript -e "rhino::lint_js()"
+          Rscript ../test-lint-js.R
 
       - name: lint_sass() should detect lint errors in CSS
         if: always()
         run: |
           cd RhinoApp
-          Rscript -e "rhino::lint_sass()"
+          Rscript ../test-lint-sass.R
 
       - name: build_js() should build app.min.js
         if: always()
