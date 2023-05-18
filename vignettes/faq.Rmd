@@ -20,6 +20,18 @@ You can run a Rhino application exactly the same as a regular Shiny app:
 </details>
 
 <details>
+<summary>How to use a specific port when running a Rhino application?</summary>
+
+You can:
+
+- set port in `shiny::runApp`, e.g. `shiny:runApp(port = 5000)`
+- add `options(shiny.port = 5000)` to your `.Rprofile` file
+
+More details can be found [here](./how-to/set-application-run-parameters.html).
+
+</details>
+
+<details>
 <summary>How to deploy a Rhino application?</summary>
 
 The same as in the case of a regular Shiny app, e.g. you can use "Deploy" button in RStudio IDE.
