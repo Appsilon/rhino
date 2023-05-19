@@ -27,7 +27,7 @@ You can:
 - set port in `shiny::runApp`, e.g. `shiny:runApp(port = 5000)`
 - add `options(shiny.port = 5000)` to your `.Rprofile` file
 
-More details can be found [here](./how-to/set-application-run-parameters.html).
+More details can be found in [How-to: Set application run parameters](./how-to/set-application-run-parameters.html).
 
 </details>
 
