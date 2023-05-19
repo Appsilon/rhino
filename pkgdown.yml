@@ -17,6 +17,7 @@ articles:
   manage-secrets-and-environments: how-to/manage-secrets-and-environments.html
   migrate-app-to-rhino: how-to/migrate-app-to-rhino.html
   publish-on-huggingface: how-to/publish-on-huggingface.html
+  set-application-run-parameters: how-to/set-application-run-parameters.html
   use-global-variables: how-to/use-global-variables.html
   use-shiny-fluent: how-to/use-shiny-fluent.html
   use-shinymanager: how-to/use-shinymanager.html
@@ -26,7 +27,7 @@ articles:
   write-r-code: how-to/write-r-code.html
   create-your-first-rhino-app: tutorial/create-your-first-rhino-app.html
   write-end-to-end-tests-with-cypress: tutorial/write-end-to-end-tests-with-cypress.html
-last_built: 2023-05-18T13:36Z
+last_built: 2023-05-19T13:38Z
 urls:
   reference: https://appsilon.github.io/rhino/reference
   article: https://appsilon.github.io/rhino/articles

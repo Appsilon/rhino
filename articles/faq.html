@@ -89,6 +89,7 @@
     <a class="dropdown-item" href="../articles/how-to/use-shiny-fluent.html">Use shiny.fluent</a>
     <a class="dropdown-item" href="../articles/how-to/use-shinymanager.html">Use shinymanager</a>
     <a class="dropdown-item" href="../articles/how-to/publish-on-huggingface.html">Publish on Hugging Face</a>
+    <a class="dropdown-item" href="../articles/how-to/set-application-run-parameters.html">Set application run parameters</a>
   </div>
 </li>
 <li class="nav-item">
@@ -157,6 +158,18 @@ app:</p>
 </li>
 <li>using the “Run app” button in RStudio</li>
 </ul></details><details><summary>
+How to use a specific port when running a Rhino application?
+</summary><p>You can:</p>
+<ul>
+<li>set port in <code><a href="https://rdrr.io/pkg/shiny/man/runApp.html" class="external-link">shiny::runApp</a></code>,
+e.g. <code>shiny:runApp(port = 5000)</code>
+</li>
+<li>add <code>options(shiny.port = 5000)</code> to your
+<code>.Rprofile</code> file</li>
+</ul>
+<p>More details can be found in <a href="./how-to/set-application-run-parameters.html">How-to: Set
+application run parameters</a>.</p>
+</details><details><summary>
 How to deploy a Rhino application?
 </summary><p>The same as in the case of a regular Shiny app, e.g. you can use
 “Deploy” button in RStudio IDE.</p>
