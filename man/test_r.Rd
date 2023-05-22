@@ -4,7 +4,10 @@
 \alias{test_r}
 \title{Run R unit tests}
 \usage{
-test_r()
+test_r(...)
+}
+\arguments{
+\item{...}{Additional arguments passed to \code{testthat::test_dir()}.}
 }
 \value{
 None. This function is called for side effects.
