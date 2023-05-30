@@ -25,7 +25,7 @@ jobs:
         - {os: ubuntu-22.04, r: 'oldrel'}
 
     steps:
-      - name: Checkout files
+      - name: Checkout E2E Directory
         uses: Bhacaz/checkout-files@v2
         with:
           files: tests/e2e
@@ -55,7 +55,8 @@ jobs:
         shell: Rscript {0}
         run: rhino::init('RhinoApp')
 
-      - name: Check RhinoApp contents
+      - name: Test R
         if: always()
         run: |
-          ls RhinoApp
+          cd RhinoApp
+          Rscript -e 'rhino::test_r()'
