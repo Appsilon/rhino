@@ -55,6 +55,53 @@ jobs:
         shell: Rscript {0}
         run: rhino::init('RhinoApp')
 
+      - name: diagnostics() should print system information and Rhino version
+        if: always()
+        shell: Rscript {0}
+        run: rhino::diagnostics()
+
+      - name: lint_r() should detect lint errors in R scripts
+        if: always()
+        run: |
+          cd RhinoApp
+          Rscript ../test-lint-r.R
+
+      - name: format_r() should format R scripts
+        if: always()
+        run: |
+          cd RhinoApp
+          Rscript ../test-format-r.R
+
+      - name: lint_js() should detect lint errors in JS
+        if: always()
+        run: |
+          cd RhinoApp
+          Rscript ../test-lint-js.R
+
+      - name: lint_sass() should detect lint errors in CSS
+        if: always()
+        run: |
+          cd RhinoApp
+          Rscript ../test-lint-sass.R
+
+      - name: build_js() should build app.min.js
+        if: always()
+        run: |
+          cd RhinoApp
+          Rscript ../test-build-js.R
+
+      - name: build_css() should build app.min.css
+        if: always()
+        run: |
+          cd RhinoApp
+          Rscript ../test-build-sass.R
+
+      - name: test_e2e() should run cypress tests
+        if: always()
+        run: |
+          cd RhinoApp
+          Rscript -e "rhino::test_e2e()"
+
       - name: Test R
         if: always()
         run: |
