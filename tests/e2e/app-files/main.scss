@@ -1,0 +1,24 @@
+.input-and-click {
+  display: inline-flex;
+}
+
+body > div.input-and-click > div {
+  margin: 1rem;
+  margin-right: 0.5rem;
+}
+
+#app-hello-say_hello {
+  margin: 1rem;
+  margin-left: 0.5rem;
+  color: white;
+  border: none;
+  background-color: #0099f9;
+}
+
+#app-hello-message {
+  font-size: 10rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 40rem;
+}
