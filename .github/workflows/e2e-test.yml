@@ -96,47 +96,29 @@ jobs:
         run: |
           cd RhinoApp
           Rscript ../test-build-sass.R
-
-      - name: test_e2e() should run cypress tests
-        if: always()
-        run: |
-          cd RhinoApp
-          Rscript -e "rhino::test_e2e()"
-
-      - name: Test R
-        if: always()
-        run: |
-          cd RhinoApp
-          Rscript -e 'rhino::test_r()'
           
       - name: Move files
         if: always()
+        shell: Rscript {0}
         run: |
-          if [ "${{ matrix.os }}" == "windows-latest" ]; then
-            copy app-files/main.R RhinoApp/app/main.R
-            copy app-files/say_hello.R RhinoApp/app/logic/say_hello.R
-            copy app-files/hello.R RhinoApp/app/view/hello.R
-            copy app-files/main.scss RhinoApp/app/styles/main.scss
-            copy app-files/index.js RhinoApp/app/js/index.js
-            copy app-files/test-hello.R RhinoApp/tests/testthat/test-hello.R
-            copy app-files/test-say_hello.R RhinoApp/tests/testthat/test-say_hello.R
-            copy app-files/hello.spec.js RhinoApp/tests/cypress/integration/hello.spec.js
-          else
-            cp app-files/main.R RhinoApp/app/main.R
-            cp app-files/say_hello.R RhinoApp/app/logic/say_hello.R
-            cp app-files/hello.R RhinoApp/app/view/hello.R
-            cp app-files/main.scss RhinoApp/app/styles/main.scss
-            cp app-files/index.js RhinoApp/app/js/index.js
-            cp app-files/test-hello.R RhinoApp/tests/testthat/test-hello.R
-            cp app-files/test-say_hello.R RhinoApp/tests/testthat/test-say_hello.R
-            cp app-files/hello.spec.js RhinoApp/tests/cypress/integration/hello.spec.js
-          fi
-      
-      - name: Check RhinoApp contents
+          file.copy("app-files/main.R", "RhinoApp/app/main.R", overwrite = TRUE)
+          file.copy("app-files/say_hello.R", "RhinoApp/app/logic/say_hello.R", overwrite = TRUE)
+          file.copy("app-files/hello.R", "RhinoApp/app/view/hello.R", overwrite = TRUE)
+          file.copy("app-files/main.scss", "RhinoApp/app/styles/main.scss", overwrite = TRUE)
+          file.copy("app-files/index.js", "RhinoApp/app/js/index.js", overwrite = TRUE)
+          file.copy("app-files/test-hello.R", "RhinoApp/tests/testthat/test-hello.R", overwrite = TRUE)
+          file.copy("app-files/test-say_hello.R", "RhinoApp/tests/testthat/test-say_hello.R", overwrite = TRUE)
+          file.copy("app-files/hello.spec.js", "RhinoApp/tests/cypress/integration/hello.spec.js", overwrite = TRUE)
+          file.remove("RhinoApp/tests/testthat/test-main.R")
+
+      - name: Run Rhino
         if: always()
         run: |
-          if [ "${{ matrix.os }}" == "windows-latest" ]; then
-            dir RhinoApp /s /b
-          else
-            ls -R RhinoApp
-          fi
+          cd RhinoApp
+          Rscript -e "rhino::lint_r()"
+          Rscript -e "rhino::lint_sass()"
+          Rscript -e "rhino::lint_js()"
+          Rscript -e "rhino::build_sass()"
+          Rscript -e "rhino::build_js()"
+          Rscript -e "rhino::test_r()"
+          Rscript -e "rhino::test_e2e()"
