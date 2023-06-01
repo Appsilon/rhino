@@ -26,6 +26,7 @@ jobs:
 
     steps:
       - name: Checkout E2E Directory
+        # Only checkout the necessary files; the DESCRIPTION file breaks test_r() due to Issue #461
         uses: Bhacaz/checkout-files@v2
         with:
           files: tests/e2e

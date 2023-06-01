@@ -7,6 +7,8 @@ cat(
   file = index_js_path
 )
 rhino::build_js()
+# Checks if the built js file is not a result of an empty index.js
+# The main test to see if build_js() work should be in the Cypress test
 testthat::expect_true(readLines(min_js_path) != "var App;App={};")
 
 # Revert to empty script and check otuput
