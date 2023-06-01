@@ -25,8 +25,12 @@ jobs:
         - {os: ubuntu-22.04, r: 'oldrel'}
 
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v3
+      - name: Checkout E2E Directory
+        # Only checkout the necessary files; the DESCRIPTION file breaks test_r() due to Issue #461
+        uses: Bhacaz/checkout-files@v2
+        with:
+          files: tests/e2e
+          branch: ${{ github.head_ref || github.ref_name }}
 
       - name: Install R
         uses: r-lib/actions/setup-r@v2
@@ -36,7 +40,7 @@ jobs:
       - name: Install R package dependencies
         uses: r-lib/actions/setup-r-dependencies@v2
         with:
-          extra-packages: local::.
+          packages: Appsilon/rhino@${{ github.sha }}
 
       - name: Setup Node
         uses: actions/setup-node@v3
@@ -89,8 +93,40 @@ jobs:
           cd RhinoApp
           Rscript ../test-build-sass.R
 
+      - name: test_r() should run testthat tests
+        if: always()
+        run: |
+          cd RhinoApp
+          Rscript -e "rhino::test_r()"
+
       - name: test_e2e() should run cypress tests
         if: always()
         run: |
           cd RhinoApp
+          Rscript -e "rhino::test_e2e()"
+
+      - name: Copy template files to RhinoApp
+        if: always()
+        shell: Rscript {0}
+        run: |
+          file.copy("app-files/main.R", "RhinoApp/app/main.R", overwrite = TRUE)
+          file.copy("app-files/say_hello.R", "RhinoApp/app/logic/say_hello.R", overwrite = TRUE)
+          file.copy("app-files/hello.R", "RhinoApp/app/view/hello.R", overwrite = TRUE)
+          file.copy("app-files/main.scss", "RhinoApp/app/styles/main.scss", overwrite = TRUE)
+          file.copy("app-files/index.js", "RhinoApp/app/js/index.js", overwrite = TRUE)
+          file.copy("app-files/test-hello.R", "RhinoApp/tests/testthat/test-hello.R", overwrite = TRUE)
+          file.copy("app-files/test-say_hello.R", "RhinoApp/tests/testthat/test-say_hello.R", overwrite = TRUE)
+          file.copy("app-files/hello.spec.js", "RhinoApp/tests/cypress/integration/hello.spec.js", overwrite = TRUE)
+          file.remove("RhinoApp/tests/testthat/test-main.R")
+
+      - name: Cypress tests should confirm RhinoApp works
+        if: always()
+        run: |
+          cd RhinoApp
+          Rscript -e "rhino::lint_r()"
+          Rscript -e "rhino::lint_sass()"
+          Rscript -e "rhino::lint_js()"
+          Rscript -e "rhino::build_sass()"
+          Rscript -e "rhino::build_js()"
+          Rscript -e "rhino::test_r()"
           Rscript -e "rhino::test_e2e()"
