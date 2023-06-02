@@ -3,6 +3,14 @@ describe('Say Hello', () => {
     cy.visit('/');
   });
 
+  it('should save trace log in log.txt', () => {
+    const filePath = '../log.txt';
+
+    cy.readFile(filePath, { timeout: 1000 })
+      .then(fileContents => {
+        expect(fileContents).to.match(/^TRACE.+This is a test\r?\n/);
+      });
+  });
 
   it('should have an empty input, disabled button, and no message on start up', () => {
     cy.get('#app-hello-say_hello').should('be.disabled');
