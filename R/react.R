@@ -1,3 +1,15 @@
+react_support <- shiny::tagList(
+  shiny.react::reactDependency(),
+  shiny::tags$script(shiny::HTML("
+    window.Rhino = {
+      registerReact: (components) => {
+        window.jsmodule.RhinoReact ??= {};
+        Object.assign(window.jsmodule.RhinoReact, components);
+      },
+    };
+  "))
+)
+
 #' Rhino React
 methods::setClass("RhinoReact", contains = "NULL")
 
