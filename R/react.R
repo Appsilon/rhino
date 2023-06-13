@@ -23,3 +23,9 @@ methods::setMethod("$", "RhinoReact", function(x, name) {
 #'
 #' @export
 react <- methods::new("RhinoReact")
+
+# Workaround to avoid a NOTE ("All declared Imports should be used") on R CMD check.
+# It seems that `methods::` functions are called during the build process,
+# so they actually do not appear in the built package source code.
+#' @importFrom methods new
+NULL
