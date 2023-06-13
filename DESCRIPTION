@@ -33,6 +33,7 @@ Imports:
   rstudioapi,
   sass,
   shiny,
+  shiny.react,
   styler,
   testthat (>= 3.0.0),
   utils,
