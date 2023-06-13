@@ -115,6 +115,7 @@ reference:
   - build_sass
   - lint_js
   - lint_sass
+  - react_component
 
 - title: Other tools
   contents:

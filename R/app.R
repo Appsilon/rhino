@@ -65,6 +65,7 @@ with_head_tags <- function(ui) {
   wrap <- function(tag) {
     shiny::tagList(
       shiny::tags$head(
+        react_support(), # Needs to go before `app.min.js`, which defines the React components.
         shiny::tags$script(src = "static/js/app.min.js"),
         shiny::tags$link(rel = "stylesheet", href = "static/css/app.min.css", type = "text/css"),
         shiny::tags$link(rel = "icon", href = "static/favicon.ico", sizes = "any")

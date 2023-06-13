@@ -44,6 +44,7 @@ Suggests:
   mockery,
   rcmdcheck,
   rmarkdown,
+  shiny.react,
   spelling
 LazyData: true
 Config/testthat/edition: 3

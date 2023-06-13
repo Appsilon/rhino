@@ -6,6 +6,7 @@
   },
   "globals": {
     "$": "readonly",
+    "Rhino": "readonly",
     "Shiny": "readonly"
   },
   "rules": {
