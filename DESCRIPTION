@@ -28,6 +28,7 @@ Imports:
   glue,
   lintr (>= 3.0.0),
   logger,
+  methods,
   purrr,
   renv,
   rstudioapi,
