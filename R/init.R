@@ -89,37 +89,45 @@ handle_old_rprofile <- function() {
   }
 }
 
-write_dependencies <- function() {
-  deps <- "rhino"
-  if (fs::file_exists("dependencies.R")) {
-    cli::cli_alert_info("Updating existing 'dependencies.R'.")
-    deps <- c(deps, renv::dependencies("dependencies.R")$Package)
-  } else if (fs::dir_exists("app")) {
-    cli::cli_alert_info("Generating 'dependencies.R' based on 'app' directory.")
-    deps <- c(deps, renv::dependencies("app")$Package)
+write_description <- function() {
+  if (fs::file_exists("DESCRIPTION")) {
+    cli::cli_alert_info("Updating existing 'DESCRIPTION'.")
+    # Pass explicit `file` argument to read `DESCRIPTION` even if it lacks the `Package` field.
+    desc <- desc::description$new(file = "DESCRIPTION")
+  } else {
+    desc <- desc::description$new(text = "")
+    if (fs::dir_exists("app")) {
+      cli::cli_alert_info("Generating 'DESCRIPTION' based on 'app' directory.")
+      desc$set_deps(data.frame(
+        type = "Imports",
+        package = renv::dependencies("app")$Package,
+        version = "*"
+      ))
+    }
   }
-  deps <- sort(unique(deps))
-  deps <- purrr::map_chr(deps, function(name) glue::glue("library({name})"))
-  deps <- c(
-    "# This file allows packrat (used by rsconnect during deployment) to pick up dependencies.",
-    deps
-  )
-  writeLines(deps, "dependencies.R")
+  # The `Package` field must be set for packrat to read dependencies from `DESCRIPTION`.
+  if (!desc$has_fields("Package")) desc$set("Package", "app")
+  desc$set_dep("rhino")
+  desc$write(file = "DESCRIPTION")
 }
 
 init_renv <- function(rhino_version) {
   handle_old_rprofile()
-  write_dependencies()
+  write_description()
   copy_template("renv")
   if (fs::file_exists("renv.lock")) {
+    renv::settings$snapshot.type("explicit")
     renv::load()
     renv::restore(prompt = FALSE, clean = TRUE)
     renv::install(rhino_version)
     renv::snapshot()
   } else {
-    # With `restart = TRUE`, RStudio fails to create a project
-    # with an "Unable to establish connection with R session" message.
-    renv::init(restart = FALSE)
+    renv::init(
+      settings = list(snapshot.type = "explicit"),
+      # With `restart = TRUE`, RStudio fails to create a project
+      # with an "Unable to establish connection with R session" message.
+      restart = FALSE
+    )
   }
   cli::cli_alert_success("Initialized renv.")
 }
