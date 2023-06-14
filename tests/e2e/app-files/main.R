@@ -1,4 +1,7 @@
-box::use(shiny)
+box::use(
+  shiny,
+  rhino[log]
+)
 
 box::use(app / view / hello)
 
@@ -11,6 +14,7 @@ ui <- function(id) {
 #' @export
 server <- function(id) {
   shiny$moduleServer(id, function(input, output, session) {
+    log$trace("This is a test")
     hello$server("hello")
   })
 }

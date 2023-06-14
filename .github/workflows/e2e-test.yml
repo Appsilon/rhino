@@ -109,6 +109,7 @@ jobs:
         if: always()
         shell: Rscript {0}
         run: |
+          file.copy("app-files/config.yml", "RhinoApp/config.yml", overwrite = TRUE)
           file.copy("app-files/main.R", "RhinoApp/app/main.R", overwrite = TRUE)
           file.copy("app-files/say_hello.R", "RhinoApp/app/logic/say_hello.R", overwrite = TRUE)
           file.copy("app-files/hello.R", "RhinoApp/app/view/hello.R", overwrite = TRUE)
