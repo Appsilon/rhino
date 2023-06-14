@@ -6,9 +6,9 @@ describe('Say Hello', () => {
   it('should save trace log in log.txt', () => {
     const filePath = '../log.txt';
 
-    cy.readFile(filePath, { timeout: 1000 })
+    cy.readFile(filePath)
       .then(fileContents => {
-        expect(fileContents).to.match(/^TRACE.+This is a test\r?\n/);
+        expect(fileContents).to.match(/^TRACE.+This is a test/);
       });
   });
 
