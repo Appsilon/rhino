@@ -14,13 +14,10 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      - name: Install pandoc
-        uses: r-lib/actions/setup-pandoc@v2
-
       - name: Install R
         uses: r-lib/actions/setup-r@v2
         with:
-          use-public-rspm: true
+          use-public-rspm: true # Dramatically speeds up installation of dependencies.
 
       - name: Install R package dependencies
         uses: r-lib/actions/setup-r-dependencies@v2
@@ -32,8 +29,8 @@ jobs:
           git config user.name "$GITHUB_ACTOR"
           git config user.email "$GITHUB_ACTOR@users.noreply.github.com"
 
-      - name: Deploy to branch
-        env:
-          GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
+      - name: Build and deploy site
         shell: Rscript {0}
         run: pkgdown::deploy_to_branch(branch = "bot/github-pages")
+        env:
+          GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
