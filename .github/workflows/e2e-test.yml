@@ -57,6 +57,12 @@ jobs:
         shell: Rscript {0}
         run: rhino::diagnostics()
 
+      - name: dependency_add() should install a package
+        if: always()
+        run: |
+          cd RhinoApp
+          Rscript ../test-dependency-add.R
+
       - name: lint_r() should detect lint errors in R scripts
         if: always()
         run: |
