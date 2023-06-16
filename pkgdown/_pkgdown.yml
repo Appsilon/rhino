@@ -105,6 +105,8 @@ reference:
 
 - title: R development
   contents:
+  - dependency_add
+  - dependency_remove
   - log
   - format_r
   - lint_r
