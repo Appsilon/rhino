@@ -134,8 +134,7 @@
 
 
 
-
-<div class="row">
+<script src="manage-r-dependencies_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="" class="logo" alt=""><h1>How-to: Manage R dependencies</h1>
             
@@ -146,18 +145,13 @@
 
     
     
-<p>Rhino uses <a href="https://rstudio.github.io/renv/" class="external-link">renv</a> to manage the R package dependencies
-of your project. To learn about the details and rationale for the
-particular setup used by Rhino, please refer to <a href="https://appsilon.github.io/rhino/articles/explanation/renv-configuration.html">Explanation:
-Renv configuration</a>.</p>
-<p>This article offers short recipes for the most common tasks: adding,
-updating and removing dependencies.</p>
+<p>Rhino uses <a href="https://rstudio.github.io/renv/" class="external-link">renv</a> to manage the R package dependencies of your project. To learn about the details and rationale for the particular setup used by Rhino, please refer to <a href="https://appsilon.github.io/rhino/articles/explanation/renv-configuration.html">Explanation: Renv configuration</a>.</p>
+<p>This article offers short recipes for the most common tasks: adding, updating and removing dependencies.</p>
 <div class="section level3">
 <h3 id="add-a-dependency">Add a dependency<a class="anchor" aria-label="anchor" href="#add-a-dependency"></a>
 </h3>
 <ol style="list-style-type: decimal">
-<li>Add a <code><a href="https://rdrr.io/r/base/library.html" class="external-link">library(package)</a></code> line to
-<code>dependencies.R</code>.</li>
+<li>Add a <code><a href="https://rdrr.io/r/base/library.html" class="external-link">library(package)</a></code> line to <code>dependencies.R</code>.</li>
 <li>Call <code>renv::install("package")</code>.</li>
 <li>Call <code><a href="https://rstudio.github.io/renv/reference/snapshot.html" class="external-link">renv::snapshot()</a></code>.</li>
 </ol>
@@ -174,8 +168,7 @@ updating and removing dependencies.</p>
 <h3 id="remove-a-dependency">Remove a dependency<a class="anchor" aria-label="anchor" href="#remove-a-dependency"></a>
 </h3>
 <ol style="list-style-type: decimal">
-<li>Remove the <code><a href="https://rdrr.io/r/base/library.html" class="external-link">library(package)</a></code> line from
-<code>dependencies.R</code>.</li>
+<li>Remove the <code><a href="https://rdrr.io/r/base/library.html" class="external-link">library(package)</a></code> line from <code>dependencies.R</code>.</li>
 <li>Call <code><a href="https://rstudio.github.io/renv/reference/snapshot.html" class="external-link">renv::snapshot()</a></code>.</li>
 <li>Call <code>renv::restore(clean = TRUE)</code>.</li>
 </ol>

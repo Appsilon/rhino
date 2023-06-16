@@ -134,8 +134,7 @@
 
 
 
-
-<div class="row">
+<script src="use-shinytest2_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="" class="logo" alt=""><h1>How-to: Use shinytest2</h1>
             
@@ -146,38 +145,24 @@
 
     
     
-<p>If you have Node.js available on your machine, you can write
-end-to-end tests using <a href="https://www.cypress.io/" class="external-link">Cypress</a> and
-run them with <code><a href="../../reference/test_e2e.html">rhino::test_e2e()</a></code> without any additional
-setup. If you’d prefer to use the <code>shinytest2</code> package
-instead, you will need to:</p>
+<p>If you have Node.js available on your machine, you can write end-to-end tests using <a href="https://www.cypress.io/" class="external-link">Cypress</a> and run them with <code><a href="../../reference/test_e2e.html">rhino::test_e2e()</a></code> without any additional setup. If you’d prefer to use the <code>shinytest2</code> package instead, you will need to:</p>
 <ol style="list-style-type: decimal">
 <li>Install <code>shinytest2</code> and <code>shinyvalidate</code>.
 <ol style="list-style-type: decimal">
-<li>Add <code><a href="https://rstudio.github.io/shinytest2/" class="external-link">library(shinytest2)</a></code> and
-<code><a href="https://rstudio.github.io/shinyvalidate/" class="external-link">library(shinyvalidate)</a></code> lines to your
-<code>dependencies.R</code>.</li>
-<li>Install the packages with
-<code>renv::install(c("shinytest2", "shinyvalidate"))</code>.</li>
+<li>Add <code><a href="https://rstudio.github.io/shinytest2/" class="external-link">library(shinytest2)</a></code> and <code><a href="https://rstudio.github.io/shinyvalidate/" class="external-link">library(shinyvalidate)</a></code> lines to your <code>dependencies.R</code>.</li>
+<li>Install the packages with <code>renv::install(c("shinytest2", "shinyvalidate"))</code>.</li>
 <li>Update the lockfile with <code><a href="https://rstudio.github.io/renv/reference/snapshot.html" class="external-link">renv::snapshot()</a></code>.</li>
 </ol>
 </li>
-<li>Create a test with <code>shinytest2::record_test()</code> or
-<code>shinytest2::use_shinytest2_test()</code> as usual.</li>
-<li>Optionally you can remove the following files created by
-<code>shinytest2</code>, which are unnecessary in Rhino:
+<li>Create a test with <code>shinytest2::record_test()</code> or <code>shinytest2::use_shinytest2_test()</code> as usual.</li>
+<li>Optionally you can remove the following files created by <code>shinytest2</code>, which are unnecessary in Rhino:
 <ol style="list-style-type: decimal">
-<li>Runner (<code>tests/testthat.R</code>), used in R packages and
-executed by <code>R CMD check</code>.</li>
-<li>Setup (<code>tests/testthat/setup-shinytest2.R</code>), used in
-traditional Shiny applications with <code>global.R</code> and sources in
-the <code>R</code> directory.</li>
+<li>Runner (<code>tests/testthat.R</code>), used in R packages and executed by <code>R CMD check</code>.</li>
+<li>Setup (<code>tests/testthat/setup-shinytest2.R</code>), used in traditional Shiny applications with <code>global.R</code> and sources in the <code>R</code> directory.</li>
 </ol>
 </li>
 </ol>
-<p>The tests created by <code>shinytest2</code> are treated as any other
-<code>testthat</code> tests and can be run with
-<code><a href="../../reference/test_r.html">rhino::test_r()</a></code>.</p>
+<p>The tests created by <code>shinytest2</code> are treated as any other <code>testthat</code> tests and can be run with <code><a href="../../reference/test_r.html">rhino::test_r()</a></code>.</p>
   </main>
 </div>
 

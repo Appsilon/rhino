@@ -134,8 +134,7 @@
 
 
 
-
-<div class="row">
+<script src="set-application-run-parameters_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="" class="logo" alt=""><h1>How-to: Set application run parameters</h1>
             
@@ -146,19 +145,13 @@
 
     
     
-<p>When running a Shiny application you might want to set parameters
-like port or host. In Rhino, this can be done the same as in a regular
-Shiny application - by passing arguments to <a href="https://shiny.posit.co/r/reference/shiny/1.7.4/runapp" class="external-link"><code>shiny::runApp</code></a>.</p>
-<p>For example, if you want to run your application with the host set to
-<code>0.0.0.0</code> (so you can serve it in your local network) and
-port set to <code>5000</code>, you can run:</p>
+<p>When running a Shiny application you might want to set parameters like port or host. In Rhino, this can be done the same as in a regular Shiny application - by passing arguments to <a href="https://shiny.posit.co/r/reference/shiny/1.7.4/runapp" class="external-link"><code>shiny::runApp</code></a>.</p>
+<p>For example, if you want to run your application with the host set to <code>0.0.0.0</code> (so you can serve it in your local network) and port set to <code>5000</code>, you can run:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># R console</span></span>
 <span></span>
 <span><span class="fu">shiny</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/runApp.html" class="external-link">runApp</a></span><span class="op">(</span>host <span class="op">=</span> <span class="st">"0.0.0.0"</span>, port <span class="op">=</span> <span class="fl">5000</span><span class="op">)</span></span></code></pre></div>
-<p>If you want to make your settings permanent, you can modify your
-<code>.Rprofile</code> file and set <a href="https://shiny.posit.co/r/reference/shiny/1.7.4/shinyoptions" class="external-link">Shiny
-options</a> there:</p>
+<p>If you want to make your settings permanent, you can modify your <code>.Rprofile</code> file and set <a href="https://shiny.posit.co/r/reference/shiny/1.7.4/shinyoptions" class="external-link">Shiny options</a> there:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># .Rprofile</span></span>
 <span></span>
@@ -175,9 +168,7 @@ options</a> there:</p>
 <span><span class="co"># Shiny options</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">options</a></span><span class="op">(</span>shiny.host <span class="op">=</span> <span class="st">"0.0.0.0"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">options</a></span><span class="op">(</span>shiny.port <span class="op">=</span> <span class="fl">5000</span><span class="op">)</span></span></code></pre></div>
-<p>Make sure you don’t remove entries related to <code>renv</code> and
-<code>box</code> as they are required for your Rhino application to
-work!</p>
+<p>Make sure you don’t remove entries related to <code>renv</code> and <code>box</code> as they are required for your Rhino application to work!</p>
   </main>
 </div>
 
