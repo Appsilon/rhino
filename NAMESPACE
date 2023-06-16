@@ -3,6 +3,8 @@
 export(app)
 export(build_js)
 export(build_sass)
+export(dependency_add)
+export(dependency_remove)
 export(diagnostics)
 export(format_r)
 export(init)
