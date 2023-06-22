@@ -21,15 +21,41 @@ write_dependencies <- function(deps) {
   writeLines(deps, "dependencies.R")
 }
 
-#' Add (install) packages to Rhino app project
+# nolint start: line_length_linter
+#' Manage dependencies
 #'
-#' Adds the requested packages to the 'dependencies.R' file, installs them and does a {renv}
-#' snapshot in an already initialized Rhino app.
+#' Install, remove or update the R package dependencies of your Rhino project.
 #'
-#' @param packages character vector of package names
-#' @return None. This function is called for side effects.
+#' Use `pkg_install()` to install or update a package to the latest version.
+#' Use `pkg_remove()` to remove a package.
+#'
+#' These functions will install or remove packages from the local `{renv}` library,
+#' and update the `dependencies.R` and `renv.lock` files accordingly, all in one step.
+#' The underlying `{renv}` functions can still be called directly for advanced use cases.
+#' See the [Explanation: Renv configuration](https://appsilon.github.io/rhino/articles/explanation/renv-configuration.html)
+#' to learn about the details of the setup used by Rhino.
+#'
+#' @param packages Character vector of package names.
+#' @return None. This functions are called for side effects.
+#' @name dependencies
+#'
+#' @examples
+#' \dontrun{
+#'   # Install dplyr
+#'   rhino::pkg_install("dplyr")
+#'
+#'   # Update shiny to the latest version
+#'   rhino::pkg_install("shiny")
+#'
+#'   # Remove dplyr
+#'   rhino::pkg_remove("dplyr")
+#' }
+# nolint end
+NULL
+
+#' @rdname dependencies
 #' @export
-dependency_add <- function(packages) {
+pkg_install <- function(packages) {
   stopifnot(is.character(packages))
   renv::install(packages)
   write_dependencies(c(packages, read_dependencies()))
@@ -37,15 +63,9 @@ dependency_add <- function(packages) {
   invisible()
 }
 
-#' Remove (uninstall) packages from Rhino app project
-#'
-#' Remove the requested packages from the 'dependencies.R' file, uninstalls them and does a {renv}
-#' snapshot in an already initialized Rhino app.
-#'
-#' @param packages character vector of package names
-#' @return None. This function is called for side effects.
+#' @rdname dependencies
 #' @export
-dependency_remove <- function(packages) {
+pkg_remove <- function(packages) {
   stopifnot(is.character(packages))
   renv::remove(packages)
   write_dependencies(setdiff(read_dependencies(), packages))
