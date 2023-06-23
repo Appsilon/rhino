@@ -194,39 +194,19 @@ Now is the time to start adding something to your new module. What can we add to
 
 First, we need to install a library for visualizations - for that, we will go with [`echarts4r`](https://echarts4r.john-coene.com/).
 
-Rhino relies on the [`renv` package](https://rstudio.github.io/renv/index.html) for dependency management. To add this package to your project, first, you need to install it. We will be using a total of 5 packages for this application. To save us time in the tutorial we will install them all here. Please note that for every new package you add, you will need to install, add to dependencies.R, and re-run `renv::snapshot()`.
+We will be using a total of 5 packages for this application.
+To save us time in the tutorial we will install them all here.
 
 ```r
 # In R console
-renv::install(c("dplyr", "echarts4r", "htmlwidgets", "reactable", "tidyr"))
+rhino::pkg_install(c("dplyr", "echarts4r", "htmlwidgets", "reactable", "tidyr"))
 ```
 
-**Note:** *Package `htmlwidgets` is already installed since it is a dependency for `shiny`, but we still should add it to the `dependencies.R` file.*
+This function will install the packages,
+and update `dependencies.R` and `renv.lock` files accordingly.
 
-The second step is to add them to the `dependencies.R` file. This file is a single source of truth when it comes to R packages used by the application. `renv` is going to check dependencies only in this file.
-
-Add `library` calls to it:
-
-```r
-# dependencies.R
-
-# This file allows packrat (used by rsconnect during deployment) to pick up dependencies.
-library(dplyr)
-library(echarts4r)
-library(htmlwidgets)
-library(reactable)
-library(rhino)
-library(tidyr)
-```
-
-Finally, you need to update your `renv.lock` file:
-
-```r
-# in R console
-renv::snapshot()
-```
-
-If you check the `renv.lock` file, you will see that it was updated with `echarts4r` and all its dependencies.
+**Note:** *Package `htmlwidgets` is already installed since it is a dependency for `shiny`,
+but we still should add it to the `dependencies.R` file.*
 
 ### Add dependencies to the module
 

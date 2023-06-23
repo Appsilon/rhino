@@ -63,8 +63,6 @@ navbar:
           href: articles/how-to/write-javascript-code.html
         - text: Use static files
           href: articles/how-to/use-static-files.html
-        - text: Manage R dependencies
-          href: articles/how-to/manage-r-dependencies.html
         - text: Manage secrets and environments
           href: articles/how-to/manage-secrets-and-environments.html
         - text: Enable Shiny bookmarking
