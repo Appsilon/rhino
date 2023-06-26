@@ -44,7 +44,7 @@
     
     <a class="navbar-brand me-2" href="../../index.html">rhino</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.3.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.3.1.9000</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -78,7 +78,6 @@
     <a class="dropdown-item" href="../../articles/how-to/write-r-code.html">Write R code</a>
     <a class="dropdown-item" href="../../articles/how-to/write-javascript-code.html">Write JavaScript code</a>
     <a class="dropdown-item" href="../../articles/how-to/use-static-files.html">Use static files</a>
-    <a class="dropdown-item" href="../../articles/how-to/manage-r-dependencies.html">Manage R dependencies</a>
     <a class="dropdown-item" href="../../articles/how-to/manage-secrets-and-environments.html">Manage secrets and environments</a>
     <a class="dropdown-item" href="../../articles/how-to/enable-shiny-bookmarking.html">Enable Shiny bookmarking</a>
     <a class="dropdown-item" href="../../articles/how-to/keep-multiple-apps-in-a-single-repository.html">Keep multiple apps in a single repository</a>
@@ -310,34 +309,18 @@
 <h4 id="adding-r-packages">Adding R packages<a class="anchor" aria-label="anchor" href="#adding-r-packages"></a>
 </h4>
 <p>First, we need to install a library for visualizations - for that, we will go with <a href="https://echarts4r.john-coene.com/" class="external-link"><code>echarts4r</code></a>.</p>
-<p>Rhino relies on the <a href="https://rstudio.github.io/renv/index.html" class="external-link"><code>renv</code> package</a> for dependency management. To add this package to your project, first, you need to install it. We will be using a total of 5 packages for this application. To save us time in the tutorial we will install them all here. Please note that for every new package you add, you will need to install, add to dependencies.R, and re-run <code><a href="https://rstudio.github.io/renv/reference/snapshot.html" class="external-link">renv::snapshot()</a></code>.</p>
+<p>We will be using a total of 5 packages for this application. To save us time in the tutorial we will install them all here.</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># In R console</span></span>
-<span><span class="fu">renv</span><span class="fu">::</span><span class="fu"><a href="https://rstudio.github.io/renv/reference/install.html" class="external-link">install</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"dplyr"</span>, <span class="st">"echarts4r"</span>, <span class="st">"htmlwidgets"</span>, <span class="st">"reactable"</span>, <span class="st">"tidyr"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu">rhino</span><span class="fu">::</span><span class="fu"><a href="../../reference/dependencies.html">pkg_install</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"dplyr"</span>, <span class="st">"echarts4r"</span>, <span class="st">"htmlwidgets"</span>, <span class="st">"reactable"</span>, <span class="st">"tidyr"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<p>This function will install the packages, and update <code>dependencies.R</code> and <code>renv.lock</code> files accordingly.</p>
 <p><strong>Note:</strong> <em>Package <code>htmlwidgets</code> is already installed since it is a dependency for <code>shiny</code>, but we still should add it to the <code>dependencies.R</code> file.</em></p>
-<p>The second step is to add them to the <code>dependencies.R</code> file. This file is a single source of truth when it comes to R packages used by the application. <code>renv</code> is going to check dependencies only in this file.</p>
-<p>Add <code>library</code> calls to it:</p>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># dependencies.R</span></span>
-<span></span>
-<span><span class="co"># This file allows packrat (used by rsconnect during deployment) to pick up dependencies.</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a></span><span class="op">)</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://echarts4r.john-coene.com/" class="external-link">echarts4r</a></span><span class="op">)</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/ramnathv/htmlwidgets" class="external-link">htmlwidgets</a></span><span class="op">)</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://glin.github.io/reactable/" class="external-link">reactable</a></span><span class="op">)</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://appsilon.github.io/rhino/">rhino</a></span><span class="op">)</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyr.tidyverse.org" class="external-link">tidyr</a></span><span class="op">)</span></span></code></pre></div>
-<p>Finally, you need to update your <code>renv.lock</code> file:</p>
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># in R console</span></span>
-<span><span class="fu">renv</span><span class="fu">::</span><span class="fu"><a href="https://rstudio.github.io/renv/reference/snapshot.html" class="external-link">snapshot</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<p>If you check the <code>renv.lock</code> file, you will see that it was updated with <code>echarts4r</code> and all its dependencies.</p>
 </div>
 <div class="section level4">
 <h4 id="add-dependencies-to-the-module">Add dependencies to the module<a class="anchor" aria-label="anchor" href="#add-dependencies-to-the-module"></a>
 </h4>
 <p>Now, once you have both packages available in your project environment, it’s time to use them. First, you need to import them into your module. Extend <code><a href="http://klmr.me/box/reference/use.html" class="external-link">box::use</a></code> call in your <code>app/view/chart.R</code> file:</p>
-<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># app/view/chart.R</span></span>
 <span></span>
 <span><span class="fu">box</span><span class="fu">::</span><span class="fu"><a href="http://klmr.me/box/reference/use.html" class="external-link">use</a></span><span class="op">(</span></span>
@@ -348,7 +331,7 @@
 <span><span class="va">...</span></span></code></pre></div>
 <p>You can use those packages in your module by calling <code>{package}${function}</code>. For more options of importing in <code>box</code> check <a href="https://klmr.me/box/index.html#loading-code" class="external-link">this</a> link.</p>
 <p>Add <code>echarts4r</code> render to the server part of the module and output part to its UI:</p>
-<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># app/view/chart.R</span></span>
 <span></span>
 <span><span class="fu">box</span><span class="fu">::</span><span class="fu"><a href="http://klmr.me/box/reference/use.html" class="external-link">use</a></span><span class="op">(</span></span>
@@ -395,7 +378,7 @@
 </h2>
 <p>Once you have some content presented in the application, it would be great to add a table to show the dataset.</p>
 <p>For that, let’s create another module - <code>app/view/table.R</code>:</p>
-<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># app/view/table.R</span></span>
 <span></span>
 <span><span class="fu">box</span><span class="fu">::</span><span class="fu"><a href="http://klmr.me/box/reference/use.html" class="external-link">use</a></span><span class="op">(</span></span>
@@ -421,7 +404,7 @@
 <h3 id="calling-the-second-module">Calling the second module<a class="anchor" aria-label="anchor" href="#calling-the-second-module"></a>
 </h3>
 <p>As we did before, we need to call the new module in the <code>main.R</code> file:</p>
-<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># app/main.R</span></span>
 <span></span>
 <span><span class="fu">box</span><span class="fu">::</span><span class="fu"><a href="http://klmr.me/box/reference/use.html" class="external-link">use</a></span><span class="op">(</span></span>
@@ -454,7 +437,7 @@
 <h3 id="use-the-same-dataset-for-both-modules">Use the same dataset for both modules<a class="anchor" aria-label="anchor" href="#use-the-same-dataset-for-both-modules"></a>
 </h3>
 <p>We want to use the same dataset in both modules, so instead of calling it twice, let’s pass data as an argument:</p>
-<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># app/main.R</span></span>
 <span></span>
 <span><span class="fu">box</span><span class="fu">::</span><span class="fu"><a href="http://klmr.me/box/reference/use.html" class="external-link">use</a></span><span class="op">(</span></span>
@@ -486,7 +469,7 @@
 <span>    <span class="va">chart</span><span class="op">$</span><span class="fu">server</span><span class="op">(</span><span class="st">"chart"</span>, data <span class="op">=</span> <span class="va">data</span><span class="op">)</span></span>
 <span>  <span class="op">}</span><span class="op">)</span></span>
 <span><span class="op">}</span></span></code></pre></div>
-<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># app/view/table.R</span></span>
 <span></span>
 <span><span class="fu">box</span><span class="fu">::</span><span class="fu"><a href="http://klmr.me/box/reference/use.html" class="external-link">use</a></span><span class="op">(</span></span>
@@ -508,7 +491,7 @@
 <span></span>
 <span>  <span class="op">}</span><span class="op">)</span></span>
 <span><span class="op">}</span></span></code></pre></div>
-<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># app/view/chart.R</span></span>
 <span></span>
 <span><span class="fu">box</span><span class="fu">::</span><span class="fu"><a href="http://klmr.me/box/reference/use.html" class="external-link">use</a></span><span class="op">(</span></span>
@@ -545,7 +528,7 @@
 </h3>
 <p>For the table, we will go with the <a href="https://glin.github.io/reactable/" class="external-link"><code>reactable</code></a> package.</p>
 <p>Now you can add a table to the application. Let’s check the raw data for Rhinos:</p>
-<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># app/view/table.R</span></span>
 <span></span>
 <span><span class="fu">box</span><span class="fu">::</span><span class="fu"><a href="http://klmr.me/box/reference/use.html" class="external-link">use</a></span><span class="op">(</span></span>
@@ -585,7 +568,7 @@
 <p>Let’s create a file there, called <code>app/logic/data_transformation.R</code>.</p>
 <p>The table would be better if for each Rhino species we would have a separate column, so it would be easy to compare populations across time. To do that, we need to transform the dataset using the <code>pivot_wider</code> function from the <code>tidyr</code> package.</p>
 <p>Now we are able to access this function in our <code>data_transformation.R</code> file using <code><a href="http://klmr.me/box/reference/use.html" class="external-link">box::use()</a></code>. Let’s also create a function that wraps <code>pivot_wider</code> and transforms data. Note that, as always, we need to add <span class="citation">@export</span> to be able to access it in the file it is being sourced.</p>
-<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># app/logic/data_transformation.R</span></span>
 <span></span>
 <span><span class="fu">box</span><span class="fu">::</span><span class="fu"><a href="http://klmr.me/box/reference/use.html" class="external-link">use</a></span><span class="op">(</span></span>
@@ -602,7 +585,7 @@
 <span><span class="op">}</span></span></code></pre></div>
 <p>The next step is to call this function in your table module.</p>
 <p>Add box import and transform dataset:</p>
-<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># app/view/table.R</span></span>
 <span></span>
 <span><span class="fu">box</span><span class="fu">::</span><span class="fu"><a href="http://klmr.me/box/reference/use.html" class="external-link">use</a></span><span class="op">(</span></span>
@@ -639,7 +622,7 @@
 </div>
 <p>You can notice, that table is arranged by the Black Rhino population. It would make sense to change it to Year using <code>dplyr::arrange</code>.</p>
 <p>Next, add arrange to <code>transform_data</code> function:</p>
-<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># app/logic/data_transformation.R</span></span>
 <span></span>
 <span><span class="fu">box</span><span class="fu">::</span><span class="fu"><a href="http://klmr.me/box/reference/use.html" class="external-link">use</a></span><span class="op">(</span></span>
@@ -661,7 +644,7 @@
 <p><img src="images/table_3.png"></p>
 </div>
 <p>There is still one element that can be improved. If you check the X-axis in the chart, values contain a comma. It’s the default behavior for integers, but this is a year! To fix that, you need to add a custom formatter. Let’s create another file, <code>app/logic/chart_utils.R</code>:</p>
-<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># app/logic/chart_utils.R</span></span>
 <span></span>
 <span><span class="fu">box</span><span class="fu">::</span><span class="fu"><a href="http://klmr.me/box/reference/use.html" class="external-link">use</a></span><span class="op">(</span></span>
@@ -671,7 +654,7 @@
 <span><span class="co">#' @export</span></span>
 <span><span class="va">label_formatter</span> <span class="op">&lt;-</span> <span class="fu">JS</span><span class="op">(</span><span class="st">"(value, index) =&gt; value"</span><span class="op">)</span></span></code></pre></div>
 <p>Finally, add the formatter to the chart module:</p>
-<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># app/view/chart.R</span></span>
 <span></span>
 <span><span class="fu">box</span><span class="fu">::</span><span class="fu"><a href="http://klmr.me/box/reference/use.html" class="external-link">use</a></span><span class="op">(</span></span>
@@ -721,7 +704,7 @@
 <p><strong>Note:</strong> <em>Sass builder uses Node.js. If you are not able to install Node in your environment, you can change the <code>sass</code> entry in the <code>rhino.yml</code> file to <code>r</code>. It will now use the R package for Sass bundling. Under the hood, it uses a deprecated C++ library, so the Node solution is strongly recommended here.</em></p>
 <p>In this stage, the application has working components, but it doesn’t have a clean and organized look to it. For this we will need a little CSS styling.</p>
 <p>Adjusting application style can be done by providing custom styles in the <code>app/styles</code> directory, But first, you need to adjust the application a little bit by adding HTML tags and CSS classes:</p>
-<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># app/main.R</span></span>
 <span></span>
 <span><span class="fu">box</span><span class="fu">::</span><span class="fu"><a href="http://klmr.me/box/reference/use.html" class="external-link">use</a></span><span class="op">(</span></span>
@@ -756,7 +739,7 @@
 <span>    <span class="va">chart</span><span class="op">$</span><span class="fu">server</span><span class="op">(</span><span class="st">"chart"</span>, data <span class="op">=</span> <span class="va">data</span><span class="op">)</span></span>
 <span>  <span class="op">}</span><span class="op">)</span></span>
 <span><span class="op">}</span></span></code></pre></div>
-<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># app/view/chart.R</span></span>
 <span></span>
 <span><span class="fu">box</span><span class="fu">::</span><span class="fu"><a href="http://klmr.me/box/reference/use.html" class="external-link">use</a></span><span class="op">(</span></span>
@@ -795,7 +778,7 @@
 <span>    <span class="op">)</span></span>
 <span>  <span class="op">}</span><span class="op">)</span></span>
 <span><span class="op">}</span></span></code></pre></div>
-<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># app/view/table.R</span></span>
 <span></span>
 <span><span class="fu">box</span><span class="fu">::</span><span class="fu"><a href="http://klmr.me/box/reference/use.html" class="external-link">use</a></span><span class="op">(</span></span>
@@ -827,21 +810,21 @@
 <span>  <span class="op">}</span><span class="op">)</span></span>
 <span><span class="op">}</span></span></code></pre></div>
 <p>Now you are ready to modify the styles. Simply add few CSS rules to <code>app/styles/mains.scss</code> file:</p>
-<div class="sourceCode" id="cb28"><pre class="sourceCode css"><code class="sourceCode css"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true"></a><span class="er">// app/styles/main.scss</span></span>
-<span id="cb28-2"><a href="#cb28-2" aria-hidden="true"></a></span>
-<span id="cb28-3"><a href="#cb28-3" aria-hidden="true"></a><span class="fu">.components-container</span> {</span>
-<span id="cb28-4"><a href="#cb28-4" aria-hidden="true"></a>  <span class="kw">display</span>: inline-grid<span class="op">;</span></span>
-<span id="cb28-5"><a href="#cb28-5" aria-hidden="true"></a>  <span class="kw">grid-template-columns</span>: <span class="dv">1</span>fr <span class="dv">1</span>fr<span class="op">;</span></span>
-<span id="cb28-6"><a href="#cb28-6" aria-hidden="true"></a>  <span class="kw">width</span>: <span class="dv">100</span><span class="dt">%</span><span class="op">;</span></span>
-<span id="cb28-7"><a href="#cb28-7" aria-hidden="true"></a></span>
-<span id="cb28-8"><a href="#cb28-8" aria-hidden="true"></a>  <span class="fu">.component-box</span> {</span>
-<span id="cb28-9"><a href="#cb28-9" aria-hidden="true"></a>    <span class="kw">padding</span>: <span class="dv">10</span><span class="dt">px</span><span class="op">;</span></span>
-<span id="cb28-10"><a href="#cb28-10" aria-hidden="true"></a>    <span class="kw">margin</span>: <span class="dv">10</span><span class="dt">px</span><span class="op">;</span></span>
-<span id="cb28-11"><a href="#cb28-11" aria-hidden="true"></a>    <span class="kw">box-shadow</span>: <span class="dv">0</span> <span class="dv">4</span><span class="dt">px</span> <span class="dv">8</span><span class="dt">px</span> <span class="dv">0</span> <span class="fu">rgba(</span><span class="dv">0</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">0.2</span><span class="fu">)</span><span class="op">,</span> <span class="dv">0</span> <span class="dv">6</span><span class="dt">px</span> <span class="dv">20</span><span class="dt">px</span> <span class="dv">0</span> <span class="fu">rgba(</span><span class="dv">0</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">0.19</span><span class="fu">)</span><span class="op">;</span></span>
-<span id="cb28-12"><a href="#cb28-12" aria-hidden="true"></a>  }</span>
-<span id="cb28-13"><a href="#cb28-13" aria-hidden="true"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb26"><pre class="sourceCode css"><code class="sourceCode css"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true"></a><span class="er">// app/styles/main.scss</span></span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true"></a></span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true"></a><span class="fu">.components-container</span> {</span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true"></a>  <span class="kw">display</span>: inline-grid<span class="op">;</span></span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true"></a>  <span class="kw">grid-template-columns</span>: <span class="dv">1</span>fr <span class="dv">1</span>fr<span class="op">;</span></span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true"></a>  <span class="kw">width</span>: <span class="dv">100</span><span class="dt">%</span><span class="op">;</span></span>
+<span id="cb26-7"><a href="#cb26-7" aria-hidden="true"></a></span>
+<span id="cb26-8"><a href="#cb26-8" aria-hidden="true"></a>  <span class="fu">.component-box</span> {</span>
+<span id="cb26-9"><a href="#cb26-9" aria-hidden="true"></a>    <span class="kw">padding</span>: <span class="dv">10</span><span class="dt">px</span><span class="op">;</span></span>
+<span id="cb26-10"><a href="#cb26-10" aria-hidden="true"></a>    <span class="kw">margin</span>: <span class="dv">10</span><span class="dt">px</span><span class="op">;</span></span>
+<span id="cb26-11"><a href="#cb26-11" aria-hidden="true"></a>    <span class="kw">box-shadow</span>: <span class="dv">0</span> <span class="dv">4</span><span class="dt">px</span> <span class="dv">8</span><span class="dt">px</span> <span class="dv">0</span> <span class="fu">rgba(</span><span class="dv">0</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">0.2</span><span class="fu">)</span><span class="op">,</span> <span class="dv">0</span> <span class="dv">6</span><span class="dt">px</span> <span class="dv">20</span><span class="dt">px</span> <span class="dv">0</span> <span class="fu">rgba(</span><span class="dv">0</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">0.19</span><span class="fu">)</span><span class="op">;</span></span>
+<span id="cb26-12"><a href="#cb26-12" aria-hidden="true"></a>  }</span>
+<span id="cb26-13"><a href="#cb26-13" aria-hidden="true"></a>}</span></code></pre></div>
 <p>If you try running the application right now, you will not see any changes. That is because Rhino uses minified <code>app/static/app.min.css</code> for styling. To use it, you will need to build it using the Rhino function:</p>
-<div class="sourceCode" id="cb29"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># in R console</span></span>
 <span><span class="fu">rhino</span><span class="fu">::</span><span class="fu"><a href="../../reference/build_sass.html">build_sass</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <p>Now, after running the application you should see something similar to this:</p>
@@ -850,7 +833,7 @@
 </div>
 <p>It is worth noting, that you don’t need to add <code>app/static/app.min.css</code> to your application header - Rhino does that for you.</p>
 <p>Let’s adjust the application a little bit more by adding a title:</p>
-<div class="sourceCode" id="cb30"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># app/main.R</span></span>
 <span></span>
 <span><span class="fu">box</span><span class="fu">::</span><span class="fu"><a href="http://klmr.me/box/reference/use.html" class="external-link">use</a></span><span class="op">(</span></span>
@@ -877,26 +860,26 @@
 <span></span>
 <span><span class="va">...</span></span></code></pre></div>
 <p>And some styling:</p>
-<div class="sourceCode" id="cb31"><pre class="sourceCode css"><code class="sourceCode css"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true"></a><span class="er">// app/styles/main.scss</span></span>
-<span id="cb31-2"><a href="#cb31-2" aria-hidden="true"></a></span>
-<span id="cb31-3"><a href="#cb31-3" aria-hidden="true"></a><span class="fu">.components-container</span> {</span>
-<span id="cb31-4"><a href="#cb31-4" aria-hidden="true"></a>  <span class="kw">display</span>: inline-grid<span class="op">;</span></span>
-<span id="cb31-5"><a href="#cb31-5" aria-hidden="true"></a>  <span class="kw">grid-template-columns</span>: <span class="dv">1</span>fr <span class="dv">1</span>fr<span class="op">;</span></span>
-<span id="cb31-6"><a href="#cb31-6" aria-hidden="true"></a>  <span class="kw">width</span>: <span class="dv">100</span><span class="dt">%</span><span class="op">;</span></span>
-<span id="cb31-7"><a href="#cb31-7" aria-hidden="true"></a></span>
-<span id="cb31-8"><a href="#cb31-8" aria-hidden="true"></a>  <span class="fu">.component-box</span> {</span>
-<span id="cb31-9"><a href="#cb31-9" aria-hidden="true"></a>    <span class="kw">padding</span>: <span class="dv">10</span><span class="dt">px</span><span class="op">;</span></span>
-<span id="cb31-10"><a href="#cb31-10" aria-hidden="true"></a>    <span class="kw">margin</span>: <span class="dv">10</span><span class="dt">px</span><span class="op">;</span></span>
-<span id="cb31-11"><a href="#cb31-11" aria-hidden="true"></a>    <span class="kw">box-shadow</span>: <span class="dv">0</span> <span class="dv">4</span><span class="dt">px</span> <span class="dv">8</span><span class="dt">px</span> <span class="dv">0</span> <span class="fu">rgba(</span><span class="dv">0</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">0.2</span><span class="fu">)</span><span class="op">,</span> <span class="dv">0</span> <span class="dv">6</span><span class="dt">px</span> <span class="dv">20</span><span class="dt">px</span> <span class="dv">0</span> <span class="fu">rgba(</span><span class="dv">0</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">0.19</span><span class="fu">)</span><span class="op">;</span></span>
-<span id="cb31-12"><a href="#cb31-12" aria-hidden="true"></a>  }</span>
-<span id="cb31-13"><a href="#cb31-13" aria-hidden="true"></a>}</span>
-<span id="cb31-14"><a href="#cb31-14" aria-hidden="true"></a></span>
-<span id="cb31-15"><a href="#cb31-15" aria-hidden="true"></a>h1 {</span>
-<span id="cb31-16"><a href="#cb31-16" aria-hidden="true"></a>  <span class="kw">text-align</span>: <span class="dv">center</span><span class="op">;</span></span>
-<span id="cb31-17"><a href="#cb31-17" aria-hidden="true"></a>  <span class="kw">font-weight</span>: <span class="dv">900</span><span class="op">;</span></span>
-<span id="cb31-18"><a href="#cb31-18" aria-hidden="true"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb29"><pre class="sourceCode css"><code class="sourceCode css"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true"></a><span class="er">// app/styles/main.scss</span></span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true"></a></span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true"></a><span class="fu">.components-container</span> {</span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true"></a>  <span class="kw">display</span>: inline-grid<span class="op">;</span></span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true"></a>  <span class="kw">grid-template-columns</span>: <span class="dv">1</span>fr <span class="dv">1</span>fr<span class="op">;</span></span>
+<span id="cb29-6"><a href="#cb29-6" aria-hidden="true"></a>  <span class="kw">width</span>: <span class="dv">100</span><span class="dt">%</span><span class="op">;</span></span>
+<span id="cb29-7"><a href="#cb29-7" aria-hidden="true"></a></span>
+<span id="cb29-8"><a href="#cb29-8" aria-hidden="true"></a>  <span class="fu">.component-box</span> {</span>
+<span id="cb29-9"><a href="#cb29-9" aria-hidden="true"></a>    <span class="kw">padding</span>: <span class="dv">10</span><span class="dt">px</span><span class="op">;</span></span>
+<span id="cb29-10"><a href="#cb29-10" aria-hidden="true"></a>    <span class="kw">margin</span>: <span class="dv">10</span><span class="dt">px</span><span class="op">;</span></span>
+<span id="cb29-11"><a href="#cb29-11" aria-hidden="true"></a>    <span class="kw">box-shadow</span>: <span class="dv">0</span> <span class="dv">4</span><span class="dt">px</span> <span class="dv">8</span><span class="dt">px</span> <span class="dv">0</span> <span class="fu">rgba(</span><span class="dv">0</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">0.2</span><span class="fu">)</span><span class="op">,</span> <span class="dv">0</span> <span class="dv">6</span><span class="dt">px</span> <span class="dv">20</span><span class="dt">px</span> <span class="dv">0</span> <span class="fu">rgba(</span><span class="dv">0</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">0.19</span><span class="fu">)</span><span class="op">;</span></span>
+<span id="cb29-12"><a href="#cb29-12" aria-hidden="true"></a>  }</span>
+<span id="cb29-13"><a href="#cb29-13" aria-hidden="true"></a>}</span>
+<span id="cb29-14"><a href="#cb29-14" aria-hidden="true"></a></span>
+<span id="cb29-15"><a href="#cb29-15" aria-hidden="true"></a>h1 {</span>
+<span id="cb29-16"><a href="#cb29-16" aria-hidden="true"></a>  <span class="kw">text-align</span>: <span class="dv">center</span><span class="op">;</span></span>
+<span id="cb29-17"><a href="#cb29-17" aria-hidden="true"></a>  <span class="kw">font-weight</span>: <span class="dv">900</span><span class="op">;</span></span>
+<span id="cb29-18"><a href="#cb29-18" aria-hidden="true"></a>}</span></code></pre></div>
 <p>Finally, build Sass once again:</p>
-<div class="sourceCode" id="cb32"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb30"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># in R console</span></span>
 <span><span class="fu">rhino</span><span class="fu">::</span><span class="fu"><a href="../../reference/build_sass.html">build_sass</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <p>The result should look similar to this:</p>
@@ -912,7 +895,7 @@
 <hr>
 <p>As the last element, let’s add a button that will trigger a JavaScript popup.</p>
 <p>First, we need to create a simple button and style it:</p>
-<div class="sourceCode" id="cb33"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb31"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># app/main.R</span></span>
 <span></span>
 <span><span class="fu">box</span><span class="fu">::</span><span class="fu"><a href="http://klmr.me/box/reference/use.html" class="external-link">use</a></span><span class="op">(</span></span>
@@ -942,50 +925,50 @@
 <span><span class="op">}</span></span>
 <span></span>
 <span><span class="va">...</span></span></code></pre></div>
-<div class="sourceCode" id="cb34"><pre class="sourceCode css"><code class="sourceCode css"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true"></a><span class="er">// app/styles/main.scss</span></span>
-<span id="cb34-2"><a href="#cb34-2" aria-hidden="true"></a></span>
-<span id="cb34-3"><a href="#cb34-3" aria-hidden="true"></a><span class="fu">.components-container</span> {</span>
-<span id="cb34-4"><a href="#cb34-4" aria-hidden="true"></a>  <span class="kw">display</span>: inline-grid<span class="op">;</span></span>
-<span id="cb34-5"><a href="#cb34-5" aria-hidden="true"></a>  <span class="kw">grid-template-columns</span>: <span class="dv">1</span>fr <span class="dv">1</span>fr<span class="op">;</span></span>
-<span id="cb34-6"><a href="#cb34-6" aria-hidden="true"></a>  <span class="kw">width</span>: <span class="dv">100</span><span class="dt">%</span><span class="op">;</span></span>
-<span id="cb34-7"><a href="#cb34-7" aria-hidden="true"></a></span>
-<span id="cb34-8"><a href="#cb34-8" aria-hidden="true"></a>  <span class="fu">.component-box</span> {</span>
-<span id="cb34-9"><a href="#cb34-9" aria-hidden="true"></a>    <span class="kw">padding</span>: <span class="dv">10</span><span class="dt">px</span><span class="op">;</span></span>
-<span id="cb34-10"><a href="#cb34-10" aria-hidden="true"></a>    <span class="kw">margin</span>: <span class="dv">10</span><span class="dt">px</span><span class="op">;</span></span>
-<span id="cb34-11"><a href="#cb34-11" aria-hidden="true"></a>    <span class="kw">box-shadow</span>: <span class="dv">0</span> <span class="dv">4</span><span class="dt">px</span> <span class="dv">8</span><span class="dt">px</span> <span class="dv">0</span> <span class="fu">rgba(</span><span class="dv">0</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">0.2</span><span class="fu">)</span><span class="op">,</span> <span class="dv">0</span> <span class="dv">6</span><span class="dt">px</span> <span class="dv">20</span><span class="dt">px</span> <span class="dv">0</span> <span class="fu">rgba(</span><span class="dv">0</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">0.19</span><span class="fu">)</span><span class="op">;</span></span>
-<span id="cb34-12"><a href="#cb34-12" aria-hidden="true"></a>  }</span>
-<span id="cb34-13"><a href="#cb34-13" aria-hidden="true"></a>}</span>
-<span id="cb34-14"><a href="#cb34-14" aria-hidden="true"></a></span>
-<span id="cb34-15"><a href="#cb34-15" aria-hidden="true"></a>h1 {</span>
-<span id="cb34-16"><a href="#cb34-16" aria-hidden="true"></a>  <span class="kw">text-align</span>: <span class="dv">center</span><span class="op">;</span></span>
-<span id="cb34-17"><a href="#cb34-17" aria-hidden="true"></a>  <span class="kw">font-weight</span>: <span class="dv">900</span><span class="op">;</span></span>
-<span id="cb34-18"><a href="#cb34-18" aria-hidden="true"></a>}</span>
-<span id="cb34-19"><a href="#cb34-19" aria-hidden="true"></a></span>
-<span id="cb34-20"><a href="#cb34-20" aria-hidden="true"></a><span class="pp">#help-button</span> {</span>
-<span id="cb34-21"><a href="#cb34-21" aria-hidden="true"></a>  <span class="kw">position</span>: <span class="dv">fixed</span><span class="op">;</span></span>
-<span id="cb34-22"><a href="#cb34-22" aria-hidden="true"></a>  <span class="kw">top</span>: <span class="dv">0</span><span class="op">;</span></span>
-<span id="cb34-23"><a href="#cb34-23" aria-hidden="true"></a>  <span class="kw">right</span>: <span class="dv">0</span><span class="op">;</span></span>
-<span id="cb34-24"><a href="#cb34-24" aria-hidden="true"></a>  <span class="kw">margin</span>: <span class="dv">10</span><span class="dt">px</span><span class="op">;</span></span>
-<span id="cb34-25"><a href="#cb34-25" aria-hidden="true"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb32"><pre class="sourceCode css"><code class="sourceCode css"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true"></a><span class="er">// app/styles/main.scss</span></span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true"></a></span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true"></a><span class="fu">.components-container</span> {</span>
+<span id="cb32-4"><a href="#cb32-4" aria-hidden="true"></a>  <span class="kw">display</span>: inline-grid<span class="op">;</span></span>
+<span id="cb32-5"><a href="#cb32-5" aria-hidden="true"></a>  <span class="kw">grid-template-columns</span>: <span class="dv">1</span>fr <span class="dv">1</span>fr<span class="op">;</span></span>
+<span id="cb32-6"><a href="#cb32-6" aria-hidden="true"></a>  <span class="kw">width</span>: <span class="dv">100</span><span class="dt">%</span><span class="op">;</span></span>
+<span id="cb32-7"><a href="#cb32-7" aria-hidden="true"></a></span>
+<span id="cb32-8"><a href="#cb32-8" aria-hidden="true"></a>  <span class="fu">.component-box</span> {</span>
+<span id="cb32-9"><a href="#cb32-9" aria-hidden="true"></a>    <span class="kw">padding</span>: <span class="dv">10</span><span class="dt">px</span><span class="op">;</span></span>
+<span id="cb32-10"><a href="#cb32-10" aria-hidden="true"></a>    <span class="kw">margin</span>: <span class="dv">10</span><span class="dt">px</span><span class="op">;</span></span>
+<span id="cb32-11"><a href="#cb32-11" aria-hidden="true"></a>    <span class="kw">box-shadow</span>: <span class="dv">0</span> <span class="dv">4</span><span class="dt">px</span> <span class="dv">8</span><span class="dt">px</span> <span class="dv">0</span> <span class="fu">rgba(</span><span class="dv">0</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">0.2</span><span class="fu">)</span><span class="op">,</span> <span class="dv">0</span> <span class="dv">6</span><span class="dt">px</span> <span class="dv">20</span><span class="dt">px</span> <span class="dv">0</span> <span class="fu">rgba(</span><span class="dv">0</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">0.19</span><span class="fu">)</span><span class="op">;</span></span>
+<span id="cb32-12"><a href="#cb32-12" aria-hidden="true"></a>  }</span>
+<span id="cb32-13"><a href="#cb32-13" aria-hidden="true"></a>}</span>
+<span id="cb32-14"><a href="#cb32-14" aria-hidden="true"></a></span>
+<span id="cb32-15"><a href="#cb32-15" aria-hidden="true"></a>h1 {</span>
+<span id="cb32-16"><a href="#cb32-16" aria-hidden="true"></a>  <span class="kw">text-align</span>: <span class="dv">center</span><span class="op">;</span></span>
+<span id="cb32-17"><a href="#cb32-17" aria-hidden="true"></a>  <span class="kw">font-weight</span>: <span class="dv">900</span><span class="op">;</span></span>
+<span id="cb32-18"><a href="#cb32-18" aria-hidden="true"></a>}</span>
+<span id="cb32-19"><a href="#cb32-19" aria-hidden="true"></a></span>
+<span id="cb32-20"><a href="#cb32-20" aria-hidden="true"></a><span class="pp">#help-button</span> {</span>
+<span id="cb32-21"><a href="#cb32-21" aria-hidden="true"></a>  <span class="kw">position</span>: <span class="dv">fixed</span><span class="op">;</span></span>
+<span id="cb32-22"><a href="#cb32-22" aria-hidden="true"></a>  <span class="kw">top</span>: <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb32-23"><a href="#cb32-23" aria-hidden="true"></a>  <span class="kw">right</span>: <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb32-24"><a href="#cb32-24" aria-hidden="true"></a>  <span class="kw">margin</span>: <span class="dv">10</span><span class="dt">px</span><span class="op">;</span></span>
+<span id="cb32-25"><a href="#cb32-25" aria-hidden="true"></a>}</span></code></pre></div>
 <p>Remember to rebuild Sass with <code><a href="../../reference/build_sass.html">rhino::build_sass()</a></code>!</p>
 <p>You should now see a button with a question mark in the top right corner of the application:</p>
 <div class="app-preview">
 <p><img src="images/js_1.png"></p>
 </div>
 <p>Now, it’s time for writing the JavaScript code that should show the popup with a message. All JS code should be stored in the <code>app/js</code> directory. You already have the first (empty) file there - <code>index.js</code>. Let’s use it:</p>
-<div class="sourceCode" id="cb35"><pre class="sourceCode js"><code class="sourceCode javascript"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true"></a><span class="co">// app/js/index.js</span></span>
-<span id="cb35-2"><a href="#cb35-2" aria-hidden="true"></a></span>
-<span id="cb35-3"><a href="#cb35-3" aria-hidden="true"></a><span class="im">export</span> <span class="kw">function</span> <span class="fu">showHelp</span>() {</span>
-<span id="cb35-4"><a href="#cb35-4" aria-hidden="true"></a>  <span class="fu">alert</span>(<span class="st">'Learn more about Rhino: https://appsilon.github.io/rhino/'</span>)<span class="op">;</span></span>
-<span id="cb35-5"><a href="#cb35-5" aria-hidden="true"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb33"><pre class="sourceCode js"><code class="sourceCode javascript"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true"></a><span class="co">// app/js/index.js</span></span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true"></a></span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true"></a><span class="im">export</span> <span class="kw">function</span> <span class="fu">showHelp</span>() {</span>
+<span id="cb33-4"><a href="#cb33-4" aria-hidden="true"></a>  <span class="fu">alert</span>(<span class="st">'Learn more about Rhino: https://appsilon.github.io/rhino/'</span>)<span class="op">;</span></span>
+<span id="cb33-5"><a href="#cb33-5" aria-hidden="true"></a>}</span></code></pre></div>
 <p>This function will simply show a browser alert with the message. If you are familiar with how JavaScript code is used in Shiny applications, you will notice one difference - keyword <code>export</code> added before the function name. In Rhino, only functions marked like that will be available for Shiny to use.</p>
 <p>Same as it was with styles, the Rhino application does not use JS files directly, but instead utilizes minified version build with <code><a href="../../reference/build_js.html">rhino::build_js</a></code> function. Try it:</p>
-<div class="sourceCode" id="cb36"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb34"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># in R console</span></span>
 <span><span class="fu">rhino</span><span class="fu">::</span><span class="fu"><a href="../../reference/build_js.html">build_js</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <p>Now <code>app/static/js/app.min.js</code> file has been created and, same as the minified CSS file, is automatically included in the application head tag.</p>
 <p>The last thing here is to use the <code>showHelp()</code> function in the application. To do that, let’s simply add <code>onclick</code> to the button:</p>
-<div class="sourceCode" id="cb37"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb35"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># app/main.R</span></span>
 <span></span>
 <span><span class="fu">box</span><span class="fu">::</span><span class="fu"><a href="http://klmr.me/box/reference/use.html" class="external-link">use</a></span><span class="op">(</span></span>

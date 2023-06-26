@@ -13,7 +13,6 @@ articles:
   add-routing: how-to/add-routing.html
   enable-shiny-bookmarking: how-to/enable-shiny-bookmarking.html
   keep-multiple-apps-in-a-single-repository: how-to/keep-multiple-apps-in-a-single-repository.html
-  manage-r-dependencies: how-to/manage-r-dependencies.html
   manage-secrets-and-environments: how-to/manage-secrets-and-environments.html
   migrate-app-to-rhino: how-to/migrate-app-to-rhino.html
   publish-on-huggingface: how-to/publish-on-huggingface.html
@@ -27,7 +26,7 @@ articles:
   write-r-code: how-to/write-r-code.html
   create-your-first-rhino-app: tutorial/create-your-first-rhino-app.html
   write-end-to-end-tests-with-cypress: tutorial/write-end-to-end-tests-with-cypress.html
-last_built: 2023-06-22T12:59Z
+last_built: 2023-06-26T11:20Z
 urls:
   reference: https://appsilon.github.io/rhino/reference
   article: https://appsilon.github.io/rhino/articles
