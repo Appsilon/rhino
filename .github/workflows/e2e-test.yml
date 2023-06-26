@@ -57,6 +57,12 @@ jobs:
         shell: Rscript {0}
         run: rhino::diagnostics()
 
+      - name: pkg_install() and pkg_remove() should work for managing dependencies
+        if: always()
+        run: |
+          cd RhinoApp
+          Rscript ../test-dependencies.R
+
       - name: lint_r() should detect lint errors in R scripts
         if: always()
         run: |

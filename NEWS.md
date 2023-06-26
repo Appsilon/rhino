@@ -1,4 +1,9 @@
-# rhino 1.3.1
+# rhino (development version)
+
+1. Add `pkg_install()` and `pkg_remove()` to simplify dependency management in Rhino.
+2. Add E2E tests for the Rhino package (internal).
+
+# [rhino 1.3.1](https://github.com/Appsilon/rhino/releases/tag/v1.3.1)
 
 1. `test_r()` now clears the environment of loaded box modules before tests are run.
 This removes the need for `box::reload()` calls in tests.

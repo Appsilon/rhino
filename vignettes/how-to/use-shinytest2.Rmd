@@ -12,10 +12,7 @@ you can write end-to-end tests using [Cypress](https://www.cypress.io/)
 and run them with `rhino::test_e2e()` without any additional setup.
 If you'd prefer to use the `shinytest2` package instead, you will need to:
 
-1. Install `shinytest2` and `shinyvalidate`.
-    1. Add `library(shinytest2)` and `library(shinyvalidate)` lines to your `dependencies.R`.
-    2. Install the packages with `renv::install(c("shinytest2", "shinyvalidate"))`.
-    3. Update the lockfile with `renv::snapshot()`.
+1. Run `rhino::pkg_install(c("shinytest2", "shinyvalidate"))`.
 2. Create a test with `shinytest2::record_test()` or `shinytest2::use_shinytest2_test()` as usual.
 3. Optionally you can remove the following files created by `shinytest2`,
 which are unnecessary in Rhino:
