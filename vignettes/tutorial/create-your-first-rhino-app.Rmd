@@ -269,9 +269,8 @@ ui <- function(id) {
 server <- function(id) {
   moduleServer(id, function(input, output, session) {
     output$chart <- echarts4r$renderEcharts4r(
-      # Datasets are the only case when you need to use :: in `box`.
-      # This issue should be solved in the next `box` release.
-      rhino::rhinos |>
+      # Note : If you are using `box>=1.1.3`, import datasets directly without using `rhino::rhinos`
+      rhinos |>
         echarts4r$group_by(Species) |>
         echarts4r$e_chart(x = Year) |>
         echarts4r$e_line(Population) |>
@@ -384,9 +383,8 @@ ui <- function(id) {
 #' @export
 server <- function(id) {
   moduleServer(id, function(input, output, session) {
-    # Datasets are the only case when you need to use :: in `box`.
-    # This issue should be solved in the next `box` release.
-    data <- rhino::rhinos
+    # Note : If you are using `box>=1.1.3`, import datasets directly without using `rhino::rhinos`
+    data <- rhinos
 
     table$server("table", data = data)
     chart$server("chart", data = data)
@@ -689,9 +687,8 @@ ui <- function(id) {
 #' @export
 server <- function(id) {
   moduleServer(id, function(input, output, session) {
-    # Datasets are the only case when you need to use :: in `box`.
-    # This issue should be solved in the next `box` release.
-    data <- rhino::rhinos
+    # Note : If you are using `box>=1.1.3`, import datasets directly without using `rhino::rhinos`
+    data <- rhinos
 
     table$server("table", data = data)
     chart$server("chart", data = data)
