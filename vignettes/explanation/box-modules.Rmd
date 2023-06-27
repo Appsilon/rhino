@@ -190,11 +190,11 @@ box::use(
 # Known issues
 
 ### Lazy-loaded data
-Box 1.1.0 doesn't support lazy-loaded [data](https://r-pkgs.org/data.html#data-data),
-so e.g. `box::use(datasets[mtcars])` won't work.
-This feature should be available in the next release
-(see this [issue](https://github.com/klmr/box/issues/219)).
-For now please use `datasets::mtcars` in your code.
+Starting from `box>=1.1.3`, you can now import datasets directly without using `rhino::rhinos`.
+If you are using `box>=1.1.3`, there is no need to modify the code and you can proceed with dataset imports as usual.
+Please note that in `box 1.1.0`, lazy-loaded [data](https://r-pkgs.org/data.html#data-data) is not supported. Therefore, if you are using a version prior to `box 1.1.3`, you will need to use `datasets::mtcars` (or similar syntax) in your code to access the desired dataset.
+For more information, refer to this [issue](https://github.com/klmr/box/issues/219), which addresses the addition of lazy-loaded data support in the upcoming release.
+Ensure you have updated to `box>=1.1.3` for seamless dataset imports without the need for `rhino::rhinos`.
 
 ### Trailing commas
 Box 1.1.0 allows trailing commas in `box::use()` statements and code,
