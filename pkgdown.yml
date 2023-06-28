@@ -26,7 +26,7 @@ articles:
   write-r-code: how-to/write-r-code.html
   create-your-first-rhino-app: tutorial/create-your-first-rhino-app.html
   write-end-to-end-tests-with-cypress: tutorial/write-end-to-end-tests-with-cypress.html
-last_built: 2023-06-26T11:20Z
+last_built: 2023-06-28T11:46Z
 urls:
   reference: https://appsilon.github.io/rhino/reference
   article: https://appsilon.github.io/rhino/articles
