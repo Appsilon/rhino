@@ -20,11 +20,11 @@
 Would you like to learn about Rhino hands-on? Join our events!
 Upcoming events will be added to this section - stay tuned.
 
-* [**Best practices for coding Shiny apps with Rhino Team**](https://shinyconf.appsilon.com/shiny-gatherings/)<br>
+### Past
+
+* [**Best practices for coding Shiny apps with Rhino Team**](https://www.youtube.com/watch?v=QmyilJr7jXs)<br>
 2023-06-27 at 18:00 (UTC+2)<br>
 Online gathering led by [Kamil Żyła](https://www.linkedin.com/in/kamil-zyla/)
-
-### Past
 
 * [**Creating Shiny Apps with Rhino: the new framework for Shiny apps**](https://www.youtube.com/watch?v=8H_ZHUy8Yj4)<br>
 2022-05-13 at 18:00 (UTC+2)<br>
