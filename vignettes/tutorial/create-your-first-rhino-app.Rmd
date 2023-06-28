@@ -253,6 +253,7 @@ Add `echarts4r` render to the server part of the module and output part to its U
 box::use(
   echarts4r,
   shiny[h3, moduleServer, NS, tagList],
+  rhino[rhinos],
 )
 
 #' @export
@@ -364,6 +365,7 @@ We want to use the same dataset in both modules, so instead of calling it twice,
 
 box::use(
   shiny[bootstrapPage, moduleServer, NS],
+  rhino[rhinos],
 )
 box::use(
   app/view/chart,
@@ -665,6 +667,7 @@ Adjusting application style can be done by providing custom styles in the `app/s
 
 box::use(
   shiny[bootstrapPage, div, moduleServer, NS],
+  rhino[rhinos],
 )
 box::use(
   app/view/chart,
