@@ -270,7 +270,6 @@ ui <- function(id) {
 server <- function(id) {
   moduleServer(id, function(input, output, session) {
     output$chart <- echarts4r$renderEcharts4r(
-      # Note : If you are using `box>=1.1.3`, import datasets directly without using `rhino::rhinos`
       rhinos |>
         echarts4r$group_by(Species) |>
         echarts4r$e_chart(x = Year) |>
@@ -385,7 +384,6 @@ ui <- function(id) {
 #' @export
 server <- function(id) {
   moduleServer(id, function(input, output, session) {
-    # Note : If you are using `box>=1.1.3`, import datasets directly without using `rhino::rhinos`
     data <- rhinos
 
     table$server("table", data = data)
@@ -690,7 +688,6 @@ ui <- function(id) {
 #' @export
 server <- function(id) {
   moduleServer(id, function(input, output, session) {
-    # Note : If you are using `box>=1.1.3`, import datasets directly without using `rhino::rhinos`
     data <- rhinos
 
     table$server("table", data = data)
