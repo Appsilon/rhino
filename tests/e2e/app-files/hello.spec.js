@@ -60,4 +60,9 @@ describe('Say Hello', () => {
       .and('have.css', 'align-items', 'center')
       .and('have.css', 'justify-content', 'center');
   });
+
+  it('should work with React components', () => {
+    cy.get('#app-box button').click();
+    cy.get('#app-box p').contains('React works!');
+  })
 })
