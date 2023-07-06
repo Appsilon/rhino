@@ -25,20 +25,8 @@ jobs:
         with:
           r-version: renv
 
-      - name: Restore renv from cache
-        uses: actions/cache@v2
-        env:
-          CACHE_KEY: renv-${{ runner.arch }}-${{ runner.os }}-${{ env.R_VERSION }}
-        with:
-          path: renv/library
-          key: ${{ env.CACHE_KEY }}-${{ hashFiles('renv.lock') }}
-          restore-keys: ${{ env.CACHE_KEY }}-
-
-      - name: Sync renv with lockfile
-        shell: Rscript {0}
-        run: |
-          options(renv.config.cache.symlinks = FALSE)
-          renv::restore(clean = TRUE)
+      - name: Setup R dependencies
+        uses: r-lib/actions/setup-renv@v2
 
       - name: Setup Node
         uses: actions/setup-node@v2
