@@ -233,6 +233,7 @@ Add `echarts4r` render to the server part of the module and output part to its U
 box::use(
   echarts4r,
   shiny[h3, moduleServer, NS, tagList],
+  rhino[rhinos],
 )
 
 #' @export
@@ -249,9 +250,7 @@ ui <- function(id) {
 server <- function(id) {
   moduleServer(id, function(input, output, session) {
     output$chart <- echarts4r$renderEcharts4r(
-      # Datasets are the only case when you need to use :: in `box`.
-      # This issue should be solved in the next `box` release.
-      rhino::rhinos |>
+      rhinos |>
         echarts4r$group_by(Species) |>
         echarts4r$e_chart(x = Year) |>
         echarts4r$e_line(Population) |>
@@ -345,6 +344,7 @@ We want to use the same dataset in both modules, so instead of calling it twice,
 
 box::use(
   shiny[bootstrapPage, moduleServer, NS],
+  rhino[rhinos],
 )
 box::use(
   app/view/chart,
@@ -364,9 +364,7 @@ ui <- function(id) {
 #' @export
 server <- function(id) {
   moduleServer(id, function(input, output, session) {
-    # Datasets are the only case when you need to use :: in `box`.
-    # This issue should be solved in the next `box` release.
-    data <- rhino::rhinos
+    data <- rhinos
 
     table$server("table", data = data)
     chart$server("chart", data = data)
@@ -647,6 +645,7 @@ Adjusting application style can be done by providing custom styles in the `app/s
 
 box::use(
   shiny[bootstrapPage, div, moduleServer, NS],
+  rhino[rhinos],
 )
 box::use(
   app/view/chart,
@@ -669,9 +668,7 @@ ui <- function(id) {
 #' @export
 server <- function(id) {
   moduleServer(id, function(input, output, session) {
-    # Datasets are the only case when you need to use :: in `box`.
-    # This issue should be solved in the next `box` release.
-    data <- rhino::rhinos
+    data <- rhinos
 
     table$server("table", data = data)
     chart$server("chart", data = data)
