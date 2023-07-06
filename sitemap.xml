@@ -82,6 +82,9 @@
     <loc>https://appsilon.github.io/rhino/articles/tutorial/create-your-first-rhino-app.html</loc>
   </url>
   <url>
+    <loc>https://appsilon.github.io/rhino/articles/tutorial/use-react-in-rhino.html</loc>
+  </url>
+  <url>
     <loc>https://appsilon.github.io/rhino/articles/tutorial/write-end-to-end-tests-with-cypress.html</loc>
   </url>
   <url>
@@ -128,6 +131,9 @@
   </url>
   <url>
     <loc>https://appsilon.github.io/rhino/reference/log.html</loc>
+  </url>
+  <url>
+    <loc>https://appsilon.github.io/rhino/reference/react_component.html</loc>
   </url>
   <url>
     <loc>https://appsilon.github.io/rhino/reference/rhinos.html</loc>
