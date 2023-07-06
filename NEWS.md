@@ -4,6 +4,7 @@
 2. Add E2E tests for the Rhino package (internal).
 3. Add support for using React in Rhino
 (tutorial, JS function `registerReactComponents()`, R function `react_component()`).
+4. Require box v1.3.1 or later (fixes issues with lazy-loaded data and trailing commas).
 
 # [rhino 1.3.1](https://github.com/Appsilon/rhino/releases/tag/v1.3.1)
 
