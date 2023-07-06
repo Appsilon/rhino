@@ -44,7 +44,7 @@
     
     <a class="navbar-brand me-2" href="../../index.html">rhino</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.3.1.9001</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.3.1.9002</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -294,20 +294,20 @@
 <div class="section level2">
 <h2 id="known-issues">Known issues<a class="anchor" aria-label="anchor" href="#known-issues"></a>
 </h2>
+<p>The following issues were fixed in box v1.1.3, which is required by Rhino starting with v1.4.0. This section is left here for reference.</p>
 <div class="section level4">
 <h4 id="lazy-loaded-data">Lazy-loaded data<a class="anchor" aria-label="anchor" href="#lazy-loaded-data"></a>
 </h4>
-<p>The following issue is fixed in box v1.1.3. Rhino v1.4.0 requires box v1.1.3 or later Box 1.1.0 doesn’t support lazy-loaded <a href="https://r-pkgs.org/data.html#data-data" class="external-link">data</a>, so e.g. <code>box::use(datasets[mtcars])</code> won’t work. This feature should be available in the next release (see this <a href="https://github.com/klmr/box/issues/219" class="external-link">issue</a>). For now please use <code><a href="https://rdrr.io/r/datasets/mtcars.html" class="external-link">datasets::mtcars</a></code> in your code.</p>
+<p>Prior to v1.1.3 box didn’t support lazy-loaded <a href="https://r-pkgs.org/data.html#data-data" class="external-link">data</a>, so e.g. <code>box::use(datasets[mtcars])</code> wouldn’t work (see this <a href="https://github.com/klmr/box/issues/219" class="external-link">issue</a>). It was possible to workaround it by using <code><a href="https://rdrr.io/r/datasets/mtcars.html" class="external-link">datasets::mtcars</a></code> instead.</p>
 </div>
 <div class="section level4">
 <h4 id="trailing-commas">Trailing commas<a class="anchor" aria-label="anchor" href="#trailing-commas"></a>
 </h4>
-<p>Box 1.1.0 allows trailing commas in <code><a href="http://klmr.me/box/reference/use.html" class="external-link">box::use()</a></code> statements and code, but they can cause problems in some circumstances:</p>
+<p>Box allows trailing commas in <code><a href="http://klmr.me/box/reference/use.html" class="external-link">box::use()</a></code> statements and code, but prior to v1.1.3 they could cause problems in some circumstances:</p>
 <ol style="list-style-type: decimal">
 <li>Reexports (<a href="https://github.com/klmr/box/issues/263" class="external-link">issue</a>).</li>
 <li>Functions accessed via <code>$</code> (<a href="https://github.com/klmr/box/issues/266" class="external-link">issue</a>).</li>
 </ol>
-<p>Both issues should be fixed in the nearest release.</p>
 </div>
 </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
