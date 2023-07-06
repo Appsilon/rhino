@@ -5,12 +5,12 @@ permissions:
 jobs:
   main:
     name: Run linters and tests
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-22.04
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
     steps:
       - name: Checkout repo
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
 
       - name: Setup system dependencies
         run: |
@@ -29,9 +29,9 @@ jobs:
         uses: r-lib/actions/setup-renv@v2
 
       - name: Setup Node
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v3
         with:
-          node-version: 16
+          node-version: 20
 
       - name: Lint R
         if: always()
@@ -65,7 +65,7 @@ jobs:
 
       - name: Run Cypress end-to-end tests
         if: always()
-        uses: cypress-io/github-action@v5
+        uses: cypress-io/github-action@v6
         with:
           working-directory: .rhino # Created by earlier commands which use Node.js
           start: npm run run-app
