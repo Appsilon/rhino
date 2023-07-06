@@ -37,6 +37,8 @@ navbar:
           href: articles/tutorial/create-your-first-rhino-app.html
         - text: Write end-to-end tests with Cypress
           href: articles/tutorial/write-end-to-end-tests-with-cypress.html
+        - text: Use React in Rhino
+          href: articles/tutorial/use-react-in-rhino.html
     explanation:
       text: Explanation
       menu:
@@ -115,6 +117,7 @@ reference:
   - build_sass
   - lint_js
   - lint_sass
+  - react_component
 
 - title: Other tools
   contents:

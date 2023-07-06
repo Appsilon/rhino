@@ -1,16 +1,22 @@
 {
   "parser": "@babel/eslint-parser",
-  "extends": ["airbnb-base"],
+  "extends": ["airbnb"],
   "env": {
     "browser": true
   },
   "globals": {
     "$": "readonly",
+    "Rhino": "readonly",
     "Shiny": "readonly"
   },
   "rules": {
     "import/prefer-default-export": "off",
     "no-alert": "off",
     "no-console": "off"
+  },
+  "settings": {
+    "react": {
+      "version": "17.0" // React is attached by shiny.react, so its version cannot be detected.
+    }
   }
 }

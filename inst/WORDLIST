@@ -4,6 +4,7 @@ ESLint
 Init
 JS
 JSON
+JSX
 LatinR
 LibSass
 PowerShell
@@ -35,6 +36,7 @@ modularization
 modularize
 modularized
 namespaced
+nodejs
 npm
 nvm
 overridable
