@@ -2,6 +2,8 @@
 
 1. Add `pkg_install()` and `pkg_remove()` to simplify dependency management in Rhino.
 2. Add E2E tests for the Rhino package (internal).
+3. Add support for using React in Rhino
+(tutorial, JS function `registerReactComponents()`, R function `react_component()`).
 
 # [rhino 1.3.1](https://github.com/Appsilon/rhino/releases/tag/v1.3.1)
 
