@@ -338,6 +338,7 @@
 <span><span class="fu">box</span><span class="fu">::</span><span class="fu"><a href="http://klmr.me/box/reference/use.html" class="external-link">use</a></span><span class="op">(</span></span>
 <span>  <span class="va">echarts4r</span>,</span>
 <span>  <span class="va">shiny</span><span class="op">[</span><span class="va">h3</span>, <span class="va">moduleServer</span>, <span class="va">NS</span>, <span class="va">tagList</span><span class="op">]</span>,</span>
+<span>  <span class="va">rhino</span><span class="op">[</span><span class="va">rhinos</span><span class="op">]</span>,</span>
 <span><span class="op">)</span></span>
 <span></span>
 <span><span class="co">#' @export</span></span>
@@ -354,9 +355,7 @@
 <span><span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">id</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  <span class="fu">moduleServer</span><span class="op">(</span><span class="va">id</span>, <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span></span>
 <span>    <span class="va">output</span><span class="op">$</span><span class="va">chart</span> <span class="op">&lt;-</span> <span class="va">echarts4r</span><span class="op">$</span><span class="fu">renderEcharts4r</span><span class="op">(</span></span>
-<span>      <span class="co"># Datasets are the only case when you need to use :: in `box`.</span></span>
-<span>      <span class="co"># This issue should be solved in the next `box` release.</span></span>
-<span>      <span class="fu">rhino</span><span class="fu">::</span><span class="va"><a href="../../reference/rhinos.html">rhinos</a></span> <span class="op">|&gt;</span></span>
+<span>      <span class="va">rhinos</span> <span class="op">|&gt;</span></span>
 <span>        <span class="va">echarts4r</span><span class="op">$</span><span class="fu">group_by</span><span class="op">(</span><span class="va">Species</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>        <span class="va">echarts4r</span><span class="op">$</span><span class="fu">e_chart</span><span class="op">(</span>x <span class="op">=</span> <span class="va">Year</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>        <span class="va">echarts4r</span><span class="op">$</span><span class="fu">e_line</span><span class="op">(</span><span class="va">Population</span><span class="op">)</span> <span class="op">|&gt;</span></span>
@@ -443,6 +442,7 @@
 <span></span>
 <span><span class="fu">box</span><span class="fu">::</span><span class="fu"><a href="http://klmr.me/box/reference/use.html" class="external-link">use</a></span><span class="op">(</span></span>
 <span>  <span class="va">shiny</span><span class="op">[</span><span class="va">bootstrapPage</span>, <span class="va">moduleServer</span>, <span class="va">NS</span><span class="op">]</span>,</span>
+<span>  <span class="va">rhino</span><span class="op">[</span><span class="va">rhinos</span><span class="op">]</span>,</span>
 <span><span class="op">)</span></span>
 <span><span class="fu">box</span><span class="fu">::</span><span class="fu"><a href="http://klmr.me/box/reference/use.html" class="external-link">use</a></span><span class="op">(</span></span>
 <span>  <span class="va">app</span><span class="op">/</span><span class="va">view</span><span class="op">/</span><span class="va">chart</span>,</span>
@@ -462,9 +462,7 @@
 <span><span class="co">#' @export</span></span>
 <span><span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">id</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  <span class="fu">moduleServer</span><span class="op">(</span><span class="va">id</span>, <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span></span>
-<span>    <span class="co"># Datasets are the only case when you need to use :: in `box`.</span></span>
-<span>    <span class="co"># This issue should be solved in the next `box` release.</span></span>
-<span>    <span class="va">data</span> <span class="op">&lt;-</span> <span class="fu">rhino</span><span class="fu">::</span><span class="va"><a href="../../reference/rhinos.html">rhinos</a></span></span>
+<span>    <span class="va">data</span> <span class="op">&lt;-</span> <span class="va">rhinos</span></span>
 <span></span>
 <span>    <span class="va">table</span><span class="op">$</span><span class="fu">server</span><span class="op">(</span><span class="st">"table"</span>, data <span class="op">=</span> <span class="va">data</span><span class="op">)</span></span>
 <span>    <span class="va">chart</span><span class="op">$</span><span class="fu">server</span><span class="op">(</span><span class="st">"chart"</span>, data <span class="op">=</span> <span class="va">data</span><span class="op">)</span></span>
@@ -710,6 +708,7 @@
 <span></span>
 <span><span class="fu">box</span><span class="fu">::</span><span class="fu"><a href="http://klmr.me/box/reference/use.html" class="external-link">use</a></span><span class="op">(</span></span>
 <span>  <span class="va">shiny</span><span class="op">[</span><span class="va">bootstrapPage</span>, <span class="va">div</span>, <span class="va">moduleServer</span>, <span class="va">NS</span><span class="op">]</span>,</span>
+<span>  <span class="va">rhino</span><span class="op">[</span><span class="va">rhinos</span><span class="op">]</span>,</span>
 <span><span class="op">)</span></span>
 <span><span class="fu">box</span><span class="fu">::</span><span class="fu"><a href="http://klmr.me/box/reference/use.html" class="external-link">use</a></span><span class="op">(</span></span>
 <span>  <span class="va">app</span><span class="op">/</span><span class="va">view</span><span class="op">/</span><span class="va">chart</span>,</span>
@@ -732,9 +731,7 @@
 <span><span class="co">#' @export</span></span>
 <span><span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">id</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  <span class="fu">moduleServer</span><span class="op">(</span><span class="va">id</span>, <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span></span>
-<span>    <span class="co"># Datasets are the only case when you need to use :: in `box`.</span></span>
-<span>    <span class="co"># This issue should be solved in the next `box` release.</span></span>
-<span>    <span class="va">data</span> <span class="op">&lt;-</span> <span class="fu">rhino</span><span class="fu">::</span><span class="va"><a href="../../reference/rhinos.html">rhinos</a></span></span>
+<span>    <span class="va">data</span> <span class="op">&lt;-</span> <span class="va">rhinos</span></span>
 <span></span>
 <span>    <span class="va">table</span><span class="op">$</span><span class="fu">server</span><span class="op">(</span><span class="st">"table"</span>, data <span class="op">=</span> <span class="va">data</span><span class="op">)</span></span>
 <span>    <span class="va">chart</span><span class="op">$</span><span class="fu">server</span><span class="op">(</span><span class="st">"chart"</span>, data <span class="op">=</span> <span class="va">data</span><span class="op">)</span></span>
