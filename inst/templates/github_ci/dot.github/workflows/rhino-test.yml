@@ -6,8 +6,6 @@ jobs:
   main:
     name: Run linters and tests
     runs-on: ubuntu-22.04
-    env:
-      GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
     steps:
       - name: Checkout repo
         uses: actions/checkout@v4
