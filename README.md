@@ -4,7 +4,6 @@
 <!-- badges: start -->
 [![CRAN](https://www.r-pkg.org/badges/version/rhino)](https://cran.r-project.org/package=rhino)
 [![CI](https://github.com/Appsilon/rhino/actions/workflows/ci.yml/badge.svg)](https://github.com/Appsilon/rhino/actions/workflows/ci.yml)
-[![Rhino Test](https://github.com/Appsilon/rhino/actions/workflows/rhino-test.yml/badge.svg?branch=bot%2Fapp-push-test)](https://github.com/Appsilon/rhino/actions/workflows/rhino-test.yml)
 [![downloads monthly](https://cranlogs.r-pkg.org/badges/rhino)](https://CRAN.R-project.org/package=rhino)
 [![downloads total](https://cranlogs.r-pkg.org/badges/grand-total/rhino)](https://CRAN.R-project.org/package=rhino)
 [![License: LGPL-3.0](https://img.shields.io/badge/License-LGPL--3.0-blue.svg)](https://opensource.org/licenses/LGPL-3.0)
