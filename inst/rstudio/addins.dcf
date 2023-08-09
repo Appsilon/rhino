@@ -2,3 +2,43 @@ Name: Rhino module
 Description: Inserts Rhino module at your cursor position.
 Binding: addin_module
 Interactive: false
+
+Name: Format script
+Description: Format your code in rhino style guide.
+Binding: addin_format_code
+Interactive: false
+
+Name: Lint script
+Description: Lint your code in rhino style guide.
+Binding: addin_lint_code
+Interactive: false
+
+Name: Lint javascript
+Description: Lint your javascript code.
+Binding: addin_lint_js
+Interactive: false
+
+Name: Lint sass
+Description: Lint your sass code.
+Binding: addin_lint_sass
+Interactive: false
+
+Name: Test app
+Description: Run your unit tests
+Binding: addin_test_app
+Interactive: false
+
+Name: e2e test
+Description: Run your e2e test
+Binding: addin_test_e2e
+Interactive: false
+
+Name: Build JS
+Description: Build your javascript code
+Binding: addin_build_js
+Interactive: false
+
+Name: Build Sass
+Description: Build your Sass styling
+Binding: addin_build_sass
+Interactive: false
