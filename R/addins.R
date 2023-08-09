@@ -43,7 +43,7 @@ addin_build_js <- function() {
   )
   if (type) {
     path <- fs::path_package("rhino", "rstudio", "addins", "watch_js.r")
-    rstudioapi::jobRunScript(path)
+    rstudioapi::jobRunScript(path, workingDir = rstudioapi::getActiveProject())
   } else {
     rhino::build_js(type)
   }
@@ -58,7 +58,7 @@ addin_build_sass <- function() {
   )
   if (type) {
     path <- fs::path_package("rhino", "rstudio", "addins", "watch_sass.r")
-    rstudioapi::jobRunScript(path)
+    rstudioapi::jobRunScript(path, workingDir = rstudioapi::getActiveProject())
   } else {
     rhino::build_sass(type)
   }
@@ -83,7 +83,8 @@ addin_lint_sass <- function() {
 addin_test_e2e <- function() {
   type <- rstudioapi::showQuestion(
     title = "Run interactive e2e test?",
-    message = "Would you like to run interactive e2e test?"
+    message = "Would you like to run interactive e2e test?",
+    cancel = "No"
   )
   rhino::test_e2e(type)
 }
