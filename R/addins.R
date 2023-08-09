@@ -30,11 +30,11 @@ addin_lint_code <- function() {
   rhino::lint_r(rstudioapi::getActiveProject())
 }
 
-addin_test_app <- function(){
+addin_test_app <- function() {
   rhino::test_r()
 }
 
-addin_build_js <- function(){
+addin_build_js <- function() {
   type <- rstudioapi::showQuestion(
     title = "With Watch?",
     message = "Would you like to add watch argument?",
@@ -49,7 +49,7 @@ addin_build_js <- function(){
   }
 }
 
-addin_build_sass <- function(){
+addin_build_sass <- function() {
   type <- rstudioapi::showQuestion(
     title = "With Watch?",
     message = "Would you like to add watch argument?",
