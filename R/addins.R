@@ -12,13 +12,13 @@ addin_module <- function() {
   )
 }
 
-addin_format_code <- function() {
+addin_format_r <- function() {
   selected_code <- rstudioapi::getActiveDocumentContext()$path
   if (selected_code != "") {
     rhino::format_r(selected_code)
   } else {
     path <- rstudioapi::selectFile(
-      caption = "Select Code script",
+      caption = "Select R script",
       filter = "(*.R)",
       existing = TRUE
     )
@@ -26,23 +26,23 @@ addin_format_code <- function() {
   }
 }
 
-addin_lint_code <- function() {
+addin_lint_r <- function() {
   rhino::lint_r(rstudioapi::getActiveProject())
 }
 
-addin_test_app <- function() {
+addin_test_r <- function() {
   rhino::test_r()
 }
 
 addin_build_js <- function() {
   type <- rstudioapi::showQuestion(
-    title = "With Watch?",
-    message = "Would you like to add watch argument?",
-    ok = "use watch",
-    cancel = "without watch"
+    title = "Watch argument",
+    message = "Keep the process running and rebuilding Javascript whenever source files change?",
+    ok = "Yes",
+    cancel = "No"
   )
   if (type) {
-    path <- fs::path_package("rhino", "rstudio", "addins", "watch_js.r")
+    path <- fs::path_package("rhino", "rstudio", "addins", "watch_js.R")
     rstudioapi::jobRunScript(path, workingDir = rstudioapi::getActiveProject())
   } else {
     rhino::build_js(type)
@@ -51,13 +51,13 @@ addin_build_js <- function() {
 
 addin_build_sass <- function() {
   type <- rstudioapi::showQuestion(
-    title = "With Watch?",
-    message = "Would you like to add watch argument?",
-    ok = "use watch",
-    cancel = "without watch"
+    title = "Watch argument",
+    message = "Keep the process running and rebuilding Sass whenever source files change?",
+    ok = "Yes",
+    cancel = "No"
   )
   if (type) {
-    path <- fs::path_package("rhino", "rstudio", "addins", "watch_sass.r")
+    path <- fs::path_package("rhino", "rstudio", "addins", "watch_sass.R")
     rstudioapi::jobRunScript(path, workingDir = rstudioapi::getActiveProject())
   } else {
     rhino::build_sass(type)
@@ -67,7 +67,9 @@ addin_build_sass <- function() {
 addin_lint_js <- function() {
   type <- rstudioapi::showQuestion(
     title = "Fix automatically?",
-    message = "Would you like to lint js automatically?"
+    message = "Would you like to automatically fix problems?",
+    ok = "Yes",
+    cancel = "No"
   )
   rhino::lint_js(type)
 }
@@ -75,15 +77,18 @@ addin_lint_js <- function() {
 addin_lint_sass <- function() {
   type <- rstudioapi::showQuestion(
     title = "Fix automatically?",
-    message = "Would you like to lint sass automatically?"
+    message = "Would you like to automatically fix problems?",
+    ok = "Yes",
+    cancel = "No"
   )
   rhino::lint_sass(type)
 }
 
 addin_test_e2e <- function() {
   type <- rstudioapi::showQuestion(
-    title = "Run interactive e2e test?",
-    message = "Would you like to run interactive e2e test?",
+    title = "Run interactive mode?",
+    message = "Should Cypress be run in the interactive mode?",
+    ok = "Yes",
     cancel = "No"
   )
   rhino::test_e2e(type)

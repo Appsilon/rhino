@@ -81,6 +81,8 @@ navbar:
           href: articles/how-to/add-routing.html
         - text: Set application run parameters
           href: articles/how-to/set-application-run-parameters.html
+        - text: Use Rhino Add-ins
+          href: articles/how-to/use-addins.html
         - text: -------
         - text: UI
         - text: Use shiny.fluent
