@@ -29,11 +29,11 @@ This guide introduces each Rhino Add-in
 
 ## 4. Run R Tests
 
--   **Description:** Uses the `{testhat}` package to run all unit tests in tests/testthat directory. Maintain your functions and components reliability.
+-   **Description:** Uses the `{testhat}` package to run all unit tests in `tests/testthat` directory. Maintain your functions and components reliability.
 
 ## 5. Build JavaScript
 
--   **Description:** Simplify the process of building JavaScript files using Babel and Webpack. Builds the `app/js/index.js` file into `app/static/js/app.min.js`. Choose to watch for changes, automating the build process whenever you save the javascript file.
+-   **Description:** Simplify the process of building JavaScript files using Babel and Webpack. Builds the `app/js/index.js` file into `app/static/js/app.min.js`. Choose to watch for changes, automating the build process whenever you save the JavaScript file.
 
 ## 6. Build Sass Styles
 
