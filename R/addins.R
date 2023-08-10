@@ -3,6 +3,11 @@ read_addin <- function(...) {
   readChar(path, file.info(path)$size)
 }
 
+run_background <- function(file) {
+  path <- fs::path_package("rhino", "rstudio", "addins", file)
+  rstudioapi::jobRunScript(path, workingDir = rstudioapi::getActiveProject())
+}
+
 addin_module <- function() {
   rstudioapi::documentNew(
     read_addin("module.R"),
@@ -26,12 +31,13 @@ addin_format_r <- function() {
   }
 }
 
+
 addin_lint_r <- function() {
-  rhino::lint_r(rstudioapi::getActiveProject())
+  run_background("lint_r.R")
 }
 
 addin_test_r <- function() {
-  rhino::test_r()
+  run_background("test_r.R")
 }
 
 addin_build_js <- function() {
@@ -42,10 +48,9 @@ addin_build_js <- function() {
     cancel = "No"
   )
   if (type) {
-    path <- fs::path_package("rhino", "rstudio", "addins", "watch_js.R")
-    rstudioapi::jobRunScript(path, workingDir = rstudioapi::getActiveProject())
+    run_background("watch_js.R")
   } else {
-    rhino::build_js(type)
+    run_background("build_js.R")
   }
 }
 
@@ -57,10 +62,9 @@ addin_build_sass <- function() {
     cancel = "No"
   )
   if (type) {
-    path <- fs::path_package("rhino", "rstudio", "addins", "watch_sass.R")
-    rstudioapi::jobRunScript(path, workingDir = rstudioapi::getActiveProject())
+    run_background("watch_sass.R")
   } else {
-    rhino::build_sass(type)
+    run_background("build_sass.R")
   }
 }
 
@@ -71,7 +75,11 @@ addin_lint_js <- function() {
     ok = "Yes",
     cancel = "No"
   )
-  rhino::lint_js(type)
+  if (type) {
+    run_background("lint_js_fix.R")
+  } else {
+    run_background("lint_js.R")
+  }
 }
 
 addin_lint_sass <- function() {
@@ -81,7 +89,11 @@ addin_lint_sass <- function() {
     ok = "Yes",
     cancel = "No"
   )
-  rhino::lint_sass(type)
+  if (type) {
+    run_background("lint_sass_fix.R")
+  } else {
+    run_background("lint_sass.R")
+  }
 }
 
 addin_test_e2e <- function() {
@@ -91,5 +103,9 @@ addin_test_e2e <- function() {
     ok = "Yes",
     cancel = "No"
   )
-  rhino::test_e2e(type)
+  if (type) {
+    run_background("test_e2e_int.R")
+  } else {
+    run_background("test_e2e.R")
+  }
 }
