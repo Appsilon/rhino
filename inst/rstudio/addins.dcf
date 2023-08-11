@@ -18,7 +18,7 @@ Description: Runs ESLint on the JavaScript sources in the app/js directory
 Binding: addin_lint_js
 Interactive: false
 
-Name: Lint sass
+Name: Lint Sass
 Description: Runs Stylelint on the Sass sources in the app/styles directory.
 Binding: addin_lint_sass
 Interactive: false

@@ -1,20 +1,24 @@
-read_addin <- function(...) {
-  path <- fs::path_package("rhino", "rstudio", "addins", ...)
-  readChar(path, file.info(path)$size)
-}
-
 run_background <- function(file) {
   path <- fs::path_package("rhino", "rstudio", "addins", file)
   rstudioapi::jobRunScript(path, workingDir = rstudioapi::getActiveProject())
 }
 
 addin_module <- function() {
-  rstudioapi::documentNew(
-    read_addin("module.R"),
-    type = "r",
-    position = rstudioapi::document_position(0, 0),
-    execute = FALSE
+  module_path <- fs::path_package("rhino", "rstudio", "addins", "module.R")
+  name <- rstudioapi::showPrompt(
+    title = "Module name",
+    message =  "Please set module name"
   )
+  file_path <- glue::glue("app/view/{name}.R")
+  if (file.exists(file_path)) {
+    rstudioapi::showDialog(
+      title = "File already exists",
+      message = "Please add a new module name or remove existing one"
+    )
+  } else {
+    file.copy(module_path, file_path)
+    fs::file_show(file_path)
+  }
 }
 
 addin_format_r <- function() {
@@ -48,7 +52,7 @@ addin_build_js <- function() {
     cancel = "No"
   )
   if (type) {
-    run_background("watch_js.R")
+    run_background("build_js_watch.R")
   } else {
     run_background("build_js.R")
   }
@@ -62,7 +66,7 @@ addin_build_sass <- function() {
     cancel = "No"
   )
   if (type) {
-    run_background("watch_sass.R")
+    run_background("build_sass_watch.R")
   } else {
     run_background("build_sass.R")
   }
