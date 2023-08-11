@@ -17,7 +17,7 @@ This guide introduces each Rhino Add-in
 
 ![](images/rhino_addins.png)
 
-RStudio [add-ins](https://rstudio.github.io/rstudioaddins/) provide a mechanism for executing R functions interactively from within the RStudio ID either through keyboard shortcuts, or through the *Addins* menu
+RStudio [add-ins](https://rstudio.github.io/rstudioaddins/) provide a mechanism for executing R functions interactively from within the RStudio ID either through keyboard shortcuts, or through the Add-ins menu
 
 ## 1. Create a new rhino Module
 

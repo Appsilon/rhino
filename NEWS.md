@@ -1,6 +1,6 @@
 # rhino (development version)
 
-1. Add Rstudio addins for lint, build and test Sass, R and Javascript. Updated new module addin.
+1. Add Rstudio add-ins for lint, build and test Sass, R and JavaScript. Updated new module add-in.
 
 
 # rhino 1.4.0
