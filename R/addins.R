@@ -5,20 +5,18 @@ run_background <- function(file) {
 
 addin_module <- function() {
   module_path <- fs::path_package("rhino", "rstudio", "addins", "module.R")
-  name <- rstudioapi::showPrompt(
-    title = "Module name",
-    message =  "Please set module name"
+  file_path <- rstudioapi::selectFile(
+    caption = "Module name and location",
+    path = fs::path("app"),
+    filter = ".R",
+    label = "Save",
+    existing = FALSE
   )
-  file_path <- glue::glue("app/view/{name}.R")
-  if (file.exists(file_path)) {
-    rstudioapi::showDialog(
-      title = "File already exists",
-      message = "Please add a new module name or remove existing one"
-    )
-  } else {
-    file.copy(module_path, file_path)
-    fs::file_show(file_path)
+  if (tools::file_ext(file_path) == "") {
+    file_path <- glue::glue("{file_path}.R")
   }
+  file.copy(module_path, file_path)
+  fs::file_show(file_path)
 }
 
 addin_format_r <- function() {
@@ -34,7 +32,6 @@ addin_format_r <- function() {
     rhino::format_r(path)
   }
 }
-
 
 addin_lint_r <- function() {
   run_background("lint_r.R")
