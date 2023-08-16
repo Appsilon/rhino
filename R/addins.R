@@ -5,17 +5,28 @@ run_background <- function(file) {
 
 addin_module <- function() {
   module_path <- fs::path_package("rhino", "rstudio", "addins", "module.R")
+  overwrite <- FALSE
   file_path <- rstudioapi::selectFile(
     caption = "Module name and location",
-    path = fs::path("app"),
+    path = fs::path("app", "view"),
     filter = ".R",
     label = "Save",
     existing = FALSE
   )
+  if (is.null(file_path)) {
+    return()
+  }
   if (tools::file_ext(file_path) == "") {
     file_path <- glue::glue("{file_path}.R")
+  } else if (fs::file_exists(file_path)) {
+    overwrite <- rstudioapi::showQuestion(
+      title = "File already exists",
+      message = "Would you like to overwrite it?",
+      ok = "Yes",
+      cancel = "No"
+    )
   }
-  file.copy(module_path, file_path)
+  fs::file_copy(module_path, file_path, overwrite = overwrite)
   fs::file_show(file_path)
 }
 

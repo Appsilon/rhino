@@ -11,7 +11,7 @@ To further streamline your development process, a collection of Addins has been 
 
 These Addins enhance the RStudio development workflow by providing quick access to essential tasks and enabling background execution, allowing for better transitions between coding and task management.
 
-This guide introduces each Rhino Addin
+This guide shows Addins available for Rhino.
 
 # Addins
 
