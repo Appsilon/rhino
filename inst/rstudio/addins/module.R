@@ -14,4 +14,3 @@ server <- function(id) {
 
   })
 }
-
