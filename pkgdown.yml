@@ -17,6 +17,7 @@ articles:
   migrate-app-to-rhino: how-to/migrate-app-to-rhino.html
   publish-on-huggingface: how-to/publish-on-huggingface.html
   set-application-run-parameters: how-to/set-application-run-parameters.html
+  use-addins: how-to/use-addins.html
   use-global-variables: how-to/use-global-variables.html
   use-polished: how-to/use-polished.html
   use-shiny-fluent: how-to/use-shiny-fluent.html
@@ -28,7 +29,7 @@ articles:
   create-your-first-rhino-app: tutorial/create-your-first-rhino-app.html
   use-react-in-rhino: tutorial/use-react-in-rhino.html
   write-end-to-end-tests-with-cypress: tutorial/write-end-to-end-tests-with-cypress.html
-last_built: 2023-07-27T11:49Z
+last_built: 2023-08-17T12:38Z
 urls:
   reference: https://appsilon.github.io/rhino/reference
   article: https://appsilon.github.io/rhino/articles
