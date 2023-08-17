@@ -1,3 +1,7 @@
+# rhino (development version)
+
+1. Add Rstudio Addins for lint, build and test Sass, R and JavaScript. Updated new module Addin.
+
 # rhino 1.4.0
 
 1. New `pkg_install()` and `pkg_remove()` functions to simplify dependency management in Rhino.
