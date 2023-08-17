@@ -16,22 +16,25 @@ addin_module <- function() {
     message("Module creation canceled.")
     return()
   }
+
   if (tools::file_ext(file_path) == "") {
     file_path <- glue::glue("{file_path}.R")
-  }
-  if (fs::file_exists(file_path)) {
-    overwrite <- rstudioapi::showQuestion(
-      title = "File already exists",
-      message = "Would you like to overwrite it?",
-      ok = "Yes",
-      cancel = "No"
-    )
 
-    if (!overwrite) {
-      message("Module creation canceled.")
-      return()
+    if (fs::file_exists(file_path)) {
+      overwrite <- rstudioapi::showQuestion(
+        title = "File already exists",
+        message = "Would you like to overwrite it?",
+        ok = "Yes",
+        cancel = "No"
+      )
+
+      if (!overwrite) {
+        message("Module creation canceled.")
+        return()
+      }
     }
   }
+
   fs::file_copy(module_path, file_path, overwrite = TRUE)
   fs::file_show(file_path)
 }
