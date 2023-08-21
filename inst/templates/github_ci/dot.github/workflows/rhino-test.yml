@@ -77,8 +77,10 @@ jobs:
 
       - name: Run Cypress end-to-end tests
         if: always()
-        uses: cypress-io/github-action@v2
+        uses: cypress-io/github-action@v5
         with:
           working-directory: .rhino # Created by earlier commands which use Node.js
           start: npm run run-app
           project: ../tests
+          wait-on: 'http://localhost:3333/'
+          wait-on-timeout: 60
