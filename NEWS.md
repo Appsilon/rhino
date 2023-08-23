@@ -2,6 +2,7 @@
 
 1. Add Rstudio Addins for lint, build and test Sass, R and JavaScript. Updated new module Addin.
 1. Fixes timeout during Cypress E2E tests with GitHub Actions.
+1. `format_r` no longer adds spaces in `box` imports.
 
 # rhino 1.4.0
 
