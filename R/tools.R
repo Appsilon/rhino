@@ -114,9 +114,7 @@ lint_r <- function(paths = NULL) {
 }
 
 rhino_style <- function() {
-  style <- styler::tidyverse_style()
-  style$space$style_space_around_math_token <- NULL
-  style
+  styler::tidyverse_style(math_token_spacing = styler::specify_math_token_spacing(zero = "'/'"))
 }
 
 #' Format R
