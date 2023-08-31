@@ -289,7 +289,8 @@ build_sass_r <- function() {
   sass::sass(
     input = sass::sass_file(fs::path("app", "styles", "main.scss")),
     output = fs::path(output_dir, "app.min.css"),
-    cache = FALSE
+    cache = FALSE,
+    options = sass::sass_options(output_style = "compressed")
   )
 }
 

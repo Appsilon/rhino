@@ -32,6 +32,7 @@ linter
 linters
 lockfile
 minified
+minifies
 modularization
 modularize
 modularized
