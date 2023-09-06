@@ -1,9 +1,9 @@
 # rhino 1.5.0
 
 1. Add Rstudio Addins for lint, build and test Sass, R and JavaScript. Updated new module Addin.
-1. Fixes timeout during Cypress E2E tests with GitHub Actions.
-1. `format_r` no longer adds spaces in `box` imports.
-1. `build_sass` minifies the CSS file also if using R `sass` package.
+2. Fixes timeout during Cypress E2E tests with GitHub Actions.
+3. `format_r` no longer adds spaces in `box` imports.
+4. `build_sass` minifies the CSS file also if using R `sass` package.
 
 # [rhino 1.4.0](https://github.com/Appsilon/rhino/releases/tag/v1.4.0)
 
