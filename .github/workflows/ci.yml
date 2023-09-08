@@ -4,9 +4,19 @@ permissions:
   contents: read
 jobs:
   main:
-    name: Check, lint & test
-    runs-on: ubuntu-latest
+    name: Check, lint & test - ${{ matrix.config.os }} (${{ matrix.config.r }})
+    runs-on: ${{ matrix.config.os }}
     timeout-minutes: 30
+    strategy:
+      fail-fast: false
+      matrix:
+        config:
+        - {os: macOS-latest,   r: 'release'}
+        - {os: windows-latest, r: 'release'}
+        - {os: ubuntu-22.04, r: 'devel'}
+        - {os: ubuntu-22.04, r: 'release'}
+        - {os: ubuntu-22.04, r: 'oldrel'}
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
