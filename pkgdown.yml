@@ -11,6 +11,7 @@ articles:
   faq: faq.html
   add-internationalization: how-to/add-internationalization.html
   add-routing: how-to/add-routing.html
+  communicate-between-modules: how-to/communicate-between-modules.html
   enable-shiny-bookmarking: how-to/enable-shiny-bookmarking.html
   keep-multiple-apps-in-a-single-repository: how-to/keep-multiple-apps-in-a-single-repository.html
   manage-secrets-and-environments: how-to/manage-secrets-and-environments.html
@@ -29,7 +30,7 @@ articles:
   create-your-first-rhino-app: tutorial/create-your-first-rhino-app.html
   use-react-in-rhino: tutorial/use-react-in-rhino.html
   write-end-to-end-tests-with-cypress: tutorial/write-end-to-end-tests-with-cypress.html
-last_built: 2023-09-06T13:39Z
+last_built: 2023-09-08T10:57Z
 urls:
   reference: https://appsilon.github.io/rhino/reference
   article: https://appsilon.github.io/rhino/articles
