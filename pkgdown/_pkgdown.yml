@@ -83,6 +83,8 @@ navbar:
           href: articles/how-to/set-application-run-parameters.html
         - text: Use Rhino Addin(s)
           href: articles/how-to/use-addins.html
+        - text: Communicate between modules
+          href: articles/how-to/communicate-between-modules.html
         - text: -------
         - text: UI
         - text: Use shiny.fluent
