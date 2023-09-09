@@ -38,6 +38,11 @@ rhino_config_definition <- list(
     required = FALSE
   ),
   list(
+    name = "js_package_manager",
+    validator = option_validator("npm", "bun"),
+    required = FALSE
+  ),
+  list(
     name = "legacy_max_lint_r_errors",
     validator = positive_integer_validator,
     required = FALSE

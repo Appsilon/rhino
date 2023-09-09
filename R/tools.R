@@ -185,9 +185,9 @@ format_r <- function(paths) {
 #' @export
 build_js <- function(watch = FALSE) {
   if (watch) {
-    npm("run", "build-js", "--", "--watch", status_ok = 2)
+    js_package_manager("run", "build-js", "--", "--watch", status_ok = 2)
   } else {
-    npm("run", "build-js")
+    js_package_manager("run", "build-js")
   }
 }
 
@@ -224,9 +224,9 @@ build_js <- function(watch = FALSE) {
 # nolint end
 lint_js <- function(fix = FALSE) {
   if (fix) {
-    npm("run", "lint-js", "--", "--fix")
+    js_package_manager("run", "lint-js", "--", "--fix")
   } else {
-    npm("run", "lint-js")
+    js_package_manager("run", "lint-js")
   }
 }
 
@@ -277,9 +277,9 @@ build_sass <- function(watch = FALSE) {
 
 build_sass_node <- function(watch = FALSE) {
   if (watch) {
-    npm("run", "build-sass", "--", "--watch", status_ok = 2)
+    js_package_manager("run", "build-sass", "--", "--watch", status_ok = 2)
   } else {
-    npm("run", "build-sass")
+    js_package_manager("run", "build-sass")
   }
 }
 
@@ -310,9 +310,9 @@ build_sass_r <- function() {
 #' @export
 lint_sass <- function(fix = FALSE) {
   if (fix) {
-    npm("run", "lint-sass", "--", "--fix")
+    js_package_manager("run", "lint-sass", "--", "--fix")
   } else {
-    npm("run", "lint-sass")
+    js_package_manager("run", "lint-sass")
   }
 }
 
@@ -343,8 +343,8 @@ lint_sass <- function(fix = FALSE) {
 #' @export
 test_e2e <- function(interactive = FALSE) {
   if (interactive) {
-    npm("run", "test-e2e-interactive")
+    js_package_manager("run", "test-e2e-interactive")
   } else {
-    npm("run", "test-e2e")
+    js_package_manager("run", "test-e2e")
   }
 }

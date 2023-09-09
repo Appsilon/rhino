@@ -19,6 +19,7 @@ options are described below.
 ```yaml
 sass: string               # required | one of: "node", "r"
 legacy_entrypoint: string  # optional | one of: "app_dir", "source", "box_top_level"
+js_package_manager: string # optional | one of: "npm", "bun"
 ```
 
 ### `sass`
@@ -30,3 +31,7 @@ Read more in [Explanation: Node.js - JavaScript and Sass tools](https://appsilon
 ### `legacy_entrypoint`
 This setting is useful when migrating an existing Shiny application to Rhino. For more details see
 [`rhino::app()` details section](https://appsilon.github.io/rhino/reference/app.html#details-1).
+
+### `js_package_manager`
+Configures whether [JavaScript packages](https://www.npmjs.com/) should be installed using [npm](https://www.npmjs.com/) or [bun](https://bun.sh/).
+It allows to avoid installation of Node.js, and using Bun Javascript runtime.
