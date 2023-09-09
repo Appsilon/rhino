@@ -39,7 +39,7 @@ js_package_manager <- function(...) {
   )
   if (!fs::dir_exists(node_path())) {
     add_node()
-    js_package_manager_raw("install", "--no-audit", "--no-fund")
+    js_package_manager_raw(command, "install", "--no-audit", "--no-fund")
   }
   js_package_manager_raw(...)
 }
