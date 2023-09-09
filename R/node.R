@@ -32,9 +32,16 @@ js_package_manager <- function(...) {
     dependency_name = display_names[[command]],
     documentation_url = "https://go.appsilon.com/rhino-system-dependencies"
   )
+  init_js_package_manager()
+  js_package_manager_raw(...)
+}
+
+init_js_package_manager <- function() {
+  command <- read_config()$js_package_manager
   if (!fs::dir_exists(node_path())) {
     add_node()
+  }
+  if (!fs::dir_exists(node_path("node_modules"))) {
     js_package_manager_raw(command, "install", "--no-audit", "--no-fund")
   }
-  js_package_manager_raw(...)
 }
