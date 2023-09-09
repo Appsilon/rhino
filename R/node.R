@@ -39,9 +39,11 @@ js_package_manager <- function(...) {
 init_js_package_manager <- function() {
   command <- read_config()$js_package_manager
   if (!fs::dir_exists(node_path())) {
+    message("Initializing Javascript packages…")
     add_node()
   }
   if (!fs::dir_exists(node_path("node_modules"))) {
-    js_package_manager_raw(command, "install", "--no-audit", "--no-fund")
+    message("Installing dependencies by ", command, "…")
+    js_package_manager_raw("install", "--no-audit", "--no-fund")
   }
 }
