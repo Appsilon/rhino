@@ -83,5 +83,11 @@ validate_config <- function(definition, config) {
 read_config <- function() {
   config <- read_yaml("rhino")
   validate_config(rhino_config_definition, config)
+  # using npm by default
+  config$js_package_manager <- ifelse(
+    is.null(config$js_package_manager),
+    "npm",
+    config$js_package_manager
+  )
   config
 }
