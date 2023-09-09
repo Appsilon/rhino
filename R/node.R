@@ -23,11 +23,6 @@ js_package_manager_raw <- function(..., status_ok = 0) {
 # Run `npm`/`bun` command (create node directory in the project if needed).
 js_package_manager <- function(...) {
   command <- read_config()$js_package_manager
-  command <- ifelse(
-    is.null(command),
-    "npm",
-    command
-  )
   display_names <- list(
     npm = "Node.js",
     bun = "Bun"
