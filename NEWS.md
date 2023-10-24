@@ -1,4 +1,8 @@
-# rhino 1.5.0
+# rhino (development)
+
+1. Cypress updated to version 13.
+
+# [rhino 1.5.0](https://github.com/Appsilon/rhino/releases/tag/v1.5.0)
 
 1. Add Rstudio Addins for lint, build and test Sass, R and JavaScript. Updated new module Addin.
 2. Fixes timeout during Cypress E2E tests with GitHub Actions.
