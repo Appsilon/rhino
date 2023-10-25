@@ -316,7 +316,6 @@ lint_sass <- function(fix = FALSE) {
   }
 }
 
-
 #' Run Cypress end-to-end tests
 #'
 #' Uses [Cypress](https://www.cypress.io/) to run end-to-end tests
@@ -342,7 +341,6 @@ lint_sass <- function(fix = FALSE) {
 #'   test_e2e()
 #' }
 #' @export
-
 test_e2e <- function(interactive = FALSE) {
   if (interactive) {
     npm("run", "test-e2e-interactive")
