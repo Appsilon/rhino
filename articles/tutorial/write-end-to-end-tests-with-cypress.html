@@ -44,7 +44,7 @@
     
     <a class="navbar-brand me-2" href="../../index.html">rhino</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.5.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.5.0.9000</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -283,7 +283,7 @@
 <div class="section level2">
 <h2 id="how-to-run-cypress-tests">How to run Cypress tests?<a class="anchor" aria-label="anchor" href="#how-to-run-cypress-tests"></a>
 </h2>
-<p>If you check the project structure, you will find <code>tests/cypress/</code> directory with an initial test in <code>tests/cypress/integration/app.spec.js</code> ready to use.</p>
+<p>If you check the project structure, you will find <code>tests/cypress/</code> directory with an initial test in <code>tests/cypress/e2e/app.cy.js</code> ready to use.</p>
 <p>It contains a simple test that just starts the application. If your app can start, it will pass, no matter if it crashes a few seconds later.</p>
 <p>Now, if you call <code><a href="../../reference/test_e2e.html">rhino::test_e2e()</a></code> the test will be run, but before that, since this is the first time you use one of the functionalities that depend on Node.js, it needs to install all the required libraries. Don’t worry, this is just a one-time step and is done automatically.</p>
 <p>Once everything is installed, you will see the output of the test:</p>
@@ -297,9 +297,9 @@
 <div class="section level3">
 <h3 id="test-file-structure">Test file structure<a class="anchor" aria-label="anchor" href="#test-file-structure"></a>
 </h3>
-<p>The first thing to do is to create a test file: <code>tests/cypress/integration/message.spec.js</code>.</p>
+<p>The first thing to do is to create a test file: <code>tests/cypress/e2e/message.cy.js</code>.</p>
 <p>Inside, provide a structure and description for tests using <code>describe</code> and <code>it</code>:</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode js"><code class="sourceCode javascript"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true"></a><span class="co">// tests/cypress/integration/message.spec.js</span></span>
+<div class="sourceCode" id="cb4"><pre class="sourceCode js"><code class="sourceCode javascript"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true"></a><span class="co">// tests/cypress/e2e/message.cy.js</span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true"></a></span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true"></a><span class="fu">describe</span>(<span class="st">"Show message"</span><span class="op">,</span> () <span class="kw">=&gt;</span> {</span>
 <span id="cb4-4"><a href="#cb4-4" aria-hidden="true"></a>  <span class="fu">it</span>(<span class="st">"'Show message' button exists"</span><span class="op">,</span> () <span class="kw">=&gt;</span> {</span>
@@ -312,7 +312,7 @@
 <span id="cb4-11"><a href="#cb4-11" aria-hidden="true"></a>})<span class="op">;</span></span></code></pre></div>
 <p>As you can see, we are going to write two tests - the first one to check if the button exists and the second to check if it works properly and shows the message.</p>
 <p>Now, let’s make sure that in the beginning, Cypress will open the application. To achieve that, add <code>beforeEach</code> statement at the beginning:</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode js"><code class="sourceCode javascript"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true"></a><span class="co">// tests/cypress/integration/message.spec.js</span></span>
+<div class="sourceCode" id="cb5"><pre class="sourceCode js"><code class="sourceCode javascript"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true"></a><span class="co">// tests/cypress/e2e/message.cy.js</span></span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true"></a></span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true"></a><span class="fu">describe</span>(<span class="st">"Show message"</span><span class="op">,</span> () <span class="kw">=&gt;</span> {</span>
 <span id="cb5-4"><a href="#cb5-4" aria-hidden="true"></a>  <span class="fu">beforeEach</span>(() <span class="kw">=&gt;</span> {</span>
@@ -335,7 +335,7 @@
 <p>The test is going to use two Cypress commands - <code>get</code> and <code>should</code>. The first one will look for an element using a given CSS selector and the second will check if the selected element has the expected property.</p>
 <p>First, we need to build a CSS selector that will point Cypress to the correct button. This can be done using the part of the browser Developer Tools, usually called (depending on which browser you use) Inspector, Explorer, or Elements. You can learn more about Developer Tools available in your browser for example from <a href="https://developer.mozilla.org/en-US/docs/Learn/Common_questions/What_are_browser_developer_tools" class="external-link">this article</a>.</p>
 <p>Now, run the application (<code><a href="https://rdrr.io/pkg/shiny/man/runApp.html" class="external-link">shiny::runApp()</a></code> in the R console or a button in RStudio), open it in the browser, right-click on the “Show message” button, and select Inspect. Now you should be able to see the HTML structure of the webpage with the button highlighted. From this view, you can see that we can ask for example for a <code>button</code> (HTML tag) inside an element of class <code>message</code>. Let’s pass this selector to Cypress <code>get</code> command:</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode js"><code class="sourceCode javascript"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true"></a><span class="co">// tests/cypress/integration/message.spec.js</span></span>
+<div class="sourceCode" id="cb6"><pre class="sourceCode js"><code class="sourceCode javascript"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true"></a><span class="co">// tests/cypress/e2e/message.cy.js</span></span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true"></a></span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true"></a><span class="fu">describe</span>(<span class="st">"Show message"</span><span class="op">,</span> () <span class="kw">=&gt;</span> {</span>
 <span id="cb6-4"><a href="#cb6-4" aria-hidden="true"></a>  <span class="fu">beforeEach</span>(() <span class="kw">=&gt;</span> {</span>
@@ -351,7 +351,7 @@
 <span id="cb6-14"><a href="#cb6-14" aria-hidden="true"></a>  })<span class="op">;</span></span>
 <span id="cb6-15"><a href="#cb6-15" aria-hidden="true"></a>})<span class="op">;</span></span></code></pre></div>
 <p>The next step is to check if this button has a proper label:</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode js"><code class="sourceCode javascript"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true"></a><span class="co">// tests/cypress/integration/message.spec.js</span></span>
+<div class="sourceCode" id="cb7"><pre class="sourceCode js"><code class="sourceCode javascript"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true"></a><span class="co">// tests/cypress/e2e/message.cy.js</span></span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true"></a></span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true"></a><span class="fu">describe</span>(<span class="st">"Show message"</span><span class="op">,</span> () <span class="kw">=&gt;</span> {</span>
 <span id="cb7-4"><a href="#cb7-4" aria-hidden="true"></a>  <span class="fu">beforeEach</span>(() <span class="kw">=&gt;</span> {</span>
@@ -373,7 +373,7 @@
 <h3 id="test-if-the-button-shows-the-message">Test if the button shows the message<a class="anchor" aria-label="anchor" href="#test-if-the-button-shows-the-message"></a>
 </h3>
 <p>Ok, we are sure that the button exists, now it’s time to click it and check the outcome. Cypress comes with a command called <code>click</code> (who would expect that?!). Use it in the second test to click the button:</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode js"><code class="sourceCode javascript"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true"></a><span class="co">// tests/cypress/integration/message.spec.js</span></span>
+<div class="sourceCode" id="cb8"><pre class="sourceCode js"><code class="sourceCode javascript"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true"></a><span class="co">// tests/cypress/e2e/message.cy.js</span></span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true"></a></span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true"></a><span class="fu">describe</span>(<span class="st">"Show message"</span><span class="op">,</span> () <span class="kw">=&gt;</span> {</span>
 <span id="cb8-4"><a href="#cb8-4" aria-hidden="true"></a>  <span class="fu">beforeEach</span>(() <span class="kw">=&gt;</span> {</span>
@@ -390,7 +390,7 @@
 <span id="cb8-15"><a href="#cb8-15" aria-hidden="true"></a>})<span class="op">;</span></span></code></pre></div>
 <p>Now, we just need to check if the message is there and has proper content. We will do it the same as we did with the button - we will look for it using the CSS selector and check if it contains the expected text. This time we will use the id. If you check the element in the browser (the same way as we did with the button), you will see that the id of the message is “app-message-message_text”. This shows, that in Rhino, everything is a Shiny module, even the outermost UI and server part. “app” in this selector is the namespace that identifies this outer module. “message” is the namespace part added when we called our <code>message.R</code> module and “message_text” is the id of our <code>textOutput</code>.</p>
 <p>Ok, let’s use it and check if the message element has a correct text inside:</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode js"><code class="sourceCode javascript"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true"></a><span class="co">// tests/cypress/integration/message.spec.js</span></span>
+<div class="sourceCode" id="cb9"><pre class="sourceCode js"><code class="sourceCode javascript"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true"></a><span class="co">// tests/cypress/e2e/message.cy.js</span></span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true"></a></span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true"></a><span class="fu">describe</span>(<span class="st">"Show message"</span><span class="op">,</span> () <span class="kw">=&gt;</span> {</span>
 <span id="cb9-4"><a href="#cb9-4" aria-hidden="true"></a>  <span class="fu">beforeEach</span>(() <span class="kw">=&gt;</span> {</span>
@@ -413,8 +413,8 @@
 <div class="section level2">
 <h2 id="test-counting-clicks-functionality">Test counting clicks functionality<a class="anchor" aria-label="anchor" href="#test-counting-clicks-functionality"></a>
 </h2>
-<p>As previously, we need to start with creating a file and providing the test structure. Create <code>tests/cypress/integration/clicks.spec.js</code> and fill it with the skeleton similar to the first test file:</p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode js"><code class="sourceCode javascript"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true"></a><span class="co">// tests/cypress/integration/clicks.spec.js</span></span>
+<p>As previously, we need to start with creating a file and providing the test structure. Create <code>tests/cypress/e2e/clicks.cy.js</code> and fill it with the skeleton similar to the first test file:</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode js"><code class="sourceCode javascript"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true"></a><span class="co">// tests/cypress/e2e/clicks.cy.js</span></span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true"></a></span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true"></a><span class="fu">describe</span>(<span class="st">"Counting clicks"</span><span class="op">,</span> () <span class="kw">=&gt;</span> {</span>
 <span id="cb10-4"><a href="#cb10-4" aria-hidden="true"></a>  <span class="fu">beforeEach</span>(() <span class="kw">=&gt;</span> {</span>
@@ -433,7 +433,7 @@
 <h3 id="test-if-the-button-exists-1">Test if the button exists<a class="anchor" aria-label="anchor" href="#test-if-the-button-exists-1"></a>
 </h3>
 <p>First, we want to make sure the button exists. We will follow the example from the message module:</p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode js"><code class="sourceCode javascript"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true"></a><span class="co">// tests/cypress/integration/clicks.spec.js</span></span>
+<div class="sourceCode" id="cb11"><pre class="sourceCode js"><code class="sourceCode javascript"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true"></a><span class="co">// tests/cypress/e2e/clicks.cy.js</span></span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true"></a></span>
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true"></a><span class="fu">describe</span>(<span class="st">"Counting clicks"</span><span class="op">,</span> () <span class="kw">=&gt;</span> {</span>
 <span id="cb11-4"><a href="#cb11-4" aria-hidden="true"></a>  <span class="fu">beforeEach</span>(() <span class="kw">=&gt;</span> {</span>
@@ -456,7 +456,7 @@
 </h3>
 <p>The next step is to check if clicking the button affects the counter and if it shows the correct value. To do that, we will simulate 5 clicks and check if the counter is set to 5.</p>
 <p>Since the button will be clicked several times, we will use an <a href="https://docs.cypress.io/guides/core-concepts/variables-and-aliases#Aliases" class="external-link">alias</a>. To do that, we will utilize another Cypress command: <code>as</code>:</p>
-<div class="sourceCode" id="cb12"><pre class="sourceCode js"><code class="sourceCode javascript"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true"></a><span class="co">// tests/cypress/integration/clicks.spec.js</span></span>
+<div class="sourceCode" id="cb12"><pre class="sourceCode js"><code class="sourceCode javascript"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true"></a><span class="co">// tests/cypress/e2e/clicks.cy.js</span></span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true"></a></span>
 <span id="cb12-3"><a href="#cb12-3" aria-hidden="true"></a><span class="fu">describe</span>(<span class="st">"Counting clicks"</span><span class="op">,</span> () <span class="kw">=&gt;</span> {</span>
 <span id="cb12-4"><a href="#cb12-4" aria-hidden="true"></a>  <span class="fu">beforeEach</span>(() <span class="kw">=&gt;</span> {</span>
@@ -472,7 +472,7 @@
 <span id="cb12-14"><a href="#cb12-14" aria-hidden="true"></a>  })<span class="op">;</span></span>
 <span id="cb12-15"><a href="#cb12-15" aria-hidden="true"></a>})<span class="op">;</span></span></code></pre></div>
 <p>Now, we can access the button using <code>@button</code>. So let’s click it 5 times:</p>
-<div class="sourceCode" id="cb13"><pre class="sourceCode js"><code class="sourceCode javascript"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true"></a><span class="co">// tests/cypress/integration/clicks.spec.js</span></span>
+<div class="sourceCode" id="cb13"><pre class="sourceCode js"><code class="sourceCode javascript"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true"></a><span class="co">// tests/cypress/e2e/clicks.cy.js</span></span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true"></a></span>
 <span id="cb13-3"><a href="#cb13-3" aria-hidden="true"></a><span class="fu">describe</span>(<span class="st">"Counting clicks"</span><span class="op">,</span> () <span class="kw">=&gt;</span> {</span>
 <span id="cb13-4"><a href="#cb13-4" aria-hidden="true"></a>  <span class="fu">beforeEach</span>(() <span class="kw">=&gt;</span> {</span>
@@ -492,7 +492,7 @@
 <span id="cb13-18"><a href="#cb13-18" aria-hidden="true"></a>  })<span class="op">;</span></span>
 <span id="cb13-19"><a href="#cb13-19" aria-hidden="true"></a>})<span class="op">;</span></span></code></pre></div>
 <p>Finally, we need to check if the counter has the correct value (you already know how to look for its id to pass to <code>get</code> command):</p>
-<div class="sourceCode" id="cb14"><pre class="sourceCode js"><code class="sourceCode javascript"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true"></a><span class="co">// tests/cypress/integration/clicks.spec.js</span></span>
+<div class="sourceCode" id="cb14"><pre class="sourceCode js"><code class="sourceCode javascript"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true"></a><span class="co">// tests/cypress/e2e/clicks.cy.js</span></span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true"></a></span>
 <span id="cb14-3"><a href="#cb14-3" aria-hidden="true"></a><span class="fu">describe</span>(<span class="st">"Counting clicks"</span><span class="op">,</span> () <span class="kw">=&gt;</span> {</span>
 <span id="cb14-4"><a href="#cb14-4" aria-hidden="true"></a>  <span class="fu">beforeEach</span>(() <span class="kw">=&gt;</span> {</span>
