@@ -322,6 +322,12 @@ lint_sass <- function(fix = FALSE) {
 #' defined in the `tests/cypress` directory.
 #' Requires Node.js to be available on the system.
 #'
+#' Check out:
+# nolint start: line_length_linter
+#' [Tutorial: Write end-to-end tests with Cypress](https://appsilon.github.io/rhino/articles/tutorial/write-end-to-end-tests-with-cypress.html)
+# nolint end
+#' to learn how to write end-to-end tests for your Rhino app.
+#'
 #' If you want to write end-to-end tests with `{shinytest2}`, see our
 #' [How-to: Use shinytest2](https://appsilon.github.io/rhino/articles/how-to/use-shinytest2.html)
 #' guide.

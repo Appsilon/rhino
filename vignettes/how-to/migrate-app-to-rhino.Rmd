@@ -104,7 +104,7 @@ Having your application prepared, you can now run `rhino::init()`.
 │   └── ...
 ├── <span class="tree-change">tests</span>
 │   ├── <span class="tree-change">cypress</span>
-│   │   ├── <span class="tree-change">integration</span>
+│   │   ├── <span class="tree-change">e2e</span>
 │   │   └── <span class="tree-change">.gitignore</span>
 │   ├── <span class="tree-change">testthat</span>
 │   │   └── <span class="tree-change">test-main.R</span>

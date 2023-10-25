@@ -176,7 +176,7 @@ shiny::runApp()
 # Testing the component
 
 As a bonus, let's write a Cypress end-to-end test to check if our component works as expected.
-Edit the `tests/cypress/integration/app.spec.js` file as follows:
+Edit the `tests/cypress/e2e/app.cy.js` file as follows:
 
 ```js
 describe('app', () => {

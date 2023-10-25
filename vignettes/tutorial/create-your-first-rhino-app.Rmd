@@ -79,8 +79,8 @@ A result of both paths will be an initial Rhino application with the following s
 │   └── main.R
 ├── tests
 │   ├── cypress
-│   │   └── integration
-│   │       └── app.spec.js
+│   │   └── e2e
+│   │       └── app.cy.js
 │   ├── testthat
 │   │   └── test-main.R
 │   └── cypress.json
