@@ -20,7 +20,7 @@ Before starting make sure that you have installed:
 
 1. Rhino 1.4 or later.
 You can install the latest version with `install.packages("rhino")`.
-2. Node.js v12 or later.
+2. Node.js v14 or later.
 You can download the latest version from [nodejs.org](https://nodejs.org/en/download).
 
 
