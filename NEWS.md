@@ -1,6 +1,12 @@
 # rhino (development)
 
 1. Cypress updated to version 13.
+2. Node modules upgraded:
+    - `webpack` upgraded to version 5.89
+    - `sass` upgraded to version 1.69
+    - `stylelint` upgraded to version 14.16
+    - `eslint` upgraded to version 8.35
+    - fixed vulnerabilities
 
 # [rhino 1.5.0](https://github.com/Appsilon/rhino/releases/tag/v1.5.0)
 
