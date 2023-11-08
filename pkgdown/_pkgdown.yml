@@ -99,6 +99,10 @@ navbar:
         - text: Deployment
         - text: Publish on Hugging Face
           href: articles/how-to/publish-on-huggingface.html
+        - text: -------
+        - text: Migration guides
+        - text: Migration to Rhino 1.6
+          href: articles/how-to/migrate-1-6.html
 
     faq:
       text: FAQ
