@@ -21,6 +21,22 @@ write_dependencies <- function(deps) {
   writeLines(deps, "dependencies.R")
 }
 
+extract_package_name <- function(package) {
+  if (grepl("@", package)) package <- strsplit(package, "@")[[1]][1]
+  if (grepl("bioc::", package)) return(strsplit(package, "::")[[1]][2])
+
+  if (grepl("/", package)) {
+    package_splited <- strsplit(package, "/")[[1]]
+    return(package_splited[length(package_splited)])
+  }
+
+  package
+}
+
+extract_packages_names <- function(packages) {
+  purrr::map_chr(packages, extract_package_name)
+}
+
 # nolint start: line_length_linter
 #' Manage dependencies
 #'
@@ -58,7 +74,8 @@ NULL
 pkg_install <- function(packages) {
   stopifnot(is.character(packages))
   renv::install(packages)
-  write_dependencies(c(packages, read_dependencies()))
+  packages_names <- extract_packages_names(packages)
+  write_dependencies(c(packages_names, read_dependencies()))
   renv::snapshot()
   invisible()
 }
@@ -68,7 +85,8 @@ pkg_install <- function(packages) {
 pkg_remove <- function(packages) {
   stopifnot(is.character(packages))
   renv::remove(packages)
-  write_dependencies(setdiff(read_dependencies(), packages))
+  packages_names <- extract_packages_names(packages)
+  write_dependencies(setdiff(read_dependencies(), packages_names))
   renv::snapshot()
   invisible()
 }
