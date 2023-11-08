@@ -2,7 +2,7 @@
 title: "How-to: Rhino Addins"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{How-to: Addins}
+  %\VignetteIndexEntry{How-to: Rhino Addins}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
