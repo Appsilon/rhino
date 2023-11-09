@@ -86,8 +86,9 @@ NULL
 #' @export
 pkg_install <- function(packages) {
   stopifnot(is.character(packages))
-  renv::install(packages)
   packages_names <- extract_packages_names(packages)
+  cli::cli_alert_info("Installing packages: {packages_names}.")
+  renv::install(packages)
   write_dependencies(c(packages_names, read_dependencies()))
   renv::snapshot()
   invisible()
@@ -97,8 +98,9 @@ pkg_install <- function(packages) {
 #' @export
 pkg_remove <- function(packages) {
   stopifnot(is.character(packages))
-  renv::remove(packages)
   packages_names <- extract_packages_names(packages)
+  cli::cli_alert_info("Removing packages: {packages_names}.")
+  renv::remove(packages)
   write_dependencies(setdiff(read_dependencies(), packages_names))
   renv::snapshot()
   invisible()
