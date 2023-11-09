@@ -64,6 +64,18 @@ extract_packages_names <- function(packages) {
 #'   # Update shiny to the latest version
 #'   rhino::pkg_install("shiny")
 #'
+#'   # Install a specific version of shiny
+#'   rhino::pkg_install("shiny@1.6.0")
+#'
+#'   # Install shiny.i18n package from GitHub
+#'   rhino::pkg_install("Appsilon/shiny.i18n")
+#'
+#'   # Install Biobase package from Bioconductor
+#'   rhino::pkg_install("bioc::Biobase")
+#'
+#'   # Install shiny from local source
+#'   rhino::pkg_install("~/path/to/shiny")
+#'
 #'   # Remove dplyr
 #'   rhino::pkg_remove("dplyr")
 #' }
