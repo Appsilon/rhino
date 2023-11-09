@@ -1,6 +1,7 @@
 # rhino (development)
 
 1. Cypress updated to version 13.
+2. `pkg_install` supports installation from local sources, GitHub, and Bioconductor.
 
 # [rhino 1.5.0](https://github.com/Appsilon/rhino/releases/tag/v1.5.0)
 
