@@ -23,6 +23,7 @@ write_dependencies <- function(deps) {
 
 extract_package_name <- function(package) {
   if (grepl("@", package)) package <- strsplit(package, "@")[[1]][1]
+
   if (grepl("bioc::", package)) return(strsplit(package, "::")[[1]][2])
 
   if (grepl("/", package)) {
