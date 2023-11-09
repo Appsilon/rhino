@@ -26,3 +26,15 @@ describe("extract_packages_names", {
     expect_equal(extract_packages_names(c("shiny", "dplyr")), c("shiny", "dplyr"))
   })
 })
+
+describe("pkg_install", {
+  it("throws an error when the argument is not a character vector", {
+    expect_error(pkg_install(1))
+  })
+})
+
+describe("pkg_remove", {
+  it("throws an error when the argument is not a character vector", {
+    expect_error(pkg_remove(1))
+  })
+})
