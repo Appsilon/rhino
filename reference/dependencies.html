@@ -21,7 +21,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">rhino</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.5.0.9000</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.5.0.9001</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -161,6 +161,18 @@ to learn about the details of the setup used by Rhino.</p>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span>  <span class="co"># Update shiny to the latest version</span></span></span>
 <span class="r-in"><span>  <span class="fu">rhino</span><span class="fu">::</span><span class="fu">pkg_install</span><span class="op">(</span><span class="st">"shiny"</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span>  <span class="co"># Install a specific version of shiny</span></span></span>
+<span class="r-in"><span>  <span class="fu">rhino</span><span class="fu">::</span><span class="fu">pkg_install</span><span class="op">(</span><span class="st">"shiny@1.6.0"</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span>  <span class="co"># Install shiny.i18n package from GitHub</span></span></span>
+<span class="r-in"><span>  <span class="fu">rhino</span><span class="fu">::</span><span class="fu">pkg_install</span><span class="op">(</span><span class="st">"Appsilon/shiny.i18n"</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span>  <span class="co"># Install Biobase package from Bioconductor</span></span></span>
+<span class="r-in"><span>  <span class="fu">rhino</span><span class="fu">::</span><span class="fu">pkg_install</span><span class="op">(</span><span class="st">"bioc::Biobase"</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span>  <span class="co"># Install shiny from local source</span></span></span>
+<span class="r-in"><span>  <span class="fu">rhino</span><span class="fu">::</span><span class="fu">pkg_install</span><span class="op">(</span><span class="st">"~/path/to/shiny"</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span>  <span class="co"># Remove dplyr</span></span></span>
 <span class="r-in"><span>  <span class="fu">rhino</span><span class="fu">::</span><span class="fu">pkg_remove</span><span class="op">(</span><span class="st">"dplyr"</span><span class="op">)</span></span></span>
