@@ -48,8 +48,9 @@ jobs:
 
       - name: Push branch
         run: |
+          SHORT_SHA=$(printf %.8s "$GITHUB_SHA")
           git config user.name "$GITHUB_ACTOR"
           git config user.email "$GITHUB_ACTOR@users.noreply.github.com"
           git add .
-          git commit --message "App Push Test ($GITHUB_REF_NAME)"
+          git commit --message "App Push Test (${GITHUB_REF_NAME}@${SHORT_SHA})"
           git push --force origin "$BRANCH_NAME"
