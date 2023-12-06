@@ -25,15 +25,25 @@ This document contains guidelines specific to Rhino.
 
 ## App Push Test
 
-Rhino creates a `.github/workflows/rhino-test.yml` file on `rhino::init()`.
-This GitHub Actions workflow automatically runs all linters and tests
-once a project is pushed to GitHub.
-To test that it works correctly we have the [App Push Test](https://github.com/Appsilon/rhino/actions/workflows/app-push-test.yml) workflow.
+Rhino comes with a CI setup out of the box.
+On `rhino::init()` it creates a  `rhino-test.yml` file,
+a GitHub Actions workflow which automatically runs all linters and tests
+once the project is pushed to GitHub.
 
-The Push Test initializes a fresh Rhino application and pushes it to the `bot/app-push-test` branch.
-The Rhino Test of this application then runs and its results can be viewed
+To test `rhino-test.yml` itself, we have the [`app-push-test.yml`](workflows/app-push-test.yml) workflow.
+It initializes a fresh Rhino application and pushes it to the `bot/app-push-test` branch.
+Then `rhino-test.yml` of this application runs and its results can be viewed
 in the [list of workflow runs](https://github.com/Appsilon/rhino/actions/workflows/rhino-test.yml).
-The App Push Test is triggered automatically on pushes to `main` and can also be triggered manually.
+
+The App Push Test is triggered automatically on pushes to `main`
+and can also be triggered manually for any branch via the
+[Actions](https://github.com/Appsilon/rhino/actions/workflows/app-push-test.yml) tab.
+
+The workflow requires a
+[fine-grained personal access token](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens#fine-grained-personal-access-tokens)
+with write access to code and workflows.
+It should be saved as the `APP_PUSH_TEST_PAT`
+[repository secret](https://github.com/Appsilon/rhino/settings/secrets/actions).
 
 ## Release process
 
