@@ -24,6 +24,14 @@ jobs:
         with:
           packages: Appsilon/rhino@${{ github.sha }}
 
+      # The previous step installs `renv` using `pak`,
+      # but it subsequentially fails in the pushed app and breaks the test
+      # (see https://github.com/rstudio/renv/issues/1772).
+      # This step is is a workaround and can be removed once the issue is resolved.
+      - name: Install renv
+        shell: Rscript {0}
+        run: install.packages("renv")
+
       - name: Checkout repository
         uses: actions/checkout@v3
         with:
@@ -40,8 +48,9 @@ jobs:
 
       - name: Push branch
         run: |
+          SHORT_SHA=$(printf %.8s "$GITHUB_SHA")
           git config user.name "$GITHUB_ACTOR"
           git config user.email "$GITHUB_ACTOR@users.noreply.github.com"
           git add .
-          git commit --message "App Push Test ($GITHUB_REF_NAME)"
+          git commit --message "App Push Test (${GITHUB_REF_NAME}@${SHORT_SHA})"
           git push --force origin "$BRANCH_NAME"
