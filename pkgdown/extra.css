@@ -1,14 +1,26 @@
+:root {
+  --primary-color: #4747B1;
+}
+
 .navbar {
-  background-color: #4747B1 !important;
+  background-color: var(--primary-color) !important;
 }
 
-#navbar > ul.navbar-nav.me-auto > li.nav-item.dropdown a:hover {
-  background-color: #4747B1 !important;
+#navbar > ul.navbar-nav > li.nav-item a:hover {
+  background-color: var(--primary-color) !important;
 }
 
-.navbar-dark .navbar-nav .active>.nav-link {
-  background-color: #4747B1 !important;
-  color: #fff;
+#navbar > ul.navbar-nav > li.nav-item > a {
+  color: rgba(255, 255, 255, 0.55);
+}
+
+.navbar-dark .navbar-nav .active > .nav-link {
+  background-color: var(--primary-color) !important;
+  color: #fff !important;
+}
+
+.navbar-brand {
+  color: #fff !important;
 }
 
 .navbar-dark input[type="search"] {
@@ -16,12 +28,19 @@
   color: #444 !important;
 }
 
-.app-preview {
-  margin: 1.5em 0.75em;
-  padding: 0.25em;
-  box-shadow:
-    0 3.9px 4.6px rgba(0, 0, 0, 0.08),
-    0 12.3px 8.4px rgba(0, 0, 0, 0.056),
-    0 18.8px 19.2px rgba(0, 0, 0, 0.037),
-    0 22px 40px rgba(0, 0, 0, 0.019);
+nav .text-muted {
+  color: #d8d8d8 !important;
+}
+
+a {
+  color: var(--primary-color);
+}
+
+a:hover {
+  color: #2c2b2b;
+}
+
+button.btn.btn-primary.btn-copy-ex {
+  background-color: var(--primary-color);
+  border-color: var(--primary-color);
 }
