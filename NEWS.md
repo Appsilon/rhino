@@ -2,6 +2,7 @@
 
 1. Cypress updated to version 13.
 2. `pkg_install` supports installation from local sources, GitHub, and Bioconductor.
+3. Update Rhino CI (use latest versions and make better use of actions).
 
 # [rhino 1.5.0](https://github.com/Appsilon/rhino/releases/tag/v1.5.0)
 

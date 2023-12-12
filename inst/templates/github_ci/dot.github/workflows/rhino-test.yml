@@ -5,45 +5,31 @@ permissions:
 jobs:
   main:
     name: Run linters and tests
-    runs-on: ubuntu-20.04
-    env:
-      GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
+    runs-on: ubuntu-22.04
     steps:
       - name: Checkout repo
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
 
-      - name: Extract R version from lockfile
-        run: printf 'R_VERSION=%s\n' "$(jq --raw-output .R.Version renv.lock)" >> $GITHUB_ENV
+      - name: Setup system dependencies
+        run: |
+          packages=(
+            # List each package on a separate line.
+          )
+          sudo apt-get update
+          sudo apt-get install --yes "${packages[@]}"
 
       - name: Setup R
         uses: r-lib/actions/setup-r@v2
         with:
-          r-version: ${{ env.R_VERSION }}
+          r-version: renv
 
-      - name: Setup system dependencies
-        run: >
-          sudo apt-get update && sudo apt-get install --yes
-          libcurl4-openssl-dev
-
-      - name: Restore renv from cache
-        uses: actions/cache@v2
-        env:
-          CACHE_KEY: renv-${{ runner.arch }}-${{ runner.os }}-${{ env.R_VERSION }}
-        with:
-          path: renv/library
-          key: ${{ env.CACHE_KEY }}-${{ hashFiles('renv.lock') }}
-          restore-keys: ${{ env.CACHE_KEY }}-
-
-      - name: Sync renv with lockfile
-        shell: Rscript {0}
-        run: |
-          options(renv.config.cache.symlinks = FALSE)
-          renv::restore(clean = TRUE)
+      - name: Setup R dependencies
+        uses: r-lib/actions/setup-renv@v2
 
       - name: Setup Node
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v3
         with:
-          node-version: 16
+          node-version: 20
 
       - name: Lint R
         if: always()
@@ -77,7 +63,7 @@ jobs:
 
       - name: Run Cypress end-to-end tests
         if: always()
-        uses: cypress-io/github-action@v5
+        uses: cypress-io/github-action@v6
         with:
           working-directory: .rhino # Created by earlier commands which use Node.js
           start: npm run run-app
