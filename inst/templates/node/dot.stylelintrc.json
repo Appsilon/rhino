@@ -1,6 +1,5 @@
 {
-  "extends": "stylelint-config-standard",
-  "plugins": ["stylelint-scss"],
+  "extends": "stylelint-config-standard-scss",
   "rules": {
     "at-rule-no-unknown": null,
     "no-empty-source": null,
