@@ -3,6 +3,12 @@
   "rules": {
     "at-rule-no-unknown": null,
     "no-empty-source": null,
-    "scss/at-rule-no-unknown": true
+    "scss/at-rule-no-unknown": true,
+    "selector-id-pattern": [
+      "^([a-z][a-z0-9]*)([-_][a-z0-9]+)*$",
+      {
+        "message": "Expected ID selector to be kebab-snake_case"
+      }
+    ]
   }
 }
