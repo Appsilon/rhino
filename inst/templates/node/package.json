@@ -12,22 +12,22 @@
     "test-e2e-interactive": "start-server-and-test run-app http://localhost:3333 open-cypress"
   },
   "devDependencies": {
-    "@babel/core": "^7.15.5",
-    "@babel/eslint-parser": "^7.15.4",
-    "@babel/preset-env": "^7.15.4",
-    "@babel/preset-react": "^7.22.3",
+    "@babel/core": "^7.23.7",
+    "@babel/eslint-parser": "^7.23.3",
+    "@babel/preset-env": "^7.23.7",
+    "@babel/preset-react": "^7.23.3",
     "babel-loader": "^8.2.2",
-    "cypress": "^13.0.0",
+    "cypress": "^13.6.2",
     "eslint": "^7.32.0",
     "eslint-config-airbnb": "^19.0.4",
-    "eslint-import-resolver-webpack": "^0.13.1",
-    "eslint-plugin-import": "^2.24.2",
-    "sass": "^1.39.0",
+    "eslint-import-resolver-webpack": "^0.13.8",
+    "eslint-plugin-import": "^2.29.1",
+    "sass": "^1.69.7",
     "start-server-and-test": "^1.12.6",
     "stylelint": "^13.13.1",
     "stylelint-config-standard": "^22.0.0",
     "stylelint-scss": "^3.20.1",
-    "webpack": "^5.52.0",
+    "webpack": "^5.89.0",
     "webpack-cli": "^4.8.0"
   }
 }
