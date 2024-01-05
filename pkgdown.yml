@@ -30,7 +30,7 @@ articles:
   create-your-first-rhino-app: tutorial/create-your-first-rhino-app.html
   use-react-in-rhino: tutorial/use-react-in-rhino.html
   write-end-to-end-tests-with-cypress: tutorial/write-end-to-end-tests-with-cypress.html
-last_built: 2023-12-12T09:25Z
+last_built: 2024-01-05T15:25Z
 urls:
   reference: https://appsilon.github.io/rhino/reference
   article: https://appsilon.github.io/rhino/articles
