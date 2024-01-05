@@ -1,9 +1,14 @@
 {
-  "extends": "stylelint-config-standard",
-  "plugins": ["stylelint-scss"],
+  "extends": "stylelint-config-standard-scss",
   "rules": {
     "at-rule-no-unknown": null,
     "no-empty-source": null,
-    "scss/at-rule-no-unknown": true
+    "scss/at-rule-no-unknown": true,
+    "selector-id-pattern": [
+      "^([a-z][a-z0-9]*)([-_][a-z0-9]+)*$",
+      {
+        "message": "Expected ID selector to be kebab-snake_case"
+      }
+    ]
   }
 }
