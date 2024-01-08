@@ -116,6 +116,8 @@ with_head_tags <- function(ui) {
 #' into a [Shiny module](https://shiny.rstudio.com/articles/modules.html)
 #' (functions taking a single `id` argument).
 #'
+#' Note: `legacy_entrypoint` might not work in conjunction with `shiny.autoreload`.
+#'
 #' @return An object representing the app (can be passed to `shiny::runApp()`).
 #'
 #' @examples

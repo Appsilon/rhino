@@ -47,6 +47,8 @@ Compared to \code{box_top_level} you'll need to make your top-level \code{ui} an
 into a \href{https://shiny.rstudio.com/articles/modules.html}{Shiny module}
 (functions taking a single \code{id} argument).
 }
+
+Note: \code{legacy_entrypoint} might not work in conjunction with \code{shiny.autoreload}.
 }
 
 \examples{
