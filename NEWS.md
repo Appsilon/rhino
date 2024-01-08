@@ -10,6 +10,8 @@
     * `lint_sass()` now uses `stylelint` 14.16 (the last major version supporting stylistic rules)
     * Upgrade all remaining Node.js dependencies to latest versions and fix vulnerabilities.
     * The minimum supported Node.js version is now 16.
+4. `shiny.autoreload` now works correctly with `box::use`. Note: this requires
+   `legacy_entrypoint` to be unset.
 
 # [rhino 1.5.0](https://github.com/Appsilon/rhino/releases/tag/v1.5.0)
 
