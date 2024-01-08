@@ -41,6 +41,11 @@ load_main_module <- function() {
   main <- NULL
   box::use(app/main)
   main_env <- environment()
+  if (isTRUE(getOption("shiny.autoreload", FALSE))) {
+    shiny:::autoReloadCallbacks$register(function() {
+      evalq(box::reload(main), main_env)
+    })
+  }
   main_env
 }
 
