@@ -40,19 +40,20 @@ load_main_module <- function() {
   app <- NULL
   main <- NULL
   box::use(app/main)
-  main
+  main_env <- environment()
+  main_env
 }
 
-as_top_level <- function(shiny_module) {
+as_top_level <- function(shiny_module_env) {
   # Necessary to avoid infinite recursion / bugs due to lazy evaluation:
   # https://adv-r.hadley.nz/function-factories.html?q=force#forcing-evaluation
-  force(shiny_module)
+  force(shiny_module_env)
 
   # The actual function must be sourced with `keep.source = TRUE` for reloading to work:
   # https://github.com/Appsilon/rhino/issues/157
   wrap <- source(fs::path_package("rhino", "as_top_level.R"), keep.source = TRUE)$value
 
-  wrap(shiny_module)
+  wrap(shiny_module_env)
 }
 
 with_head_tags <- function(ui) {
@@ -133,9 +134,11 @@ app <- function() {
     main <- new.env()
     source(fs::path("app", "main.R"), local = main)
   } else {
-    main <- load_main_module()
+    main_env <- load_main_module()
     if (!identical(entrypoint, "box_top_level")) {
-      main <- as_top_level(main)
+      main <- as_top_level(main_env)
+    } else {
+      main <- main_env$main
     }
   }
   shiny::shinyApp(
