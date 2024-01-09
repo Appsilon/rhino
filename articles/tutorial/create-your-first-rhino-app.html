@@ -44,7 +44,7 @@
     
     <a class="navbar-brand me-2" href="../../index.html">rhino</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.5.0.9003</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.5.0</small>
 
     <a href="https://rhinoverse.dev" class="external-link home"><i class="fa fa-lg fa-chevron-left"></i></a>
 
@@ -89,7 +89,6 @@
     <a class="dropdown-item" href="../../articles/how-to/add-routing.html">Add routing</a>
     <a class="dropdown-item" href="../../articles/how-to/set-application-run-parameters.html">Set application run parameters</a>
     <a class="dropdown-item" href="../../articles/how-to/use-addins.html">Use Rhino Addin(s)</a>
-    <a class="dropdown-item" href="../../articles/how-to/communicate-between-modules.html">Communicate between modules</a>
     <div class="dropdown-divider"></div>
     <h6 class="dropdown-header" data-toc-skip>UI</h6>
     <a class="dropdown-item" href="../../articles/how-to/use-shiny-fluent.html">Use shiny.fluent</a>
@@ -100,9 +99,6 @@
     <div class="dropdown-divider"></div>
     <h6 class="dropdown-header" data-toc-skip>Deployment</h6>
     <a class="dropdown-item" href="../../articles/how-to/publish-on-huggingface.html">Publish on Hugging Face</a>
-    <div class="dropdown-divider"></div>
-    <h6 class="dropdown-header" data-toc-skip>Migration guides</h6>
-    <a class="dropdown-item" href="../../articles/how-to/migrate-1-6.html">Migration to Rhino 1.6</a>
   </div>
 </li>
 <li class="nav-item">
@@ -172,7 +168,7 @@
 <h3 id="dependencies">Dependencies<a class="anchor" aria-label="anchor" href="#dependencies"></a>
 </h3>
 <p>This tutorial uses the native pipe operator (<code>|&gt;</code>) introduced in R 4.1 release. If you use an earlier R version, then you can use the <code>%&gt;%</code> pipe operator found in <a href="https://magrittr.tidyverse.org" class="external-link">magrittr</a> and <a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a> packages instead.</p>
-<p>To use the state of the art JavaScript and Sass development tools provided by Rhino, you’ll need to <a href="https://nodejs.org/en/download/" class="external-link">install Node.js</a> (v16 or later) on your system.</p>
+<p>To use the state of the art JavaScript and Sass development tools provided by Rhino, you’ll need to <a href="https://nodejs.org/en/download/" class="external-link">install Node.js</a> (v12 or later) on your system.</p>
 <p>Rhino will still work without Node.js but with some limitations (described in <a href="#add-javascript-code">JavaScript</a> and <a href="#add-custom-styles">Sass</a> sections).</p>
 <hr>
 </div>
@@ -220,8 +216,8 @@
 │   └── main.R
 ├── tests
 │   ├── cypress
-│   │   └── e2e
-│   │       └── app.cy.js
+│   │   └── integration
+│   │       └── app.spec.js
 │   ├── testthat
 │   │   └── test-main.R
 │   └── cypress.json

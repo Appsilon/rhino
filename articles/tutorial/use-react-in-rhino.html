@@ -44,7 +44,7 @@
     
     <a class="navbar-brand me-2" href="../../index.html">rhino</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.5.0.9003</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.5.0</small>
 
     <a href="https://rhinoverse.dev" class="external-link home"><i class="fa fa-lg fa-chevron-left"></i></a>
 
@@ -89,7 +89,6 @@
     <a class="dropdown-item" href="../../articles/how-to/add-routing.html">Add routing</a>
     <a class="dropdown-item" href="../../articles/how-to/set-application-run-parameters.html">Set application run parameters</a>
     <a class="dropdown-item" href="../../articles/how-to/use-addins.html">Use Rhino Addin(s)</a>
-    <a class="dropdown-item" href="../../articles/how-to/communicate-between-modules.html">Communicate between modules</a>
     <div class="dropdown-divider"></div>
     <h6 class="dropdown-header" data-toc-skip>UI</h6>
     <a class="dropdown-item" href="../../articles/how-to/use-shiny-fluent.html">Use shiny.fluent</a>
@@ -100,9 +99,6 @@
     <div class="dropdown-divider"></div>
     <h6 class="dropdown-header" data-toc-skip>Deployment</h6>
     <a class="dropdown-item" href="../../articles/how-to/publish-on-huggingface.html">Publish on Hugging Face</a>
-    <div class="dropdown-divider"></div>
-    <h6 class="dropdown-header" data-toc-skip>Migration guides</h6>
-    <a class="dropdown-item" href="../../articles/how-to/migrate-1-6.html">Migration to Rhino 1.6</a>
   </div>
 </li>
 <li class="nav-item">
@@ -163,7 +159,7 @@
 <p>Before starting make sure that you have installed:</p>
 <ol style="list-style-type: decimal">
 <li>Rhino 1.4 or later. You can install the latest version with <code>install.packages("rhino")</code>.</li>
-<li>Node.js v16 or later. You can download the latest version from <a href="https://nodejs.org/en/download" class="external-link">nodejs.org</a>.</li>
+<li>Node.js v12 or later. You can download the latest version from <a href="https://nodejs.org/en/download" class="external-link">nodejs.org</a>.</li>
 </ol>
 <div class="section level2">
 <h2 id="starting-off">Starting off<a class="anchor" aria-label="anchor" href="#starting-off"></a>
@@ -271,7 +267,7 @@
 <div class="section level2">
 <h2 id="testing-the-component">Testing the component<a class="anchor" aria-label="anchor" href="#testing-the-component"></a>
 </h2>
-<p>As a bonus, let’s write a Cypress end-to-end test to check if our component works as expected. Edit the <code>tests/cypress/e2e/app.cy.js</code> file as follows:</p>
+<p>As a bonus, let’s write a Cypress end-to-end test to check if our component works as expected. Edit the <code>tests/cypress/integration/app.spec.js</code> file as follows:</p>
 <div class="sourceCode" id="cb9"><pre class="sourceCode js"><code class="sourceCode javascript"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true"></a><span class="fu">describe</span>(<span class="st">'app'</span><span class="op">,</span> () <span class="kw">=&gt;</span> {</span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true"></a>  <span class="fu">beforeEach</span>(() <span class="kw">=&gt;</span> {</span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true"></a>    cy<span class="op">.</span><span class="fu">visit</span>(<span class="st">'/'</span>)</span>
