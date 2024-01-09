@@ -45,6 +45,16 @@ with write access to code and workflows.
 It should be saved as the `APP_PUSH_TEST_PAT`
 [repository secret](https://github.com/Appsilon/rhino/settings/secrets/actions).
 
+## Website
+
+The [documentation site](https://appsilon.github.io/rhino/)
+is built and deployed automatically by our [`pkgdown.yml`](workflows/pkgdown.yml) workflow.
+This workflow is triggered when a
+[release](https://docs.github.com/en/repositories/releasing-projects-on-github/managing-releases-in-a-repository)
+is published, or a pre-release is changed to a release.
+It is also possible to manually run it for a selected tag/branch
+from the [Actions](https://github.com/Appsilon/rhino/actions/workflows/pkgdown.yml) tab.
+
 ## Release process
 
 ### Preparation

@@ -1,7 +1,12 @@
 name: pkgdown
 on:
-  push:
-    branches: [main]
+  # Run when a release is published, or a pre-release is changed to a release. Reference:
+  # https://docs.github.com/en/actions/using-workflows/events-that-trigger-workflows#release
+  # https://docs.github.com/en/webhooks/webhook-events-and-payloads#release
+  release:
+    types: [released]
+  # It is also possible to manually trigger this workflow for a selected tag/branch
+  # from the "Actions" tab on GitHub.
   workflow_dispatch:
 permissions:
   contents: write
