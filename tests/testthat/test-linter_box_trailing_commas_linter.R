@@ -49,6 +49,8 @@ bad_module_function_commas <- "box::use(
   ],
 )"
 
+should_not_lint <- "x <- c(1, 2, 3)"
+
 bad_module_function_commas_inline <- "box::use(path/to/file2[first_function, second_function], )"
 
 paren_lint_msg <- rex::rex("Always have a trailing comma at the end of imports, before a `)`.")
@@ -89,4 +91,10 @@ test_that("box_trailing_commas_linter blocks no trailing commas in module functi
   
   lintr::expect_lint(bad_module_function_commas, list(message = bracket_lint_msg), linter)
   lintr::expect_lint(bad_module_function_commas_inline, list(message = bracket_lint_msg), linter)
+})
+
+test_that("box_trailing_commas_linter should not lint outside of `box::use()`", {
+  linter <- box_trailing_commas_linter()
+  
+  lintr::expect_lint(should_not_lint, NULL, linter)
 })
