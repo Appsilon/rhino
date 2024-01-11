@@ -45,14 +45,14 @@ lint_message <- function(max = 5L) {
 
 test_that("box_func_import_count_linter skips allowed function count.", {
   linter <- box_func_import_count_linter()
-  
+
   lintr::expect_lint(five_function_imports, NULL, )
   lintr::expect_lint(five_function_imports_inline, NULL, linter)
 })
 
 test_that("box_func_import_count_linter skips allowed function count supplied max", {
   linter <- box_func_import_count_linter(max = 3)
-  
+
   lintr::expect_lint(three_function_imports, NULL, )
   lintr::expect_lint(three_function_imports_inline, NULL, linter)
 })
@@ -61,7 +61,7 @@ test_that("box_func_import_count_linter blocks function imports more than max", 
   max <- 5
   linter <- box_func_import_count_linter(max = max)
   lint_msg <- lint_message(max)
-  
+
   lintr::expect_lint(six_function_imports, list(message = lint_msg), linter)
   lintr::expect_lint(six_function_imports_inline, list(message = lint_msg), linter)
 })

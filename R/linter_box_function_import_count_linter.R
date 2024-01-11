@@ -10,23 +10,23 @@
 #'   text = "box::use(package[one, two, three, four, five, six, ])",
 #'   linters = box_func_import_count_linter()
 #' )
-#' 
+#'
 #' lintr::lint(
 #'   text = "box::use(package[one, two, three, four, ])",
 #'   linters = box_func_import_count_linter(3)
 #' )
-#' 
+#'
 #' # okay
 #' lintr::lint(
 #'   text = "box::use(package[one, two, three, four, five, ])",
 #'   linters = box_func_import_count_linter()
 #' )
-#' 
+#'
 #' lintr::lint(
 #'   text = "box::use(package[one, two, three, ])",
 #'   linters = box_func_import_count_linter(3)
 #' )
-#' 
+#'
 #' @export
 box_func_import_count_linter <- function(max = 5L) {
   xpath <- glue::glue("//SYMBOL_PACKAGE[
@@ -44,18 +44,18 @@ box_func_import_count_linter <- function(max = 5L) {
   ) > {max}
 ]
 /parent::expr")
-  
+
   lint_message <- glue::glue("Limit the function imports to a max of {max}.")
-  
+
   lintr::Linter(function(source_expression) {
     if (!lintr::is_lint_level(source_expression, "file")) {
       return(list())
     }
-    
+
     xml <- source_expression$full_xml_parsed_content
-    
+
     bad_expr <- xml2::xml_find_all(xml, xpath)
-    
+
     lintr::xml_nodes_to_lints(
       bad_expr,
       source_expression = source_expression,
