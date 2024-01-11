@@ -1,0 +1,92 @@
+good_package_commas <- "box::use(
+  dplyr,
+  stringr[
+    select,
+    mutate,
+  ],
+)"
+
+good_package_commas_inline <- "box::use(dplyr, stringr[select, mutate, ], )"
+
+good_module_commas <- "box::use(
+  path/to/file1,
+  path/to/file2[
+    first_function,
+    second_function,
+  ],
+)"
+
+good_module_commas_inline <- "box::use(path/to/file1, path/to/file2, )"
+
+bad_package_commas <- "box::use(
+  dplyr,
+  stringr
+)"
+
+bad_package_commas_inline <- "box::use(dplyr, stringr)"
+
+bad_package_function_commas <- "box::use(
+  dplyr,
+  stringr[
+    select,
+    mutate
+  ],
+)"
+
+bad_package_function_commas_inline <- "box::use(stringr[select, mutate],)"
+
+bad_module_commas <- "box::use(
+  path/to/file1,
+  path/to/file2
+)"
+
+bad_module_commas_inline <- "box::use(path/to/file1, path/to/file2)"
+
+bad_module_function_commas <- "box::use(
+  path/to/file2[
+    first_function,
+    second_function
+  ],
+)"
+
+bad_module_function_commas_inline <- "box::use(path/to/file2[first_function, second_function], )"
+
+paren_lint_msg <- rex::rex("Always have a trailing comma at the end of imports, before a `)`.")
+bracket_lint_msg <- rex::rex("Always have a trailing comma at the end of imports, before a `]`.")
+
+test_that("box_trailing_commas_linter skips allowed package import usage", {
+  linter <- box_trailing_commas_linter()
+  
+  lintr::expect_lint(good_package_commas, NULL, linter)
+  lintr::expect_lint(good_package_commas_inline, NULL, linter)
+  lintr::expect_lint(good_module_commas, NULL, linter)
+  lintr::expect_lint(good_module_commas_inline, NULL, linter)
+})
+
+test_that("box_trailing_commas_linter blocks no trailing commas in package imports", {
+  linter <- box_trailing_commas_linter()
+  
+  lintr::expect_lint(bad_package_commas, list(message = paren_lint_msg), linter)
+  lintr::expect_lint(bad_package_commas_inline, list(message = paren_lint_msg), linter)
+})
+
+test_that("box_trailing_commas_linter blocks no trailing commas in package function imports", {
+  linter <- box_trailing_commas_linter()
+  
+  lintr::expect_lint(bad_package_function_commas, list(message = bracket_lint_msg), linter)
+  lintr::expect_lint(bad_package_function_commas_inline, list(message = bracket_lint_msg), linter)
+})
+
+test_that("box_trailing_comma_linter blocks no trailing commas in module imports", {
+  linter <- box_trailing_commas_linter()
+  
+  lintr::expect_lint(bad_module_commas, list(message = paren_lint_msg), linter)
+  lintr::expect_lint(bad_module_commas_inline, list(message = paren_lint_msg), linter)
+})
+
+test_that("box_trailing_commas_linter blocks no trailing commas in module function imports", {
+  linter <- box_trailing_commas_linter()
+  
+  lintr::expect_lint(bad_module_function_commas, list(message = bracket_lint_msg), linter)
+  lintr::expect_lint(bad_module_function_commas_inline, list(message = bracket_lint_msg), linter)
+})
