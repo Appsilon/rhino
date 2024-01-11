@@ -143,6 +143,10 @@ reference:
   - diagnostics
   - test_e2e
 
+- title: Linters
+  contents:
+  - box_trailing_commas_linter
+
 - title: Data
   contents:
   - rhinos
