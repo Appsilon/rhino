@@ -36,19 +36,19 @@ lint_msg <- rex::rex("Explicitly declare imports rather than universally import 
 
 test_that("box_universal_count_linter skips allowed package import usage", {
   linter <- box_universal_import_linter()
-  
+
   lintr::expect_lint(good_package_imports, NULL, linter)
 })
 
 test_that("box_universal_count_linter skips allowed module import usage", {
   linter <- box_universal_import_linter()
-  
+
   lintr::expect_lint(good_module_imports, NULL, linter)
 })
 
 test_that("box_universal_count_linter blocks disallowed package import usage", {
   linter <- box_universal_import_linter()
-  
+
   lintr::expect_lint(bad_package_imports, list(message = lint_msg), linter)
 })
 
@@ -60,12 +60,12 @@ test_that("box_universal_count_linter blocks disallowed module import usage", {
 
 test_that("box_universal_count_linter skips three dots in function declarations and calls", {
   linter <- box_universal_import_linter()
-  
+
   lintr::expect_lint(function_with_three_dots, NULL, linter)
 })
 
 test_that("box_universal_count_linter respects #nolint", {
   linter <- box_universal_import_linter()
-  
+
   lintr::expect_lint(no_lint, NULL, linter)
 })

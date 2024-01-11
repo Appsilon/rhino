@@ -8,23 +8,23 @@
 #'   text = "box::use(base[...])",
 #'   linters = box_universal_import_linter()
 #' )
-#' 
+#'
 #' lintr::lint(
 #'   text = "box::use(path/to/file[...])",
 #'   linters = box_universal_import_linter()
 #' )
-#' 
-#' # okay 
+#'
+#' # okay
 #' lintr::lint(
 #'   text = "box::use(base[print])",
 #'   linters = box_universal_import_linter()
 #' )
-#' 
+#'
 #' lintr::lint(
 #'   text = "box::use(path/to/file[do_something])",
 #'   linters = box_universal_import_linter()
 #' )
-#' 
+#'
 #' @export
 box_universal_import_linter <- function() {
   lint_message <- "Explicitly declare imports rather than universally import with `...`."
