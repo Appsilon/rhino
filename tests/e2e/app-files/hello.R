@@ -14,7 +14,7 @@ box::use(
   ],
 )
 
-box::use(app / logic / say_hello[say_hello])
+box::use(app/logic/say_hello[say_hello])
 
 #' @export
 ui <- function(id) {
