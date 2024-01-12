@@ -72,8 +72,7 @@ test_that("box_trailing_commas_linter blocks no trailing commas in package impor
   lintr::expect_lint(bad_package_commas_inline, list(message = paren_lint_msg), linter)
 })
 
-test_that("box_trailing_commas_linter check_functions = TRUE blocks no trailing commas
-          in package function imports", {
+test_that("box_trailing_commas_linter check_functions = TRUE blocks no trailing commas", {
   linter <- box_trailing_commas_linter(check_functions = TRUE)
 
   lintr::expect_lint(bad_package_function_commas, list(message = bracket_lint_msg), linter)
@@ -87,8 +86,7 @@ test_that("box_trailing_comma_linter blocks no trailing commas in module imports
   lintr::expect_lint(bad_module_commas_inline, list(message = paren_lint_msg), linter)
 })
 
-test_that("box_trailing_commas_linter check_functions = TRUE blocks no trailing commas
-          in module function imports", {
+test_that("box_trailing_commas_linter check_functions = TRUE blocks no trailing commas", {
   linter <- box_trailing_commas_linter(check_functions = TRUE)
 
   lintr::expect_lint(bad_module_function_commas, list(message = bracket_lint_msg), linter)
