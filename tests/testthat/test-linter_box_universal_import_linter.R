@@ -1,6 +1,8 @@
 good_package_imports <- "box::use(
     dplyr[select, mutate, ],
+    shiny[...],
     stringr[str_sub, str_match, ],
+    testthat[...],
   )
 "
 
@@ -28,7 +30,7 @@ function_with_three_dots <- "some_function <- function(...) {
 "
 
 no_lint <- "box::use(
-    shiny[...],         # nolint
+    dplyr[...],         # nolint
   )
 "
 
@@ -68,4 +70,27 @@ test_that("box_universal_count_linter respects #nolint", {
   linter <- box_universal_import_linter()
 
   lintr::expect_lint(no_lint, NULL, linter)
+})
+
+test_that("box_universal_count_linter excludes can be modified", {
+  linter <- box_universal_import_linter(exclude = c("dplyr"))
+
+  lintr::expect_lint(bad_package_imports, NULL, linter)
+  lintr::expect_lint(good_package_imports,
+                     list(
+                       list(message = lint_msg),
+                       list(message = lint_msg)
+                     ),
+                     linter)
+})
+
+test_that("box_universal_count_linter excludes can be NULL", {
+  linter <- box_universal_import_linter(exclude = NULL)
+
+  lintr::expect_lint(good_package_imports,
+                     list(
+                       list(message = lint_msg),
+                       list(message = lint_msg)
+                     ),
+                     linter)
 })
