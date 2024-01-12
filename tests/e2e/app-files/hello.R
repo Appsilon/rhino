@@ -1,5 +1,5 @@
 box::use(
-  shiny[
+  shiny[           # nolint
     actionButton,
     bootstrapPage,
     isolate,
@@ -11,7 +11,7 @@ box::use(
     tags,
     textInput,
     textOutput
-  ],   # nolint
+  ],
 )
 
 box::use(app/logic/say_hello[say_hello])
