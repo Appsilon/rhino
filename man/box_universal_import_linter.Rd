@@ -4,7 +4,10 @@
 \alias{box_universal_import_linter}
 \title{Box library universal import linter}
 \usage{
-box_universal_import_linter()
+box_universal_import_linter(exclude = c("shiny", "testthat"))
+}
+\arguments{
+\item{exclude}{Character vector of package names to exclude. Defaults are \code{shiny} and \code{testthat}.}
 }
 \description{
 Checks that all function imports are explicit. \code{package[...]} is not used.
@@ -21,7 +24,7 @@ lintr::lint(
   linters = box_universal_import_linter()
 )
 
-# okay 
+# okay
 lintr::lint(
   text = "box::use(base[print])",
   linters = box_universal_import_linter()

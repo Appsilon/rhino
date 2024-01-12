@@ -2,7 +2,7 @@
 #'
 #' Checks that all function imports are explicit. `package[...]` is not used.
 #'
-#' @param exclude Exclude package names. Defaults are `shiny` and `testthat`.
+#' @param exclude Character vector of package names to exclude. Defaults are `shiny` and `testthat`.
 #'
 #' @examples
 #' # will produce lints
