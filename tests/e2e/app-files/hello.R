@@ -1,17 +1,17 @@
 box::use(
   shiny[
+    actionButton,
     bootstrapPage,
+    isolate,
+    moduleServer,
     NS,
+    observe,
+    observeEvent,
+    renderText,
     tags,
     textInput,
-    actionButton,
-    observeEvent,
-    textOutput,
-    moduleServer,
-    observe,
-    renderText,
-    isolate
-  ]
+    textOutput
+  ],
 )
 
 box::use(app / logic / say_hello[say_hello])
