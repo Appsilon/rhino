@@ -1,8 +1,8 @@
 #' Box library function import count linter
 #'
-#' Checks that function imports do not exceed the defined `max`. Defaults to 5.
+#' Checks that function imports do not exceed the defined `max`.
 #'
-#' @param max Maximum function imports allowed between `[` and `]`. Defaults to 5.
+#' @param max Maximum function imports allowed between `[` and `]`. Defaults to 8.
 #'
 #' @examples
 #' # will produce lints
@@ -28,7 +28,7 @@
 #' )
 #'
 #' @export
-box_func_import_count_linter <- function(max = 5L) {
+box_func_import_count_linter <- function(max = 8L) {
   xpath <- glue::glue("//SYMBOL_PACKAGE[
                       (text() = 'box' and
                       following-sibling::SYMBOL_FUNCTION_CALL[text() = 'use'])

@@ -4,13 +4,13 @@
 \alias{box_func_import_count_linter}
 \title{Box library function import count linter}
 \usage{
-box_func_import_count_linter(max = 5L)
+box_func_import_count_linter(max = 8L)
 }
 \arguments{
-\item{max}{Maximum function imports allowed between \code{[} and \verb{]}. Defaults to 5.}
+\item{max}{Maximum function imports allowed between \code{[} and \verb{]}. Defaults to 8.}
 }
 \description{
-Checks that function imports do not exceed the defined \code{max}. Defaults to 5.
+Checks that function imports do not exceed the defined \code{max}.
 }
 \examples{
 # will produce lints
