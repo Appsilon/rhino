@@ -1,6 +1,6 @@
 Package: rhino
 Title: A Framework for Enterprise Shiny Applications
-Version: 1.7.0.9000
+Version: 1.7.0.9004
 Authors@R:
   c(
     person("Kamil", "Żyła", role = c("aut", "cre"), email = "opensource+kamil@appsilon.com"),
@@ -44,9 +44,11 @@ Suggests:
   knitr,
   mockery,
   rcmdcheck,
+  rex,
   rmarkdown,
   shiny.react,
-  spelling
+  spelling,
+  xml2
 LazyData: true
 Config/testthat/edition: 3
 Config/testthat/parallel: true

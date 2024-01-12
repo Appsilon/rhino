@@ -1,5 +1,6 @@
 linters:
   linters_with_defaults(
     line_length_linter = line_length_linter(100),
+    box_separate_calls_linter = rhino::box_separate_calls_linter(),
     object_usage_linter = NULL  # Does not work with `box::use()`.
   )
