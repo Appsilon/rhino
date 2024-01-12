@@ -83,7 +83,7 @@ test_that("box_func_import_count_linter resepect # nolint", {
   max <- 3
   linter <- box_func_import_count_linter(max = max)
   lint_msg <- lint_message(max)
-  
+
   lintr::expect_lint(no_lint, NULL, linter)
   lintr::expect_lint(no_lint_inline, NULL, linter)
 })
