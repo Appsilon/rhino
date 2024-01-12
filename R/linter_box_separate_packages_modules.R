@@ -1,7 +1,7 @@
 #' Box library separate packages and module imports linter
-#' 
+#'
 #' Checks that packages and modules are imported in separate `box::use()` statements.
-#' 
+#'
 #' @examples
 #' # will produce lints
 #' lintr::lint(
@@ -13,7 +13,7 @@
 #'   text = "box::use(path/to/file, package)",
 #'   linters = box_separate_calls_linter()
 #' )
-#' 
+#'
 #' # okay
 #' lintr::lint(
 #'   text = "box::use(package1, package2)
@@ -32,7 +32,7 @@ box_separate_calls_linter <- function() {
 ]
 "
   lint_message <- "Separate packages and modules in their respective box::use() calls."
-  
+
   lintr::Linter(function(source_expression) {
     if (!lintr::is_lint_level(source_expression, "file")) {
       return(list())
