@@ -4,10 +4,14 @@
 \alias{box_trailing_commas_linter}
 \title{Box library trailing commas linter}
 \usage{
-box_trailing_commas_linter()
+box_trailing_commas_linter(check_functions = FALSE)
+}
+\arguments{
+\item{check_functions}{Boolean flag to include function imports between \code{[} and \verb{]}.
+Defaults to FALSE.}
 }
 \description{
 Checks that all \code{box:use} imports have a trailing comma. This applies to
-package or module imports between \code{(} and \verb{)}, and function imports between
+package or module imports between \code{(} and \verb{)}, and, optionally, function imports between
 \code{[} and \verb{]}. Take note that \code{lintr::commas_linter()} may come into play.
 }
