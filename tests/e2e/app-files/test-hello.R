@@ -3,7 +3,7 @@ box::use(
   testthat[...],
 )
 box::use(
-  app/view/hello[...],
+  app/view/hello[server, ui],
 )
 
 describe("hello$server()", {
