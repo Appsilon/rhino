@@ -25,12 +25,13 @@ jobs:
         - {os: ubuntu-22.04, r: 'oldrel'}
 
     steps:
-      - name: Checkout E2E Directory
-        # Only checkout the necessary files; the DESCRIPTION file breaks test_r() due to Issue #461
-        uses: Bhacaz/checkout-files@v2
+      - name: Checkout E2E directory
+        uses: actions/checkout@v4
         with:
-          files: tests/e2e
-          branch: ${{ github.head_ref || github.ref_name }}
+          # Only checkout the necessary files; the DESCRIPTION file breaks test_r():
+          # https://github.com/Appsilon/rhino/issues/461
+          sparse-checkout: /tests/e2e/
+          sparse-checkout-cone-mode: false
 
       - name: Install R
         uses: r-lib/actions/setup-r@v2
