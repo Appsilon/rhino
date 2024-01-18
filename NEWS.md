@@ -10,6 +10,8 @@
     * `lint_sass()` now uses `stylelint` 14.16 (the last major version supporting stylistic rules)
     * Upgrade all remaining Node.js dependencies to latest versions and fix vulnerabilities.
     * The minimum supported Node.js version is now 16.
+4. Introduce `RHINO_NPM` environment variable
+to allow using `npm` alternatives like `bun` and `pnpm`.
 
 # [rhino 1.5.0](https://github.com/Appsilon/rhino/releases/tag/v1.5.0)
 
