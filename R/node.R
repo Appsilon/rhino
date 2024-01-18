@@ -2,33 +2,36 @@ node_path <- function(...) {
   fs::path(".rhino", ...)
 }
 
-add_node <- function(clean = FALSE) {
-  if (clean && fs::dir_exists(node_path())) {
-    fs::dir_delete(node_path())
-  }
-  copy_template("node", node_path())
-}
-
-# Run `npm` command (assume node directory already exists in the project).
-npm_raw <- function(..., status_ok = 0) {
-  withr::with_dir(node_path(), {
-    status <- system2(command = "npm", args = c(...))
-  })
-  if (status != status_ok) {
-    cli::cli_abort("System command 'npm' exited with status {status}.")
-  }
-}
-
-# Run `npm` command (create node directory in the project if needed).
+# Run `npm` or an alternative command specified by `RHINO_NPM`.
+# If needed, copy over Node.js template and install dependencies.
 npm <- function(...) {
+  npm_command <- Sys.getenv("RHINO_NPM", "npm")
   check_system_dependency(
-    cmd = "node",
-    dependency_name = "Node.js",
+    cmd = npm_command,
+    dependency_name = ifelse(npm_command == "npm", "Node.js", npm_command),
     documentation_url = "https://go.appsilon.com/rhino-system-dependencies"
   )
+  node_init(npm_command)
+  node_run(npm_command, ...)
+}
+
+node_init <- function(npm_command) {
   if (!fs::dir_exists(node_path())) {
-    add_node()
-    npm_raw("install", "--no-audit", "--no-fund")
+    cli::cli_alert_info("Initializing Node.js directory...")
+    copy_template("node", node_path())
   }
-  npm_raw(...)
+  if (!fs::dir_exists(node_path("node_modules"))) {
+    cli::cli_alert_info("Installing Node.js packages with {npm_command}...")
+    node_run(npm_command, "install", "--no-audit", "--no-fund")
+  }
+}
+
+# Run the specified command in Node.js directory (assume it already exists).
+node_run <- function(command, ..., status_ok = 0) {
+  withr::with_dir(node_path(), {
+    status <- system2(command = command, args = c(...))
+  })
+  if (status != status_ok) {
+    cli::cli_abort("System command '{command}' exited with status {status}.")
+  }
 }

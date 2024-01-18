@@ -65,6 +65,13 @@ jobs:
           cd RhinoApp
           Rscript ../test-dependencies.R
 
+      - name: Node.js commands should respect RHINO_NPM
+        # Skip this test on Windows because it requires a Unix shell.
+        if: runner.os != 'Windows'
+        run: |
+          cd RhinoApp
+          Rscript ../test-custom-npm.R
+
       - name: lint_r() should detect lint errors in R scripts
         if: always()
         run: |
