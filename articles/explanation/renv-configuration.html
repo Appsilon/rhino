@@ -44,7 +44,7 @@
     
     <a class="navbar-brand me-2" href="../../index.html">rhino</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.5.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.6.0</small>
 
     <a href="https://rhinoverse.dev" class="external-link home"><i class="fa fa-lg fa-chevron-left"></i></a>
 
@@ -89,6 +89,7 @@
     <a class="dropdown-item" href="../../articles/how-to/add-routing.html">Add routing</a>
     <a class="dropdown-item" href="../../articles/how-to/set-application-run-parameters.html">Set application run parameters</a>
     <a class="dropdown-item" href="../../articles/how-to/use-addins.html">Use Rhino Addin(s)</a>
+    <a class="dropdown-item" href="../../articles/how-to/communicate-between-modules.html">Communicate between modules</a>
     <div class="dropdown-divider"></div>
     <h6 class="dropdown-header" data-toc-skip>UI</h6>
     <a class="dropdown-item" href="../../articles/how-to/use-shiny-fluent.html">Use shiny.fluent</a>
@@ -99,6 +100,9 @@
     <div class="dropdown-divider"></div>
     <h6 class="dropdown-header" data-toc-skip>Deployment</h6>
     <a class="dropdown-item" href="../../articles/how-to/publish-on-huggingface.html">Publish on Hugging Face</a>
+    <div class="dropdown-divider"></div>
+    <h6 class="dropdown-header" data-toc-skip>Migration guides</h6>
+    <a class="dropdown-item" href="../../articles/how-to/migrate-1-6.html">Migration to Rhino 1.6</a>
   </div>
 </li>
 <li class="nav-item">
@@ -200,7 +204,7 @@
 <li>Call <code><a href="https://rstudio.github.io/renv/reference/snapshot.html" class="external-link">renv::snapshot()</a></code>.</li>
 <li>Call <code>renv::restore(clean = TRUE)</code>.</li>
 </ol>
-<p>It is not recommended to use the <code><a href="https://rstudio.github.io/renv/reference/remove.html" class="external-link">renv::remove()</a></code> function, as it will remove a package from the local library even if it is still required by other packages. For example, <code>renv::remove("glue")</code> followed by <code><a href="https://rstudio.github.io/renv/reference/snapshot.html" class="external-link">renv::snapshot()</a></code> will leave you without the <a href="https://github.com/tidyverse/glue" class="external-link">glue</a> package in your lockfile, even though it is required by <a href="https://shiny.posit.co/" class="external-link">shiny</a>.</p>
+<p>It is not recommended to use the <code><a href="https://rstudio.github.io/renv/reference/remove.html" class="external-link">renv::remove()</a></code> function, as it will remove a package from the local library even if it is still required by other packages. For example, <code>renv::remove("glue")</code> followed by <code><a href="https://rstudio.github.io/renv/reference/snapshot.html" class="external-link">renv::snapshot()</a></code> will leave you without the <a href="https://glue.tidyverse.org/" class="external-link">glue</a> package in your lockfile, even though it is required by <a href="https://shiny.posit.co/" class="external-link">shiny</a>.</p>
 </div>
 </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>

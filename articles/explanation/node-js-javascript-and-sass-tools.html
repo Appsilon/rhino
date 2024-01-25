@@ -44,7 +44,7 @@
     
     <a class="navbar-brand me-2" href="../../index.html">rhino</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.5.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.6.0</small>
 
     <a href="https://rhinoverse.dev" class="external-link home"><i class="fa fa-lg fa-chevron-left"></i></a>
 
@@ -89,6 +89,7 @@
     <a class="dropdown-item" href="../../articles/how-to/add-routing.html">Add routing</a>
     <a class="dropdown-item" href="../../articles/how-to/set-application-run-parameters.html">Set application run parameters</a>
     <a class="dropdown-item" href="../../articles/how-to/use-addins.html">Use Rhino Addin(s)</a>
+    <a class="dropdown-item" href="../../articles/how-to/communicate-between-modules.html">Communicate between modules</a>
     <div class="dropdown-divider"></div>
     <h6 class="dropdown-header" data-toc-skip>UI</h6>
     <a class="dropdown-item" href="../../articles/how-to/use-shiny-fluent.html">Use shiny.fluent</a>
@@ -99,6 +100,9 @@
     <div class="dropdown-divider"></div>
     <h6 class="dropdown-header" data-toc-skip>Deployment</h6>
     <a class="dropdown-item" href="../../articles/how-to/publish-on-huggingface.html">Publish on Hugging Face</a>
+    <div class="dropdown-divider"></div>
+    <h6 class="dropdown-header" data-toc-skip>Migration guides</h6>
+    <a class="dropdown-item" href="../../articles/how-to/migrate-1-6.html">Migration to Rhino 1.6</a>
   </div>
 </li>
 <li class="nav-item">
@@ -157,7 +161,8 @@
 <div class="section level2">
 <h2 id="about">About<a class="anchor" aria-label="anchor" href="#about"></a>
 </h2>
-<p><a href="https://nodejs.org/en/about/" class="external-link">Node.js</a> is a runtime environment which can execute JavaScript code outside a web browser. It is used widely for web development. Its package manager, <a href="https://docs.npmjs.com/about-npm" class="external-link">npm</a>, makes it easy to install virtually any JavaScript library.</p>
+<p><a href="https://nodejs.org/en/about/" class="external-link">Node.js</a> is a runtime environment which can execute JavaScript code outside a web browser. It is used widely for web development. Its package manager, <a href="https://docs.npmjs.com/about-npm" class="external-link">npm</a>, makes it easy to install virtually any JavaScript library. You can use other package managers such as <a href="https://bun.sh" class="external-link">bun</a> and <a href="https://pnpm.io/" class="external-link">pnpm</a> that are compatible with <code>npm</code>.</p>
+<p>To switch from the default npm usage, set a global environment variable named <code>RHINO_NPM</code>. For instance, if you want to use <code>bun</code> instead of <code>npm</code>, add <code>export RHINO_NPM=bun</code> to your shell startup file (e.g. <code>.bashrc</code>).</p>
 <p>Rhino uses Node.js to provide state of the art tools for working with JavaScript and Sass. The following functions require Node.js to work:</p>
 <ol style="list-style-type: decimal">
 <li><code><a href="../../reference/build_js.html">build_js()</a></code></li>
@@ -170,7 +175,7 @@
 <div class="section level3">
 <h3 id="node-directory">Node directory<a class="anchor" aria-label="anchor" href="#node-directory"></a>
 </h3>
-<p>Under the hood Rhino will create a <code>.rhino/node</code> directory in your project to store the specific libraries needed by these tools. This directory is git-ignored by default and safe to remove.</p>
+<p>Under the hood Rhino will create a <code>.rhino</code> directory in your project to store the specific libraries needed by these tools. This directory is git-ignored by default and safe to remove.</p>
 </div>
 <div class="section level3">
 <h3 id="node-installation-via-nvm">Node installation via nvm<a class="anchor" aria-label="anchor" href="#node-installation-via-nvm"></a>
