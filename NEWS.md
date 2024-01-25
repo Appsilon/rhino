@@ -1,4 +1,6 @@
-# rhino 1.6.0
+# rhino (development version)
+
+# [rhino 1.6.0](https://github.com/Appsilon/rhino/releases/tag/v1.6.0)
 
 1. `pkg_install` supports installation from local sources, GitHub, and Bioconductor.
 2. Improve Rhino CI (use latest versions and make better use of actions).
