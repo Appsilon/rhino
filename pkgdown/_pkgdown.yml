@@ -146,6 +146,7 @@ reference:
 - title: Linters
   contents:
   - box_separate_calls_linter
+  - box_universal_import_linter
 
 - title: Data
   contents:

@@ -13,7 +13,13 @@ vignette: >
 can execute JavaScript code outside a web browser. It is used widely for
 web development. Its package manager,
 [npm](https://docs.npmjs.com/about-npm), makes it easy to install
-virtually any JavaScript library.
+virtually any JavaScript library. You can use other package managers such as
+[bun](https://bun.sh) and [pnpm](https://pnpm.io/) that are compatible with
+`npm`.
+
+To switch from the default npm usage, set a global environment variable named
+`RHINO_NPM`. For instance, if you want to use `bun` instead of `npm`,
+add `export RHINO_NPM=bun` to your shell startup file (e.g. `.bashrc`).
 
 Rhino uses Node.js to provide state of the art tools for working with
 JavaScript and Sass. The following functions require Node.js to work:
@@ -26,7 +32,7 @@ JavaScript and Sass. The following functions require Node.js to work:
 
 ### Node directory
 
-Under the hood Rhino will create a `.rhino/node` directory in your
+Under the hood Rhino will create a `.rhino` directory in your
 project to store the specific libraries needed by these tools. This
 directory is git-ignored by default and safe to remove.
 

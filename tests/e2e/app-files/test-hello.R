@@ -1,9 +1,9 @@
 box::use(
   shiny[testServer],
-  testthat[...],
+  testthat[describe, expect_identical, it],
 )
 box::use(
-  app/view/hello[...],
+  app/view/hello[server],
 )
 
 describe("hello$server()", {
