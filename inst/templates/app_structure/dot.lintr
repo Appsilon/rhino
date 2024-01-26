@@ -3,6 +3,5 @@ linters:
     line_length_linter = line_length_linter(100),
     box_separate_calls_linter = rhino::box_separate_calls_linter(),
     box_universal_import_linter = rhino::box_universal_import_linter(),
->>>>>>> dev_next
     object_usage_linter = NULL  # Does not work with `box::use()`.
   )
