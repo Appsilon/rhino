@@ -9,11 +9,14 @@ box_func_import_count_linter(max = 8L)
 \arguments{
 \item{max}{Maximum function imports allowed between \code{[} and \verb{]}. Defaults to 8.}
 }
+\value{
+A custom linter function for use with \code{r-lib/lintr}.
+}
 \description{
 Checks that function imports do not exceed the defined \code{max}.
 }
 \examples{
-# will produce lints
+will produce lints
 lintr::lint(
   text = "box::use(package[one, two, three, four, five, six, ])",
   linters = box_func_import_count_linter()

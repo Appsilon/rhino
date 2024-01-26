@@ -4,8 +4,10 @@
 #'
 #' @param max Maximum function imports allowed between `[` and `]`. Defaults to 8.
 #'
+#' @return A custom linter function for use with `r-lib/lintr`.
+#'
 #' @examples
-#' # will produce lints
+#' will produce lints
 #' lintr::lint(
 #'   text = "box::use(package[one, two, three, four, five, six, ])",
 #'   linters = box_func_import_count_linter()
