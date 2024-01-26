@@ -2,6 +2,8 @@
 #'
 #' Checks that packages and modules are imported in separate `box::use()` statements.
 #'
+#' @return A custom linter function for use with `r-lib/lintr`
+#'
 #' @examples
 #' # will produce lints
 #' lintr::lint(
