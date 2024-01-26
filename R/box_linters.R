@@ -7,6 +7,8 @@
 #' @param check_functions Boolean flag to include function imports between `[` and `]`.
 #' Defaults to FALSE.
 #'
+#' @return A custom linter function for use with `r-lib/lintr`
+#'
 #' @examples
 #' # will produce lints
 #' lintr::lint(
