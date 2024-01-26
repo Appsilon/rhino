@@ -1,6 +1,6 @@
-box::use(testthat[...])
+box::use(testthat[describe, expect_identical, it], )
 
-box::use(app/logic/say_hello[say_hello])
+box::use(app/logic/say_hello[say_hello], )
 
 describe("say_hello()", {
   it("should say hello with the correct name", {
