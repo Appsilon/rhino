@@ -1,4 +1,4 @@
-box::use(testthat[...], )
+box::use(testthat[describe, expect_identical, it], )
 
 box::use(app/logic/say_hello[say_hello], )
 

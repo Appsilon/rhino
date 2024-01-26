@@ -1,8 +1,3 @@
-
-
-
-
-
 #' Box library trailing commas linter
 #'
 #' Checks that all `box:use` imports have a trailing comma. This applies to
