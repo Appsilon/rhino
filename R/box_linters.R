@@ -2,6 +2,8 @@
 #'
 #' Checks that all function imports are explicit. `package[...]` is not used.
 #'
+#' @return A custom linter function for use with `r-lib/lintr`
+#'
 #' @examples
 #' # will produce lints
 #' lintr::lint(
