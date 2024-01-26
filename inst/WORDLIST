@@ -1,3 +1,5 @@
+Addin
+Addins
 Appsilon
 Boxifying
 ESLint
@@ -13,9 +15,11 @@ Renv
 Renviron
 Rhinoverse
 Rprofile
+Rstudio
 SDK
 Stylelint
 UI
+Webpack
 blogpost
 conf
 config
@@ -41,6 +45,7 @@ nodejs
 npm
 nvm
 overridable
+pnpm
 preconfigured
 renv
 roxygen
@@ -54,5 +59,3 @@ unintuitive
 usethis
 webpack
 yml
-Addin
-Addins
