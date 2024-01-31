@@ -72,8 +72,7 @@ And continue with the usage of the table module within its parent module.
 # Parent Module
 box::use(
   shiny[
-    div, moduleServer, NS, observeEvent, reactiveVal, req,
-    selectInput
+    div, moduleServer, NS, reactive, req, selectInput
   ],
 )
 
@@ -98,16 +97,13 @@ ui <- function(id) {
 #' @export
 server <- function(id) {
   moduleServer(id, function(input, output, session) {
-    # Define a reactive variable to pass down the table module
-    processed_data <- reactiveVal()
     input_data <- utils$read_data_from_database()
 
-    observeEvent(input$filters, {
-      utils$processed_data(
-        process_data(input_data, input$filters)
-      )
+    # Define a reactive to pass down the table module
+    processed_data <- reactive({
+      process_data(input_data, input$filters)
     })
-    
+
     # Initialize the table module server function
     table_module$server(id = "table_module", table_data = processed_data)
   })
