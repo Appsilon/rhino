@@ -15,7 +15,7 @@ As the application grows in size and becomes more intricate, it's common to find
 This results in the necessity to share information, particularly the application's state, among these diverse Shiny modules.
 
 While there are many ways to approach this problem here we are going to present two examples.
-In the first example we are going to pass information (reactive variables) from a parent module to a child module and
+In the first example we are going to pass information (reactive objects) from a parent module to a child module and
 in the second example we are going to pass information between two sibling modules.
 
 ## Examples
@@ -111,7 +111,7 @@ server <- function(id) {
 ```
 <font size="2">
 `r shiny::icon("warning", class = "text-warning")` Both `read_data_from_database` and `process_data` imported from the
-`utils.R ` module are mocked functions that we are using for the purpose of aiding the example. These funcions are not
+`utils.R ` module are mocked functions that we are using for the purpose of aiding the example. These functions are not
 defined in this example code.
 </font>
 
@@ -165,7 +165,7 @@ server <- function(id) {
 ```
 <font size="2">
 `r shiny::icon("warning", class = "text-warning")` Both `read_data_from_database` and `process_data` imported from the
-`utils.R ` module are mocked functions that we are using for the purpose of aiding the example. These funcions are not
+`utils.R ` module are mocked functions that we are using for the purpose of aiding the example. These functions are not
 defined in this example code.
 </font>
 
