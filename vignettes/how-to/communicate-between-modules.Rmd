@@ -159,7 +159,7 @@ server <- function(id) {
 
     reactive({
       utils$process_data(example_data, input$parameter)
-  	})
+    })
   })
 }
 ```
