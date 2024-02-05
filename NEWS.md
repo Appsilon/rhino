@@ -1,5 +1,8 @@
 # rhino (development version)
 
+1. Introduce linters for `box::use` statements:
+    * `box_universal_import_linter` checks if all imports are explicit.
+
 # [rhino 1.6.0](https://github.com/Appsilon/rhino/releases/tag/v1.6.0)
 
 1. `pkg_install` supports installation from local sources, GitHub, and Bioconductor.
