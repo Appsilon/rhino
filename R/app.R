@@ -53,16 +53,10 @@ app <- function() {
     return(shiny::shinyAppDir("app"))
   }
 
-  if (identical(entrypoint, "source")) {
-    main <- load_main_source()
-  } else {
-    main <- load_main_box()
-  }
-  main <- normalize_main(main, is_module = is.null(entrypoint))
-  shiny::shinyApp(
-    ui = with_head_tags(main$ui),
-    server = reparse(main$server)
-  )
+  make_app(load_main(
+    use_source = identical(entrypoint, "source"),
+    expect_shiny_module = is.null(entrypoint)
+  ))
 }
 
 configure_box <- function() {
@@ -104,6 +98,15 @@ configure_logger <- function() {
       "Skipping log file configuration, 'rhino_log_file' field not found in config."
     )
   }
+}
+
+load_main <- function(use_source, expect_shiny_module) {
+  if (use_source) {
+    main <- load_main_source()
+  } else {
+    main <- load_main_box()
+  }
+  normalize_main(main, expect_shiny_module)
 }
 
 load_main_source <- function() {
@@ -156,6 +159,13 @@ normalize_server <- function(server, is_module = FALSE) {
       server(input = input, output = output)
     }
   }
+}
+
+make_app <- function(main) {
+  shiny::shinyApp(
+    ui = with_head_tags(main$ui),
+    server = reparse(main$server)
+  )
 }
 
 with_head_tags <- function(ui) {
