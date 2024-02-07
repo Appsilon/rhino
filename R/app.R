@@ -43,11 +43,12 @@
 #' }
 #' @export
 app <- function() {
-  setup_box_path()
-  configure_logger()
-  shiny::addResourcePath("static", fs::path_wd("app", "static"))
-
   entrypoint <- read_config()$legacy_entrypoint
+
+  configure_box()
+  configure_static()
+  configure_logger()
+
   if (identical(entrypoint, "app_dir")) {
     return(shiny::shinyAppDir("app"))
   }
@@ -66,12 +67,16 @@ app <- function() {
   )
 }
 
-setup_box_path <- function() {
+configure_box <- function() {
   # Normally `box.path` is set in `.Rprofile` and used for the whole R session,
   # however `shinytest2` launches the application in a new process which doesn't source `.Rprofile`.
   if (is.null(getOption("box.path"))) {
     options(box.path = getwd())
   }
+}
+
+configure_static <- function() {
+  shiny::addResourcePath("static", fs::path_wd("app", "static"))
 }
 
 configure_logger <- function() {
