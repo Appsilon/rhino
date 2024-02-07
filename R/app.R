@@ -61,7 +61,7 @@ app <- function() {
   main <- normalize_main(main, is_module = is.null(entrypoint))
   shiny::shinyApp(
     ui = with_head_tags(main$ui),
-    server = main$server
+    server = reparse(main$server)
   )
 }
 
@@ -141,6 +141,8 @@ normalize_ui <- function(ui, is_module = FALSE) {
 }
 
 normalize_server <- function(server, is_module = FALSE) {
+  # It is essential that the body of the server function is wrapped in curly braces.
+  # See the `reparse()` function for details.
   if (is_module) {
     function(input, output, session) {
       server("app")
@@ -156,18 +158,6 @@ normalize_server <- function(server, is_module = FALSE) {
   }
 }
 
-as_top_level <- function(shiny_module) {
-  # Necessary to avoid infinite recursion / bugs due to lazy evaluation:
-  # https://adv-r.hadley.nz/function-factories.html?q=force#forcing-evaluation
-  force(shiny_module)
-
-  # The actual function must be sourced with `keep.source = TRUE` for reloading to work:
-  # https://github.com/Appsilon/rhino/issues/157
-  wrap <- source(fs::path_package("rhino", "as_top_level.R"), keep.source = TRUE)$value
-
-  wrap(shiny_module)
-}
-
 with_head_tags <- function(ui) {
   head <- shiny::tags$head(
     react_support(), # Needs to go before `app.min.js`, which defines the React components.
@@ -178,4 +168,21 @@ with_head_tags <- function(ui) {
   function(request) {
     shiny::tagList(head, ui(request))
   }
+}
+
+# A workaround for issues with server reloading:
+# https://github.com/Appsilon/rhino/issues/157
+#
+# For Shiny to reload the app correctly, the body of the server function must meet two criteria:
+# 1. It must be wrapped in curly braces.
+# 2. It must have source reference information attached, i.e. `srcref` attributes.
+#
+# (1) is ensured by `normalize_server()`.
+# (2) is ensured by `reparse()`.
+reparse <- function(f) {
+  # Deparse the function and parse it again with `keep.source = TRUE`.
+  eval(
+    expr = parse(text = deparse(f), keep.source = TRUE),
+    envir = environment(f)
+  )
 }
