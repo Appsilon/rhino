@@ -145,6 +145,7 @@ reference:
 
 - title: Linters
   contents:
+  - box_trailing_commas_linter
   - box_universal_import_linter
 
 - title: Data

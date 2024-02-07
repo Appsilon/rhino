@@ -2,7 +2,7 @@
 % Please edit documentation in R/box_linters.R
 \name{box_universal_import_linter}
 \alias{box_universal_import_linter}
-\title{Box library universal import linter}
+\title{\code{box} library universal import linter}
 \usage{
 box_universal_import_linter()
 }
