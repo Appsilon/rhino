@@ -1,4 +1,4 @@
-#' Box library trailing commas linter
+#' `box` library trailing commas linter
 #'
 #' Checks that all `box:use` imports have a trailing comma. This applies to
 #' package or module imports between `(` and `)`, and, optionally, function imports between
@@ -19,20 +19,20 @@
 #' lintr::lint(
 #'   text = "box::use(
 #'    dplyr[select, mutate]
-#'   ),
+#'   )",
 #'   linters = box_trailing_commas_linter()
 #' )
 #'
 #' # okay
-#' linter::lint(
-#'   text = "box::use(base, rlang, ),
+#' lintr::lint(
+#'   text = "box::use(base, rlang, )",
 #'   linters = box_trailing_commas_linter()
 #' )
 #'
-#' linter::lint(
+#' lintr::lint(
 #'   text = "box::use(
 #'     dplyr[select, mutate],
-#'   ),
+#'   )",
 #'   linters = box_trailing_commas_linter()
 #' )
 #'
@@ -101,7 +101,7 @@ box_trailing_commas_linter <- function(check_functions = FALSE) {
   })
 }
 
-#' Box library universal import linter
+#' `box` library universal import linter
 #'
 #' Checks that all function imports are explicit. `package[...]` is not used.
 #'

@@ -2,7 +2,7 @@
 % Please edit documentation in R/box_linters.R
 \name{box_trailing_commas_linter}
 \alias{box_trailing_commas_linter}
-\title{Box library trailing commas linter}
+\title{\code{box} library trailing commas linter}
 \usage{
 box_trailing_commas_linter(check_functions = FALSE)
 }
@@ -17,4 +17,32 @@ A custom linter function for use with \code{r-lib/lintr}
 Checks that all \code{box:use} imports have a trailing comma. This applies to
 package or module imports between \code{(} and \verb{)}, and, optionally, function imports between
 \code{[} and \verb{]}. Take note that \code{lintr::commas_linter()} may come into play.
+}
+\examples{
+# will produce lints
+lintr::lint(
+  text = "box::use(base, rlang)",
+  linters = box_trailing_commas_linter()
+)
+
+lintr::lint(
+  text = "box::use(
+   dplyr[select, mutate]
+  )",
+  linters = box_trailing_commas_linter()
+)
+
+# okay
+lintr::lint(
+  text = "box::use(base, rlang, )",
+  linters = box_trailing_commas_linter()
+)
+
+lintr::lint(
+  text = "box::use(
+    dplyr[select, mutate],
+  )",
+  linters = box_trailing_commas_linter()
+)
+
 }
