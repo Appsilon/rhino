@@ -44,7 +44,6 @@
 #' @export
 app <- function() {
   setup_box_path()
-  box::purge_cache()
   configure_logger()
   shiny::addResourcePath("static", fs::path_wd("app", "static"))
 
@@ -54,10 +53,9 @@ app <- function() {
   }
 
   if (identical(entrypoint, "source")) {
-    main <- new.env()
-    source(fs::path("app", "main.R"), local = main)
+    main <- load_main_source()
   } else {
-    main <- load_main_module()
+    main <- load_main_box()
     if (!identical(entrypoint, "box_top_level")) {
       main <- as_top_level(main)
     }
@@ -105,10 +103,17 @@ configure_logger <- function() {
   }
 }
 
-load_main_module <- function() {
+load_main_source <- function() {
+  main <- new.env(parent = globalenv())
+  source(fs::path("app", "main.R"), local = main)
+  main
+}
+
+load_main_box <- function() {
   # Silence "no visible binding" notes raised by `box::use()` on R CMD check.
   app <- NULL
   main <- NULL
+  box::purge_cache()
   box::use(app/main)
   main
 }
