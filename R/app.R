@@ -169,20 +169,13 @@ as_top_level <- function(shiny_module) {
 }
 
 with_head_tags <- function(ui) {
-  wrap <- function(tag) {
-    shiny::tagList(
-      shiny::tags$head(
-        react_support(), # Needs to go before `app.min.js`, which defines the React components.
-        shiny::tags$script(src = "static/js/app.min.js"),
-        shiny::tags$link(rel = "stylesheet", href = "static/css/app.min.css", type = "text/css"),
-        shiny::tags$link(rel = "icon", href = "static/favicon.ico", sizes = "any")
-      ),
-      tag
-    )
-  }
-  if (is.function(ui)) {
-    purrr::compose(wrap, ui)
-  } else {
-    wrap(ui)
+  head <- shiny::tags$head(
+    react_support(), # Needs to go before `app.min.js`, which defines the React components.
+    shiny::tags$script(src = "static/js/app.min.js"),
+    shiny::tags$link(rel = "stylesheet", href = "static/css/app.min.css", type = "text/css"),
+    shiny::tags$link(rel = "icon", href = "static/favicon.ico", sizes = "any")
+  )
+  function(request) {
+    shiny::tagList(head, ui(request))
   }
 }
