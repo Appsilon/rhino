@@ -57,10 +57,8 @@ app <- function() {
     main <- load_main_source()
   } else {
     main <- load_main_box()
-    if (!identical(entrypoint, "box_top_level")) {
-      main <- as_top_level(main)
-    }
   }
+  main <- normalize_main(main, is_module = is.null(entrypoint))
   shiny::shinyApp(
     ui = with_head_tags(main$ui),
     server = main$server
@@ -121,6 +119,41 @@ load_main_box <- function() {
   box::purge_cache()
   box::use(app/main)
   main
+}
+
+normalize_main <- function(main, is_module = FALSE) {
+  list(
+    ui = normalize_ui(main$ui, is_module),
+    server = normalize_server(main$server, is_module)
+  )
+}
+
+normalize_ui <- function(ui, is_module = FALSE) {
+  if (is_module) {
+    function(request) ui("app")
+  } else if (!is.function(ui)) {
+    function(request) ui
+  } else if (length(formals(ui)) == 0) {
+    function(request) ui()
+  } else {
+    function(request) ui(request)
+  }
+}
+
+normalize_server <- function(server, is_module = FALSE) {
+  if (is_module) {
+    function(input, output, session) {
+      server("app")
+    }
+  } else if ("session" %in% names(formals(server))) {
+    function(input, output, session) {
+      server(input = input, output = output, session = session)
+    }
+  } else {
+    function(input, output, session) {
+      server(input = input, output = output)
+    }
+  }
 }
 
 as_top_level <- function(shiny_module) {
