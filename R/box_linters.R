@@ -46,18 +46,18 @@ box_func_import_count_linter <- function(max = 8L) {
   ) > {max}
 ]
 /parent::expr")
-  
+
   lint_message <- glue::glue("Limit the function imports to a max of {max}.")
-  
+
   lintr::Linter(function(source_expression) {
     if (!lintr::is_lint_level(source_expression, "file")) {
       return(list())
     }
-    
+
     xml <- source_expression$full_xml_parsed_content
-    
+
     bad_expr <- xml2::xml_find_all(xml, xpath)
-    
+
     lintr::xml_nodes_to_lints(
       bad_expr,
       source_expression = source_expression,
@@ -115,7 +115,7 @@ box_trailing_commas_linter <- function(check_functions = FALSE) {
   ]
   /parent::expr
   "
-  
+
   right_paren_xpath <- paste(
     base_xpath,
     "/following-sibling::OP-RIGHT-PAREN[
@@ -123,7 +123,7 @@ box_trailing_commas_linter <- function(check_functions = FALSE) {
       ]
     "
   )
-  
+
   right_bracket_xpath <- paste(
     base_xpath,
     "/parent::expr
@@ -137,27 +137,27 @@ box_trailing_commas_linter <- function(check_functions = FALSE) {
       ]
     "
   )
-  
+
   lintr::Linter(function(source_expression) {
     if (!lintr::is_lint_level(source_expression, "file")) {
       return(list())
     }
-    
+
     xml <- source_expression$full_xml_parsed_content
-    
+
     bad_right_paren_expr <- xml2::xml_find_all(xml, right_paren_xpath)
-    
+
     paren_lints <- lintr::xml_nodes_to_lints(
       bad_right_paren_expr,
       source_expression = source_expression,
       lint_message = "Always have a trailing comma at the end of imports, before a `)`.",
       type = "style"
     )
-    
+
     bracket_lints <- NULL
     if (check_functions) {
       bad_right_bracket_expr <- xml2::xml_find_all(xml, right_bracket_xpath)
-      
+
       bracket_lints <- lintr::xml_nodes_to_lints(
         bad_right_bracket_expr,
         source_expression = source_expression,
@@ -165,7 +165,7 @@ box_trailing_commas_linter <- function(check_functions = FALSE) {
         type = "style"
       )
     }
-    
+
     c(paren_lints, bracket_lints)
   })
 }
@@ -202,23 +202,23 @@ box_trailing_commas_linter <- function(check_functions = FALSE) {
 #' @export
 box_universal_import_linter <- function() {
   lint_message <- "Explicitly declare imports rather than universally import with `...`."
-  
+
   xpath <- "
   //SYMBOL_PACKAGE[(text() = 'box' and following-sibling::SYMBOL_FUNCTION_CALL[text() = 'use'])]
     /parent::expr
     /parent::expr
     //SYMBOL[text() = '...']
   "
-  
+
   lintr::Linter(function(source_expression) {
     if (!lintr::is_lint_level(source_expression, "file")) {
       return(list())
     }
-    
+
     xml <- source_expression$full_xml_parsed_content
-    
+
     bad_expr <- xml2::xml_find_all(xml, xpath)
-    
+
     lintr::xml_nodes_to_lints(
       bad_expr,
       source_expression = source_expression,
