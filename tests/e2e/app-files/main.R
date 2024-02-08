@@ -3,7 +3,7 @@ box::use(
   shiny,
 )
 
-box::use(app/view/hello)
+box::use(app/view/hello, )
 
 Box <- react_component("Box") # nolint object_name_linter
 
