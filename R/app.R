@@ -1,79 +1,3 @@
-setup_box_path <- function() {
-  # Normally `box.path` is set in `.Rprofile` and used for the whole R session,
-  # however `shinytest2` launches the application in a new process which doesn't source `.Rprofile`.
-  if (is.null(getOption("box.path"))) {
-    options(box.path = getwd())
-  }
-}
-
-configure_logger <- function() {
-  config <- config::get()
-  log_level <- config$rhino_log_level
-  log_file <- config$rhino_log_file
-
-  if (!is.null(log_level)) {
-    logger::log_threshold(log_level)
-  } else {
-    cli::cli_alert_warning(
-      "Skipping log level configuration, 'rhino_log_level' field not found in config."
-    )
-  }
-
-  if (!is.null(log_file)) {
-    if (!is.na(log_file)) {
-      # Use an absolute path to avoid the effects of changing the working directory when the app
-      # runs.
-      if (!fs::is_absolute_path(log_file)) {
-        log_file <- fs::path_wd(log_file)
-      }
-      logger::log_appender(logger::appender_file(log_file))
-    }
-  } else {
-    cli::cli_alert_warning(
-      "Skipping log file configuration, 'rhino_log_file' field not found in config."
-    )
-  }
-}
-
-load_main_module <- function() {
-  # Silence "no visible binding" notes raised by `box::use()` on R CMD check.
-  app <- NULL
-  main <- NULL
-  box::use(app/main)
-  main
-}
-
-as_top_level <- function(shiny_module) {
-  # Necessary to avoid infinite recursion / bugs due to lazy evaluation:
-  # https://adv-r.hadley.nz/function-factories.html?q=force#forcing-evaluation
-  force(shiny_module)
-
-  # The actual function must be sourced with `keep.source = TRUE` for reloading to work:
-  # https://github.com/Appsilon/rhino/issues/157
-  wrap <- source(fs::path_package("rhino", "as_top_level.R"), keep.source = TRUE)$value
-
-  wrap(shiny_module)
-}
-
-with_head_tags <- function(ui) {
-  wrap <- function(tag) {
-    shiny::tagList(
-      shiny::tags$head(
-        react_support(), # Needs to go before `app.min.js`, which defines the React components.
-        shiny::tags$script(src = "static/js/app.min.js"),
-        shiny::tags$link(rel = "stylesheet", href = "static/css/app.min.css", type = "text/css"),
-        shiny::tags$link(rel = "icon", href = "static/favicon.ico", sizes = "any")
-      ),
-      tag
-    )
-  }
-  if (is.function(ui)) {
-    purrr::compose(wrap, ui)
-  } else {
-    wrap(ui)
-  }
-}
-
 #' Rhino application
 #'
 #' The entrypoint for a Rhino application.
@@ -119,27 +43,156 @@ with_head_tags <- function(ui) {
 #' }
 #' @export
 app <- function() {
-  setup_box_path()
-  box::purge_cache()
-  configure_logger()
-  shiny::addResourcePath("static", fs::path_wd("app", "static"))
-
   entrypoint <- read_config()$legacy_entrypoint
+
+  configure_box()
+  configure_static()
+  configure_logger()
+
   if (identical(entrypoint, "app_dir")) {
     return(shiny::shinyAppDir("app"))
   }
 
-  if (identical(entrypoint, "source")) {
-    main <- new.env()
-    source(fs::path("app", "main.R"), local = main)
+  make_app(load_main(
+    use_source = identical(entrypoint, "source"),
+    expect_shiny_module = is.null(entrypoint)
+  ))
+}
+
+configure_box <- function() {
+  # Normally `box.path` is set in `.Rprofile` and used for the whole R session,
+  # however `shinytest2` launches the application in a new process which doesn't source `.Rprofile`.
+  if (is.null(getOption("box.path"))) {
+    options(box.path = getwd())
+  }
+}
+
+configure_static <- function() {
+  shiny::addResourcePath("static", fs::path_wd("app", "static"))
+}
+
+configure_logger <- function() {
+  config <- config::get()
+  log_level <- config$rhino_log_level
+  log_file <- config$rhino_log_file
+
+  if (!is.null(log_level)) {
+    logger::log_threshold(log_level)
   } else {
-    main <- load_main_module()
-    if (!identical(entrypoint, "box_top_level")) {
-      main <- as_top_level(main)
+    cli::cli_alert_warning(
+      "Skipping log level configuration, 'rhino_log_level' field not found in config."
+    )
+  }
+
+  if (!is.null(log_file)) {
+    if (!is.na(log_file)) {
+      # Use an absolute path to avoid the effects of changing the working directory when the app
+      # runs.
+      if (!fs::is_absolute_path(log_file)) {
+        log_file <- fs::path_wd(log_file)
+      }
+      logger::log_appender(logger::appender_file(log_file))
+    }
+  } else {
+    cli::cli_alert_warning(
+      "Skipping log file configuration, 'rhino_log_file' field not found in config."
+    )
+  }
+}
+
+load_main <- function(use_source, expect_shiny_module) {
+  if (use_source) {
+    main <- load_main_source()
+  } else {
+    main <- load_main_box()
+  }
+  normalize_main(main, expect_shiny_module)
+}
+
+load_main_source <- function() {
+  main <- new.env(parent = globalenv())
+  source(fs::path("app", "main.R"), local = main)
+  main
+}
+
+load_main_box <- function() {
+  # Silence "no visible binding" notes raised by `box::use()` on R CMD check.
+  app <- NULL
+  main <- NULL
+  box::purge_cache()
+  box::use(app/main)
+  main
+}
+
+normalize_main <- function(main, is_module = FALSE) {
+  list(
+    ui = normalize_ui(main$ui, is_module),
+    server = normalize_server(main$server, is_module)
+  )
+}
+
+normalize_ui <- function(ui, is_module = FALSE) {
+  if (is_module) {
+    function(request) ui("app")
+  } else if (!is.function(ui)) {
+    function(request) ui
+  } else if (length(formals(ui)) == 0) {
+    function(request) ui()
+  } else {
+    function(request) ui(request)
+  }
+}
+
+normalize_server <- function(server, is_module = FALSE) {
+  # It is essential that the body of the server function is wrapped in curly braces.
+  # See the `reparse()` function for details.
+  if (is_module) {
+    function(input, output, session) {
+      server("app")
+    }
+  } else if ("session" %in% names(formals(server))) {
+    function(input, output, session) {
+      server(input = input, output = output, session = session)
+    }
+  } else {
+    function(input, output, session) {
+      server(input = input, output = output)
     }
   }
+}
+
+make_app <- function(main) {
   shiny::shinyApp(
     ui = with_head_tags(main$ui),
-    server = main$server
+    server = reparse(main$server)
+  )
+}
+
+with_head_tags <- function(ui) {
+  head <- shiny::tags$head(
+    react_support(), # Needs to go before `app.min.js`, which defines the React components.
+    shiny::tags$script(src = "static/js/app.min.js"),
+    shiny::tags$link(rel = "stylesheet", href = "static/css/app.min.css", type = "text/css"),
+    shiny::tags$link(rel = "icon", href = "static/favicon.ico", sizes = "any")
+  )
+  function(request) {
+    shiny::tagList(head, ui(request))
+  }
+}
+
+# A workaround for issues with server reloading:
+# https://github.com/Appsilon/rhino/issues/157
+#
+# For Shiny to reload the app correctly, the body of the server function must meet two criteria:
+# 1. It must be wrapped in curly braces.
+# 2. It must have source reference information attached, i.e. `srcref` attributes.
+#
+# (1) is ensured by `normalize_server()`.
+# (2) is ensured by `reparse()`.
+reparse <- function(f) {
+  # Deparse the function and parse it again with `keep.source = TRUE`.
+  eval(
+    expr = parse(text = deparse(f), keep.source = TRUE),
+    envir = environment(f)
   )
 }
