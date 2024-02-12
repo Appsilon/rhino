@@ -3,6 +3,9 @@
 1. Introduce linters for `box::use` statements:
     * `box_universal_import_linter` checks if all imports are explicit.
     * `box_trailing_commas_linter` checks if statements include trailing commas.
+2. Refactor `rhino::app()`.
+The `request` parameter is now correctly forwarded to the UI function
+when using a `legacy_entrypoint` ([#395](https://github.com/Appsilon/rhino/issues/395)).
 
 # [rhino 1.6.0](https://github.com/Appsilon/rhino/releases/tag/v1.6.0)
 
