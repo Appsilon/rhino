@@ -47,6 +47,7 @@ Suggests:
   mockery,
   rcmdcheck,
   rex,
+  rlang,
   rmarkdown,
   shiny.react,
   spelling

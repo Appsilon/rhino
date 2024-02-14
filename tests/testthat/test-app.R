@@ -89,16 +89,22 @@ describe("with_head_tags()", {
   })
 })
 
-describe("reparse()", {
-  it("ensures a function has source reference information attached", {
-    f <- eval(
-      expr = parse(text = "function() 1", keep.source = FALSE),
-      envir = new.env(parent = baseenv())
-    )
-    g <- reparse(f)
+describe("fix_server()", {
+  it("ensures server uses curly braces and has source reference information attached", {
+    body_uses_curly_braces <- function(f) {
+      identical(body(f)[[1]], rlang::sym("{"))
+    }
 
-    expect_identical(f, g)
-    expect_false("srcref" %in% names(attributes(f)))
-    expect_true("srcref" %in% names(attributes(g)))
+    server <- eval(parse(
+      text = "function(input, output, session) 42",
+      keep.source = FALSE
+    ))
+    fixed <- fix_server(server)
+
+    expect_identical(fixed(), server())
+    expect_false(body_uses_curly_braces(server))
+    expect_true(body_uses_curly_braces(fixed))
+    expect_false("srcref" %in% names(attributes(server)))
+    expect_true("srcref" %in% names(attributes(fixed)))
   })
 })
