@@ -132,6 +132,7 @@ normalize_main <- function(main, is_module = FALSE) {
 }
 
 normalize_ui <- function(ui, is_module = FALSE) {
+  force(ui) # Avoid the pitfalls of lazy evaluation.
   if (is_module) {
     function(request) ui("app")
   } else if (!is.function(ui)) {
@@ -144,6 +145,7 @@ normalize_ui <- function(ui, is_module = FALSE) {
 }
 
 normalize_server <- function(server, is_module = FALSE) {
+  force(server) # Avoid the pitfalls of lazy evaluation.
   if (is_module) {
     function(input, output, session) {
       server("app")
@@ -173,6 +175,7 @@ with_head_tags <- function(ui) {
     shiny::tags$link(rel = "stylesheet", href = "static/css/app.min.css", type = "text/css"),
     shiny::tags$link(rel = "icon", href = "static/favicon.ico", sizes = "any")
   )
+  force(ui) # Avoid the pitfalls of lazy evaluation.
   function(request) {
     shiny::tagList(head, ui(request))
   }
