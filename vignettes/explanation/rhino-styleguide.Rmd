@@ -1,0 +1,105 @@
+---
+title: "Explanation: Rhino style guide"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Explanation: Rhino style guide}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+Rhino follows the [`tidyverse` style guide](https://style.tidyverse.org/),
+with specific additional rules for `box::use` statements to enhance readability and maintainability of code.
+These rules are designed to work alongside `tidyverse` conventions, providing clarity and consistency when using `box` modules.
+
+# Explicit Import
+
+For clarity and ease of tracking function origins, avoid using `[...]` for imports. Explicitly declare all packages, modules and functions.
+
+```r
+# Good
+box::use(
+  rhino[log],
+  shiny,
+)
+
+# Bad
+box::use(
+  shiny[...],
+)
+```
+
+# Trailing Commas
+
+Trailing commas in `box::use` statements are encouraged. They simplify line additions and reordering.
+
+```r
+# Good
+box::use(
+  shiny,
+)
+
+# Bad
+box::use(
+  shiny
+)
+```
+
+# Separated Statements for Packages and Modules
+
+Use separate `box::use` statements for importing packages and modules (R scripts) for better structure and readability.
+
+```r
+# Good
+box::use(
+  rhino[log],
+  shiny,
+)
+
+box::use(
+  path/to/module,
+)
+
+# Bad
+box::use(
+  rhino[log],
+  shiny,
+  path/to/module,
+)
+```
+
+# Order of Imports
+
+Order imports alphabetically to ease locating a specific import. This applies to both packages/modules and functions within them.
+
+```r
+# Good
+box::use(
+  rhino,
+  shiny[div, fluidPage],
+)
+
+# Bad
+box::use(
+  shiny[fluidPage, div],
+  rhino,
+)
+```
+
+# Number of Imports
+
+Limit the number of functions imported from a module or package to 8.
+If more than 8 functions are needed, import the entire package and reference functions using `package$function`.
+
+```r
+# Good
+box::use(
+  rhino[log],
+  shiny,
+)
+
+# Bad
+box::use(
+  rhino[log],
+  shiny[div, fluidPage, navbarPage, sidebarPanel, sidebarLayout, mainPanel, tabPanel, tabsetPanel, titlePanel],
+)
+```
