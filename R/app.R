@@ -132,6 +132,7 @@ normalize_main <- function(main, is_module = FALSE) {
 }
 
 normalize_ui <- function(ui, is_module = FALSE) {
+  force(ui) # Avoid the pitfalls of lazy evaluation.
   if (is_module) {
     function(request) ui("app")
   } else if (!is.function(ui)) {
@@ -144,8 +145,7 @@ normalize_ui <- function(ui, is_module = FALSE) {
 }
 
 normalize_server <- function(server, is_module = FALSE) {
-  # It is essential that the body of the server function is wrapped in curly braces.
-  # See the `reparse()` function for details.
+  force(server) # Avoid the pitfalls of lazy evaluation.
   if (is_module) {
     function(input, output, session) {
       server("app")
@@ -164,7 +164,7 @@ normalize_server <- function(server, is_module = FALSE) {
 make_app <- function(main) {
   shiny::shinyApp(
     ui = with_head_tags(main$ui),
-    server = reparse(main$server)
+    server = fix_server(main$server)
   )
 }
 
@@ -175,6 +175,7 @@ with_head_tags <- function(ui) {
     shiny::tags$link(rel = "stylesheet", href = "static/css/app.min.css", type = "text/css"),
     shiny::tags$link(rel = "icon", href = "static/favicon.ico", sizes = "any")
   )
+  force(ui) # Avoid the pitfalls of lazy evaluation.
   function(request) {
     shiny::tagList(head, ui(request))
   }
@@ -186,13 +187,10 @@ with_head_tags <- function(ui) {
 # For Shiny to reload the app correctly, the body of the server function must meet two criteria:
 # 1. It must be wrapped in curly braces.
 # 2. It must have source reference information attached, i.e. `srcref` attributes.
-#
-# (1) is ensured by `normalize_server()`.
-# (2) is ensured by `reparse()`.
-reparse <- function(f) {
-  # Deparse the function and parse it again with `keep.source = TRUE`.
-  eval(
-    expr = parse(text = deparse(f), keep.source = TRUE),
-    envir = environment(f)
-  )
+fix_server <- function(server) {
+  force(server) # Avoid the pitfalls of lazy evaluation.
+  eval(parse(
+    text = "function(input, output, session) { server(input, output, session) }",
+    keep.source = TRUE # Ensure `srcref` attributes are attached.
+  ))
 }
