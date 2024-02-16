@@ -11,6 +11,8 @@ Rhino follows the [`tidyverse` style guide](https://style.tidyverse.org/),
 with specific additional rules for `box::use` statements to enhance readability and maintainability of code.
 These rules are designed to work alongside `tidyverse` conventions, providing clarity and consistency when using `box` modules.
 
+For more details on how to use `box::use` statements, see [Explanation: Box modules](https://appsilon.github.io/rhino/articles/explanation/box-modules.html).
+
 # Explicit Import
 
 For clarity and ease of tracking function origins, avoid using `[...]` for imports. Explicitly declare all packages, modules and functions.

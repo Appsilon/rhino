@@ -60,7 +60,7 @@ say_bye <- function(name) {
 Both `say_hello()` and `say_bye()` can be exported from `app/logic/messages.R`.
 
 ```r
-box::use(app/logic/messages[say_hello, say_bye])
+box::use(app/logic/messages[say_hello, say_bye],)
 
 #' @export
 greet <- function(name) {
@@ -113,7 +113,7 @@ uses `shiny.semantic::textInput()` and not `shiny::textInput()`.
 # app/main.R
 box::use(
   shiny[moduleServer, NS],
-  shiny.semantic[semanticPage]
+  shiny.semantic[semanticPage],
 )
 
 box::use(app/view/greet_module)
@@ -154,7 +154,7 @@ bar <- "Hello!"
 We can now import `bar` as if it was defined in `app/foo.R`:
 ```r
 box::use(
-  app/foo[bar]
+  app/foo[bar],
 )
 ```
 
@@ -172,7 +172,7 @@ We can reexport them from `app/view/__init__.R` like this:
 #' @export
 box::use(
   app/view/analysis_tab,
-  app/view/download_tab
+  app/view/download_tab,
 )
 ```
 
@@ -186,6 +186,11 @@ box::use(
   app/view[analysis_tab, download_tab],
 )
 ```
+
+# Style guide
+
+To enhance the readability and maintainability of code,
+we suggest following [the Rhino style guide](https://appsilon.github.io/rhino/articles/explanation/rhino-styleguide.html).
 
 # Known issues
 
