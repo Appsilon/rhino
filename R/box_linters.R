@@ -67,7 +67,7 @@ box_func_import_count_linter <- function(max = 8L) {
   })
 }
 
-#' Box library separate packages and module imports linter
+#' `box` library separate packages and module imports linter
 #'
 #' Checks that packages and modules are imported in separate `box::use()` statements.
 #'

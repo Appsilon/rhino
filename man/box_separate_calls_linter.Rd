@@ -2,9 +2,12 @@
 % Please edit documentation in R/box_linters.R
 \name{box_separate_calls_linter}
 \alias{box_separate_calls_linter}
-\title{Box library separate packages and module imports linter}
+\title{\code{box} library separate packages and module imports linter}
 \usage{
 box_separate_calls_linter()
+}
+\value{
+A custom linter function for use with \code{r-lib/lintr}
 }
 \description{
 Checks that packages and modules are imported in separate \code{box::use()} statements.
