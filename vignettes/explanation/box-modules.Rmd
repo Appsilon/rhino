@@ -60,7 +60,9 @@ say_bye <- function(name) {
 Both `say_hello()` and `say_bye()` can be exported from `app/logic/messages.R`.
 
 ```r
-box::use(app/logic/messages[say_hello, say_bye],)
+box::use(
+  app/logic/messages[say_hello, say_bye],
+)
 
 #' @export
 greet <- function(name) {
@@ -116,7 +118,9 @@ box::use(
   shiny.semantic[semanticPage],
 )
 
-box::use(app/view/greet_module)
+box::use(
+  app/view/greet_module,
+)
 
 #' @export
 ui <- function(id) {

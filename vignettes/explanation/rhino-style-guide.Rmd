@@ -91,6 +91,7 @@ box::use(
 
 Limit the number of functions imported from a module or package to 8.
 If more than 8 functions are needed, import the entire package and reference functions using `package$function`.
+Aliases can be used for convenience. Check [`box::use` documentation](https://klmr.me/box/reference/use.html) for more details.
 
 ```r
 # Good

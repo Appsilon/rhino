@@ -57,7 +57,7 @@ navbar:
         - text: Node.js - JavaScript and Sass tools
           href: articles/explanation/node-js-javascript-and-sass-tools.html
         - text: Rhino style guide
-          href: articles/explanation/rhino-styleguide.html
+          href: articles/explanation/rhino-style-guide.html
     how-to-guides:
       text: How-to Guides
       menu:
