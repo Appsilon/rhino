@@ -1,4 +1,4 @@
-#' Box library function import count linter
+#' `box` library function import count linter
 #'
 #' Checks that function imports do not exceed the defined `max`.
 #'
@@ -9,23 +9,23 @@
 #' @examples
 #' # will produce lints
 #' lintr::lint(
-#'   text = "box::use(package[one, two, three, four, five, six, ])",
+#'   text = "box::use(package[one, two, three, four, five, six, seven, eight, nine])",
 #'   linters = box_func_import_count_linter()
 #' )
 #'
 #' lintr::lint(
-#'   text = "box::use(package[one, two, three, four, ])",
+#'   text = "box::use(package[one, two, three, four])",
 #'   linters = box_func_import_count_linter(3)
 #' )
 #'
 #' # okay
 #' lintr::lint(
-#'   text = "box::use(package[one, two, three, four, five, ])",
+#'   text = "box::use(package[one, two, three, four, five])",
 #'   linters = box_func_import_count_linter()
 #' )
 #'
 #' lintr::lint(
-#'   text = "box::use(package[one, two, three, ])",
+#'   text = "box::use(package[one, two, three])",
 #'   linters = box_func_import_count_linter(3)
 #' )
 #'
@@ -35,17 +35,17 @@ box_func_import_count_linter <- function(max = 8L) {
                       (text() = 'box' and
                       following-sibling::SYMBOL_FUNCTION_CALL[text() = 'use'])
                     ]
-/parent::expr
-/parent::expr
-/descendant::OP-LEFT-BRACKET[
-  count(
-    following-sibling::expr[
-      count(. | ..//OP-RIGHT-BRACKET/preceding-sibling::expr) =
-        count(../OP-RIGHT-BRACKET/preceding-sibling::expr)
-    ]
-  ) > {max}
-]
-/parent::expr")
+  /parent::expr
+  /parent::expr
+  /descendant::OP-LEFT-BRACKET[
+    count(
+      following-sibling::expr[
+        count(. | ..//OP-RIGHT-BRACKET/preceding-sibling::expr) =
+          count(../OP-RIGHT-BRACKET/preceding-sibling::expr)
+      ]
+    ) > {max}
+  ]
+  /parent::expr")
 
   lint_message <- glue::glue("Limit the function imports to a max of {max}.")
 

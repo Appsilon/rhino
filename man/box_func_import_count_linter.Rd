@@ -2,7 +2,7 @@
 % Please edit documentation in R/box_linters.R
 \name{box_func_import_count_linter}
 \alias{box_func_import_count_linter}
-\title{Box library function import count linter}
+\title{\code{box} library function import count linter}
 \usage{
 box_func_import_count_linter(max = 8L)
 }
@@ -18,23 +18,23 @@ Checks that function imports do not exceed the defined \code{max}.
 \examples{
 # will produce lints
 lintr::lint(
-  text = "box::use(package[one, two, three, four, five, six, ])",
+  text = "box::use(package[one, two, three, four, five, six, seven, eight, nine])",
   linters = box_func_import_count_linter()
 )
 
 lintr::lint(
-  text = "box::use(package[one, two, three, four, ])",
+  text = "box::use(package[one, two, three, four])",
   linters = box_func_import_count_linter(3)
 )
 
 # okay
 lintr::lint(
-  text = "box::use(package[one, two, three, four, five, ])",
+  text = "box::use(package[one, two, three, four, five])",
   linters = box_func_import_count_linter()
 )
 
 lintr::lint(
-  text = "box::use(package[one, two, three, ])",
+  text = "box::use(package[one, two, three])",
   linters = box_func_import_count_linter(3)
 )
 
