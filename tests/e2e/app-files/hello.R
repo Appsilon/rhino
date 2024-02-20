@@ -1,5 +1,5 @@
 box::use(
-  shiny[
+  shiny[           # nolint
     actionButton,
     bootstrapPage,
     isolate,
