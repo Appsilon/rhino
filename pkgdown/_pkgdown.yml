@@ -56,6 +56,8 @@ navbar:
           href: articles/explanation/renv-configuration.html
         - text: Node.js - JavaScript and Sass tools
           href: articles/explanation/node-js-javascript-and-sass-tools.html
+        - text: Rhino style guide
+          href: articles/explanation/rhino-style-guide.html
     how-to-guides:
       text: How-to Guides
       menu:
@@ -145,7 +147,9 @@ reference:
 
 - title: Linters
   contents:
+  - box_func_import_count_linter
   - box_separate_calls_linter
+  - box_trailing_commas_linter
   - box_universal_import_linter
 
 - title: Data

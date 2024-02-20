@@ -150,9 +150,7 @@ shinyApp(
     module_ui("module")
   ),
   server = function(input, output, session) {
-    answer <- reactiveVal()
-    observeEvent(input$answer, answer(input$answer))
-
+    answer <- reactive(input$answer)
     module_server("module", answer)
   }
 )
@@ -178,9 +176,7 @@ shinyApp(
     module_ui("module")
   ),
   server = function(input, output, session) {
-    session$userData$answer <- reactiveVal()
-    observeEvent(input$answer, session$userData$answer(input$answer))
-
+    session$userData$answer <- reactive(input$answer)
     module_server("module")
   }
 )
