@@ -7,6 +7,7 @@
 [![downloads monthly](https://cranlogs.r-pkg.org/badges/rhino)](https://CRAN.R-project.org/package=rhino)
 [![downloads total](https://cranlogs.r-pkg.org/badges/grand-total/rhino)](https://CRAN.R-project.org/package=rhino)
 [![License: LGPL-3.0](https://img.shields.io/badge/License-LGPL--3.0-blue.svg)](https://opensource.org/licenses/LGPL-3.0)
+[![Pharmaverse](http://pharmaverse.org/shields/rhino.svg)](https://pharmaverse.org)
 <!--
 [![codecov](https://codecov.io/gh/Appsilon/rhino/branch/main/graph/badge.svg)](https://codecov.io/gh/Appsilon/rhino)
 -->
