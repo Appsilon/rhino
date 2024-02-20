@@ -101,12 +101,15 @@ configure_logger <- function() {
 }
 
 load_main <- function(use_source, expect_shiny_module) {
-  if (use_source) {
-    main <- load_main_source()
-  } else {
-    main <- load_main_box()
+  loader <- function() {
+    if (use_source) {
+      main <- load_main_source()
+    } else {
+      main <- load_main_box()
+    }
+    normalize_main(main, expect_shiny_module)
   }
-  normalize_main(main, expect_shiny_module)
+  load_main_with_autoreload(loader)
 }
 
 load_main_source <- function() {
@@ -159,6 +162,72 @@ normalize_server <- function(server, is_module = FALSE) {
       server(input = input, output = output)
     }
   }
+}
+
+load_main_with_autoreload <- function(loader) {
+  # There are two key components to make `shiny.autoreload` work:
+  # 1. When app files are modified, the autoreload callback updates the `main` module in `app_env`.
+  # 2. UI and server are functions which retrieve `main` from `app_env` each time they are called.
+  #
+  # We use the same method both for loading the main module initially and for reloading it.
+  # This guarantees consistent behavior regardless of whether user enables `shiny.autoreload`,
+  # or calls `shiny::runApp()` each time they want to see changes.
+  #
+  # We always register an autoreload callback.
+  # Shiny just won't call it unless `shiny.autoreload` option is set.
+
+  app_env <- new.env(parent = emptyenv())
+  load_main <- function() {
+    app_env$main <- loader()
+  }
+
+  load_main()
+  register_autoreload_callback(load_main)
+
+  list(
+    ui = function(request) {
+      app_env$main$ui(request)
+    },
+    server = function(input, output, session) {
+      app_env$main$server(input, output, session)
+    }
+  )
+}
+
+register_autoreload_callback <- function(callback) {
+  # The autoreload callbacks are not in the public API of Shiny,
+  # so we need to be extra careful when using them.
+  callbacks <- get0("autoReloadCallbacks", envir = loadNamespace("shiny"))
+  if (is.null(callbacks)) {
+    cli::cli_alert_warning("Skipping autoreload setup - this version of Shiny doesn't support it.")
+    return()
+  }
+
+  force(callback) # Avoid the pitfalls of lazy evaluation.
+  safe_callback <- function() {
+    warn_on_error({
+      callback()
+    }, "Rhino couldn't reload the main module")
+  }
+
+  warn_on_error({
+    autoreload_callback$clear()
+    autoreload_callback$clear <- callbacks$register(safe_callback)
+  }, "Unexpected error while registering an autoreload callback")
+}
+
+autoreload_callback <- new.env(parent = emptyenv())
+autoreload_callback$clear <- function() NULL
+
+warn_on_error <- function(expr, text) {
+  tryCatch(
+    expr,
+    error = function(condition) {
+      cli::cli_alert_warning(paste0(
+        text, ": ", conditionMessage(condition)
+      ))
+    }
+  )
 }
 
 make_app <- function(main) {

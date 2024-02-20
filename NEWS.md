@@ -8,6 +8,7 @@
     when using a `legacy_entrypoint` ([#395](https://github.com/Appsilon/rhino/issues/395)).
     * Force evaluation of arguments in higher-order functions
     to avoid unexpected behavior due to lazy evaluation (internal).
+3. Add support for [`shiny.autoreload`](https://shiny.posit.co/r/reference/shiny/latest/shinyoptions).
 
 # [rhino 1.6.0](https://github.com/Appsilon/rhino/releases/tag/v1.6.0)
 

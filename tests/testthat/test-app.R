@@ -80,6 +80,15 @@ describe("normalize_server()", {
   })
 })
 
+describe("warn_on_error()", {
+  it("catches an error and prints it with an appended message", {
+    expect_message(
+      warn_on_error(stop("some_error"), "some_message"),
+      "some_message: some_error"
+    )
+  })
+})
+
 describe("with_head_tags()", {
   it("attaches a head tag to UI", {
     ui <- function(request) shiny::tags$div("test")
