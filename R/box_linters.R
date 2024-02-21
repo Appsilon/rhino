@@ -1,6 +1,9 @@
+# nolint start: line_length_linter
 #' `box` library function import count linter
 #'
 #' Checks that function imports do not exceed the defined `max`.
+#' See the [Explanation: Rhino style guide](https://appsilon.github.io/rhino/articles/explanation/rhino-style-guide.html)
+#' to learn about the details.
 #'
 #' @param max Maximum function imports allowed between `[` and `]`. Defaults to 8.
 #'
@@ -30,6 +33,7 @@
 #' )
 #'
 #' @export
+# nolint end
 box_func_import_count_linter <- function(max = 8L) {
   xpath <- glue::glue("//SYMBOL_PACKAGE[
                       (text() = 'box' and
@@ -67,9 +71,12 @@ box_func_import_count_linter <- function(max = 8L) {
   })
 }
 
+# nolint start: line_length_linter
 #' `box` library separate packages and module imports linter
 #'
 #' Checks that packages and modules are imported in separate `box::use()` statements.
+#' See the [Explanation: Rhino style guide](https://appsilon.github.io/rhino/articles/explanation/rhino-style-guide.html)
+#' to learn about the details.
 #'
 #' @return A custom linter function for use with `r-lib/lintr`
 #'
@@ -93,6 +100,7 @@ box_func_import_count_linter <- function(max = 8L) {
 #' )
 #'
 #' @export
+# nolint end
 box_separate_calls_linter <- function() {
   xpath <- "
   //SYMBOL_PACKAGE[(text() = 'box' and following-sibling::SYMBOL_FUNCTION_CALL[text() = 'use'])]
@@ -127,11 +135,14 @@ box_separate_calls_linter <- function() {
   })
 }
 
+# nolint start: line_length_linter
 #' `box` library trailing commas linter
 #'
 #' Checks that all `box:use` imports have a trailing comma. This applies to
 #' package or module imports between `(` and `)`, and, optionally, function imports between
 #' `[` and `]`. Take note that `lintr::commas_linter()` may come into play.
+#' See the [Explanation: Rhino style guide](https://appsilon.github.io/rhino/articles/explanation/rhino-style-guide.html)
+#' to learn about the details.
 #'
 #' @param check_functions Boolean flag to include function imports between `[` and `]`.
 #' Defaults to FALSE.
@@ -166,6 +177,7 @@ box_separate_calls_linter <- function() {
 #' )
 #'
 #' @export
+# nolint end
 box_trailing_commas_linter <- function(check_functions = FALSE) {
   base_xpath <- "//SYMBOL_PACKAGE[
     (
@@ -230,9 +242,12 @@ box_trailing_commas_linter <- function(check_functions = FALSE) {
   })
 }
 
+# nolint start: line_length_linter
 #' `box` library universal import linter
 #'
 #' Checks that all function imports are explicit. `package[...]` is not used.
+#' See the [Explanation: Rhino style guide](https://appsilon.github.io/rhino/articles/explanation/rhino-style-guide.html)
+#' to learn about the details.
 #'
 #' @return A custom linter function for use with `r-lib/lintr`
 #'
@@ -260,6 +275,7 @@ box_trailing_commas_linter <- function(check_functions = FALSE) {
 #' )
 #'
 #' @export
+# nolint end
 box_universal_import_linter <- function() {
   lint_message <- "Explicitly declare imports rather than universally import with `...`."
 

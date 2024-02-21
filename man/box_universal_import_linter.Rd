@@ -11,6 +11,8 @@ A custom linter function for use with \code{r-lib/lintr}
 }
 \description{
 Checks that all function imports are explicit. \code{package[...]} is not used.
+See the \href{https://appsilon.github.io/rhino/articles/explanation/rhino-style-guide.html}{Explanation: Rhino style guide}
+to learn about the details.
 }
 \examples{
 # will produce lints
