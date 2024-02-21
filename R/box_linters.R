@@ -98,7 +98,12 @@ box_separate_calls_linter <- function() {
   //SYMBOL_PACKAGE[(text() = 'box' and following-sibling::SYMBOL_FUNCTION_CALL[text() = 'use'])]
   /parent::expr
   /parent::expr[
-    ./child::expr[child::SYMBOL] and
+    (
+      ./child::expr[child::SYMBOL] or
+      ./child::expr[
+        child::expr[child::SYMBOL] and child::OP-LEFT-BRACKET
+      ]
+    ) and
     ./child::expr[child::expr[child::OP-SLASH]]
   ]
   "
