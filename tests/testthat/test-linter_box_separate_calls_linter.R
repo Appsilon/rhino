@@ -53,6 +53,26 @@ test_that("box_separate_calls_linter blocks packages and modules in same box::us
     dplyr[filter, select],
   )"
 
+  bad_box_call_6 <- "box::use(
+    a = path/to/file,
+    dplyr,
+  )"
+
+  bad_box_call_7 <- "box::use(
+    path/to/file,
+    a = dplyr,
+  )"
+
+  bad_box_call_8 <- "box::use(
+    path/to/file,
+    dplyr[a = filter, select],
+  )"
+
+  bad_box_call_9 <- "box::use(
+    path/to/file[a = function1, function2],
+    dplyr,
+  )"
+
   lint_message <- rex::rex("Separate packages and modules in their respective box::use() calls.")
 
   lintr::expect_lint(bad_box_call_1, list(message = lint_message), linter)
@@ -60,4 +80,8 @@ test_that("box_separate_calls_linter blocks packages and modules in same box::us
   lintr::expect_lint(bad_box_call_3, list(message = lint_message), linter)
   lintr::expect_lint(bad_box_call_4, list(message = lint_message), linter)
   lintr::expect_lint(bad_box_call_5, list(message = lint_message), linter)
+  lintr::expect_lint(bad_box_call_6, list(message = lint_message), linter)
+  lintr::expect_lint(bad_box_call_7, list(message = lint_message), linter)
+  lintr::expect_lint(bad_box_call_8, list(message = lint_message), linter)
+  lintr::expect_lint(bad_box_call_9, list(message = lint_message), linter)
 })
