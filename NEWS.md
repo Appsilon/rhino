@@ -4,6 +4,7 @@
     * `box_universal_import_linter` checks if all imports are explicit.
     * `box_trailing_commas_linter` checks if statements include trailing commas.
     * `box_func_import_count_linter` checks if the number of function imports does not exceed the limit.
+    * `box_separate_calls_linter` checks if packages and modules are imported in separate statements.
 2. Major refactor of `rhino::app()`:
     * The `request` parameter is now correctly forwarded to the UI function
     when using a `legacy_entrypoint` ([#395](https://github.com/Appsilon/rhino/issues/395)).
