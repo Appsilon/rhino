@@ -1,4 +1,4 @@
-# rhino (development version)
+# rhino 1.7.0
 
 1. Introduce linters for `box::use` statements:
     * `box_universal_import_linter` checks if all imports are explicit.
