@@ -20,14 +20,17 @@ For clarity and ease of tracking function origins, avoid using `[...]` for impor
 ```r
 # Good
 box::use(
-  rhino[log],
+  infer[specify],
   shiny,
 )
 
 # Bad
 box::use(
+  infer[...],
   shiny[...],
 )
+
+observe() # Is it from {infer} or {shiny}?
 ```
 
 # Trailing Commas
