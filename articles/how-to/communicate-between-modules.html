@@ -44,7 +44,7 @@
     
     <a class="navbar-brand me-2" href="../../index.html">rhino</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.6.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.6.0.9007</small>
 
     <a href="https://rhinoverse.dev" class="external-link home"><i class="fa fa-lg fa-chevron-left"></i></a>
 
@@ -71,6 +71,7 @@
     <a class="dropdown-item" href="../../articles/explanation/box-modules.html">Box modules</a>
     <a class="dropdown-item" href="../../articles/explanation/renv-configuration.html">Renv configuration</a>
     <a class="dropdown-item" href="../../articles/explanation/node-js-javascript-and-sass-tools.html">Node.js - JavaScript and Sass tools</a>
+    <a class="dropdown-item" href="../../articles/explanation/rhino-style-guide.html">Rhino style guide</a>
   </div>
 </li>
 <li class="active nav-item dropdown">
@@ -103,6 +104,7 @@
     <div class="dropdown-divider"></div>
     <h6 class="dropdown-header" data-toc-skip>Migration guides</h6>
     <a class="dropdown-item" href="../../articles/how-to/migrate-1-6.html">Migration to Rhino 1.6</a>
+    <a class="dropdown-item" href="../../articles/how-to/migrate-1-7.html">Migration to Rhino 1.7</a>
   </div>
 </li>
 <li class="nav-item">
@@ -165,7 +167,7 @@
 </h2>
 <p>State management is a topic that comes along very often when it comes to reactive programming.</p>
 <p>As the application grows in size and becomes more intricate, it’s common to find an increasing number of <a href="https://shiny.posit.co/r/articles/improve/modules/" class="external-link">Shiny modules</a> distributed across various levels of depth. This results in the necessity to share information, particularly the application’s state, among these diverse Shiny modules.</p>
-<p>While there are many ways to approach this problem here we are going to present two examples. In the first example we are going to pass information (reactive variables) from a parent module to a child module and in the second example we are going to pass information between two sibling modules.</p>
+<p>While there are many ways to approach this problem here we are going to present two examples. In the first example we are going to pass information (reactive objects) from a parent module to a child module and in the second example we are going to pass information between two sibling modules.</p>
 </div>
 <div class="section level2">
 <h2 id="examples">Examples<a class="anchor" aria-label="anchor" href="#examples"></a>
@@ -211,8 +213,7 @@
 <code class="sourceCode R"><span><span class="co"># Parent Module</span></span>
 <span><span class="fu">box</span><span class="fu">::</span><span class="fu"><a href="http://klmr.me/box/reference/use.html" class="external-link">use</a></span><span class="op">(</span></span>
 <span>  <span class="va">shiny</span><span class="op">[</span></span>
-<span>    <span class="va">div</span>, <span class="va">moduleServer</span>, <span class="va">NS</span>, <span class="va">observeEvent</span>, <span class="va">reactiveVal</span>, <span class="va">req</span>,</span>
-<span>    <span class="va">selectInput</span></span>
+<span>    <span class="va">div</span>, <span class="va">moduleServer</span>, <span class="va">NS</span>, <span class="va">reactive</span>, <span class="va">req</span>, <span class="va">selectInput</span></span>
 <span>  <span class="op">]</span>,</span>
 <span><span class="op">)</span></span>
 <span></span>
@@ -237,21 +238,18 @@
 <span><span class="co">#' @export</span></span>
 <span><span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">id</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  <span class="fu">moduleServer</span><span class="op">(</span><span class="va">id</span>, <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span></span>
-<span>    <span class="co"># Define a reactive variable to pass down the table module</span></span>
-<span>    <span class="va">processed_data</span> <span class="op">&lt;-</span> <span class="fu">reactiveVal</span><span class="op">(</span><span class="op">)</span></span>
 <span>    <span class="va">input_data</span> <span class="op">&lt;-</span> <span class="va">utils</span><span class="op">$</span><span class="fu">read_data_from_database</span><span class="op">(</span><span class="op">)</span></span>
 <span></span>
-<span>    <span class="fu">observeEvent</span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">filters</span>, <span class="op">{</span></span>
-<span>      <span class="va">utils</span><span class="op">$</span><span class="fu">processed_data</span><span class="op">(</span></span>
-<span>        <span class="fu">process_data</span><span class="op">(</span><span class="va">input_data</span>, <span class="va">input</span><span class="op">$</span><span class="va">filters</span><span class="op">)</span></span>
-<span>      <span class="op">)</span></span>
+<span>    <span class="co"># Define a reactive to pass down the table module</span></span>
+<span>    <span class="va">processed_data</span> <span class="op">&lt;-</span> <span class="fu">reactive</span><span class="op">(</span><span class="op">{</span></span>
+<span>      <span class="fu">process_data</span><span class="op">(</span><span class="va">input_data</span>, <span class="va">input</span><span class="op">$</span><span class="va">filters</span><span class="op">)</span></span>
 <span>    <span class="op">}</span><span class="op">)</span></span>
-<span>    </span>
+<span></span>
 <span>    <span class="co"># Initialize the table module server function</span></span>
 <span>    <span class="va">table_module</span><span class="op">$</span><span class="fu">server</span><span class="op">(</span>id <span class="op">=</span> <span class="st">"table_module"</span>, table_data <span class="op">=</span> <span class="va">processed_data</span><span class="op">)</span></span>
 <span>  <span class="op">}</span><span class="op">)</span></span>
 <span><span class="op">}</span></span></code></pre></div>
-<p><font size="2"> <i class="fas fa-triangle-exclamation text-warning" role="presentation" aria-label="triangle-exclamation icon"></i> Both <code>read_data_from_database</code> and <code>process_data</code> imported from the <code>utils.R</code> module are mocked functions that we are using for the purpose of aiding the example. These funcions are not defined in this example code. </font></p>
+<p><font size="2"> <i class="fas fa-triangle-exclamation text-warning" role="presentation" aria-label="triangle-exclamation icon"></i> Both <code>read_data_from_database</code> and <code>process_data</code> imported from the <code>utils.R</code> module are mocked functions that we are using for the purpose of aiding the example. These functions are not defined in this example code. </font></p>
 </div>
 <div class="section level3">
 <h3 id="example-2---communicating-between-two-sibling-modules">Example 2 - Communicating between two sibling modules<a class="anchor" aria-label="anchor" href="#example-2---communicating-between-two-sibling-modules"></a>
@@ -262,46 +260,37 @@
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true"></a><span class="co"># processing_data_module.R</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true"></a>box<span class="op">::</span><span class="kw">use</span>(</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true"></a>  shiny[</span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true"></a>    div, moduleServer, NS, observeEvent, reactiveVal, req,</span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true"></a>    selectInput</span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true"></a>  ],</span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true"></a>)</span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true"></a></span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true"></a>box<span class="op">::</span><span class="kw">use</span>(</span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true"></a>  <span class="dt">utils =</span> utils<span class="op">/</span>utils.R <span class="co"># This module is not defined in this example</span></span>
-<span id="cb3-11"><a href="#cb3-11" aria-hidden="true"></a>)</span>
-<span id="cb3-12"><a href="#cb3-12" aria-hidden="true"></a></span>
-<span id="cb3-13"><a href="#cb3-13" aria-hidden="true"></a><span class="co">#' @export</span></span>
-<span id="cb3-14"><a href="#cb3-14" aria-hidden="true"></a>ui &lt;-<span class="st"> </span><span class="cf">function</span>(id) {</span>
-<span id="cb3-15"><a href="#cb3-15" aria-hidden="true"></a>  ns &lt;-<span class="st"> </span><span class="kw">NS</span>(id)</span>
-<span id="cb3-16"><a href="#cb3-16" aria-hidden="true"></a>  <span class="kw">div</span>(</span>
-<span id="cb3-17"><a href="#cb3-17" aria-hidden="true"></a>    <span class="kw">selectInput</span>(</span>
-<span id="cb3-18"><a href="#cb3-18" aria-hidden="true"></a>      <span class="dt">inputId =</span> <span class="kw">ns</span>(<span class="st">"parameter"</span>),</span>
-<span id="cb3-19"><a href="#cb3-19" aria-hidden="true"></a>      <span class="dt">label =</span> Select a parameter,</span>
-<span id="cb3-20"><a href="#cb3-20" aria-hidden="true"></a>      <span class="dt">choices =</span> <span class="kw">c</span>(<span class="st">"alfa"</span>, <span class="st">"beta"</span>, <span class="st">"gamma"</span>)</span>
-<span id="cb3-21"><a href="#cb3-21" aria-hidden="true"></a>    )</span>
-<span id="cb3-22"><a href="#cb3-22" aria-hidden="true"></a>  )</span>
-<span id="cb3-23"><a href="#cb3-23" aria-hidden="true"></a>}</span>
-<span id="cb3-24"><a href="#cb3-24" aria-hidden="true"></a></span>
-<span id="cb3-25"><a href="#cb3-25" aria-hidden="true"></a><span class="co">#' @export</span></span>
-<span id="cb3-26"><a href="#cb3-26" aria-hidden="true"></a>server &lt;-<span class="st"> </span><span class="cf">function</span>(id) {</span>
-<span id="cb3-27"><a href="#cb3-27" aria-hidden="true"></a>  <span class="kw">moduleServer</span>(id, <span class="cf">function</span>(input, output, session) {</span>
-<span id="cb3-28"><a href="#cb3-28" aria-hidden="true"></a>  </span>
-<span id="cb3-29"><a href="#cb3-29" aria-hidden="true"></a>    data_to_display &lt;-<span class="st"> </span><span class="kw">reactiveVal</span>()</span>
-<span id="cb3-30"><a href="#cb3-30" aria-hidden="true"></a>    example_data &lt;-<span class="st"> </span>utils<span class="op">$</span><span class="kw">read_data_from_database</span>()</span>
-<span id="cb3-31"><a href="#cb3-31" aria-hidden="true"></a>  </span>
-<span id="cb3-32"><a href="#cb3-32" aria-hidden="true"></a>    <span class="kw">observeEvent</span>(input<span class="op">$</span>parameter, {</span>
-<span id="cb3-33"><a href="#cb3-33" aria-hidden="true"></a>      <span class="co"># Updates the data_to_display reactive variable</span></span>
-<span id="cb3-34"><a href="#cb3-34" aria-hidden="true"></a>      <span class="kw">data_to_display</span>(</span>
-<span id="cb3-35"><a href="#cb3-35" aria-hidden="true"></a>        utils<span class="op">$</span><span class="kw">process_data</span>(example_data, input<span class="op">$</span>parameter)</span>
-<span id="cb3-36"><a href="#cb3-36" aria-hidden="true"></a>      )</span>
-<span id="cb3-37"><a href="#cb3-37" aria-hidden="true"></a>    }</span>
-<span id="cb3-38"><a href="#cb3-38" aria-hidden="true"></a>    </span>
-<span id="cb3-39"><a href="#cb3-39" aria-hidden="true"></a>    <span class="co"># Returns the reactive</span></span>
-<span id="cb3-40"><a href="#cb3-40" aria-hidden="true"></a>    data_to_display</span>
-<span id="cb3-41"><a href="#cb3-41" aria-hidden="true"></a>  <span class="er">}</span>)</span>
-<span id="cb3-42"><a href="#cb3-42" aria-hidden="true"></a>}</span></code></pre></div>
-<p><font size="2"> <i class="fas fa-triangle-exclamation text-warning" role="presentation" aria-label="triangle-exclamation icon"></i> Both <code>read_data_from_database</code> and <code>process_data</code> imported from the <code>utils.R</code> module are mocked functions that we are using for the purpose of aiding the example. These funcions are not defined in this example code. </font></p>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true"></a>    div, moduleServer, NS, reactive, req, selectInput</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true"></a>  ],</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true"></a>)</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true"></a></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true"></a>box<span class="op">::</span><span class="kw">use</span>(</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true"></a>  <span class="dt">utils =</span> utils<span class="op">/</span>utils.R <span class="co"># This module is not defined in this example</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true"></a>)</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true"></a></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true"></a><span class="co">#' @export</span></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true"></a>ui &lt;-<span class="st"> </span><span class="cf">function</span>(id) {</span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true"></a>  ns &lt;-<span class="st"> </span><span class="kw">NS</span>(id)</span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true"></a>  <span class="kw">div</span>(</span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true"></a>    <span class="kw">selectInput</span>(</span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true"></a>      <span class="dt">inputId =</span> <span class="kw">ns</span>(<span class="st">"parameter"</span>),</span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true"></a>      <span class="dt">label =</span> Select a parameter,</span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true"></a>      <span class="dt">choices =</span> <span class="kw">c</span>(<span class="st">"alfa"</span>, <span class="st">"beta"</span>, <span class="st">"gamma"</span>)</span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true"></a>    )</span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true"></a>  )</span>
+<span id="cb3-22"><a href="#cb3-22" aria-hidden="true"></a>}</span>
+<span id="cb3-23"><a href="#cb3-23" aria-hidden="true"></a></span>
+<span id="cb3-24"><a href="#cb3-24" aria-hidden="true"></a><span class="co">#' @export</span></span>
+<span id="cb3-25"><a href="#cb3-25" aria-hidden="true"></a>server &lt;-<span class="st"> </span><span class="cf">function</span>(id) {</span>
+<span id="cb3-26"><a href="#cb3-26" aria-hidden="true"></a>  <span class="kw">moduleServer</span>(id, <span class="cf">function</span>(input, output, session) {</span>
+<span id="cb3-27"><a href="#cb3-27" aria-hidden="true"></a>    example_data &lt;-<span class="st"> </span>utils<span class="op">$</span><span class="kw">read_data_from_database</span>()</span>
+<span id="cb3-28"><a href="#cb3-28" aria-hidden="true"></a></span>
+<span id="cb3-29"><a href="#cb3-29" aria-hidden="true"></a>    <span class="kw">reactive</span>({</span>
+<span id="cb3-30"><a href="#cb3-30" aria-hidden="true"></a>      utils<span class="op">$</span><span class="kw">process_data</span>(example_data, input<span class="op">$</span>parameter)</span>
+<span id="cb3-31"><a href="#cb3-31" aria-hidden="true"></a>    })</span>
+<span id="cb3-32"><a href="#cb3-32" aria-hidden="true"></a>  })</span>
+<span id="cb3-33"><a href="#cb3-33" aria-hidden="true"></a>}</span></code></pre></div>
+<p><font size="2"> <i class="fas fa-triangle-exclamation text-warning" role="presentation" aria-label="triangle-exclamation icon"></i> Both <code>read_data_from_database</code> and <code>process_data</code> imported from the <code>utils.R</code> module are mocked functions that we are using for the purpose of aiding the example. These functions are not defined in this example code. </font></p>
 <p>And the plotting module:</p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true"></a><span class="co"># plotting_module.R</span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true"></a>box<span class="op">::</span><span class="kw">use</span>(</span>
@@ -370,7 +359,7 @@ Pay special attention to the server function in which we save the output of the 
 <span>    <span class="va">plot_module</span><span class="op">$</span><span class="fu">server</span><span class="op">(</span><span class="st">"plot_module"</span>, <span class="va">data_to_display</span><span class="op">)</span></span>
 <span>  <span class="op">}</span><span class="op">)</span></span>
 <span><span class="op">}</span></span></code></pre></div>
-<p>To sum up, in the aforementioned example, we’ve established a reactive variable within the data processing module, responsible for holding the processed data generated by that module. Subsequently, this module returns the said reactive variable, which is then passed down to the server function of the plotting module. The plotting module utilizes this specific reactive variable, containing the processed data, to create visualizations.</p>
+<p>To sum up, in the aforementioned example, the data processing module returns a reactive that holds the processed data. Subsequently, this reactive is passed down to the server function of the plotting module. The plotting module utilizes this specific reactive, containing the processed data, to create visualizations.</p>
 </div>
 </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
@@ -381,7 +370,7 @@ Pay special attention to the server function in which we save the output of the 
 
     <footer><div class="pkgdown-footer-left">
   <p></p>
-<p>Developed by Kamil Żyła, Jakub Nowicki, Leszek Siemiński, Marek Rogala, Recle Vibal, Tymoteusz Makowski.</p>
+<p>Developed by Kamil Żyła, Jakub Nowicki, Leszek Siemiński, Marek Rogala, Recle Vibal, Tymoteusz Makowski, Rodrigo Basa.</p>
 </div>
 
 <div class="pkgdown-footer-right">

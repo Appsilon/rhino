@@ -22,6 +22,9 @@
     <loc>https://appsilon.github.io/rhino/articles/explanation/renv-configuration.html</loc>
   </url>
   <url>
+    <loc>https://appsilon.github.io/rhino/articles/explanation/rhino-style-guide.html</loc>
+  </url>
+  <url>
     <loc>https://appsilon.github.io/rhino/articles/explanation/rhino-yml.html</loc>
   </url>
   <url>
@@ -50,6 +53,9 @@
   </url>
   <url>
     <loc>https://appsilon.github.io/rhino/articles/how-to/migrate-1-6.html</loc>
+  </url>
+  <url>
+    <loc>https://appsilon.github.io/rhino/articles/how-to/migrate-1-7.html</loc>
   </url>
   <url>
     <loc>https://appsilon.github.io/rhino/articles/how-to/migrate-app-to-rhino.html</loc>
@@ -110,6 +116,18 @@
   </url>
   <url>
     <loc>https://appsilon.github.io/rhino/reference/app.html</loc>
+  </url>
+  <url>
+    <loc>https://appsilon.github.io/rhino/reference/box_func_import_count_linter.html</loc>
+  </url>
+  <url>
+    <loc>https://appsilon.github.io/rhino/reference/box_separate_calls_linter.html</loc>
+  </url>
+  <url>
+    <loc>https://appsilon.github.io/rhino/reference/box_trailing_commas_linter.html</loc>
+  </url>
+  <url>
+    <loc>https://appsilon.github.io/rhino/reference/box_universal_import_linter.html</loc>
   </url>
   <url>
     <loc>https://appsilon.github.io/rhino/reference/build_js.html</loc>

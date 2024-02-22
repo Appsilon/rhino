@@ -44,7 +44,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">rhino</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.6.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.6.0.9007</small>
 
     <a href="https://rhinoverse.dev" class="external-link home"><i class="fa fa-lg fa-chevron-left"></i></a>
 
@@ -71,6 +71,7 @@
     <a class="dropdown-item" href="../articles/explanation/box-modules.html">Box modules</a>
     <a class="dropdown-item" href="../articles/explanation/renv-configuration.html">Renv configuration</a>
     <a class="dropdown-item" href="../articles/explanation/node-js-javascript-and-sass-tools.html">Node.js - JavaScript and Sass tools</a>
+    <a class="dropdown-item" href="../articles/explanation/rhino-style-guide.html">Rhino style guide</a>
   </div>
 </li>
 <li class="nav-item dropdown">
@@ -103,6 +104,7 @@
     <div class="dropdown-divider"></div>
     <h6 class="dropdown-header" data-toc-skip>Migration guides</h6>
     <a class="dropdown-item" href="../articles/how-to/migrate-1-6.html">Migration to Rhino 1.6</a>
+    <a class="dropdown-item" href="../articles/how-to/migrate-1-7.html">Migration to Rhino 1.7</a>
   </div>
 </li>
 <li class="nav-item">
@@ -167,7 +169,9 @@
 <li>using <code><a href="https://rdrr.io/pkg/shiny/man/runApp.html" class="external-link">shiny::runApp()</a></code>
 </li>
 <li>using the “Run app” button in RStudio</li>
-</ul></details><details><p><summary>How to use a specific port when running a Rhino application?</summary></p>
+</ul></details><details><p><summary>How to automatically reload the application during development?</summary></p>
+<p>Call <code>options(shiny.autoreload = TRUE)</code> in your R session. Shiny will monitor the app directory and reload all connected sessions if any changes are detected. More details can be found in <a href="https://shiny.posit.co/r/reference/shiny/latest/shinyoptions" class="external-link">Shiny reference</a>.</p>
+</details><details><p><summary>How to use a specific port when running a Rhino application?</summary></p>
 <p>You can:</p>
 <ul>
 <li>set port in <code><a href="https://rdrr.io/pkg/shiny/man/runApp.html" class="external-link">shiny::runApp</a></code>, e.g. <code>shiny:runApp(port = 5000)</code>
@@ -270,7 +274,7 @@
 
     <footer><div class="pkgdown-footer-left">
   <p></p>
-<p>Developed by Kamil Żyła, Jakub Nowicki, Leszek Siemiński, Marek Rogala, Recle Vibal, Tymoteusz Makowski.</p>
+<p>Developed by Kamil Żyła, Jakub Nowicki, Leszek Siemiński, Marek Rogala, Recle Vibal, Tymoteusz Makowski, Rodrigo Basa.</p>
 </div>
 
 <div class="pkgdown-footer-right">

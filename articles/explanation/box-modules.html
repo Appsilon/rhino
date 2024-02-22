@@ -44,7 +44,7 @@
     
     <a class="navbar-brand me-2" href="../../index.html">rhino</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.6.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.6.0.9007</small>
 
     <a href="https://rhinoverse.dev" class="external-link home"><i class="fa fa-lg fa-chevron-left"></i></a>
 
@@ -71,6 +71,7 @@
     <a class="dropdown-item" href="../../articles/explanation/box-modules.html">Box modules</a>
     <a class="dropdown-item" href="../../articles/explanation/renv-configuration.html">Renv configuration</a>
     <a class="dropdown-item" href="../../articles/explanation/node-js-javascript-and-sass-tools.html">Node.js - JavaScript and Sass tools</a>
+    <a class="dropdown-item" href="../../articles/explanation/rhino-style-guide.html">Rhino style guide</a>
   </div>
 </li>
 <li class="nav-item dropdown">
@@ -103,6 +104,7 @@
     <div class="dropdown-divider"></div>
     <h6 class="dropdown-header" data-toc-skip>Migration guides</h6>
     <a class="dropdown-item" href="../../articles/how-to/migrate-1-6.html">Migration to Rhino 1.6</a>
+    <a class="dropdown-item" href="../../articles/how-to/migrate-1-7.html">Migration to Rhino 1.7</a>
   </div>
 </li>
 <li class="nav-item">
@@ -191,7 +193,9 @@
 <span><span class="op">}</span></span></code></pre></div>
 <p>Both <code>say_hello()</code> and <code>say_bye()</code> can be exported from <code>app/logic/messages.R</code>.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">box</span><span class="fu">::</span><span class="fu"><a href="http://klmr.me/box/reference/use.html" class="external-link">use</a></span><span class="op">(</span><span class="va">app</span><span class="op">/</span><span class="va">logic</span><span class="op">/</span><span class="va">messages</span><span class="op">[</span><span class="va">say_hello</span>, <span class="va">say_bye</span><span class="op">]</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="fu">box</span><span class="fu">::</span><span class="fu"><a href="http://klmr.me/box/reference/use.html" class="external-link">use</a></span><span class="op">(</span></span>
+<span>  <span class="va">app</span><span class="op">/</span><span class="va">logic</span><span class="op">/</span><span class="va">messages</span><span class="op">[</span><span class="va">say_hello</span>, <span class="va">say_bye</span><span class="op">]</span>,</span>
+<span><span class="op">)</span></span>
 <span></span>
 <span><span class="co">#' @export</span></span>
 <span><span class="va">greet</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">name</span><span class="op">)</span> <span class="op">{</span></span>
@@ -234,10 +238,12 @@
 <code class="sourceCode R"><span><span class="co"># app/main.R</span></span>
 <span><span class="fu">box</span><span class="fu">::</span><span class="fu"><a href="http://klmr.me/box/reference/use.html" class="external-link">use</a></span><span class="op">(</span></span>
 <span>  <span class="va">shiny</span><span class="op">[</span><span class="va">moduleServer</span>, <span class="va">NS</span><span class="op">]</span>,</span>
-<span>  <span class="va">shiny.semantic</span><span class="op">[</span><span class="va">semanticPage</span><span class="op">]</span></span>
+<span>  <span class="va">shiny.semantic</span><span class="op">[</span><span class="va">semanticPage</span><span class="op">]</span>,</span>
 <span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu">box</span><span class="fu">::</span><span class="fu"><a href="http://klmr.me/box/reference/use.html" class="external-link">use</a></span><span class="op">(</span><span class="va">app</span><span class="op">/</span><span class="va">view</span><span class="op">/</span><span class="va">greet_module</span><span class="op">)</span></span>
+<span><span class="fu">box</span><span class="fu">::</span><span class="fu"><a href="http://klmr.me/box/reference/use.html" class="external-link">use</a></span><span class="op">(</span></span>
+<span>  <span class="va">app</span><span class="op">/</span><span class="va">view</span><span class="op">/</span><span class="va">greet_module</span>,</span>
+<span><span class="op">)</span></span>
 <span></span>
 <span><span class="co">#' @export</span></span>
 <span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">id</span><span class="op">)</span> <span class="op">{</span></span>
@@ -273,7 +279,7 @@
 <p>We can now import <code>bar</code> as if it was defined in <code>app/foo.R</code>:</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">box</span><span class="fu">::</span><span class="fu"><a href="http://klmr.me/box/reference/use.html" class="external-link">use</a></span><span class="op">(</span></span>
-<span>  <span class="va">app</span><span class="op">/</span><span class="va">foo</span><span class="op">[</span><span class="va">bar</span><span class="op">]</span></span>
+<span>  <span class="va">app</span><span class="op">/</span><span class="va">foo</span><span class="op">[</span><span class="va">bar</span><span class="op">]</span>,</span>
 <span><span class="op">)</span></span></code></pre></div>
 <p>This mechanism can be used in combination with reexports to make it easier to import multiple modules from a single directory.</p>
 </div>
@@ -290,7 +296,7 @@
 <code class="sourceCode R"><span><span class="co">#' @export</span></span>
 <span><span class="fu">box</span><span class="fu">::</span><span class="fu"><a href="http://klmr.me/box/reference/use.html" class="external-link">use</a></span><span class="op">(</span></span>
 <span>  <span class="va">app</span><span class="op">/</span><span class="va">view</span><span class="op">/</span><span class="va">analysis_tab</span>,</span>
-<span>  <span class="va">app</span><span class="op">/</span><span class="va">view</span><span class="op">/</span><span class="va">download_tab</span></span>
+<span>  <span class="va">app</span><span class="op">/</span><span class="va">view</span><span class="op">/</span><span class="va">download_tab</span>,</span>
 <span><span class="op">)</span></span></code></pre></div>
 <p>The following <code><a href="http://klmr.me/box/reference/use.html" class="external-link">box::use()</a></code> statements are now equivalent:</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
@@ -303,6 +309,11 @@
 <span><span class="op">)</span></span></code></pre></div>
 </div>
 </div>
+</div>
+<div class="section level2">
+<h2 id="style-guide">Style guide<a class="anchor" aria-label="anchor" href="#style-guide"></a>
+</h2>
+<p>To enhance the readability and maintainability of code, we suggest following <a href="https://appsilon.github.io/rhino/articles/explanation/rhino-styleguide.html">the Rhino style guide</a>.</p>
 </div>
 <div class="section level2">
 <h2 id="known-issues">Known issues<a class="anchor" aria-label="anchor" href="#known-issues"></a>
@@ -331,7 +342,7 @@
 
     <footer><div class="pkgdown-footer-left">
   <p></p>
-<p>Developed by Kamil Żyła, Jakub Nowicki, Leszek Siemiński, Marek Rogala, Recle Vibal, Tymoteusz Makowski.</p>
+<p>Developed by Kamil Żyła, Jakub Nowicki, Leszek Siemiński, Marek Rogala, Recle Vibal, Tymoteusz Makowski, Rodrigo Basa.</p>
 </div>
 
 <div class="pkgdown-footer-right">

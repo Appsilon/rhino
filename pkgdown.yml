@@ -6,6 +6,7 @@ articles:
   box-modules: explanation/box-modules.html
   node-js-javascript-and-sass-tools: explanation/node-js-javascript-and-sass-tools.html
   renv-configuration: explanation/renv-configuration.html
+  rhino-style-guide: explanation/rhino-style-guide.html
   rhino-yml: explanation/rhino-yml.html
   what-is-rhino: explanation/what-is-rhino.html
   faq: faq.html
@@ -16,6 +17,7 @@ articles:
   keep-multiple-apps-in-a-single-repository: how-to/keep-multiple-apps-in-a-single-repository.html
   manage-secrets-and-environments: how-to/manage-secrets-and-environments.html
   migrate-1-6: how-to/migrate-1-6.html
+  migrate-1-7: how-to/migrate-1-7.html
   migrate-app-to-rhino: how-to/migrate-app-to-rhino.html
   publish-on-huggingface: how-to/publish-on-huggingface.html
   set-application-run-parameters: how-to/set-application-run-parameters.html
@@ -31,7 +33,7 @@ articles:
   create-your-first-rhino-app: tutorial/create-your-first-rhino-app.html
   use-react-in-rhino: tutorial/use-react-in-rhino.html
   write-end-to-end-tests-with-cypress: tutorial/write-end-to-end-tests-with-cypress.html
-last_built: 2024-02-20T09:13Z
+last_built: 2024-02-22T13:21Z
 urls:
   reference: https://appsilon.github.io/rhino/reference
   article: https://appsilon.github.io/rhino/articles
