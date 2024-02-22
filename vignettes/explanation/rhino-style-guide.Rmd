@@ -30,7 +30,7 @@ box::use(
   shiny[...],
 )
 
-observe # Is it from {infer} or {shiny}?
+observe() # Is it from {infer} or {shiny}?
 ```
 
 # Trailing Commas
