@@ -1,16 +1,16 @@
 box::use(
-  shiny[moduleServer, NS]
+  shiny,
 )
 
 #' @export
 ui <- function(id) {
-  ns <- NS(id)
+  ns <- shiny$NS(id)
 
 }
 
 #' @export
 server <- function(id) {
-  moduleServer(id, function(input, output, session) {
+  shiny$moduleServer(id, function(input, output, session) {
 
   })
 }
