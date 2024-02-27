@@ -26,6 +26,9 @@ Call `options(shiny.autoreload = TRUE)` in your R session.
 Shiny will monitor the app directory and reload all connected sessions if any changes are detected.
 More details can be found in [Shiny reference](https://shiny.posit.co/r/reference/shiny/latest/shinyoptions).
 
+Note: you have to use `shiny::runApp()` for the autoreload to work - using `rhino::app()` _won't_ work.
+For context see [issue #3964 in Shiny](https://github.com/rstudio/shiny/issues/3964).
+
 </details>
 
 <details>
