@@ -44,7 +44,7 @@
     
     <a class="navbar-brand me-2" href="../../index.html">rhino</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.7.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.7.0.9000</small>
 
     <a href="https://rhinoverse.dev" class="external-link home"><i class="fa fa-lg fa-chevron-left"></i></a>
 
@@ -149,7 +149,8 @@
 
 
 
-<script src="keep-multiple-apps-in-a-single-repository_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
+
+<div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="" class="logo" alt=""><h1>How to: Keep multiple apps in a single repository</h1>
             
@@ -160,11 +161,20 @@
 
     
     
-<p>In some cases you might want to put your Rhino application in a subdirectory of your repository - for example, to keep multiple apps in a single repository. Most of Rhino features will work just fine, but CI will need some adjustment.</p>
-<p>Rhino comes with a CI workflow (Continuous Integration) for <a href="https://docs.github.com/en/actions" class="external-link">GitHub Actions</a> which automatically runs linters and tests whenever you push to the repository. It will work out of box if you application lives in the root of your git repository. You will need some manual tweaks if your application lives in a subdirectory:</p>
+<p>In some cases you might want to put your Rhino application in a
+subdirectory of your repository - for example, to keep multiple apps in
+a single repository. Most of Rhino features will work just fine, but CI
+will need some adjustment.</p>
+<p>Rhino comes with a CI workflow (Continuous Integration) for <a href="https://docs.github.com/en/actions" class="external-link">GitHub Actions</a> which
+automatically runs linters and tests whenever you push to the
+repository. It will work out of box if you application lives in the root
+of your git repository. You will need some manual tweaks if your
+application lives in a subdirectory:</p>
 <ol style="list-style-type: decimal">
-<li>Place all workflows in the <code>.github/workflows</code> directory.</li>
-<li>Adjust each workflow by setting a <a href="https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions#jobsjob_iddefaultsrun" class="external-link">default working directory</a> accordingly.</li>
+<li>Place all workflows in the <code>.github/workflows</code>
+directory.</li>
+<li>Adjust each workflow by setting a <a href="https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions#jobsjob_iddefaultsrun" class="external-link">default
+working directory</a> accordingly.</li>
 </ol></main>
 </div>
 

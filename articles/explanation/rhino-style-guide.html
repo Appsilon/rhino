@@ -44,7 +44,7 @@
     
     <a class="navbar-brand me-2" href="../../index.html">rhino</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.7.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.7.0.9000</small>
 
     <a href="https://rhinoverse.dev" class="external-link home"><i class="fa fa-lg fa-chevron-left"></i></a>
 
@@ -149,7 +149,8 @@
 
 
 
-<script src="rhino-style-guide_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
+
+<div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="" class="logo" alt=""><h1>Explanation: Rhino style guide</h1>
             
@@ -160,12 +161,21 @@
 
     
     
-<p>Rhino follows the <a href="https://style.tidyverse.org/" class="external-link"><code>tidyverse</code> style guide</a>, with specific additional rules for <code><a href="http://klmr.me/box/reference/use.html" class="external-link">box::use</a></code> statements to enhance readability and maintainability of code. These rules are designed to work alongside <code>tidyverse</code> conventions, providing clarity and consistency when using <code>box</code> modules.</p>
-<p>For more details on how to use <code><a href="http://klmr.me/box/reference/use.html" class="external-link">box::use</a></code> statements, see <a href="https://appsilon.github.io/rhino/articles/explanation/box-modules.html">Explanation: Box modules</a>.</p>
+<p>Rhino follows the <a href="https://style.tidyverse.org/" class="external-link"><code>tidyverse</code> style
+guide</a>, with specific additional rules for <code><a href="http://klmr.me/box/reference/use.html" class="external-link">box::use</a></code>
+statements to enhance readability and maintainability of code. These
+rules are designed to work alongside <code>tidyverse</code> conventions,
+providing clarity and consistency when using <code>box</code>
+modules.</p>
+<p>For more details on how to use <code><a href="http://klmr.me/box/reference/use.html" class="external-link">box::use</a></code> statements, see
+<a href="https://appsilon.github.io/rhino/articles/explanation/box-modules.html">Explanation:
+Box modules</a>.</p>
 <div class="section level2">
 <h2 id="explicit-import">Explicit Import<a class="anchor" aria-label="anchor" href="#explicit-import"></a>
 </h2>
-<p>For clarity and ease of tracking function origins, avoid using <code>[...]</code> for imports. Explicitly declare all packages, modules and functions.</p>
+<p>For clarity and ease of tracking function origins, avoid using
+<code>[...]</code> for imports. Explicitly declare all packages, modules
+and functions.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Good</span></span>
 <span><span class="fu">box</span><span class="fu">::</span><span class="fu"><a href="http://klmr.me/box/reference/use.html" class="external-link">use</a></span><span class="op">(</span></span>
@@ -184,7 +194,8 @@
 <div class="section level2">
 <h2 id="trailing-commas">Trailing Commas<a class="anchor" aria-label="anchor" href="#trailing-commas"></a>
 </h2>
-<p>Trailing commas in <code><a href="http://klmr.me/box/reference/use.html" class="external-link">box::use</a></code> statements are encouraged. They simplify line additions and reordering.</p>
+<p>Trailing commas in <code><a href="http://klmr.me/box/reference/use.html" class="external-link">box::use</a></code> statements are encouraged.
+They simplify line additions and reordering.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Good</span></span>
 <span><span class="fu">box</span><span class="fu">::</span><span class="fu"><a href="http://klmr.me/box/reference/use.html" class="external-link">use</a></span><span class="op">(</span></span>
@@ -199,7 +210,8 @@
 <div class="section level2">
 <h2 id="separated-statements-for-packages-and-modules">Separated Statements for Packages and Modules<a class="anchor" aria-label="anchor" href="#separated-statements-for-packages-and-modules"></a>
 </h2>
-<p>Use separate <code><a href="http://klmr.me/box/reference/use.html" class="external-link">box::use</a></code> statements for importing packages and modules (R scripts) for better structure and readability.</p>
+<p>Use separate <code><a href="http://klmr.me/box/reference/use.html" class="external-link">box::use</a></code> statements for importing packages
+and modules (R scripts) for better structure and readability.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Good</span></span>
 <span><span class="fu">box</span><span class="fu">::</span><span class="fu"><a href="http://klmr.me/box/reference/use.html" class="external-link">use</a></span><span class="op">(</span></span>
@@ -221,7 +233,8 @@
 <div class="section level2">
 <h2 id="order-of-imports">Order of Imports<a class="anchor" aria-label="anchor" href="#order-of-imports"></a>
 </h2>
-<p>Order imports alphabetically to ease locating a specific import. This applies to both packages/modules and functions within them.</p>
+<p>Order imports alphabetically to ease locating a specific import. This
+applies to both packages/modules and functions within them.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Good</span></span>
 <span><span class="fu">box</span><span class="fu">::</span><span class="fu"><a href="http://klmr.me/box/reference/use.html" class="external-link">use</a></span><span class="op">(</span></span>
@@ -238,7 +251,11 @@
 <div class="section level2">
 <h2 id="number-of-imports">Number of Imports<a class="anchor" aria-label="anchor" href="#number-of-imports"></a>
 </h2>
-<p>Limit the number of functions imported from a module or package to 8. If more than 8 functions are needed, import the entire package and reference functions using <code>package$function</code>. Aliases can be used for convenience. Check <a href="https://klmr.me/box/reference/use.html" class="external-link"><code>box::use</code> documentation</a> for more details.</p>
+<p>Limit the number of functions imported from a module or package to 8.
+If more than 8 functions are needed, import the entire package and
+reference functions using <code>package$function</code>. Aliases can be
+used for convenience. Check <a href="https://klmr.me/box/reference/use.html" class="external-link"><code>box::use</code>
+documentation</a> for more details.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Good</span></span>
 <span><span class="fu">box</span><span class="fu">::</span><span class="fu"><a href="http://klmr.me/box/reference/use.html" class="external-link">use</a></span><span class="op">(</span></span>

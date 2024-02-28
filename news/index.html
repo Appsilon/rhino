@@ -21,7 +21,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">rhino</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.7.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.7.0.9000</small>
 
     <a href="https://rhinoverse.dev" class="external-link home"><i class="fa fa-lg fa-chevron-left"></i></a>
 
@@ -125,8 +125,13 @@
     </div>
 
     <div class="section level2">
-<h2 class="pkg-version" data-toc-text="1.7.0" id="rhino-170">rhino 1.7.0<a class="anchor" aria-label="anchor" href="#rhino-170"></a></h2><p class="text-muted">CRAN release: 2024-02-22</p>
-<ol style="list-style-type: decimal"><li>Introduce linters for <code><a href="http://klmr.me/box/reference/use.html" class="external-link">box::use</a></code> statements:<ul><li>
+<h2 class="pkg-version" data-toc-text="development version" id="rhino-development-version">rhino (development version)<a class="anchor" aria-label="anchor" href="#rhino-development-version"></a></h2>
+</div>
+    <div class="section level2">
+<h2 class="pkg-version" data-toc-text="1.7.0" id="rhino-170"><a href="https://github.com/Appsilon/rhino/releases/tag/v1.7.0" class="external-link">rhino 1.7.0</a><a class="anchor" aria-label="anchor" href="#rhino-170"></a></h2><p class="text-muted">CRAN release: 2024-02-22</p>
+<p>See <em><a href="https://appsilon.github.io/rhino/articles/how-to/migrate-1-7.html">How-to: Rhino 1.7 Migration Guide</a></em></p>
+<ol style="list-style-type: decimal"><li>Introduce linters for <code><a href="http://klmr.me/box/reference/use.html" class="external-link">box::use</a></code> statements:
+<ul><li>
 <code>box_universal_import_linter</code> checks if all imports are explicit.</li>
 <li>
 <code>box_trailing_commas_linter</code> checks if statements include trailing commas.</li>
@@ -135,17 +140,20 @@
 <li>
 <code>box_separate_calls_linter</code> checks if packages and modules are imported in separate statements.</li>
 </ul></li>
-<li>Major refactor of <code><a href="../reference/app.html">rhino::app()</a></code>:<ul><li>The <code>request</code> parameter is now correctly forwarded to the UI function when using a <code>legacy_entrypoint</code> (<a href="https://github.com/Appsilon/rhino/issues/395" class="external-link">#395</a>).</li>
+<li>Major refactor of <code><a href="../reference/app.html">rhino::app()</a></code>:
+<ul><li>The <code>request</code> parameter is now correctly forwarded to the UI function when using a <code>legacy_entrypoint</code> (<a href="https://github.com/Appsilon/rhino/issues/395" class="external-link">#395</a>).</li>
 <li>Force evaluation of arguments in higher-order functions to avoid unexpected behavior due to lazy evaluation (internal).</li>
 </ul></li>
 <li>Add support for <a href="https://shiny.posit.co/r/reference/shiny/latest/shinyoptions" class="external-link"><code>shiny.autoreload</code></a>.</li>
 </ol></div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="1.6.0" id="rhino-160"><a href="https://github.com/Appsilon/rhino/releases/tag/v1.6.0" class="external-link">rhino 1.6.0</a><a class="anchor" aria-label="anchor" href="#rhino-160"></a></h2><p class="text-muted">CRAN release: 2024-01-24</p>
+<p>See <em><a href="https://appsilon.github.io/rhino/articles/how-to/migrate-1-6.html">How-to: Rhino 1.6 Migration Guide</a></em></p>
 <ol style="list-style-type: decimal"><li>
 <code>pkg_install</code> supports installation from local sources, GitHub, and Bioconductor.</li>
 <li>Improve Rhino CI (use latest versions and make better use of actions).</li>
-<li>Upgrade tools based on Node.js:<ul><li>
+<li>Upgrade tools based on Node.js:
+<ul><li>
 <code><a href="../reference/test_e2e.html">test_e2e()</a></code> now uses <code>cypress</code> 13.6</li>
 <li>
 <code><a href="../reference/build_js.html">build_js()</a></code> now uses <code>webpack</code> 5.89</li>
@@ -184,18 +192,22 @@
 </ol></div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="1.3.0" id="rhino-130"><a href="https://github.com/Appsilon/rhino/releases/tag/v1.3.0" class="external-link">rhino 1.3.0</a><a class="anchor" aria-label="anchor" href="#rhino-130"></a></h2><p class="text-muted">CRAN release: 2022-12-22</p>
-<ol style="list-style-type: decimal"><li>Rhino now works with <code>shinytest2</code> out of the box.</li></ol></div>
+<ol style="list-style-type: decimal"><li>Rhino now works with <code>shinytest2</code> out of the box.</li>
+</ol></div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="1.2.1" id="rhino-121"><a href="https://github.com/Appsilon/rhino/releases/tag/v1.2.1" class="external-link">rhino 1.2.1</a><a class="anchor" aria-label="anchor" href="#rhino-121"></a></h2><p class="text-muted">CRAN release: 2022-11-30</p>
-<ol style="list-style-type: decimal"><li>Fix Rhino GitHub Actions (Cypress used to fail).</li></ol></div>
+<ol style="list-style-type: decimal"><li>Fix Rhino GitHub Actions (Cypress used to fail).</li>
+</ol></div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="1.2.0" id="rhino-120"><a href="https://github.com/Appsilon/rhino/releases/tag/v1.2.0" class="external-link">rhino 1.2.0</a><a class="anchor" aria-label="anchor" href="#rhino-120"></a></h2><p class="text-muted">CRAN release: 2022-11-27</p>
-<ol style="list-style-type: decimal"><li>Don’t use symbolic links internally. This fixes a couple of issues with Node.js tools on Windows:<ul><li>Developer Mode is no longer needed.</li>
+<ol style="list-style-type: decimal"><li>Don’t use symbolic links internally. This fixes a couple of issues with Node.js tools on Windows:
+<ul><li>Developer Mode is no longer needed.</li>
 <li>The <code><a href="../reference/build_js.html">build_js()</a></code> and <code><a href="../reference/build_sass.html">build_sass()</a></code> functions now work with <code>watch = TRUE</code>.</li>
 <li>The <code><a href="../reference/lint_js.html">lint_js()</a></code> function now works when imports are used in JavaScript.</li>
 </ul></li>
 <li>Drop dependency on Yarn - only Node.js is now required.</li>
-<li>Improved Rhino CI:<ul><li>Run <code><a href="../reference/build_js.html">build_js()</a></code> and <code><a href="../reference/build_sass.html">build_sass()</a></code> CI.</li>
+<li>Improved Rhino CI:
+<ul><li>Run <code><a href="../reference/build_js.html">build_js()</a></code> and <code><a href="../reference/build_sass.html">build_sass()</a></code> CI.</li>
 <li>Use R version from the lockfile.</li>
 <li>Upgrade to <code>r-lib/actions/setup-r@v2</code>.</li>
 </ul></li>

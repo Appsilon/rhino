@@ -44,7 +44,7 @@
     
     <a class="navbar-brand me-2" href="../../index.html">rhino</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.7.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.7.0.9000</small>
 
     <a href="https://rhinoverse.dev" class="external-link home"><i class="fa fa-lg fa-chevron-left"></i></a>
 
@@ -149,7 +149,8 @@
 
 
 
-<script src="use-polished_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
+
+<div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="" class="logo" alt=""><h1>How-to: Use polished</h1>
             
@@ -160,10 +161,17 @@
 
     
     
-<p>Rhino puts a strong emphasis on modularization and for consistency, even the outermost UI and server are defined as a Shiny module. Unfortunately, this approach is not compatible with the authentication mechanism implemented in <a href="https://github.com/Tychobra/polished" class="external-link"><code>polished</code> package</a>.</p>
-<p>To overcome this you can setup a <a href="https://appsilon.github.io/rhino/reference/app.html#legacy-entrypoint">legacy entrypoint</a> in your <code>rhino.yml</code>. Please be aware that it is a workaround and not a setting recommended for all cases:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode yml"><code class="sourceCode yaml"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true"></a><span class="fu">legacy_entrypoint</span><span class="kw">:</span><span class="at"> box_top_level</span></span></code></pre></div>
-<p>After adding <code>polished</code> to your <a href="https://appsilon.github.io/rhino/articles/how-to/manage-r-dependencies.html">dependencies</a> you can use it in <code>app/main.R</code> as follows:</p>
+<p>Rhino puts a strong emphasis on modularization and for consistency,
+even the outermost UI and server are defined as a Shiny module.
+Unfortunately, this approach is not compatible with the authentication
+mechanism implemented in <a href="https://github.com/Tychobra/polished" class="external-link"><code>polished</code>
+package</a>.</p>
+<p>To overcome this you can setup a <a href="https://appsilon.github.io/rhino/reference/app.html#legacy-entrypoint">legacy
+entrypoint</a> in your <code>rhino.yml</code>. Please be aware that it
+is a workaround and not a setting recommended for all cases:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode yml"><code class="sourceCode yaml"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="fu">legacy_entrypoint</span><span class="kw">:</span><span class="at"> box_top_level</span></span></code></pre></div>
+<p>After adding <code>polished</code> to your <a href="https://appsilon.github.io/rhino/articles/how-to/manage-r-dependencies.html">dependencies</a>
+you can use it in <code>app/main.R</code> as follows:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">box</span><span class="fu">::</span><span class="fu"><a href="http://klmr.me/box/reference/use.html" class="external-link">use</a></span><span class="op">(</span></span>
 <span>  <span class="va">polished</span>,</span>
@@ -215,7 +223,8 @@
 <span>    <span class="op">}</span><span class="op">)</span></span>
 <span>  <span class="op">}</span></span>
 <span><span class="op">)</span></span></code></pre></div>
-<p>The guide on how to configure Polished Authentication with your Shiny app can be found <a href="https://polished.tech/docs/01-get-started" class="external-link">here</a>.</p>
+<p>The guide on how to configure Polished Authentication with your Shiny
+app can be found <a href="https://polished.tech/docs/01-get-started" class="external-link">here</a>.</p>
   </main>
 </div>
 
