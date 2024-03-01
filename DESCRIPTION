@@ -9,6 +9,7 @@ Authors@R:
     person("Marek", "Rogala", role = "aut", email = "marek@appsilon.com"),
     person("Recle", "Vibal", role = "aut", email = "recle.vibal@appsilon.com"),
     person("Tymoteusz", "Makowski", role = "aut", email = "tymoteusz@appsilon.com"),
+    person("Rodrigo", "Basa", role = "aut", email = "rodrigo@appsilon.com"),
     person("Eduardo", "Almeida", role = "ctb", email = "eduardo@appsilon.com"),
     person("Appsilon Sp. z o.o.", role = "cph", email = "opensource@appsilon.com")
   )
@@ -38,12 +39,15 @@ Imports:
   testthat (>= 3.0.0),
   utils,
   withr,
+  xml2,
   yaml
 Suggests:
   covr,
   knitr,
   mockery,
   rcmdcheck,
+  rex,
+  rlang,
   rmarkdown,
   shiny.react,
   spelling

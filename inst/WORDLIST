@@ -1,3 +1,5 @@
+Addin
+Addins
 Appsilon
 Boxifying
 ESLint
@@ -7,15 +9,19 @@ JSON
 JSX
 LatinR
 LibSass
+Pharmaverse
 PowerShell
 RStudio
 Renv
 Renviron
 Rhinoverse
 Rprofile
+Rstudio
 SDK
 Stylelint
 UI
+Webpack
+autoreload
 blogpost
 conf
 config
@@ -41,6 +47,7 @@ nodejs
 npm
 nvm
 overridable
+pnpm
 preconfigured
 renv
 roxygen
@@ -54,5 +61,3 @@ unintuitive
 usethis
 webpack
 yml
-Addin
-Addins

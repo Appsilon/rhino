@@ -56,6 +56,8 @@ navbar:
           href: articles/explanation/renv-configuration.html
         - text: Node.js - JavaScript and Sass tools
           href: articles/explanation/node-js-javascript-and-sass-tools.html
+        - text: Rhino style guide
+          href: articles/explanation/rhino-style-guide.html
     how-to-guides:
       text: How-to Guides
       menu:
@@ -105,6 +107,8 @@ navbar:
         - text: Migration guides
         - text: Migration to Rhino 1.6
           href: articles/how-to/migrate-1-6.html
+        - text: Migration to Rhino 1.7
+          href: articles/how-to/migrate-1-7.html
 
     faq:
       text: FAQ
@@ -142,6 +146,13 @@ reference:
   contents:
   - diagnostics
   - test_e2e
+
+- title: Linters
+  contents:
+  - box_func_import_count_linter
+  - box_separate_calls_linter
+  - box_trailing_commas_linter
+  - box_universal_import_linter
 
 - title: Data
   contents:

@@ -1,5 +1,9 @@
 linters:
   linters_with_defaults(
     line_length_linter = line_length_linter(100),
+    box_func_import_count_linter = rhino::box_func_import_count_linter(),
+    box_separate_calls_linter = rhino::box_separate_calls_linter(),
+    box_trailing_commas_linter = rhino::box_trailing_commas_linter(),
+    box_universal_import_linter = rhino::box_universal_import_linter(),
     object_usage_linter = NULL  # Does not work with `box::use()`.
   )

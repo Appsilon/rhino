@@ -1,7 +1,24 @@
-# rhino (development-next)
+# rhino (development version)
 
+# [rhino 1.7.0](https://github.com/Appsilon/rhino/releases/tag/v1.7.0)
 
-# rhino (development)
+See _[How-to: Rhino 1.7 Migration Guide](https://appsilon.github.io/rhino/articles/how-to/migrate-1-7.html)_
+
+1. Introduce linters for `box::use` statements:
+    * `box_universal_import_linter` checks if all imports are explicit.
+    * `box_trailing_commas_linter` checks if statements include trailing commas.
+    * `box_func_import_count_linter` checks if the number of function imports does not exceed the limit.
+    * `box_separate_calls_linter` checks if packages and modules are imported in separate statements.
+2. Major refactor of `rhino::app()`:
+    * The `request` parameter is now correctly forwarded to the UI function
+    when using a `legacy_entrypoint` ([#395](https://github.com/Appsilon/rhino/issues/395)).
+    * Force evaluation of arguments in higher-order functions
+    to avoid unexpected behavior due to lazy evaluation (internal).
+3. Add support for [`shiny.autoreload`](https://shiny.posit.co/r/reference/shiny/latest/shinyoptions).
+
+# [rhino 1.6.0](https://github.com/Appsilon/rhino/releases/tag/v1.6.0)
+
+See _[How-to: Rhino 1.6 Migration Guide](https://appsilon.github.io/rhino/articles/how-to/migrate-1-6.html)_
 
 1. `pkg_install` supports installation from local sources, GitHub, and Bioconductor.
 2. Improve Rhino CI (use latest versions and make better use of actions).
@@ -13,6 +30,8 @@
     * `lint_sass()` now uses `stylelint` 14.16 (the last major version supporting stylistic rules)
     * Upgrade all remaining Node.js dependencies to latest versions and fix vulnerabilities.
     * The minimum supported Node.js version is now 16.
+4. Introduce `RHINO_NPM` environment variable
+to allow using `npm` alternatives like `bun` and `pnpm`.
 
 # [rhino 1.5.0](https://github.com/Appsilon/rhino/releases/tag/v1.5.0)
 

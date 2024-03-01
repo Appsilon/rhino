@@ -7,6 +7,7 @@
 [![downloads monthly](https://cranlogs.r-pkg.org/badges/rhino)](https://CRAN.R-project.org/package=rhino)
 [![downloads total](https://cranlogs.r-pkg.org/badges/grand-total/rhino)](https://CRAN.R-project.org/package=rhino)
 [![License: LGPL-3.0](https://img.shields.io/badge/License-LGPL--3.0-blue.svg)](https://opensource.org/licenses/LGPL-3.0)
+[![Pharmaverse](http://pharmaverse.org/shields/rhino.svg)](https://pharmaverse.org)
 <!--
 [![codecov](https://codecov.io/gh/Appsilon/rhino/branch/main/graph/badge.svg)](https://codecov.io/gh/Appsilon/rhino)
 -->
@@ -18,6 +19,10 @@
 
 Would you like to learn about Rhino hands-on? Join our events!
 Upcoming events will be added to this section - stay tuned.
+
+* [**Open Source Spotlight: New developments in Rhino**](https://events.ringcentral.com/events/shiny-gathering-11-b3775827-5b59-4068-ab59-82d9a262b7f0)<br>
+2024-02-27 at 18:00 (UTC+1)<br>
+Shiny Gathering led by [Kamil Żyła](https://www.linkedin.com/in/kamil-zyla/)
 
 ### Past
 
