@@ -106,22 +106,32 @@ test_that("box_alphabetical_imports_linter blocks unsorted imports in box::use()
   lint_message = rex::rex("Module and function imports must be sorted alphabetically.")
   
   lintr::expect_lint(bad_box_calls_1, list(
-            list(message = lint_message, line_number = 3),
-            list(message = lint_message, line_number = 4)), linter)
+      list(message = lint_message, line_number = 3),
+      list(message = lint_message, line_number = 4)
+    ), linter)
   lintr::expect_lint(bad_box_calls_2, list(
-    list(message = lint_message, line_number = 2),
-    list(message = lint_message, line_number = 4)), linter)
+      list(message = lint_message, line_number = 2),
+      list(message = lint_message, line_number = 4)
+    ), linter)
 
   lintr::expect_lint(bad_box_calls_3, list(
-    list(message = lint_message, line_number = 4),
-    list(message = lint_message, line_number = 4)
+      list(message = lint_message, line_number = 4),
+      list(message = lint_message, line_number = 4)
     ), linter)
   lintr::expect_lint(bad_box_calls_4, list(
-    list(message = lint_message, line_number = 2),
-    list(message = lint_message, line_number = 2),
-    list(message = lint_message, line_number = 4),
-    list(message = lint_message, line_number = 4)
-  ), linter)
-  lintr::expect_lint(bad_box_calls_5, list(message = lint_message), linter)
-  lintr::expect_lint(bad_box_calls_6, list(message = lint_message), linter)
+      list(message = lint_message, line_number = 2),
+      list(message = lint_message, line_number = 2),
+      list(message = lint_message, line_number = 4),
+      list(message = lint_message, line_number = 4)
+    ), linter)
+  lintr::expect_lint(bad_box_calls_5, list(
+      list(message = lint_message, line_number = 2),
+      list(message = lint_message, line_number = 2)
+    ), linter)
+  lintr::expect_lint(bad_box_calls_6, list(
+      list(message = lint_message, line_number = 2),
+      list(message = lint_message, line_number = 2),
+      list(message = lint_message, line_number = 4),
+      list(message = lint_message, line_number = 4)
+    ), linter)
 })

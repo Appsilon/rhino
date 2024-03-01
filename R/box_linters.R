@@ -73,7 +73,7 @@ box_alphabetical_imports_linter <- function() {
   descendant::OP-LEFT-BRACKET
 ]")
   
-  xpath_functions <- "./expr/SYMBOL[
+  xpath_functions <- "./descendant::expr/SYMBOL[
   ../preceding-sibling::OP-LEFT-BRACKET and
   ../following-sibling::OP-RIGHT-BRACKET
 ]"
