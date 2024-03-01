@@ -114,23 +114,23 @@ test_that("box_alphabetical_calls_linter() blocks unsorted imports in box::use()
     list(message = lint_message, line_number = 4)
   ), linter)
   lintr::expect_lint(bad_box_calls_3, list(
-    list(message = lint_message, line_number = 4),
-    list(message = lint_message, line_number = 4)
+    list(message = lint_message, line_number = 4, column_number = 11),
+    list(message = lint_message, line_number = 4, column_number = 24)
   ), linter)
   lintr::expect_lint(bad_box_calls_4, list(
-    list(message = lint_message, line_number = 2),
-    list(message = lint_message, line_number = 2),
-    list(message = lint_message, line_number = 4),
-    list(message = lint_message, line_number = 4)
+    list(message = lint_message, line_number = 2, column_number = 11),
+    list(message = lint_message, line_number = 2, column_number = 27),
+    list(message = lint_message, line_number = 4, column_number = 11),
+    list(message = lint_message, line_number = 4, column_number = 24)
   ), linter)
   lintr::expect_lint(bad_box_calls_5, list(
-    list(message = lint_message, line_number = 2),
-    list(message = lint_message, line_number = 2)
+    list(message = lint_message, line_number = 2, column_number = 19),
+    list(message = lint_message, line_number = 2, column_number = 41)
   ), linter)
   lintr::expect_lint(bad_box_calls_6, list(
-    list(message = lint_message, line_number = 2),
-    list(message = lint_message, line_number = 2),
-    list(message = lint_message, line_number = 4),
-    list(message = lint_message, line_number = 4)
+    list(message = lint_message, line_number = 2, column_number = 19),
+    list(message = lint_message, line_number = 2, column_number = 41),
+    list(message = lint_message, line_number = 4, column_number = 19),
+    list(message = lint_message, line_number = 4, column_number = 41)
   ), linter)
 })
