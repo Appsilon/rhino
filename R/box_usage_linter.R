@@ -15,7 +15,11 @@ box_usage_linter <- function() {
     preceding-sibling::OP-LEFT-BRACKET and
     following-sibling::OP-RIGHT-BRACKET
   ]
-  /SYMBOL
+  /SYMBOL[
+    not(
+      text() = '...'
+    )
+  ]
   "
   
   box_package_import <- "
@@ -23,9 +27,20 @@ box_usage_linter <- function() {
     SYMBOL
   ]
   "
+  
+  box_package_import_all <- "
+  /child::expr[
+    expr/SYMBOL[text() = '...']
+  ]
+  /expr[
+    following-sibling::OP-LEFT-BRACKET
+  ]
+  /SYMBOL
+  "
 
   xpath_package_functions <- paste(box_base_path, box_package_functions)
   xpath_package_import <- paste(box_base_path, box_package_import)
+  xpath_package_import_all <- paste(box_base_path, box_package_import_all)
   
   xpath_box_function_calls <- "
   //expr[
@@ -51,6 +66,19 @@ box_usage_linter <- function() {
     imported_functions_text <- xml2::xml_text(imported_functions)
     # remove back-ticks "`%>%`" -> "%>%"
     imported_functions_text <- gsub("`", "", imported_functions_text)
+    
+    imported_all_functions_package <- xml2::xml_find_all(xml, xpath_package_import_all)
+    imported_all_fun_pkg_text <- xml2::xml_text(imported_all_functions_package)
+    imported_all_fun_pkgs <- unlist(
+      lapply(imported_all_fun_pkg_text, function(pkg) {
+        tryCatch(
+          getNamespaceExports(pkg),
+          error = function(e) character()
+        )
+      })
+    )
+    
+    imported_fun_text <- c(imported_functions_text, imported_all_fun_pkgs)
     
     imported_packages <- xml2::xml_find_all(xml, xpath_package_import)
     imported_packages_text <- xml2::xml_text(imported_packages)
@@ -94,7 +122,7 @@ box_usage_linter <- function() {
           )
         }
       } else {
-        if (!fun_call_text %in% imported_functions_text) {
+        if (!fun_call_text %in% imported_fun_text) {
           lintr::xml_nodes_to_lints(
             fun_call,
             source_expression = source_expression,

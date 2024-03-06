@@ -11,7 +11,7 @@ test_that("box_usage_linter skips allowed box-imported package functions", {
   "
   
   good_box_call_2 <- "box::use(
-    shiny[ns],
+    shiny[NS],
     glue,
     fs[path_file],
   )
@@ -20,9 +20,21 @@ test_that("box_usage_linter skips allowed box-imported package functions", {
   glue$glue('My name is {name}.')
   
   path_file('dir/file.zip')
+  
+  ns <- NS()
+  "
+  
+  good_box_call_3 <- "box::use(
+    glue[...]
+  )
+  
+  name <- 'Fred'
+  glue_sql('My name is {name}.')
   "
 
   lintr::expect_lint(good_box_call_1, NULL, linter)
+  lintr::expect_lint(good_box_call_2, NULL, linter)
+  lintr::expect_lint(good_box_call_3, NULL, linter)
 })
 
 test_that("box_usage_linter blocks functions not box-imported", {
@@ -52,8 +64,17 @@ test_that("box_usage_linter blocks functions not box-imported", {
   path_file('dir/file.zip')
   "
   
+  bad_box_call_3 <- "box::use(
+    glue[...]
+  )
+  
+  name <- 'Fred'
+  xyz('My name is {name}')
+  "
+  
   lintr::expect_lint(bad_box_call_1, list(message = lint_message_1), linter)
   lintr::expect_lint(bad_box_call_2, list(message = lint_message_2), linter)
+  lintr::expect_lint(bad_box_call_3, list(message = lint_message_1), linter)
 })
 
 test_that("box_usage_linter blocks box-imported functions unused", {
