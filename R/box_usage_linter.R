@@ -66,20 +66,7 @@ box_usage_linter <- function() {
     
     imported_fun_text <- c(imported_functions$text, imported_all_fun_pkgs$text)
     
-    imported_packages <- xml2::xml_find_all(xml, xpath_package_import)
-    imported_packages_text <- xml2::xml_text(imported_packages)
-    imported_package_functions <- get_packages_exports(imported_packages_text)
-    names(imported_package_functions) <- imported_packages_text
-    
-    imported_package_function_list <- unlist(
-      lapply(names(imported_package_functions), function(pkg) {
-        paste(
-          pkg,
-          imported_package_functions[[pkg]],
-          sep = "$"
-        )
-      })
-    )
+    imported_packages <- get_imported_packages(xml, xpath_package_import)
     
     # get list of function calls
     function_calls <- xml2::xml_find_all(xml, xpath_box_function_calls)
@@ -94,7 +81,7 @@ box_usage_linter <- function() {
       fun_call_text <- xml2::xml_text(fun_call)
       
       if (grepl(".+\\$.+", fun_call_text)) {
-        if (!fun_call_text %in% imported_package_function_list) {
+        if (!fun_call_text %in% imported_packages$text) {
           lintr::xml_nodes_to_lints(
             fun_call,
             source_expression = source_expression,
@@ -166,5 +153,27 @@ get_imported_package_functions <- function(xml, xpath_package_import_all) {
   list(
     xml = imported_all_functions_package,
     text = imported_all_fun_pkgs
+  )
+}
+
+get_imported_packages <- function(xml, xpath_package_import) {
+  imported_packages <- xml2::xml_find_all(xml, xpath_package_import)
+  imported_packages_text <- xml2::xml_text(imported_packages)
+  imported_package_functions <- get_packages_exports(imported_packages_text)
+  names(imported_package_functions) <- imported_packages_text
+  
+  imported_package_function_list <- unlist(
+    lapply(names(imported_package_functions), function(pkg) {
+      paste(
+        pkg,
+        imported_package_functions[[pkg]],
+        sep = "$"
+      )
+    })
+  )
+  
+  list(
+    xml = imported_packages,
+    text = imported_package_function_list
   )
 }
