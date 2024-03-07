@@ -98,6 +98,19 @@ box_usage_linter <- function() {
   //SPECIAL
   "
 
+  xpath_function_assignment <- "
+  //expr[
+      (LEFT_ASSIGN or EQ_ASSIGN) and ./expr[2][FUNCTION or OP-LAMBDDA]
+    ]
+    /expr[1]/SYMBOL
+  | //expr_or_assign_or_help[EQ_ASSIGN and ./expr[2][FUNCTION or OP-LAMBDA]]
+  | //equal_assign[EQ_ASSIGN and ./expr[2][FUNCTION or OP-LAMBDA]]
+  | //SYMBOL_FUNCTION_CALL[text() = 'assign']/parent::expr[
+      ./following-sibling::expr[2][FUNCTION or OP-LAMBDA]
+    ]
+    /following-sibling::expr[1]/STR_CONST
+  "
+
   lintr::Linter(function(source_expression) {
     if (!lintr::is_lint_level(source_expression, "file")) {
       return(list())
@@ -108,6 +121,9 @@ box_usage_linter <- function() {
     attached_functions <- get_attached_functions(xml, xpath_package_functions)
     attached_three_dots <- get_attached_three_dots(xml, xpath_package_three_dots)
     all_attached_fun <- c(attached_functions$text, attached_three_dots$text)
+
+    fun_assignments <- extract_xml_and_text(xml, xpath_function_assignment)
+    all_known_fun <- c(all_attached_fun, fun_assignments$text)
 
     attached_packages <- get_attached_packages(xml, xpath_package_import)
     function_calls <- get_function_calls(xml, xpath_box_function_calls)
@@ -127,7 +143,7 @@ box_usage_linter <- function() {
             )
           }
         } else {
-          if (!fun_call_text %in% all_attached_fun) {
+          if (!fun_call_text %in% all_known_fun) {
             lintr::xml_nodes_to_lints(
               fun_call,
               source_expression = source_expression,
@@ -141,7 +157,7 @@ box_usage_linter <- function() {
 
     unused_function_imports <- lapply(attached_functions$xml, function(fun_import) {
       fun_import_text <- xml2::xml_text(fun_import)
-      fun_import_text <- gsub("`", "", fun_import_text)
+      fun_import_text <- gsub("[`'\"]", "", fun_import_text)
 
       if (!fun_import_text %in% function_calls$text) {
         lintr::xml_nodes_to_lints(
@@ -153,9 +169,24 @@ box_usage_linter <- function() {
       }
     })
 
+    unused_function_assign <- lapply(fun_assignments$xml_nodes, function(fun_assign) {
+      fun_assign_text <- xml2::xml_text(fun_assign)
+      fun_assign_text <- gsub("[`'\"]", "", fun_assign_text)
+
+      if (!fun_assign_text %in% function_calls$text) {
+        lintr::xml_nodes_to_lints(
+          fun_assign,
+          source_expression = source_expression,
+          lint_message = "Declared function unused.",
+          type = "warning"
+        )
+      }
+    })
+
     c(
       unimported_functions,
-      unused_function_imports
+      unused_function_imports,
+      unused_function_assign
     )
   })
 }
@@ -211,7 +242,7 @@ get_packages_exports <- function(pkg_list) {
 extract_xml_and_text <- function(xml, xpath) {
   xml_nodes <- xml2::xml_find_all(xml, xpath)
   text <- lintr::get_r_string(xml_nodes)
-  text <- gsub("`", "", text)
+  text <- gsub("[`'\"]", "", text)
 
   list(
     xml_nodes = xml_nodes,
@@ -231,6 +262,7 @@ get_attached_functions <- function(xml, xpath) {
     )
   ]
 "
+
   xpath_attached_functions <- paste(xpath, xpath_just_functions)
   attached_functions <- extract_xml_and_text(xml, xpath_attached_functions)
 
