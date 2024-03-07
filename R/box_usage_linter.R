@@ -37,7 +37,7 @@ box_usage_linter <- function() {
   ]
   /SYMBOL
   "
-
+  
   xpath_package_functions <- paste(box_base_path, box_package_functions)
   xpath_package_import <- paste(box_base_path, box_package_import)
   xpath_package_import_all <- paste(box_base_path, box_package_import_all)
@@ -53,27 +53,18 @@ box_usage_linter <- function() {
   ] |
   //SPECIAL
   "
-
+  
   lintr::Linter(function(source_expression) {
     if (!lintr::is_lint_level(source_expression, "file")) {
       return(list())
     }
     
     xml <- source_expression$full_xml_parsed_content
-
-    # get list of imported package functions
-    imported_functions <- xml2::xml_find_all(xml, xpath_package_functions)
-    imported_functions_text <- xml2::xml_text(imported_functions)
-    # remove back-ticks "`%>%`" -> "%>%"
-    imported_functions_text <- gsub("`", "", imported_functions_text)
     
-    imported_all_functions_package <- xml2::xml_find_all(xml, xpath_package_import_all)
-    imported_all_fun_pkg_text <- xml2::xml_text(imported_all_functions_package)
-    imported_all_fun_pkgs <- unlist(
-      get_packages_exports(imported_all_fun_pkg_text)
-    )
+    imported_functions <- get_imported_functions(xml, xpath_package_functions)
+    imported_all_fun_pkgs <- get_imported_package_functions(xml, xpath_package_import_all)
     
-    imported_fun_text <- c(imported_functions_text, imported_all_fun_pkgs)
+    imported_fun_text <- c(imported_functions$text, imported_all_fun_pkgs$text)
     
     imported_packages <- xml2::xml_find_all(xml, xpath_package_import)
     imported_packages_text <- xml2::xml_text(imported_packages)
@@ -123,7 +114,7 @@ box_usage_linter <- function() {
       }
     })
     
-    unused_function_imports <- lapply(imported_functions, function(fun_import) {
+    unused_function_imports <- lapply(imported_functions$xml, function(fun_import) {
       fun_import_text <- xml2::xml_text(fun_import)
       fun_import_text <- gsub("`", "", fun_import_text)
       
@@ -151,4 +142,29 @@ get_packages_exports <- function(pkg_list) {
       error = function(e) character()
     )
   })
+}
+
+get_imported_functions <- function(xml, xpath_package_functions) {
+  imported_functions <- xml2::xml_find_all(xml, xpath_package_functions)
+  imported_functions_text <- xml2::xml_text(imported_functions)
+  # remove back-ticks "`%>%`" -> "%>%"
+  imported_functions_text <- gsub("`", "", imported_functions_text)
+  
+  list(
+    xml = imported_functions,
+    text = imported_functions_text
+  )
+}
+
+get_imported_package_functions <- function(xml, xpath_package_import_all) {
+  imported_all_functions_package <- xml2::xml_find_all(xml, xpath_package_import_all)
+  imported_all_fun_pkg_text <- xml2::xml_text(imported_all_functions_package)
+  imported_all_fun_pkgs <- unlist(
+    get_packages_exports(imported_all_fun_pkg_text)
+  )
+  
+  list(
+    xml = imported_all_functions_package,
+    text = imported_all_fun_pkgs
+  )
 }
