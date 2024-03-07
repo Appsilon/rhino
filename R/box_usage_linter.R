@@ -308,7 +308,7 @@ get_attached_packages <- function(xml, xpath) {
 }
 
 get_base_packages <- function() {
-  base_pkgs_names <- sessionInfo()$basePkgs
+  base_pkgs_names <- utils::sessionInfo()$basePkgs
   base_pkgs_funs <- get_packages_exports(base_pkgs_names)
   base_pkgs_funs_flat <- unlist(base_pkgs_funs, use.names = FALSE)
 
