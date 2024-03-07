@@ -40,7 +40,7 @@ box_usage_linter <- function() {
   
   xpath_package_functions <- paste(box_base_path, box_package_functions)
   xpath_package_import <- paste(box_base_path, box_package_import)
-  xpath_package_import_all <- paste(box_base_path, box_package_three_dots)
+  xpath_package_three_dots <- paste(box_base_path, box_package_three_dots)
   
   xpath_box_function_calls <- "
   //expr[
@@ -61,27 +61,23 @@ box_usage_linter <- function() {
     
     xml <- source_expression$full_xml_parsed_content
     
-    imported_functions <- get_imported_functions(xml, xpath_package_functions)
-    imported_all_fun_pkgs <- get_imported_package_functions(xml, xpath_package_import_all)
+    attached_functions <- get_attached_functions(xml, xpath_package_functions)
+    attached_three_dots <- get_attached_three_dots(xml, xpath_package_three_dots)
     
-    imported_fun_text <- c(imported_functions$text, imported_all_fun_pkgs$text)
+    all_attached_fun <- c(attached_functions$text, attached_three_dots$text)
     
-    imported_packages <- get_imported_packages(xml, xpath_package_import)
+    attached_packages <- get_attached_packages(xml, xpath_package_import)
     
-    # get list of function calls
     function_calls <- xml2::xml_find_all(xml, xpath_box_function_calls)
     function_calls_text <- xml2::xml_text(function_calls)
     
     # remove base function calls
     
-    # compare lists
-    # setdiff(imported_functions, function_calls)
-    
     unimported_functions <- lapply(function_calls, function(fun_call) {
       fun_call_text <- xml2::xml_text(fun_call)
       
       if (grepl(".+\\$.+", fun_call_text)) {
-        if (!fun_call_text %in% imported_packages$text) {
+        if (!fun_call_text %in% attached_packages$text) {
           lintr::xml_nodes_to_lints(
             fun_call,
             source_expression = source_expression,
@@ -90,7 +86,7 @@ box_usage_linter <- function() {
           )
         }
       } else {
-        if (!fun_call_text %in% imported_fun_text) {
+        if (!fun_call_text %in% all_attached_fun) {
           lintr::xml_nodes_to_lints(
             fun_call,
             source_expression = source_expression,
@@ -101,7 +97,7 @@ box_usage_linter <- function() {
       }
     })
     
-    unused_function_imports <- lapply(imported_functions$xml, function(fun_import) {
+    unused_function_imports <- lapply(attached_functions$xml, function(fun_import) {
       fun_import_text <- xml2::xml_text(fun_import)
       fun_import_text <- gsub("`", "", fun_import_text)
       
@@ -123,12 +119,16 @@ box_usage_linter <- function() {
 }
 
 get_packages_exports <- function(pkg_list) {
-  lapply(pkg_list, function(pkg) {
+  exported_funs <- lapply(pkg_list, function(pkg) {
     tryCatch(
       getNamespaceExports(pkg),
       error = function(e) character()
     )
   })
+  
+  names(exported_funs) <- pkg_list
+  
+  exported_funs
 }
 
 extract_xml_and_text <- function(xml, xpath) {
@@ -142,44 +142,46 @@ extract_xml_and_text <- function(xml, xpath) {
   )
 }
 
-get_imported_functions <- function(xml, xpath_package_functions) {
-  imported_functions <- extract_xml_and_text(xml, xpath_package_functions)
+get_attached_functions <- function(xml, xpath) {
+  attached_functions <- extract_xml_and_text(xml, xpath)
   
   list(
-    xml = imported_functions$xml_nodes,
-    text = imported_functions$text
+    xml = attached_functions$xml_nodes,
+    text = attached_functions$text
   )
 }
 
-get_imported_package_functions <- function(xml, xpath_package_import_all) {
-  imported_all_functions_package <- extract_xml_and_text(xml, xpath_package_import_all)
+get_attached_three_dots <- function(xml, xpath) {
+  attached_three_dots <- extract_xml_and_text(xml, xpath)
   
-  imported_all_fun_pkgs <- unlist(get_packages_exports(imported_all_functions_package$text))
+  nested_list <- get_packages_exports(attached_three_dots$text)
+  flat_list <- unlist(nested_list, use.names = FALSE)
   
   list(
-    xml = imported_all_functions_package$xml_nodes,
-    text = imported_all_fun_pkgs
+    xml = attached_three_dots$xml_nodes,
+    nested = nested_list,
+    text = flat_list
   )
 }
 
-get_imported_packages <- function(xml, xpath_package_import) {
-  imported_packages <- extract_xml_and_text(xml, xpath_package_import)
+get_attached_packages <- function(xml, xpath) {
+  attached_packages <- extract_xml_and_text(xml, xpath)
   
-  imported_package_functions <- get_packages_exports(imported_packages$text)
-  names(imported_package_functions) <- imported_packages$text
+  nested_list <- get_packages_exports(attached_packages$text)
   
-  imported_package_function_list <- unlist(
-    lapply(names(imported_package_functions), function(pkg) {
+  flat_list <- unlist(
+    lapply(names(nested_list), function(pkg) {
       paste(
         pkg,
-        imported_package_functions[[pkg]],
+        nested_list[[pkg]],
         sep = "$"
       )
     })
   )
   
   list(
-    xml = imported_packages$xml_nodes,
-    text = imported_package_function_list
+    xml = nested_list$xml_nodes,
+    nested = nested_list,
+    text = flat_list
   )
 }
