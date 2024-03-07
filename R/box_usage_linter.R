@@ -70,24 +70,14 @@ box_usage_linter <- function() {
     imported_all_functions_package <- xml2::xml_find_all(xml, xpath_package_import_all)
     imported_all_fun_pkg_text <- xml2::xml_text(imported_all_functions_package)
     imported_all_fun_pkgs <- unlist(
-      lapply(imported_all_fun_pkg_text, function(pkg) {
-        tryCatch(
-          getNamespaceExports(pkg),
-          error = function(e) character()
-        )
-      })
+      get_packages_exports(imported_all_fun_pkg_text)
     )
     
     imported_fun_text <- c(imported_functions_text, imported_all_fun_pkgs)
     
     imported_packages <- xml2::xml_find_all(xml, xpath_package_import)
     imported_packages_text <- xml2::xml_text(imported_packages)
-    imported_package_functions <- lapply(imported_packages_text, function(pkg) {
-        tryCatch(
-          getNamespaceExports(pkg),
-          error = function(e) character()
-        )
-      })
+    imported_package_functions <- get_packages_exports(imported_packages_text)
     names(imported_package_functions) <- imported_packages_text
     
     imported_package_function_list <- unlist(
@@ -150,6 +140,15 @@ box_usage_linter <- function() {
     c(
       unimported_functions,
       unused_function_imports
+    )
+  })
+}
+
+get_packages_exports <- function(pkg_list) {
+  lapply(pkg_list, function(pkg) {
+    tryCatch(
+      getNamespaceExports(pkg),
+      error = function(e) character()
     )
   })
 }
