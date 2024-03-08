@@ -10,7 +10,8 @@ box_alphabetical_calls_linter()
 A custom linter function for use with \code{r-lib/lintr}.
 }
 \description{
-Checks that module and function imports are sorted alphabetically.
+Checks that module and function imports are sorted alphabetically. Aliases are
+ignored. The sort check is on package/module names and attached function names.
 See the \href{https://appsilon.github.io/rhino/articles/explanation/rhino-style-guide.html}{Explanation: Rhino style guide}
 to learn about the details.
 }
@@ -36,20 +37,25 @@ lintr::lint(
   linters = box_alphabetical_calls_linter()
 )
 
+lintr::lint(
+  text = "box::use(path/to/A[alias = functionB, functionA])",
+  linters = box_alphabetical_calls_linter()
+)
+
 # okay
 lintr::lint(
   text = "box::use(packageA, packageB)",
-  linters = box_func_import_count_linter()
+  linters = box_alphabetical_calls_linter()
 )
 
 lintr::lint(
   text = "box::use(package[one, two, three])",
-  linters = box_func_import_count_linter()
+  linters = box_alphabetical_calls_linter()
 )
 
 lintr::lint(
   text = "box::use(package[functionA, functionB])",
-  linters = box_func_import_count_linter()
+  linters = box_alphabetical_calls_linter()
 )
 
 lintr::lint(
@@ -59,6 +65,11 @@ lintr::lint(
 
 lintr::lint(
   text = "box::use(path/to/A[functionA, functionB])",
+  linters = box_alphabetical_calls_linter()
+)
+
+lintr::lint(
+  text = "box::use(path/to/A[functionA, alias = functionB])",
   linters = box_alphabetical_calls_linter()
 )
 
