@@ -322,9 +322,18 @@ get_function_calls <- function(xml, xpath) {
   # lintr::get_r_string throws an error when seeing SYMBOL %>%
   xml_nodes <- xml2::xml_find_all(xml, xpath)
   text <- xml2::xml_text(xml_nodes, trim = TRUE)
+  r6_refs <- internal_r6_refs(text)
+
+  xml_nodes <- xml_nodes[!r6_refs]
+  text <- text[!r6_refs]
 
   list(
     xml_nodes = xml_nodes,
     text = text
   )
+}
+
+internal_r6_refs <- function(func_list) {
+  r6_refs <- "self|private\\$.+"
+  grepl(r6_refs, func_list)
 }
