@@ -49,11 +49,6 @@ lintr::lint(
 )
 
 lintr::lint(
-  text = "box::use(package[one, two, three])",
-  linters = box_alphabetical_calls_linter()
-)
-
-lintr::lint(
   text = "box::use(package[functionA, functionB])",
   linters = box_alphabetical_calls_linter()
 )

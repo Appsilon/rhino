@@ -42,15 +42,10 @@
 #' )
 #'
 #' lintr::lint(
-#'   text = "box::use(package[one, two, three])",
-#'   linters = box_alphabetical_calls_linter()
-#' )
-#'
-#' lintr::lint(
 #'   text = "box::use(package[functionA, functionB])",
 #'   linters = box_alphabetical_calls_linter()
 #' )
-#' 
+#'
 #' lintr::lint(
 #'   text = "box::use(path/to/A, path/to/B)",
 #'   linters = box_alphabetical_calls_linter()
@@ -69,7 +64,7 @@
 #' @export
 # nolint end
 box_alphabetical_calls_linter <- function() {
-  xpath_base <- "//SYMBOL_PACKAGE[(text() = 'box' and 
+  xpath_base <- "//SYMBOL_PACKAGE[(text() = 'box' and
   following-sibling::SYMBOL_FUNCTION_CALL[text() = 'use'])]
   /parent::expr
   /parent::expr"

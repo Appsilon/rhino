@@ -104,7 +104,7 @@ box::use(
 # Bad
 box::use(
   a_pkg = shiny,
-  rhino[a_fun = react_component, log]
+  rhino[a_fun = react_component, log],
 )
 ```
 
