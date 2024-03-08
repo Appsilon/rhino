@@ -70,25 +70,25 @@
 # nolint end
 box_alphabetical_calls_linter <- function() {
   xpath_base <- "//SYMBOL_PACKAGE[(text() = 'box' and 
-following-sibling::SYMBOL_FUNCTION_CALL[text() = 'use'])]
-/parent::expr
-/parent::expr"
+  following-sibling::SYMBOL_FUNCTION_CALL[text() = 'use'])]
+  /parent::expr
+  /parent::expr"
 
   xpath <- paste(xpath_base, "
-/child::expr[
-  descendant::SYMBOL
-]")
+  /child::expr[
+    descendant::SYMBOL
+  ]")
 
   xpath_modules_with_functions <- paste(xpath_base, "
-/child::expr[
-  descendant::SYMBOL and
-  descendant::OP-LEFT-BRACKET
-]")
+  /child::expr[
+    descendant::SYMBOL and
+    descendant::OP-LEFT-BRACKET
+  ]")
 
   xpath_functions <- "./descendant::expr/SYMBOL[
-  ../preceding-sibling::OP-LEFT-BRACKET and
-  ../following-sibling::OP-RIGHT-BRACKET
-]"
+    ../preceding-sibling::OP-LEFT-BRACKET and
+    ../following-sibling::OP-RIGHT-BRACKET
+  ]"
 
   lint_message <- "Module and function imports must be sorted alphabetically."
 
