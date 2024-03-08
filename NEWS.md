@@ -1,5 +1,7 @@
 # rhino (development version)
 
+1. New `box_alphabetical_imports_linter` checks if all imports are alphabetically sorted.
+
 # [rhino 1.7.0](https://github.com/Appsilon/rhino/releases/tag/v1.7.0)
 
 See _[How-to: Rhino 1.7 Migration Guide](https://appsilon.github.io/rhino/articles/how-to/migrate-1-7.html)_

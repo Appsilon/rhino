@@ -61,7 +61,7 @@ Both `say_hello()` and `say_bye()` can be exported from `app/logic/messages.R`.
 
 ```r
 box::use(
-  app/logic/messages[say_hello, say_bye],
+  app/logic/messages[say_bye, say_hello],
 )
 
 #' @export
@@ -79,7 +79,7 @@ Modules can also be imported across directories; use code from `app/logic` in `a
 ```r
 # app/view/greet_module.R
 box::use(
-  shiny[moduleServer, NS, renderText, div, textOutput, req],
+  shiny[div, moduleServer, NS, renderText, req, textOutput],
   shiny.semantic[textInput],
 )
 

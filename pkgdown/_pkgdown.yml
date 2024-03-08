@@ -149,6 +149,7 @@ reference:
 
 - title: Linters
   contents:
+  - box_alphabetical_calls_linter
   - box_func_import_count_linter
   - box_separate_calls_linter
   - box_trailing_commas_linter

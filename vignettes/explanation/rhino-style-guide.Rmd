@@ -90,6 +90,24 @@ box::use(
 )
 ```
 
+## Aliases
+
+Aliases can be useful for long package/module and function names. Imports should still follow the alphabetical order of package/module names and function names.
+
+```r
+# Good
+box::use(
+  z_pkg = rhino,
+  shiny[div, a_fun = fluidPage],
+)
+
+# Bad
+box::use(
+  a_pkg = shiny,
+  rhino[a_fun = react_component, log],
+)
+```
+
 # Number of Imports
 
 Limit the number of functions imported from a module or package to 8.
