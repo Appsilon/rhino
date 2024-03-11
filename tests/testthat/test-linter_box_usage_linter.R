@@ -1,4 +1,4 @@
-test_that("box_usage_linter skips allowed box-imported package functions", {
+test_that("box_usage_linter skips allowed package[function] attachment.", {
   linter <- box_usage_linter()
 
   good_box_usage_1 <- "box::use(
@@ -9,6 +9,12 @@ test_that("box_usage_linter skips allowed box-imported package functions", {
     select(mpg, cyl) %>%
     filter(mpg <= 10)
   "
+
+  lintr::expect_lint(good_box_usage_1, NULL, linter)
+})
+
+test_that("box_usage_linter skips allowed package attachment", {
+  linter <- box_usage_linter()
 
   good_box_usage_2 <- "box::use(
     shiny[NS],
@@ -24,6 +30,12 @@ test_that("box_usage_linter skips allowed box-imported package functions", {
   ns <- NS()
   "
 
+  lintr::expect_lint(good_box_usage_2, NULL, linter)
+})
+
+test_that("box_usage_linter skips allowed package[...] attachment", {
+  linter <- box_usage_linter()
+
   good_box_usage_3 <- "box::use(
     glue[...]
   )
@@ -31,6 +43,12 @@ test_that("box_usage_linter skips allowed box-imported package functions", {
   name <- 'Fred'
   glue_sql('My name is {name}.')
   "
+
+  lintr::expect_lint(good_box_usage_3, NULL, linter)
+})
+
+test_that("box_usage_linter skips allowed base packages functions", {
+  linter <- box_usage_linter()
 
   good_box_usage_4 <- "box::use(
     dplyr[`%>%`, filter, pull],
@@ -43,18 +61,12 @@ test_that("box_usage_linter skips allowed box-imported package functions", {
   mean(mpg)
   "
 
-
-
-  lintr::expect_lint(good_box_usage_1, NULL, linter)
-  lintr::expect_lint(good_box_usage_2, NULL, linter)
-  lintr::expect_lint(good_box_usage_3, NULL, linter)
   lintr::expect_lint(good_box_usage_4, NULL, linter)
 })
 
-test_that("box_usage_linter blocks functions not box-imported", {
+test_that("box_usage_linter blocks package functions not box-imported", {
   linter <- box_usage_linter()
   lint_message_1 <- rex::rex("Function not imported.")
-  lint_message_2 <- rex::rex("package$function does not exist.")
 
   # filter not imported
   bad_box_usage_1 <- "box::use(
@@ -68,6 +80,13 @@ test_that("box_usage_linter blocks functions not box-imported", {
     )
   "
 
+  lintr::expect_lint(bad_box_usage_1, list(message = lint_message_1), linter)
+})
+
+test_that("box_usage_linter blocks package functions exported by package", {
+  linter <- box_usage_linter()
+  lint_message_2 <- rex::rex("package$function does not exist.")
+
   # xyz is not exported by glue
   bad_box_usage_2 <- "box::use(
     glue,
@@ -80,6 +99,13 @@ test_that("box_usage_linter blocks functions not box-imported", {
   path_file('dir/file.zip')
   "
 
+  lintr::expect_lint(bad_box_usage_2, list(message = lint_message_2), linter)
+})
+
+test_that("box_usage_linter blocks package functions not in global namespace", {
+  linter <- box_usage_linter()
+  lint_message_1 <- rex::rex("Function not imported.")
+
   # xyz function does not exist
   bad_box_usage_3 <- "box::use(
     glue[...]
@@ -89,7 +115,5 @@ test_that("box_usage_linter blocks functions not box-imported", {
   xyz('My name is {name}')
   "
 
-  lintr::expect_lint(bad_box_usage_1, list(message = lint_message_1), linter)
-  lintr::expect_lint(bad_box_usage_2, list(message = lint_message_2), linter)
   lintr::expect_lint(bad_box_usage_3, list(message = lint_message_1), linter)
 })
