@@ -51,6 +51,57 @@ get_attached_functions <- function(xml, xpath) {
   )
 }
 
+get_attached_three_dots <- function(xml) {
+  box_package_three_dots <- "
+  /child::expr[
+    expr/SYMBOL[text() = '...']
+  ]
+  /expr[
+    following-sibling::OP-LEFT-BRACKET
+  ]
+  /SYMBOL
+  "
+
+  xpath_package_three_dots <- paste(box_base_path(), box_package_three_dots)
+  attached_three_dots <- extract_xml_and_text(xml, xpath_package_three_dots)
+  nested_list <- get_packages_exports(attached_three_dots$text)
+  flat_list <- unlist(nested_list, use.names = FALSE)
+
+  list(
+    xml = attached_three_dots$xml_nodes,
+    nested = nested_list,
+    text = flat_list
+  )
+}
+
+get_attached_packages <- function(xml) {
+  box_package_import <- "
+  /child::expr[
+    SYMBOL
+  ]
+  "
+
+  xpath_package_import <- paste(box_base_path(), box_package_import)
+  attached_packages <- extract_xml_and_text(xml, xpath_package_import)
+  nested_list <- get_packages_exports(attached_packages$text)
+
+  flat_list <- unlist(
+    lapply(names(nested_list), function(pkg) {
+      paste(
+        pkg,
+        nested_list[[pkg]],
+        sep = "$"
+      )
+    })
+  )
+
+  list(
+    xml = attached_packages$xml_nodes,
+    nested = nested_list,
+    text = flat_list
+  )
+}
+
 get_declared_functions <- function(xml) {
   xpath_function_assignment <- "
   //expr[
