@@ -110,24 +110,7 @@ box_usage_linter <- function() {
       }
     })
 
-    unused_function_imports <- lapply(attached_functions$xml, function(fun_import) {
-      fun_import_text <- xml2::xml_text(fun_import)
-      fun_import_text <- gsub("[`'\"]", "", fun_import_text)
-
-      if (!fun_import_text %in% function_calls$text) {
-        lintr::xml_nodes_to_lints(
-          fun_import,
-          source_expression = source_expression,
-          lint_message = "Imported function unused.",
-          type = "warning"
-        )
-      }
-    })
-
-    c(
-      unimported_functions,
-      unused_function_imports
-    )
+    unimported_functions
   })
 }
 

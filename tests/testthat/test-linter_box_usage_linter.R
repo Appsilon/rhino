@@ -93,19 +93,3 @@ test_that("box_usage_linter blocks functions not box-imported", {
   lintr::expect_lint(bad_box_usage_2, list(message = lint_message_2), linter)
   lintr::expect_lint(bad_box_usage_3, list(message = lint_message_1), linter)
 })
-
-test_that("box_usage_linter blocks box-imported functions unused", {
-  linter <- box_usage_linter()
-  lint_message_1 <- rex::rex("Imported function unused.")
-
-  # filter is unused
-  bad_box_usage_1 <- "box::use(
-    dplyr[`%>%`, select, filter],
-  )
-
-  mtcars %>%
-    select(mpg, cyl)
-  "
-
-  lintr::expect_lint(bad_box_usage_1, list(message = lint_message_1), linter)
-})
