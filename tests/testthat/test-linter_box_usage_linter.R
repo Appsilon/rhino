@@ -43,30 +43,12 @@ test_that("box_usage_linter skips allowed box-imported package functions", {
   mean(mpg)
   "
 
-  good_box_usage_5 <- "sample_fun <- function(x, y) {
-    x + y
-  }
 
-  sample_fun(2, 3)
-  "
-
-  good_box_usage_6 <- "assign('x', function(y) {y + 1})
-  assign('y', 4)
-  x(y)
-  "
-
-  good_box_usage_7 <- 'assign("x", function(y) {y + 1})
-  assign("y", 4)
-  x(y)
-  '
 
   lintr::expect_lint(good_box_usage_1, NULL, linter)
   lintr::expect_lint(good_box_usage_2, NULL, linter)
   lintr::expect_lint(good_box_usage_3, NULL, linter)
   lintr::expect_lint(good_box_usage_4, NULL, linter)
-  lintr::expect_lint(good_box_usage_5, NULL, linter)
-  lintr::expect_lint(good_box_usage_6, NULL, linter)
-  lintr::expect_lint(good_box_usage_7, NULL, linter)
 })
 
 test_that("box_usage_linter blocks functions not box-imported", {
@@ -115,7 +97,6 @@ test_that("box_usage_linter blocks functions not box-imported", {
 test_that("box_usage_linter blocks box-imported functions unused", {
   linter <- box_usage_linter()
   lint_message_1 <- rex::rex("Imported function unused.")
-  lint_message_2 <- rex::rex("Declared function unused.")
 
   # filter is unused
   bad_box_usage_1 <- "box::use(
@@ -126,21 +107,5 @@ test_that("box_usage_linter blocks box-imported functions unused", {
     select(mpg, cyl)
   "
 
-  bad_box_usage_2 <- "sample_fun <- function(x, y) {
-    x + y
-  }
-  "
-
-  bad_box_usage_3 <- "assign('x', function(y) {y + 1})
-  assign('y', 4)
-  "
-
-  bad_box_usage_4 <- 'assign("x", function(y) {y + 1})
-  assign("y", 4)
-  '
-
   lintr::expect_lint(bad_box_usage_1, list(message = lint_message_1), linter)
-  lintr::expect_lint(bad_box_usage_2, list(message = lint_message_2), linter)
-  lintr::expect_lint(bad_box_usage_3, list(message = lint_message_2), linter)
-  lintr::expect_lint(bad_box_usage_4, list(message = lint_message_2), linter)
 })

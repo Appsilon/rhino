@@ -124,24 +124,9 @@ box_usage_linter <- function() {
       }
     })
 
-    unused_function_assign <- lapply(fun_assignments$xml_nodes, function(fun_assign) {
-      fun_assign_text <- xml2::xml_text(fun_assign)
-      fun_assign_text <- gsub("[`'\"]", "", fun_assign_text)
-
-      if (!fun_assign_text %in% function_calls$text) {
-        lintr::xml_nodes_to_lints(
-          fun_assign,
-          source_expression = source_expression,
-          lint_message = "Declared function unused.",
-          type = "warning"
-        )
-      }
-    })
-
     c(
       unimported_functions,
-      unused_function_imports,
-      unused_function_assign
+      unused_function_imports
     )
   })
 }
