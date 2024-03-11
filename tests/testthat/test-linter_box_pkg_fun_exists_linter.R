@@ -2,9 +2,9 @@ test_that("box_pkg_fun_exists_linter skips valid package-function attachments", 
   linter <- box_pkg_fun_exists_linter()
 
   good_box_usage_1 <- "box::use(
+    fs[path_file],
     glue[glue, glue_sql, trim],
     shiny,
-    fs[path_file],
   )
   "
 
@@ -16,9 +16,9 @@ test_that("box_pkg_fun_exists_linter blocks functions that do not exist in packa
   lint_message <- rex::rex("Function not exported by package.")
 
   bad_box_usage_1 <- "box::use(
+    fs[path_file],
     glue[glue, xyz, trim],
     shiny,
-    fs[path_file],
   )
   "
 
