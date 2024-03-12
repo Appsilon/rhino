@@ -78,7 +78,7 @@ test_that("will not lint in function with ... signature", {
     some_value <- x + y
   }
   "
-  
+
   # passed ...
   "
   another_function <- function(x, y, ...) {
