@@ -172,7 +172,7 @@ test_that("handle aliased R6 class from box module", {
   "
 })
 
-test_that("exported functions and data objects in box modules should not lint", {
+test_that("not locally used exported functions and data objects in box modules should not lint", {
   "box::use(
   )
   
