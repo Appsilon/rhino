@@ -1,10 +1,10 @@
 test_that("r6_usage_linter allows R6Class and R6$R6Class function calls.", {
   linter <- r6_usage_linter()
-  
+
   good_r6_class_1 <- "box::use(
     R6[R6Class],
   )
-  
+
   newClass <- R6Class('newClass',
     public = list(
       initialize = function(...) {
@@ -13,11 +13,11 @@ test_that("r6_usage_linter allows R6Class and R6$R6Class function calls.", {
     )
   )
   "
-  
+
   good_r6_class_2 <- "box::use(
     R6,
   )
-  
+
   newClass <- R6$R6Class('newClass',
     public = list(
       initialize = function(...) {
@@ -26,7 +26,7 @@ test_that("r6_usage_linter allows R6Class and R6$R6Class function calls.", {
     )
   )
   "
-  
+
   lintr::expect_lint(good_r6_class_1, NULL, linter)
   lintr::expect_lint(good_r6_class_2, NULL, linter)
 })
@@ -34,11 +34,11 @@ test_that("r6_usage_linter allows R6Class and R6$R6Class function calls.", {
 
 test_that("r6_usage_linter skips valid R6 classes.", {
   linter <- r6_usage_linter()
-  
+
   good_r6_class_1 <- "box::use(
     R6[R6Class],
   )
-  
+
   newClass <- R6Class('newClass',
     public = list(
       property = NULL,
@@ -65,17 +65,17 @@ test_that("r6_usage_linter skips valid R6 classes.", {
     )
   )
   "
-  
+
   lintr::expect_lint(good_r6_class_1, NULL, linter)
 })
 
 test_that("r6_usage_linter handles more than one good R6 classes in the same file.", {
   linter <- r6_usage_linter()
-  
+
   good_r6_class_1 <- "box::use(
     R6[R6Class],
   )
-  
+
   firstClass <- R6Class('newClass',
     public = list(
       property = NULL,
@@ -101,7 +101,7 @@ test_that("r6_usage_linter handles more than one good R6 classes in the same fil
       }
     )
   )
-  
+
   secondClass <- R6Class('secondClass',
     public = list(
       property = NULL,
@@ -128,17 +128,17 @@ test_that("r6_usage_linter handles more than one good R6 classes in the same fil
     )
   )
   "
-  
+
   lintr::expect_lint(good_r6_class_1, NULL, linter)
 })
 
 test_that("r6_usage_linter skips non-R6 class definitions in the same file.", {
   linter <- r6_usage_linter()
-  
+
   good_r6_class_1 <- "box::use(
     R6[R6Class],
   )
-  
+
   newClass <- R6Class('newClass',
     public = list(
       property = NULL,
@@ -164,26 +164,26 @@ test_that("r6_usage_linter skips non-R6 class definitions in the same file.", {
       }
     )
   )
-  
+
   some_function <- function() {
     non_existing_function()
   }
-  
+
   fs$path_file('path/to/file')
   "
-  
+
   lintr::expect_lint(good_r6_class_1, NULL, linter)
 })
 
 test_that("r6_usage_linter blocks unused private objects (properties and methods).", {
   linter <- r6_usage_linter()
   lint_message <- rex::rex("Private object not used.")
-  
+
   # property
   bad_r6_class_1 <- "box::use(
     R6[R6Class],
   )
-  
+
   newClass <- R6Class('newClass',
     public = list(
       property = NULL,
@@ -210,12 +210,12 @@ test_that("r6_usage_linter blocks unused private objects (properties and methods
     )
   )
   "
-  
+
   # emthod
   bad_r6_class_2 <- "box::use(
     R6[R6Class],
   )
-  
+
   newClass <- R6Class('newClass',
     public = list(
       property = NULL,
@@ -242,7 +242,7 @@ test_that("r6_usage_linter blocks unused private objects (properties and methods
     )
   )
   "
-  
+
   lintr::expect_lint(bad_r6_class_1, list(message = lint_message), linter)
   lintr::expect_lint(bad_r6_class_2, list(message = lint_message), linter)
 })
@@ -250,12 +250,12 @@ test_that("r6_usage_linter blocks unused private objects (properties and methods
 test_that("r6_usage_linter blocks unused private objects in second class", {
   linter <- r6_usage_linter()
   lint_message <- rex::rex("Private object not used.")
-  
+
   # property
   bad_r6_class_1 <- "box::use(
     R6[R6Class],
   )
-  
+
   firstClass <- R6Class('newClass',
     public = list(
       property = NULL,
@@ -281,7 +281,7 @@ test_that("r6_usage_linter blocks unused private objects in second class", {
       }
     )
   )
-  
+
   secondClass <- R6Class('secondClass',
     public = list(
       property = NULL,
@@ -307,12 +307,12 @@ test_that("r6_usage_linter blocks unused private objects in second class", {
       }
     )
   )"
-  
+
   # emthod
   bad_r6_class_2 <- "box::use(
     R6[R6Class],
   )
-  
+
   firstClass <- R6Class('newClass',
     public = list(
       property = NULL,
@@ -338,7 +338,7 @@ test_that("r6_usage_linter blocks unused private objects in second class", {
       }
     )
   )
-  
+
   secondClass <- R6Class('secondClass',
     public = list(
       property = NULL,
@@ -364,7 +364,7 @@ test_that("r6_usage_linter blocks unused private objects in second class", {
       }
     )
   )"
-  
+
   lintr::expect_lint(bad_r6_class_1, list(message = lint_message), linter)
   lintr::expect_lint(bad_r6_class_2, list(message = lint_message), linter)
 })
@@ -373,12 +373,12 @@ test_that("r6_usage_linter blocks unused private objects in second class", {
 test_that("r6_usage_linter blocks internal calls to invalid public objects", {
   linter <- r6_usage_linter()
   lint_message <- rex::rex("Internal object call not found.")
-  
+
   # property
   bad_r6_class_1 <- "box::use(
     R6[R6Class],
   )
-  
+
   newClass <- R6Class('newClass',
     public = list(
       property = NULL,
@@ -405,12 +405,12 @@ test_that("r6_usage_linter blocks internal calls to invalid public objects", {
     )
   )
   "
-  
+
   # method
   bad_r6_class_2 <- "box::use(
     R6[R6Class],
   )
-  
+
   newClass <- R6Class('newClass',
     public = list(
       property = NULL,
@@ -437,7 +437,7 @@ test_that("r6_usage_linter blocks internal calls to invalid public objects", {
     )
   )
   "
-  
+
   lintr::expect_lint(bad_r6_class_1, list(message = lint_message), linter)
   lintr::expect_lint(bad_r6_class_2, list(message = lint_message), linter)
 })
@@ -445,11 +445,11 @@ test_that("r6_usage_linter blocks internal calls to invalid public objects", {
 test_that("r6_usage_linter blocks internal calls to invalid active objects", {
   linter <- r6_usage_linter()
   lint_message <- rex::rex("Internal object call not found.")
-  
+
   bad_r6_class_1 <- "box::use(
     R6[R6Class],
   )
-  
+
   newClass <- R6Class('newClass',
     public = list(
       property = NULL,
@@ -477,19 +477,19 @@ test_that("r6_usage_linter blocks internal calls to invalid active objects", {
     )
   )
   "
-  
+
   lintr::expect_lint(bad_r6_class_1, list(message = lint_message), linter)
 })
 
 test_that("r6_usage_linter blocks internal calls to invalid private objects", {
   linter <- r6_usage_linter()
   lint_message <- rex::rex("Internal object call not found.")
-  
+
   # property
   bad_r6_class_1 <- "box::use(
     R6[R6Class],
   )
-  
+
   newClass <- R6Class('newClass',
     public = list(
       property = NULL,
@@ -517,12 +517,12 @@ test_that("r6_usage_linter blocks internal calls to invalid private objects", {
     )
   )
   "
-  
+
   # method
   bad_r6_class_2 <- "box::use(
     R6[R6Class],
   )
-  
+
   newClass <- R6Class('newClass',
     public = list(
       property = NULL,
@@ -550,7 +550,7 @@ test_that("r6_usage_linter blocks internal calls to invalid private objects", {
     )
   )
   "
-  
+
   lintr::expect_lint(bad_r6_class_1, list(message = lint_message), linter)
   lintr::expect_lint(bad_r6_class_2, list(message = lint_message), linter)
 })
