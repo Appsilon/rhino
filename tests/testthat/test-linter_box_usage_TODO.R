@@ -88,6 +88,28 @@ test_that("will not lint in function with ... signature", {
   "
 })
 
+test_that("handle adding members to an existing R6 class", {
+  "
+  SomeClass <- R6('SomeClass', 
+    public = list()
+  )
+  
+  SomeClass$set('public', 'x', 10)
+  
+  s <- SomeClass$new()
+  s$x
+  "
+})
+
+test_that("handle cloned R6 objects", {
+  "
+  s <- SomeClass$new()
+  
+  t <- s$clone()
+  t$x
+  "
+})
+
 test_that("handle attached box module", {
   "
   box::use(
