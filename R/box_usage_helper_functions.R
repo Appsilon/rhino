@@ -105,7 +105,7 @@ get_attached_packages <- function(xml) {
 get_declared_functions <- function(xml) {
   xpath_function_assignment <- "
   //expr[
-      (LEFT_ASSIGN or EQ_ASSIGN) and ./expr[2][FUNCTION or OP-LAMBDDA]
+      (LEFT_ASSIGN or EQ_ASSIGN) and ./expr[2][FUNCTION or OP-LAMBDA]
     ]
     /expr[1]/SYMBOL
   | //expr_or_assign_or_help[EQ_ASSIGN and ./expr[2][FUNCTION or OP-LAMBDA]]
