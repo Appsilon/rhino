@@ -129,7 +129,7 @@ test_that("handle three-dots box module", {
   "
 })
 
-test_that("handle attached R6 class from box module" {
+test_that("handle attached R6 class from box module", {
   "box::use(
     path/to/moduel[some_class]
   )
