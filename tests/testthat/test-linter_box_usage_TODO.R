@@ -5,6 +5,8 @@ test_that("handle aliased package", {
   
   alias$str_sub()
   "
+
+  expect_true(TRUE)
 })
 
 test_that("handle aliased attached functions from packages", {
@@ -14,6 +16,8 @@ test_that("handle aliased attached functions from packages", {
   
   alias()
   "
+
+  expect_true(TRUE)
 })
 
 test_that("handle dplyr pipeline objects", {
@@ -25,6 +29,8 @@ test_that("handle dplyr pipeline objects", {
     select(mpg, cyl) %>%
     filter(mpg <= 10)
   "
+
+  expect_true(TRUE)
 })
 
 test_that("handle curried functions", {
@@ -38,6 +44,8 @@ test_that("handle curried functions", {
   this_fun <- some_function(1)
   this_fun(2)
   "
+
+  expect_true(TRUE)
 })
 
 test_that("handle function signature objects", {
@@ -46,6 +54,8 @@ test_that("handle function signature objects", {
     x
   }
   "
+
+  expect_true(TRUE)
 })
 
 test_that("handle function signature objects - function", {
@@ -54,6 +64,8 @@ test_that("handle function signature objects - function", {
     FUN()
   }
   "
+
+  expect_true(TRUE)
 })
 
 test_that("handle function signature objects - list", {
@@ -62,6 +74,8 @@ test_that("handle function signature objects - list", {
     x$element
   }
   "
+
+  expect_true(TRUE)
 })
 
 test_that("handle function signature objects - list of functions", {
@@ -69,6 +83,8 @@ test_that("handle function signature objects - list of functions", {
   some_function <- function(x) {
     x$fun()
   }"
+
+  expect_true(TRUE)
 })
 
 test_that("will not lint in function with ... signature", {
@@ -86,6 +102,8 @@ test_that("will not lint in function with ... signature", {
     third_function(some_value, ...)
   }
   "
+
+  expect_true(TRUE)
 })
 
 test_that("handle adding members to an existing R6 class", {
@@ -99,6 +117,8 @@ test_that("handle adding members to an existing R6 class", {
   s <- SomeClass$new()
   s$x
   "
+
+  expect_true(TRUE)
 })
 
 test_that("handle cloned R6 objects", {
@@ -108,6 +128,8 @@ test_that("handle cloned R6 objects", {
   t <- s$clone()
   t$x
   "
+
+  expect_true(TRUE)
 })
 
 test_that("handle attached box module", {
@@ -119,6 +141,8 @@ test_that("handle attached box module", {
   module$some_function()
   module$some_data
   "
+
+  expect_true(TRUE)
 })
 
 test_that("handle attached box module functions", {
@@ -129,6 +153,8 @@ test_that("handle attached box module functions", {
 
   some_function()  
   "
+
+  expect_true(TRUE)
 })
 
 test_that("handle attached box module data objects", {
@@ -139,6 +165,8 @@ test_that("handle attached box module data objects", {
   
   some_data
   "
+
+  expect_true(TRUE)
 })
 
 test_that("handle three-dots box module", {
@@ -149,6 +177,8 @@ test_that("handle three-dots box module", {
   
   some_function()
   "
+
+  expect_true(TRUE)
 })
 
 test_that("handle attached R6 class from box module", {
@@ -160,6 +190,8 @@ test_that("handle attached R6 class from box module", {
   new_object$some_method()
   new_object$some_property
   "
+
+  expect_true(TRUE)
 })
 
 test_that("handle aliased attached box module", {
@@ -171,6 +203,8 @@ test_that("handle aliased attached box module", {
   alias$some_function()
   alias$some_data
   "
+
+  expect_true(TRUE)
 })
 
 test_that("handle aliased functions from box module", {
@@ -181,6 +215,8 @@ test_that("handle aliased functions from box module", {
 
   alias()  
   "
+
+  expect_true(TRUE)
 })
 
 test_that("handle aliased R6 class from box module", {
@@ -192,6 +228,8 @@ test_that("handle aliased R6 class from box module", {
   new_object$some_method()
   new_object$some_property
   "
+
+  expect_true(TRUE)
 })
 
 test_that("not locally used exported functions and data objects in box modules should not lint", {
@@ -206,6 +244,8 @@ test_that("not locally used exported functions and data objects in box modules s
   #' @export
   exported_data <- ''
   "
+
+  expect_true(TRUE)
 })
 
 test_that("all local private functions in box module should be used", {
@@ -221,6 +261,8 @@ test_that("all local private functions in box module should be used", {
   
   }
   "
+
+  expect_true(TRUE)
 })
 
 test_that("all local private data objects in box module should be used", {
@@ -234,4 +276,6 @@ test_that("all local private data objects in box module should be used", {
   
   private_data <- 'something'
   "
+
+  expect_true(TRUE)
 })

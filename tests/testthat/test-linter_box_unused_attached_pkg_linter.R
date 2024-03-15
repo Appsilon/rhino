@@ -7,6 +7,12 @@ test_that("box_unused_pkg_linter skips used attached packages", {
     shiny[...]
   )
 
+  box::use(
+    path/to/module1,
+    path/to/module2[a, b, c],
+    path/to/module3[...]
+  )
+
   path_file('path/to/file')
 
   glue$glue('Lorem ipsum sit dolor')
@@ -27,6 +33,12 @@ test_that("box_unused_pkg_linter blocks unused attached packages", {
     shiny[...]
   )
 
+  box::use(
+    path/to/module1,
+    path/to/module2[a, b, c],
+    path/to/module3[...]
+  )
+
   path_file('path/to/file')
   ns <- NS(id)
   "
@@ -42,6 +54,12 @@ test_that("box_unused_pkg_linter blocks unused three-dots attached packages", {
     fs[dir_ls, path_file],
     glue,
     shiny[...]
+  )
+
+  box::use(
+    path/to/module1,
+    path/to/module2[a, b, c],
+    path/to/module3[...]
   )
 
   path_file('path/to/file')

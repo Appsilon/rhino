@@ -6,6 +6,12 @@ test_that("box_unused_attached_fun_linter skips used box-attached functions.", {
     shiny[...],
     stringr
   )
+  
+  box::use(
+    path/to/module1,
+    path/to/module2[a, b, c],
+    path/to/module3[...]
+  )
 
   dir_ls('path')
   path_file('path/to/file')
@@ -25,6 +31,12 @@ test_that("box_unused_attached_fun_linter blocks box-attached functions unused."
     fs[dir_ls, path_file],
     shiny[...],
     stringr
+  )
+  
+  box::use(
+    path/to/module1,
+    path/to/module2[a, b, c],
+    path/to/module3[...]
   )
 
   path_file('path/to/file')

@@ -4,6 +4,12 @@ test_that("box_usage_linter skips allowed package[function] attachment.", {
   good_box_usage_1 <- "box::use(
     dplyr[`%>%`, select, filter],
   )
+  
+  box::use(
+    path/to/module1,
+    path/to/module2[a, b, c],
+    path/to/module3[...]
+  )
 
   mtcars %>%
     select(mpg, cyl) %>%
@@ -20,6 +26,12 @@ test_that("box_usage_linter skips allowed package attachment", {
     shiny[NS],
     glue,
     fs[path_file],
+  )
+  
+  box::use(
+    path/to/module1,
+    path/to/module2[a, b, c],
+    path/to/module3[...]
   )
 
   name <- 'Fred'
@@ -39,6 +51,12 @@ test_that("box_usage_linter skips allowed package[...] attachment", {
   good_box_usage_3 <- "box::use(
     glue[...]
   )
+  
+  box::use(
+    path/to/module1,
+    path/to/module2[a, b, c],
+    path/to/module3[...]
+  )
 
   name <- 'Fred'
   glue_sql('My name is {name}.')
@@ -52,6 +70,12 @@ test_that("box_usage_linter skips allowed base packages functions", {
 
   good_box_usage_4 <- "box::use(
     dplyr[`%>%`, filter, pull],
+  )
+  
+  box::use(
+    path/to/module1,
+    path/to/module2[a, b, c],
+    path/to/module3[...]
   )
 
   mpg <- mtcars %>%
@@ -71,6 +95,12 @@ test_that("box_usage_linter blocks package functions not box-imported", {
   # filter not imported
   bad_box_usage_1 <- "box::use(
     dplyr[`%>%`, select],
+  )
+  
+  box::use(
+    path/to/module1,
+    path/to/module2[a, b, c],
+    path/to/module3[...]
   )
 
   mtcars %>%
@@ -92,6 +122,12 @@ test_that("box_usage_linter blocks package functions exported by package", {
     glue,
     fs[path_file],
   )
+  
+  box::use(
+    path/to/module1,
+    path/to/module2[a, b, c],
+    path/to/module3[...]
+  )
 
   name <- 'Fred'
   glue$xyz('My name is {name}.')
@@ -109,6 +145,12 @@ test_that("box_usage_linter blocks package functions not in global namespace", {
   # xyz function does not exist
   bad_box_usage_3 <- "box::use(
     glue[...]
+  )
+  
+  box::use(
+    path/to/module1,
+    path/to/module2[a, b, c],
+    path/to/module3[...]
   )
 
   name <- 'Fred'
