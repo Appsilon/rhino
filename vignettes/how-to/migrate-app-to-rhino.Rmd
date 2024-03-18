@@ -141,17 +141,6 @@ migrated to Rhino, `legacy_entrypoint` setting can be removed from `rhino.yml`.
 Refer to [Next Steps](#next-steps) section to see how to continue improving
 your application!
 
-
-## Next Steps
-### Migrating JavaScript Code
-TODO: something along the lines of `build_js()` details
-
-### Migrating CSS styles to SASS
-TODO
-
-### Boxifying Application
-TODO: adjusting application to fit structure proposed by Rhino
-
 ## Additional notes
 
 The process described in `rhino::init()` documentation, albeit not in great detail.
