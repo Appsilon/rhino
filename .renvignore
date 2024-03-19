@@ -1,0 +1,3 @@
+# Only use `dependencies.R` to infer project dependencies.
+*
+!dependencies.R
