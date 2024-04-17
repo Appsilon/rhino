@@ -82,6 +82,8 @@ for the `main` branch should be green).
         Do not add a link to GitHub releases yet - the link won't work and will fail CRAN checks.
         * Edit the list of changes to make it useful and understandable for our users.
         See [keep a changelog](https://keepachangelog.com/) for some guidelines.
+    5. Update `pkgdown/versions.yaml`.
+        * Add a new version corresponding to the release you are preparing.
     5. Submit the changes in a pull request titled "Release X.Y.Z".
     Get it approved and merged.
 
