@@ -11,13 +11,15 @@ on:
 permissions:
   contents: write
 jobs:
-  main:
+  pkgdown:
     name: Build and publish website
     runs-on: ubuntu-latest
     timeout-minutes: 30
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Install R
         uses: r-lib/actions/setup-r@v2
@@ -27,15 +29,21 @@ jobs:
       - name: Install R package dependencies
         uses: r-lib/actions/setup-r-dependencies@v2
         with:
-          extra-packages: any::pkgdown, local::.
+          extra-packages: any::pkgdown, any::remotes, local::.
 
-      - name: Configure git
-        run: |
-          git config user.name "$GITHUB_ACTOR"
-          git config user.email "$GITHUB_ACTOR@users.noreply.github.com"
-
-      - name: Build and deploy site
+      - name: Build site
         shell: Rscript {0}
-        run: pkgdown::deploy_to_branch(branch = "bot/github-pages")
-        env:
-          GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          source("pkgdown/build.R")
+          build_versioned(
+            repo = ".",
+            versions = yaml::read_yaml("pkgdown/versions.yaml"),
+            url = "https://appsilon.github.io/rhino",
+            destination = "docs"
+          )
+
+      - name: Deploy
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          folder: docs
+          branch: bot/github-pages
