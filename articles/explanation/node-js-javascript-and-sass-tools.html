@@ -40,11 +40,11 @@
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
     
 
-    <nav class="navbar fixed-top navbar-dark navbar-expand-lg bg-primary"><div class="container">
+    <nav class="navbar fixed-top navbar-dark navbar-expand-lg bg-primary" data-bs-theme="dark"><div class="container">
     
     <a class="navbar-brand me-2" href="../../index.html">rhino</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.7.0.9000</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.7.0.9001</small>
 
     <a href="https://rhinoverse.dev" class="external-link home"><i class="fa fa-lg fa-chevron-left"></i></a>
 
@@ -149,8 +149,7 @@
 
 
 
-
-<div class="row">
+<script src="node-js-javascript-and-sass-tools_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="" class="logo" alt=""><h1>Explanation: Node.js - JavaScript and Sass tools</h1>
             
@@ -164,25 +163,13 @@
 <div class="section level2">
 <h2 id="about">About<a class="anchor" aria-label="anchor" href="#about"></a>
 </h2>
-<p><a href="https://nodejs.org/en/about/" class="external-link">Node.js</a> is a runtime
-environment which can execute JavaScript code outside a web browser. It
-is used widely for web development. Its package manager, <a href="https://docs.npmjs.com/about-npm" class="external-link">npm</a>, makes it easy to
-install virtually any JavaScript library. You can use other package
-managers such as <a href="https://bun.sh" class="external-link">bun</a> and <a href="https://pnpm.io/" class="external-link">pnpm</a> that are compatible with
-<code>npm</code>.</p>
-<p>To switch from the default npm usage, set a global environment
-variable named <code>RHINO_NPM</code>. For instance, if you want to use
-<code>bun</code> instead of <code>npm</code>, add
-<code>export RHINO_NPM=bun</code> to your shell startup file
-(e.g. <code>.bashrc</code>).</p>
-<p>Rhino uses Node.js to provide state of the art tools for working with
-JavaScript and Sass. The following functions require Node.js to
-work:</p>
+<p><a href="https://nodejs.org/en/about/" class="external-link">Node.js</a> is a runtime environment which can execute JavaScript code outside a web browser. It is used widely for web development. Its package manager, <a href="https://docs.npmjs.com/about-npm" class="external-link">npm</a>, makes it easy to install virtually any JavaScript library. You can use other package managers such as <a href="https://bun.sh" class="external-link">bun</a> and <a href="https://pnpm.io/" class="external-link">pnpm</a> that are compatible with <code>npm</code>.</p>
+<p>To switch from the default npm usage, set a global environment variable named <code>RHINO_NPM</code>. For instance, if you want to use <code>bun</code> instead of <code>npm</code>, add <code>export RHINO_NPM=bun</code> to your shell startup file (e.g. <code>.bashrc</code>).</p>
+<p>Rhino uses Node.js to provide state of the art tools for working with JavaScript and Sass. The following functions require Node.js to work:</p>
 <ol style="list-style-type: decimal">
 <li><code><a href="../../reference/build_js.html">build_js()</a></code></li>
 <li>
-<code><a href="../../reference/build_sass.html">build_sass()</a></code> (with <code>sass: node</code>
-configuration in <code>rhino.yml</code>)</li>
+<code><a href="../../reference/build_sass.html">build_sass()</a></code> (with <code>sass: node</code> configuration in <code>rhino.yml</code>)</li>
 <li><code><a href="../../reference/lint_js.html">lint_js()</a></code></li>
 <li><code><a href="../../reference/lint_sass.html">lint_sass()</a></code></li>
 <li><code><a href="../../reference/test_e2e.html">test_e2e()</a></code></li>
@@ -190,41 +177,24 @@ configuration in <code>rhino.yml</code>)</li>
 <div class="section level3">
 <h3 id="node-directory">Node directory<a class="anchor" aria-label="anchor" href="#node-directory"></a>
 </h3>
-<p>Under the hood Rhino will create a <code>.rhino</code> directory in
-your project to store the specific libraries needed by these tools. This
-directory is git-ignored by default and safe to remove.</p>
+<p>Under the hood Rhino will create a <code>.rhino</code> directory in your project to store the specific libraries needed by these tools. This directory is git-ignored by default and safe to remove.</p>
 </div>
 <div class="section level3">
 <h3 id="node-installation-via-nvm">Node installation via nvm<a class="anchor" aria-label="anchor" href="#node-installation-via-nvm"></a>
 </h3>
-<p>Node can be installed in various ways. One of them relies on <a href="https://github.com/nvm-sh/nvm" class="external-link"><code>nvm</code></a> (Node Version
-Manager).</p>
-<p>There’s a known <a href="https://github.com/Appsilon/rhino/issues/345" class="external-link">issue</a> when using
-multiple versions of <code>Node</code> that were installed with
-<code>nvm</code> that causes RStudio to not recognize properly the
-chosen version. It’s caused by <code>nvm</code> and RStudio and can be
-easily mitigated by starting the RStudio through the terminal:</p>
-<p><strong>Ubuntu/Debian</strong> Open your terminal of choice
-(i.e. Bash) and run</p>
+<p>Node can be installed in various ways. One of them relies on <a href="https://github.com/nvm-sh/nvm" class="external-link"><code>nvm</code></a> (Node Version Manager).</p>
+<p>There’s a known <a href="https://github.com/Appsilon/rhino/issues/345" class="external-link">issue</a> when using multiple versions of <code>Node</code> that were installed with <code>nvm</code> that causes RStudio to not recognize properly the chosen version. It’s caused by <code>nvm</code> and RStudio and can be easily mitigated by starting the RStudio through the terminal:</p>
+<p><strong>Ubuntu/Debian</strong> Open your terminal of choice (i.e. Bash) and run</p>
 <pre><code><span><span class="va">rstudio</span></span></code></pre>
-<p><strong>Windows</strong> Open your Windows terminal of choice
-(i.e. Terminal, PowerShell, Git Bash) and run:</p>
+<p><strong>Windows</strong> Open your Windows terminal of choice (i.e. Terminal, PowerShell, Git Bash) and run:</p>
 <pre><code><span><span class="va">path</span><span class="op">/</span><span class="va">to</span><span class="op">/</span><span class="va">your</span><span class="op">/</span><span class="va">rstudio</span><span class="op">/</span><span class="va">folder</span><span class="op">/</span><span class="va">Rstudio.exe</span></span></code></pre>
-<p><strong>Mac</strong> Open your Mac terminal of choice (i.e. default
-Terminal) and run:</p>
+<p><strong>Mac</strong> Open your Mac terminal of choice (i.e. default Terminal) and run:</p>
 <pre><code>open -na Rstudio</code></pre>
 </div>
 <div class="section level3">
 <h3 id="build_sass-function">build_sass() function<a class="anchor" aria-label="anchor" href="#build_sass-function"></a>
 </h3>
-<p>The <code><a href="../../reference/build_sass.html">build_sass()</a></code> function is worth an additional
-comment. Depending on the configuration in <code>rhino.yml</code> it can
-use either the <a href="https://www.npmjs.com/package/sass" class="external-link">sass</a>
-Node.js package or the <a href="https://rstudio.github.io/sass/" class="external-link">sass</a> R package. We recommend
-the Node.js version, as it is the primary, actively developed
-implementation of Sass. In contrast, the R package uses the deprecated
-<a href="https://sass-lang.com/blog/libsass-is-deprecated" class="external-link">LibSass</a>
-implementation.</p>
+<p>The <code><a href="../../reference/build_sass.html">build_sass()</a></code> function is worth an additional comment. Depending on the configuration in <code>rhino.yml</code> it can use either the <a href="https://www.npmjs.com/package/sass" class="external-link">sass</a> Node.js package or the <a href="https://rstudio.github.io/sass/" class="external-link">sass</a> R package. We recommend the Node.js version, as it is the primary, actively developed implementation of Sass. In contrast, the R package uses the deprecated <a href="https://sass-lang.com/blog/libsass-is-deprecated" class="external-link">LibSass</a> implementation.</p>
 </div>
 </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
@@ -240,7 +210,7 @@ implementation.</p>
 
 <div class="pkgdown-footer-right">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.8.</p>
 </div>
 
     </footer>

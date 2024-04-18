@@ -1,5 +1,5 @@
 :root {
-  --primary-color: #4747B1;
+  --primary-color: #7B7CD2	;
 }
 
 .navbar {
@@ -11,7 +11,7 @@
 }
 
 #navbar > ul.navbar-nav > li.nav-item > a {
-  color: rgba(255, 255, 255, 0.55);
+  color: rgba(255, 255, 255, 0.8);
 }
 
 .navbar-dark .navbar-nav .active > .nav-link {
