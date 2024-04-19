@@ -1,6 +1,13 @@
 # rhino (development version)
 
 1. New `box_alphabetical_imports_linter` checks if all imports are alphabetically sorted.
+2. Update GitHub Workflow template triggers. To update your workflow run:
+    ```r
+    file.copy(
+      system.file("templates", "github_ci", "dot.github", "workflows", "rhino-test.yml", package = "rhino"),
+      file.path(".github", "workflows", "rhino-test.yml")
+    )
+    ```
 
 # [rhino 1.7.0](https://github.com/Appsilon/rhino/releases/tag/v1.7.0)
 
