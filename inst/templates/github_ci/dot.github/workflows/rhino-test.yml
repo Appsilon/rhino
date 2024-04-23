@@ -1,5 +1,13 @@
 name: Rhino Test
-on: push
+on:
+  # Run on pushes to 'main' branch
+  push:
+    branches:
+      - main
+  # Run on any opened pull request
+  pull_request:
+  # Run manually via GitHub Actions website
+  workflow_dispatch:
 permissions:
   contents: read
 jobs:

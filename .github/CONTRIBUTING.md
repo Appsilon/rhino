@@ -75,12 +75,14 @@ for the `main` branch should be green).
     2. Update `DESCRIPTION`.
         * Bump the package version according to [SemVer](https://semver.org/).
         Drop the development version (last component, e.g. `.9001`).
-    3. Update `NEWS.md`.
+    3. Create a migration guide.
+        * Refer to `NEWS.md` for hints on what to include in the guide.
+    4. Update `NEWS.md`.
         * Replace the `(development version)` with `X.Y.Z` in the header.
         Do not add a link to GitHub releases yet - the link won't work and will fail CRAN checks.
         * Edit the list of changes to make it useful and understandable for our users.
         See [keep a changelog](https://keepachangelog.com/) for some guidelines.
-    4. Submit the changes in a pull request titled "Release X.Y.Z".
+    5. Submit the changes in a pull request titled "Release X.Y.Z".
     Get it approved and merged.
 
 ### Submitting to CRAN
@@ -134,3 +136,4 @@ Starting with `1.0.0`, all versions should be released to CRAN.
 1. The PR has at least 1 approval and 0 change requests.
 2. The CI passes (`R CMD check`, linter, unit tests, spelling).
 3. The change is thoroughly documented.
+    * Namely, `NEWS.md` is updated and if applicable contains a hint on how to migrate.
