@@ -20,11 +20,11 @@
 Would you like to learn about Rhino hands-on? Join our events!
 Upcoming events will be added to this section - stay tuned.
 
-* [**Open Source Spotlight: New developments in Rhino**](https://events.ringcentral.com/events/shiny-gathering-11-b3775827-5b59-4068-ab59-82d9a262b7f0)<br>
+### Past
+
+* [**Open Source Spotlight: New developments in Rhino**](https://youtu.be/v6D27v6pNUg?si=9AXMGRHzcpDleHMm)<br>
 2024-02-27 at 18:00 (UTC+1)<br>
 Shiny Gathering led by [Kamil Żyła](https://www.linkedin.com/in/kamil-zyla/)
-
-### Past
 
 * [**Best practices for coding Shiny apps with Rhino Team**](https://www.youtube.com/watch?v=QmyilJr7jXs)<br>
 2023-06-27 at 18:00 (UTC+2)<br>
