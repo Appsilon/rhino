@@ -1,5 +1,5 @@
 pandoc: 2.9.2.1
-pkgdown: 2.0.8
+pkgdown: 2.0.9
 pkgdown_sha: ~
 articles:
   add-internationalization: how-to/add-internationalization.html
@@ -33,7 +33,7 @@ articles:
   write-end-to-end-tests-with-cypress: tutorial/write-end-to-end-tests-with-cypress.html
   write-javascript-code: how-to/write-javascript-code.html
   write-r-code: how-to/write-r-code.html
-last_built: 2024-04-18T20:53Z
+last_built: 2024-04-29T09:47Z
 urls:
   reference: https://appsilon.github.io/rhino/reference
   article: https://appsilon.github.io/rhino/articles
