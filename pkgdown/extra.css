@@ -14,18 +14,13 @@
   color: rgba(255, 255, 255, 0.8);
 }
 
-.navbar-dark .navbar-nav .active > .nav-link {
+.navbar-light .navbar-nav .active > .nav-link {
   background-color: var(--primary-color) !important;
   color: #fff !important;
 }
 
 .navbar-brand {
   color: #fff !important;
-}
-
-.navbar-dark input[type="search"] {
-  background-color: #fff !important;
-  color: #444 !important;
 }
 
 nav .text-muted {
