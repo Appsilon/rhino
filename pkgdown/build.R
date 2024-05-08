@@ -61,7 +61,10 @@ build_version_factory <- function(repo, versions, url, destination) {
     # NOTE: providing an absolute path to build_site won't work: https://github.com/r-lib/pkgdown/issues/2172
     withr::with_dir(build_dir, {
       pkgdown::build_site_github_pages(
-        override = list(url = sub("/$", "", url_join(url, version$href))),
+        override = list(
+          url = sub("/$", "", url_join(url, version$href)),
+          navbar = list(type = "light")
+        ),
         dest_dir = fs::path_join(c(destination, version$href))
       )
     })

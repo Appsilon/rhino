@@ -70,9 +70,14 @@ button.btn.btn-primary.btn-copy-ex {
   }
 
   & > a {
-    background-color: hsl(240, 42.7%, 38.6%);
+    background-color: hsl(239.3, 40.2%, 55.3%);
+    color: rgba(255, 255, 255, 0.8);
     padding: 0.25rem 1rem;
     border-radius: 1rem;
+
+    &:hover {
+      color: white;
+    }
   }
 }
 
