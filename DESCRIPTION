@@ -40,7 +40,6 @@ Imports:
   testthat (>= 3.0.0),
   utils,
   withr,
-  xml2,
   yaml
 Suggests:
   covr,

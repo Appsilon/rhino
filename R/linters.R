@@ -1,0 +1,2 @@
+#' @import box.linters
+NULL
