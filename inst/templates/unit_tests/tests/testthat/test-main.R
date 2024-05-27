@@ -3,7 +3,7 @@ box::use(
   testthat[expect_true, test_that],
 )
 box::use(
-  app/main[server, ui],
+  app/main[server],
 )
 
 test_that("main server works", {
