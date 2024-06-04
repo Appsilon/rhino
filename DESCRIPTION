@@ -24,7 +24,7 @@ Depends:
   R (>= 2.10)
 Imports:
   box (>= 1.1.3),
-  box.linters,
+  box.linters (>= 0.9.1),
   cli,
   config,
   fs,
