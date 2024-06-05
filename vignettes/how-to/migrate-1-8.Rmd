@@ -1,0 +1,73 @@
+---
+title: "How-to: Rhino 1.8 Migration Guide"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{How-to: Rhino 1.8 Migration Guide}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+Follow the steps outlined in this guide to migrate your project to Rhino 1.8.
+Before starting, ensure your Git working tree is clean, or back up your project if not using Git.
+
+This guide assumes you are migrating from Rhino 1.6 or 1.7.
+If you are currently using an older version of Rhino,
+please start with
+[Rhino 1.6 Migration Guide](https://appsilon.github.io/rhino/articles/how-to/migrate-1-6.html).
+
+# Step 1: Install Rhino 1.8
+
+Use the following command to install Rhino 1.8 and update your `renv.lock` file:
+
+```r
+rhino::pkg_install("rhino@1.8.0")
+```
+
+After the installation, restart your R session to ensure all changes take effect.
+
+# Step 2: Update your linter rules
+
+## Option A: You use `.lintr` provided by Rhino without modifications
+
+Run the following command to replace your `.lintr` file with the new default one provided by Rhino:
+
+```r
+box.linters::use_box_lintr(type = "rhino")
+```
+
+## Option B: You have customized `.lintr` file
+
+Edit the `.lintr` file in your project so it uses `box.linters::rhino_default_linters` as the default linters:
+
+```r
+linters:
+  linters_with_defaults(
+    defaults = box.linters::rhino_default_linters,
+    line_length_linter = lintr::line_length_linter(100) # You can add your custom linters here
+  )
+```
+
+# Step 3: Update GitHub Actions workflow
+
+_Note: This step is only necessary if you are using GitHub Actions in your project._
+
+To update your workflow, run:
+```r
+file.copy(
+  system.file("templates", "github_ci", "dot.github", "workflows", "rhino-test.yml", package = "rhino"),
+  file.path(".github", "workflows", "rhino-test.yml")
+)
+```
+
+This command will replace the current GitHub Actions workflow with the new Rhino-provided one.
+If you have customized your workflow, you will need to manually update it to include the new triggers added to the template.
+The changes can be found in [this commit](https://github.com/Appsilon/rhino/commit/8e080655f81865a30af51330cd81f4614d3a7405).
+
+# Step 4: Test your project
+
+Test your project thoroughly to ensure everything works properly after the migration.
+In particular, run `rhino::lint_r()` and fix the problems it reports.
+
+If you encounter any issues or have further questions,
+don't hesitate to reach out to us via
+[GitHub Discussions](https://github.com/Appsilon/rhino/discussions).
