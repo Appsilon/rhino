@@ -66,12 +66,14 @@ check_paths <- function(paths) {
   }
 }
 
+# nolint start: line_length_linter
 #' Lint R
 #'
 #' Uses the `{lintr}` package to check all R sources in the `app` and `tests/testthat` directories
 #' for style errors.
 #'
-#' The linter rules can be adjusted in the `.lintr` file.
+#' The linter rules can be [adjusted](https://lintr.r-lib.org/articles/lintr.html#configuring-linters)
+#' in the `.lintr` file.
 #'
 #' You can set the maximum number of accepted style errors
 #' with the `legacy_max_lint_r_errors` option in `rhino.yml`.
@@ -83,6 +85,7 @@ check_paths <- function(paths) {
 #' @return None. This function is called for side effects.
 #'
 #' @export
+# nolint end
 lint_r <- function(paths = NULL) {
   if (is.null(paths)) {
     paths <- c("app", "tests/testthat")

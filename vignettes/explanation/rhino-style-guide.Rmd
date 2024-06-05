@@ -13,6 +13,8 @@ These rules are designed to work alongside `tidyverse` conventions, providing cl
 
 For more details on how to use `box::use` statements, see [Explanation: Box modules](https://appsilon.github.io/rhino/articles/explanation/box-modules.html).
 
+For more details on how to configure linter rules in the `.lintr` file, see [Configuring linters](https://lintr.r-lib.org/articles/lintr.html#configuring-linters).
+
 # Explicit Import
 
 For clarity and ease of tracking function origins, avoid using `[...]` for imports. Explicitly declare all packages, modules and functions.
