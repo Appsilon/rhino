@@ -1,6 +1,6 @@
 Package: rhino
 Title: A Framework for Enterprise Shiny Applications
-Version: 1.7.0.9001
+Version: 1.7.0.9002
 Authors@R:
   c(
     person("Kamil", "Żyła", role = c("aut", "cre"), email = "opensource+kamil@appsilon.com"),
@@ -24,6 +24,7 @@ Depends:
   R (>= 2.10)
 Imports:
   box (>= 1.1.3),
+  box.linters (>= 0.9.1),
   cli,
   config,
   fs,
@@ -39,7 +40,6 @@ Imports:
   testthat (>= 3.0.0),
   utils,
   withr,
-  xml2,
   yaml
 Suggests:
   covr,

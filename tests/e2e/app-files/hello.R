@@ -1,40 +1,30 @@
 box::use(
-  shiny[           # nolint
-    actionButton,
-    bootstrapPage,
-    isolate,
-    moduleServer,
-    NS,
-    observe,
-    observeEvent,
-    renderText,
-    tags,
-    textInput,
-    textOutput
-  ],
+  shiny,
 )
 
-box::use(app/logic/say_hello[say_hello], )
+box::use(
+  app/logic/say_hello[say_hello],
+)
 
 #' @export
 ui <- function(id) {
-  ns <- NS(id)
-  bootstrapPage(
-    tags$div(
+  ns <- shiny$NS(id)
+  shiny$bootstrapPage(
+    shiny$tags$div(
       class = "input-and-click",
-      textInput(ns("name"), label = NULL, value = NULL),
-      actionButton(ns("say_hello"), label = "Say Hello")
+      shiny$textInput(ns("name"), label = NULL, value = NULL),
+      shiny$actionButton(ns("say_hello"), label = "Say Hello")
     ),
-    textOutput(ns("message"))
+    shiny$textOutput(ns("message"))
   )
 }
 
 #' @export
 server <- function(id) {
-  moduleServer(id, function(input, output, session) {
+  shiny$moduleServer(id, function(input, output, session) {
     ns <- session$ns
 
-    observe({
+    shiny$observe({
       is_name_empty <- is.null(input$name) || input$name == ""
 
       session$sendCustomMessage(
@@ -43,9 +33,9 @@ server <- function(id) {
       )
     })
 
-    observeEvent(
+    shiny$observeEvent(
       input$say_hello, {
-        output$message <- renderText(say_hello(isolate(input$name)))
+        output$message <- shiny$renderText(say_hello(shiny$isolate(input$name)))
       }
     )
   })

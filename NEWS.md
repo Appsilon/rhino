@@ -1,6 +1,9 @@
 # rhino (development version)
 
-1. New `box_alphabetical_imports_linter` checks if all imports are alphabetically sorted.
+1. All linter functions migrated to `box.linters`. New rhino projects will be configured to use linters from `box.linters`. To migrate an existing rhino project, run:
+    ```r
+    box.linters::use_box_lintr(type = "rhino")
+    ```
 2. Update GitHub Workflow template triggers. To update your workflow run:
     ```r
     file.copy(
