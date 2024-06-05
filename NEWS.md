@@ -3,6 +3,8 @@
 1. All linter functions migrated to `box.linters`. New rhino projects will be configured to use linters from `box.linters`.
 2. Updated GitHub Workflow template triggers.
 
+See _[How-to: Rhino 1.8 Migration Guide](https://appsilon.github.io/rhino/articles/how-to/migrate-1-8.html)_
+
 # [rhino 1.7.0](https://github.com/Appsilon/rhino/releases/tag/v1.7.0)
 
 See _[How-to: Rhino 1.7 Migration Guide](https://appsilon.github.io/rhino/articles/how-to/migrate-1-7.html)_
