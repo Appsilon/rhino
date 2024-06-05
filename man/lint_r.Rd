@@ -18,7 +18,8 @@ Uses the \code{{lintr}} package to check all R sources in the \code{app} and \co
 for style errors.
 }
 \details{
-The linter rules can be adjusted in the \code{.lintr} file.
+The linter rules can be \href{https://lintr.r-lib.org/articles/lintr.html#configuring-linters}{adjusted}
+in the \code{.lintr} file.
 
 You can set the maximum number of accepted style errors
 with the \code{legacy_max_lint_r_errors} option in \code{rhino.yml}.
