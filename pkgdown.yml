@@ -14,6 +14,7 @@ articles:
   manage-secrets-and-environments: how-to/manage-secrets-and-environments.html
   migrate-1-6: how-to/migrate-1-6.html
   migrate-1-7: how-to/migrate-1-7.html
+  migrate-1-8: how-to/migrate-1-8.html
   migrate-app-to-rhino: how-to/migrate-app-to-rhino.html
   node-js-javascript-and-sass-tools: explanation/node-js-javascript-and-sass-tools.html
   publish-on-huggingface: how-to/publish-on-huggingface.html
@@ -33,7 +34,7 @@ articles:
   write-end-to-end-tests-with-cypress: tutorial/write-end-to-end-tests-with-cypress.html
   write-javascript-code: how-to/write-javascript-code.html
   write-r-code: how-to/write-r-code.html
-last_built: 2024-04-29T09:47Z
+last_built: 2024-06-06T06:36Z
 urls:
   reference: https://appsilon.github.io/rhino/reference
   article: https://appsilon.github.io/rhino/articles

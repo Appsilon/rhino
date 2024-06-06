@@ -21,7 +21,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">rhino</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.7.0.9001</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.8.0</small>
 
     <a href="https://rhinoverse.dev" class="external-link home"><i class="fa fa-lg fa-chevron-left"></i></a>
 
@@ -81,6 +81,7 @@
     <h6 class="dropdown-header" data-toc-skip>Migration guides</h6>
     <a class="dropdown-item" href="../articles/how-to/migrate-1-6.html">Migration to Rhino 1.6</a>
     <a class="dropdown-item" href="../articles/how-to/migrate-1-7.html">Migration to Rhino 1.7</a>
+    <a class="dropdown-item" href="../articles/how-to/migrate-1-8.html">Migration to Rhino 1.8</a>
   </div>
 </li>
 <li class="nav-item">
@@ -125,11 +126,11 @@
     </div>
 
     <div class="section level2">
-<h2 class="pkg-version" data-toc-text="development version" id="rhino-development-version">rhino (development version)<a class="anchor" aria-label="anchor" href="#rhino-development-version"></a></h2>
-<ol style="list-style-type: decimal"><li>New <code>box_alphabetical_imports_linter</code> checks if all imports are alphabetically sorted.</li>
-<li>Update GitHub Workflow template triggers. To update your workflow run: <code>r     file.copy(       system.file("templates", "github_ci", "dot.github", "workflows", "rhino-test.yml", package = "rhino"),       file.path(".github", "workflows", "rhino-test.yml")     )</code>
-</li>
-</ol></div>
+<h2 class="pkg-version" data-toc-text="1.8.0" id="rhino-180">rhino 1.8.0<a class="anchor" aria-label="anchor" href="#rhino-180"></a></h2>
+<ol style="list-style-type: decimal"><li>All linter functions migrated to <code>box.linters</code>. New rhino projects will be configured to use linters from <code>box.linters</code>.</li>
+<li>Updated GitHub Workflow template triggers.</li>
+</ol><p>See <em><a href="https://appsilon.github.io/rhino/articles/how-to/migrate-1-8.html">How-to: Rhino 1.8 Migration Guide</a></em></p>
+</div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="1.7.0" id="rhino-170"><a href="https://github.com/Appsilon/rhino/releases/tag/v1.7.0" class="external-link">rhino 1.7.0</a><a class="anchor" aria-label="anchor" href="#rhino-170"></a></h2><p class="text-muted">CRAN release: 2024-02-22</p>
 <p>See <em><a href="https://appsilon.github.io/rhino/articles/how-to/migrate-1-7.html">How-to: Rhino 1.7 Migration Guide</a></em></p>
