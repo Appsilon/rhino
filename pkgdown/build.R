@@ -39,7 +39,6 @@ validate_versions <- function(versions) {
 }
 
 build_version_factory <- function(repo, versions, url, destination) {
-  navbar_template <- navbar_template_factory(versions, url)
   destination <- fs::path_abs(destination)
   extra_css_path <- fs::path_join(c(repo, "pkgdown", "extra.css"))
 
@@ -52,10 +51,8 @@ build_version_factory <- function(repo, versions, url, destination) {
       stop("Failed to create a worktree for ref ", version$ref)
     }
 
-    # Write the navbar template and extra.css
-    template_dir <- fs::path_join(c(build_dir, "pkgdown", "templates"))
-    fs::dir_create(template_dir)
-    writeLines(navbar_template(version), fs::path_join(c(template_dir, "navbar.html")))
+    # Prepare template and write extra.css
+    template <- template_override(before_navbar = version_selector(url, version, versions))
     fs::file_copy(extra_css_path, fs::path_join(c(build_dir, "pkgdown", "extra.css")), overwrite = TRUE)
 
     # NOTE: providing an absolute path to build_site won't work: https://github.com/r-lib/pkgdown/issues/2172
@@ -63,7 +60,7 @@ build_version_factory <- function(repo, versions, url, destination) {
       pkgdown::build_site_github_pages(
         override = list(
           url = sub("/$", "", url_join(url, version$href)),
-          navbar = list(type = "light")
+          template = template
         ),
         dest_dir = fs::path_join(c(destination, version$href))
       )
@@ -79,33 +76,46 @@ url_join <- function(url, path) {
   )
 }
 
-navbar_template_factory <- function(versions, url) {
-  navbar_code <- readLines("pkgdown/navbar_template.html")
-  index_current <- grep("___CURRENT_PLACEHOLDER___", navbar_code)
-  index_options <- grep("___OPTIONS_PLACEHOLDER___", navbar_code)
-  stopifnot(index_current < index_options)
-  wrap_label <- function(label) {
-    if (isTRUE(label)) {
-      label <- paste(desc::desc_get_version(), "(dev)")
+template_override <- function(before_navbar) {
+  template <- yaml::read_yaml("pkgdown/_pkgdown.yml")$template
+  template$includes$before_navbar <- before_navbar
+  template
+}
+
+format_label <- function(label) {
+  if (isTRUE(label)) {
+    label <- paste(desc::desc_get_version(), "(dev)")
+  }
+  label
+}
+
+version_selector <- function(root_url, current_version, versions) {
+  current_label <- format_label(current_version$label)
+  versions <- purrr::map_chr(
+    versions,
+    function(version) {
+      sprintf(
+        '<li><a class="dropdown-item" href="%s">%s</a></li>',
+        url_join(root_url, version$href),
+        format_label(version$label)
+      )
     }
-    label
-  }
-  function(version) {
-    c(
-      navbar_code[1:(index_current - 1)],
-      wrap_label(version$label),
-      navbar_code[(index_current + 1):(index_options - 1)],
-      purrr::map_chr(
-        versions,
-        function(ver) {
-          sprintf(
-            '<li><a class="dropdown-item" href="%s">%s</a></li>',
-            url_join(url, ver$href),
-            wrap_label(ver$label)
-          )
-        }
-      ),
-      navbar_code[(index_options + 1):length(navbar_code)]
-    )
-  }
+  ) |> paste0(collapse = "\n")
+  glue::glue('
+    <div id="version-switcher" class="dropdown">
+      <a
+        href="#"
+        class="nav-link dropdown-toggle"
+        data-bs-toggle="dropdown"
+        role="button"
+        aria-expanded="false"
+        aria-haspopup="true"
+      >
+        {current_label}
+      </a>
+      <ul class="dropdown-menu">
+        {versions}
+      </ul>
+    </div>
+  ')
 }

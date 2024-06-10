@@ -61,6 +61,10 @@ button.btn.btn-primary.btn-copy-ex {
   }
 }
 
+nav small {
+  display: none;
+}
+
 #version-switcher {
   margin-inline-start: 0.5rem;
   margin-inline-end: auto;
