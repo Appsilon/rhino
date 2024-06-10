@@ -6,12 +6,16 @@
   --bs-primary-rgb: 123, 124, 210;
 }
 
-.navbar a.dropdown-item:hover,
-.navbar-dark .navbar-nav .active > .nav-link {
+.navbar a.dropdown-item:hover {
   background-color: var(--primary-color);
 }
 
-#navbar .navbar-nav .nav-item > .nav-link {
+.navbar .navbar-nav .nav-item.active > .nav-link {
+  color: #fff;
+  background-color: var(--primary-color);
+}
+
+.navbar .navbar-nav .nav-item > .nav-link {
   color: rgba(255, 255, 255, 0.8);
 
   &:hover {
