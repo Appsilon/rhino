@@ -1,13 +1,7 @@
 name: pkgdown
 on:
-  # Run when a release is published, or a pre-release is changed to a release. Reference:
-  # https://docs.github.com/en/actions/using-workflows/events-that-trigger-workflows#release
-  # https://docs.github.com/en/webhooks/webhook-events-and-payloads#release
-  release:
-    types: [released]
-  # It is also possible to manually trigger this workflow for a selected tag/branch
-  # from the "Actions" tab on GitHub.
-  workflow_dispatch:
+  push:
+    branches: [main]
 permissions:
   contents: write
 jobs:
@@ -29,7 +23,7 @@ jobs:
       - name: Install R package dependencies
         uses: r-lib/actions/setup-r-dependencies@v2
         with:
-          extra-packages: any::pkgdown, any::remotes, local::.
+          extra-packages: any::pkgdown, local::.
 
       - name: Build site
         shell: Rscript {0}
