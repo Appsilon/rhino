@@ -1,0 +1,24 @@
+pandoc: 2.9.2.1
+pkgdown: 2.0.9
+pkgdown_sha: ~
+articles:
+  application-structure: explanation/application-structure.html
+  box-modules: explanation/box-modules.html
+  create-your-first-rhino-app: tutorial/create-your-first-rhino-app.html
+  keep-multiple-apps-in-a-single-repository: how-to/keep-multiple-apps-in-a-single-repository.html
+  manage-r-dependencies: how-to/manage-r-dependencies.html
+  migrate-app-to-rhino: how-to/migrate-app-to-rhino.html
+  node-js-javascript-and-sass-tools: explanation/node-js-javascript-and-sass-tools.html
+  renv-configuration: explanation/renv-configuration.html
+  rhino-yml: explanation/rhino-yml.html
+  similar-projects: explanation/similar-projects.html
+  use-rhino-on-windows: how-to/use-rhino-on-windows.html
+  use-static-files: how-to/use-static-files.html
+  what-is-rhino: explanation/what-is-rhino.html
+  write-javascript-code: how-to/write-javascript-code.html
+  write-r-code: how-to/write-r-code.html
+last_built: 2024-06-12T11:02Z
+urls:
+  reference: https://appsilon.github.io/rhino/v1.0.0/reference
+  article: https://appsilon.github.io/rhino/v1.0.0/articles
+

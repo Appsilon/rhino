@@ -1,0 +1,38 @@
+pandoc: 2.9.2.1
+pkgdown: 2.0.9
+pkgdown_sha: ~
+articles:
+  add-internationalization: how-to/add-internationalization.html
+  add-routing: how-to/add-routing.html
+  application-structure: explanation/application-structure.html
+  box-modules: explanation/box-modules.html
+  communicate-between-modules: how-to/communicate-between-modules.html
+  create-your-first-rhino-app: tutorial/create-your-first-rhino-app.html
+  enable-shiny-bookmarking: how-to/enable-shiny-bookmarking.html
+  faq: faq.html
+  keep-multiple-apps-in-a-single-repository: how-to/keep-multiple-apps-in-a-single-repository.html
+  manage-secrets-and-environments: how-to/manage-secrets-and-environments.html
+  migrate-1-6: how-to/migrate-1-6.html
+  migrate-app-to-rhino: how-to/migrate-app-to-rhino.html
+  node-js-javascript-and-sass-tools: explanation/node-js-javascript-and-sass-tools.html
+  publish-on-huggingface: how-to/publish-on-huggingface.html
+  renv-configuration: explanation/renv-configuration.html
+  rhino-yml: explanation/rhino-yml.html
+  set-application-run-parameters: how-to/set-application-run-parameters.html
+  use-addins: how-to/use-addins.html
+  use-global-variables: how-to/use-global-variables.html
+  use-polished: how-to/use-polished.html
+  use-react-in-rhino: tutorial/use-react-in-rhino.html
+  use-shiny-fluent: how-to/use-shiny-fluent.html
+  use-shinymanager: how-to/use-shinymanager.html
+  use-shinytest2: how-to/use-shinytest2.html
+  use-static-files: how-to/use-static-files.html
+  what-is-rhino: explanation/what-is-rhino.html
+  write-end-to-end-tests-with-cypress: tutorial/write-end-to-end-tests-with-cypress.html
+  write-javascript-code: how-to/write-javascript-code.html
+  write-r-code: how-to/write-r-code.html
+last_built: 2024-06-12T10:58Z
+urls:
+  reference: https://appsilon.github.io/rhino/v1.6.0/reference
+  article: https://appsilon.github.io/rhino/v1.6.0/articles
+
