@@ -1,34 +1,48 @@
 :root {
-  --primary-color: #7B7CD2	;
+  --primary-color: #7b7cd2;
 }
 
 .navbar {
-  background-color: var(--primary-color) !important;
+  --bs-primary-rgb: 123, 124, 210;
 }
 
-#navbar > ul.navbar-nav > li.nav-item a:hover {
-  background-color: var(--primary-color) !important;
+.navbar a.dropdown-item:hover {
+  background-color: var(--primary-color);
 }
 
-#navbar > ul.navbar-nav > li.nav-item > a {
+.navbar .navbar-nav .nav-item.active > .nav-link {
+  color: #fff;
+  background-color: var(--primary-color);
+}
+
+.navbar .navbar-nav .nav-item > .nav-link {
   color: rgba(255, 255, 255, 0.8);
-}
 
-.navbar-light .navbar-nav .active > .nav-link {
-  background-color: var(--primary-color) !important;
-  color: #fff !important;
+  &:hover {
+    background-color: var(--primary-color);
+    color: #fff;
+  }
 }
 
 .navbar-brand {
-  color: #fff !important;
-}
+  --bs-navbar-brand-color: #fff;
 
-nav .text-muted {
-  color: #d8d8d8 !important;
+  &:hover {
+    --bs-navbar-brand-hover-color: rgba(255, 255, 255, 0.8);
+  }
 }
 
 a {
   color: var(--primary-color);
+}
+
+a.nav-link,
+.home {
+  color: hsl(0, 0%, 80%);
+
+  &:hover {
+    color: hsl(0, 0%, 100%);
+  }
 }
 
 a:hover {
@@ -41,14 +55,34 @@ button.btn.btn-primary.btn-copy-ex {
 }
 
 .home {
+  display: none;
   left: 0px;
   position: absolute;
   padding: 8px 30px;
-  color: rgba(255,255,255,0.55);
+
+  @media (min-width: 1250px) {
+    display: initial;
+  }
 }
 
-.home:hover {
-  color: rgba(255,255,255,0.9);
+#version-switcher {
+  margin-inline-start: 0.5rem;
+  margin-inline-end: auto;
+
+  @media (min-width: 992px) {
+    margin-inline-end: 2rem;
+  }
+
+  & > a {
+    background-color: hsl(239.3, 40.2%, 55.3%);
+    color: rgba(255, 255, 255, 0.8);
+    padding: 0.25rem 1rem;
+    border-radius: 1rem;
+
+    &:hover {
+      color: white;
+    }
+  }
 }
 
 summary:has(h3#past) {
@@ -58,6 +92,7 @@ summary:has(h3#past) {
 
   &::marker,
   &::-webkit-details-marker {
-    font-size: calc(1.3rem + .6vw); /* an equivalent of Bootstrap's h3 that's within the summary */
+    /* an equivalent of Bootstrap's h3 that's within the summary */
+    font-size: calc(1.3rem + 0.6vw);
   }
 }
