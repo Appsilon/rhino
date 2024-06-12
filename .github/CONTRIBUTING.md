@@ -49,11 +49,9 @@ It should be saved as the `APP_PUSH_TEST_PAT`
 
 The [documentation site](https://appsilon.github.io/rhino/)
 is built and deployed automatically by our [`pkgdown.yml`](workflows/pkgdown.yml) workflow.
-This workflow is triggered when a
-[release](https://docs.github.com/en/repositories/releasing-projects-on-github/managing-releases-in-a-repository)
-is published, or a pre-release is changed to a release.
-It is also possible to manually run it for a selected tag/branch
-from the [Actions](https://github.com/Appsilon/rhino/actions/workflows/pkgdown.yml) tab.
+It is triggered on each push to the `main` branch.
+It runs the `pkgdown/build.R` script which builds the documentation
+for all Rhino versions listed in `pkgdown/versions.yml`.
 
 ## Release process
 
@@ -84,7 +82,7 @@ for the `main` branch should be green).
         See [keep a changelog](https://keepachangelog.com/) for some guidelines.
     5. Update `pkgdown/versions.yml`.
         * Add a new version corresponding to the release you are preparing.
-    5. Submit the changes in a pull request titled "Release X.Y.Z".
+    6. Submit the changes in a pull request titled "Release X.Y.Z".
     Get it approved and merged.
 
 ### Submitting to CRAN
