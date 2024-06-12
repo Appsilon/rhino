@@ -31,11 +31,11 @@ validate_versions <- function(versions) {
     }
     if (isTRUE(version$url == "/")) {
       n_root <<- n_root + 1
-      if (n_root > 1) {
-        stop("Exactly one version should have url set to '/'")
-      }
     }
   })
+  if (n_root != 1) {
+    stop("Exactly one version should have url set to '/'")
+  }
 }
 
 build_version_factory <- function(repo, versions, root_url, destination) {
