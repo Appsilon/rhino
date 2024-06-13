@@ -1,0 +1,23 @@
+name: Debug Flaky E2E
+on: [push]
+permissions:
+  contents: read
+jobs:
+  main:
+    name: ${{ matrix.id == 0 && 'ubuntu' || format('macOS {0}', matrix.id) }}
+    runs-on: ${{ matrix.id == 0 && 'ubuntu-latest' || 'macos-latest' }}
+    timeout-minutes: 10
+    strategy:
+      fail-fast: false
+      matrix:
+        id: [0, 1, 2, 3, 4, 5]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: r-lib/actions/setup-r@v2
+      - uses: r-lib/actions/setup-r-dependencies@v2
+        with:
+          dependencies: '"hard"'
+          packages: curl remotes renv withr
+      - run: Rscript test.R
+        # env:
+        #   GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
