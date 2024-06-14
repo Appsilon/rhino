@@ -37,6 +37,22 @@
 6. Build package<br>
    `devtools::build()` or `pkgbuild::build()`
 
+### pre-commit
+
+This repository has [pre-commit](https://pre-commit.com) configured.
+To set up git hooks or to run the checks you have to install the pre-commit tool.
+For example:
+
+- install via pip (package installer for Python): `pip install pre-commit` or `pip3 install pre-commit`
+- install via homebrew: `brew install pre-commit`
+- install using `{precommit}` package: follow [the installation section in its vignette](https://lorenzwalthert.github.io/precommit/articles/precommit.html#installation)
+
+Once you install pre-commit, run `pre-commit install` to set up the hooks.
+pre-commit will then run checks against files you are committing.
+
+Additionally, you can manually run the checks with `pre-commit run`.
+This command takes an optional `--all-files` flag and an optional hook ID.
+
 ## GitHub Actions Workflows
 
 ### App Push Test
