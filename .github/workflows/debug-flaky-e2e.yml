@@ -19,5 +19,5 @@ jobs:
           dependencies: '"hard"'
           packages: curl remotes renv withr
       - run: Rscript test.R
-        # env:
-        #   GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
+        env:
+          GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
