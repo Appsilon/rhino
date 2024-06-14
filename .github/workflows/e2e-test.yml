@@ -7,8 +7,11 @@ on:
   workflow_dispatch:
 
 defaults:
- run:
-  working-directory: ./tests/e2e/
+  run:
+    working-directory: ./tests/e2e/
+
+permissions:
+  contents: read
 
 jobs:
   main:
@@ -68,6 +71,10 @@ jobs:
         run: |
           cd RhinoApp
           Rscript ../test-dependencies.R
+        env:
+          # Without `GITHUB_PAT`, `renv::install()` fails randomly on macOS
+          # when installing packages from GitHub (see issue #591).
+          GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Node.js commands should respect RHINO_NPM
         # Skip this test on Windows because it requires a Unix shell.
