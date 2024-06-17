@@ -18,7 +18,7 @@ articles:
   what-is-rhino: explanation/what-is-rhino.html
   write-javascript-code: how-to/write-javascript-code.html
   write-r-code: how-to/write-r-code.html
-last_built: 2024-06-12T11:01Z
+last_built: 2024-06-17T14:33Z
 urls:
   reference: https://appsilon.github.io/rhino/v1.1.1/reference
   article: https://appsilon.github.io/rhino/v1.1.1/articles
