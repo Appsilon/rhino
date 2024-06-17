@@ -1,9 +1,23 @@
-# Contributing guidelines
+[_Have you read the Appsilon Contributing Guidelines?_](https://github.com/Appsilon/.github/blob/main/CONTRIBUTING.md)
 
-This document contains guidelines specific to Rhino.
-[Appsilon's general contributing guidelines](https://github.com/Appsilon/.github/blob/main/CONTRIBUTING.md) still apply.
+# Rhino Contributing Guidelines
 
-## Development tools
+## Development Process
+
+> `main` branch must be always in a "potentially shippable" state.
+
+1. All changes are introduces via pull requests to the `main` branch.
+2. Pull requests must be peer-reviewed and fulfill [definition of done](#definition-of-done) before merging.
+
+## Definition of Done
+
+1. The PR has at least 1 approval and 0 change requests.
+2. The CI passes (`R CMD check`, linter, unit tests, spelling).
+3. The change is thoroughly documented.
+   - Namely, `NEWS.md` is updated and if applicable contains a hint on how to migrate.
+4. Any generated files have been updated (e.g. `.Rd` files with `roxygen2::roxygenise()`)
+
+## Development Tools
 
 1. R CMD check<br>
    `devtools::check()` or `rcmdcheck::rcmdcheck()`
@@ -23,7 +37,9 @@ This document contains guidelines specific to Rhino.
 6. Build package<br>
    `devtools::build()` or `pkgbuild::build()`
 
-## App Push Test
+## GitHub Actions Workflows
+
+### App Push Test
 
 Rhino comes with a CI setup out of the box.
 On `rhino::init()` it creates a `rhino-test.yml` file,
@@ -45,7 +61,7 @@ with write access to code and workflows.
 It should be saved as the `APP_PUSH_TEST_PAT`
 [repository secret](https://github.com/Appsilon/rhino/settings/secrets/actions).
 
-## Website
+### Website
 
 The [documentation site](https://appsilon.github.io/rhino/)
 is built and deployed automatically by our [`pkgdown.yml`](workflows/pkgdown.yml) workflow.
@@ -53,7 +69,7 @@ It is triggered on each push to the `main` branch.
 It runs the `pkgdown/build.R` script which builds the documentation
 for all Rhino versions listed in `pkgdown/versions.yml`.
 
-## Release process
+## Release Process
 
 ### Preparation
 
@@ -107,7 +123,7 @@ for all Rhino versions listed in `pkgdown/versions.yml`.
 4. If CRAN reviewers ask for changes, implement them and return to step 1.
    Use `rc.2`, `rc.3` and so on for subsequent submissions.
 
-### Once accepted to CRAN
+### After Being Published on CRAN
 
 1. [Publish a new release](https://github.com/Appsilon/rhino/releases/new) on GitHub.
    1. Create a new `vX.Y.Z` tag on the `main` branch.
@@ -120,20 +136,3 @@ for all Rhino versions listed in `pkgdown/versions.yml`.
    2. Add a `# rhino (development version)` header in `NEWS.md`.
    3. Link the `# rhino X.Y.Z` header to the GitHub release in `NEWS.md`.
 3. Announce the release on `#proj-rhino`.
-
-## Development process
-
-1. All changes are introduced in pull requests to the `main` branch,
-   which must be always kept in a "potentially shippable" state.
-2. Pull requests must be peer-reviewed.
-   The reviewer inspects the code, tests the changes
-   and checks them against the [DoD](#definition-of-done) before approving.
-3. We follow the [Semantic Versioning](https://semver.org/) scheme.
-   Starting with `1.0.0`, all versions should be released to CRAN.
-
-## Definition of Done
-
-1. The PR has at least 1 approval and 0 change requests.
-2. The CI passes (`R CMD check`, linter, unit tests, spelling).
-3. The change is thoroughly documented.
-   - Namely, `NEWS.md` is updated and if applicable contains a hint on how to migrate.

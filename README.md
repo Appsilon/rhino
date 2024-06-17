@@ -113,6 +113,10 @@ You can also learn about Rhino by watching the video from one of our workshops:
 A repository with step-by-step commits for the workshop application can be found
 [here](https://github.com/Appsilon/rhino-workshop/tree/workshop-2022-05-13).
 
+## Contributing
+
+See [CONTRIBUTING](./.github/CONTRIBUTING.md).
+
 ---
 
 Developed with :heart: at [Appsilon](https://appsilon.com).
