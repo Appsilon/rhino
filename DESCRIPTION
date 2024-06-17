@@ -19,7 +19,7 @@ BugReports: https://github.com/Appsilon/rhino/issues
 License: LGPL-3
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.2.3
+RoxygenNote: 7.3.1
 Depends:
   R (>= 2.10)
 Imports:
@@ -43,8 +43,10 @@ Imports:
   yaml
 Suggests:
   covr,
+  desc,
   knitr,
   mockery,
+  pkgdown,
   rcmdcheck,
   rex,
   rlang,

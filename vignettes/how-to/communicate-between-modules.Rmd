@@ -8,9 +8,9 @@ vignette: >
 ---
 
 ## Introduction
-State management is a topic that comes along very often when it comes to reactive programming. 
+State management is a topic that comes along very often when it comes to reactive programming.
 
-As the application grows in size and becomes more intricate, it's common to find an increasing number of 
+As the application grows in size and becomes more intricate, it's common to find an increasing number of
 [Shiny modules](https://shiny.posit.co/r/articles/improve/modules/) distributed across various levels of depth.
 This results in the necessity to share information, particularly the application's state, among these diverse Shiny modules.
 
@@ -23,7 +23,7 @@ in the second example we are going to pass information between two sibling modul
 ### Example 1 - Communicating between a parent module and its children modules
 In this example we are going to have two modules. The parent module will load and process data using filters and will
 pass it down to the child module that will display a table for this processed data.
-  
+
 ![](images/communicate_between_modules_1.png)
 <font size="2">
 **Figure 1. Diagram illustrating how a reactive value is passed between a parent and its child module.**
@@ -55,7 +55,7 @@ ui <- function(id) {
 #' @export
 server <- function(id, table_data) {
   moduleServer(id, function(input, output, session) {
-    
+
     output$table <- renderTable({
       req(table_data())
       table_data()
@@ -120,7 +120,7 @@ defined in this example code.
 Suppose we have a data processing module and a plotting module, both functioning as siblings, with their respective roles
 being to process and exhibit data in a given plot. These sibling modules are nested within another module, which we've
 denoted as `main.R` which is our main module within a Rhino app.
-  
+
 ![](images/communicate_between_modules_2.png)
 <font size="2">
 **Figure 2. Diagram illustrating how a reactive value is passed between sibling modules.**
@@ -196,17 +196,17 @@ ui <- function(id) {
 #' @export
 server <- function(id, data_to_display) {
   moduleServer(id, function(input, output, session) {
-  
+
     output$plot <- renderPlot({
       req(data_to_display)
       plot(data_to_display())
     })
-   
+
   })
 }
 ```
 
-After we have our sibling modules ready we use them in our `main.R` function.  
+After we have our sibling modules ready we use them in our `main.R` function.
 Pay special attention to the server function in which we save the output of the data processing module in a variable and
 we pass it down to the plot module.
 
