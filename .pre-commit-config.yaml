@@ -1,0 +1,65 @@
+# All available hooks: https://pre-commit.com/hooks.html
+# R specific hooks: https://github.com/lorenzwalthert/precommit
+default_install_hook_types:
+  - pre-commit
+  - pre-merge-commit
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.5.0
+    hooks:
+      - id: check-case-conflict
+      - id: check-merge-conflict
+      - id: end-of-file-fixer
+        exclude: '\.Rd'
+      - id: mixed-line-ending
+      - id: trailing-whitespace
+      - id: file-contents-sorter
+        files: '^\.Rbuildignore$'
+  - repo: https://github.com/lorenzwalthert/precommit
+    rev: v0.4.2
+    hooks:
+      - id: parsable-R
+        fail_fast: true
+      - id: no-browser-statement
+      - id: no-debug-statement
+      - id: use-tidy-description
+      - id: spell-check
+        files: ^(man/.*\.Rd|vignettes/.*\.Rmd)$
+      - id: deps-in-desc
+      - id: roxygenize
+        # NOTE: if Rhino dependencies change, then update this list with an output of `precommit::snippet_generate("additional-deps-roxygenize")`
+        additional_dependencies:
+          - box
+          - Appsilon/box.linters@v0.9.1 # TODO: change to "box.linters" once https://github.com/lorenzwalthert/precommit/issues/573 is fixed
+          - cli
+          - config
+          - fs
+          - glue
+          - lintr
+          - logger
+          - purrr
+          - renv
+          - rstudioapi
+          - sass
+          - shiny
+          - styler
+          - testthat
+          - utils
+          - withr
+          - yaml
+      - id: pkgdown
+        exclude: ^(pkgdown/build\.R)$
+  - repo: local
+    hooks:
+      - id: lintr
+        name: lintr
+        language: r
+        entry: Rscript -e 'lintr::lint_package()'
+        files: (\.[rR]profile|\.R|\.Rmd|\.Rnw|\.r|\.rmd|\.rnw)$
+        additional_dependencies:
+          - lintr
+      - id: forbid-to-commit
+        name: Don't commit common R artifacts
+        entry: Cannot commit .Rhistory, .RData, .Rds or .rds, DS_Store.
+        language: fail
+        files: '\.(Rhistory|RData|Rds|rds|DS_Store)$'

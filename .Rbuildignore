@@ -1,10 +1,11 @@
 ^.*\.Rproj$
+^README\.md$
+^\.Rproj\.user$
 ^\.git$
 ^\.github$
 ^\.gitignore$
 ^\.lintr$
-^\.Rproj\.user$
-^pkgdown$
-^README\.md$
-^vignettes$
+^\.pre-commit-config\.yaml$
 ^docs$
+^pkgdown$
+^vignettes$
