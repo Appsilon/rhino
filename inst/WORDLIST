@@ -1,7 +1,6 @@
 Addin
 Addins
 Appsilon
-Boxifying
 ESLint
 Init
 JS
@@ -53,6 +52,7 @@ renv
 roxygen
 rstudio
 scalable
+scss
 shinyapps
 shinymanager
 shinytest
