@@ -1,7 +1,6 @@
 Addin
 Addins
 Appsilon
-Boxifying
 ESLint
 Init
 JS
@@ -23,6 +22,7 @@ UI
 Webpack
 autoreload
 blogpost
+bslib
 conf
 config
 devtools
@@ -56,6 +56,8 @@ scalable
 shinyapps
 shinymanager
 shinytest
+theming
+tooltips
 ui
 unintuitive
 usethis

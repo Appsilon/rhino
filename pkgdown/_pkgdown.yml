@@ -94,6 +94,8 @@ navbar:
         - text: UI
         - text: Use shiny.fluent
           href: articles/how-to/use-shiny-fluent.html
+        - text: Use bslib
+          href: articles/how-to/use-bslib.html
         - text: -------
         - text: Authentication
         - text: Use shinymanager
