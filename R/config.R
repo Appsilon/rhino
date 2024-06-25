@@ -29,7 +29,7 @@ positive_integer_validator <- list(
 rhino_config_definition <- list(
   list(
     name = "sass",
-    validator = option_validator("node", "r"),
+    validator = option_validator("node", "r", "custom"),
     required = TRUE
   ),
   list(
