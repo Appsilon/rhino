@@ -168,9 +168,15 @@ normalize_server <- function(server, is_module = FALSE) {
 with_head_tags <- function(ui) {
   head <- shiny::tags$head(
     react_support(), # Needs to go before `app.min.js`, which defines the React components.
-    shiny::tags$script(src = "static/js/app.min.js"),
-    shiny::tags$link(rel = "stylesheet", href = "static/css/app.min.css", type = "text/css"),
-    shiny::tags$link(rel = "icon", href = "static/favicon.ico", sizes = "any")
+    if (fs::file_exists("app/static/js/app.min.js")) {
+      shiny::tags$script(src = "static/js/app.min.js")
+    },
+    if (fs::file_exists("app/static/css/app.min.css")) {
+      shiny::tags$link(rel = "stylesheet", href = "static/css/app.min.css", type = "text/css")
+    },
+    if (fs::file_exists("app/static/favicon.ico")) {
+      shiny::tags$link(rel = "icon", href = "static/favicon.ico", sizes = "any")
+    }
   )
   force(ui) # Avoid the pitfalls of lazy evaluation.
   function(request) {
