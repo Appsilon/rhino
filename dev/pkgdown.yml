@@ -23,6 +23,7 @@ articles:
   rhino-yml: explanation/rhino-yml.html
   set-application-run-parameters: how-to/set-application-run-parameters.html
   use-addins: how-to/use-addins.html
+  use-bslib: how-to/use-bslib.html
   use-global-variables: how-to/use-global-variables.html
   use-polished: how-to/use-polished.html
   use-react-in-rhino: tutorial/use-react-in-rhino.html
@@ -34,7 +35,7 @@ articles:
   write-end-to-end-tests-with-cypress: tutorial/write-end-to-end-tests-with-cypress.html
   write-javascript-code: how-to/write-javascript-code.html
   write-r-code: how-to/write-r-code.html
-last_built: 2024-06-17T14:28Z
+last_built: 2024-07-01T10:55Z
 urls:
   reference: https://appsilon.github.io/rhino/dev/reference
   article: https://appsilon.github.io/rhino/dev/articles
