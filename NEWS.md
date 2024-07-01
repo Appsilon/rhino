@@ -1,4 +1,8 @@
-# rhino 1.8.0
+# rhino (development version)
+
+1. Added `sass: custom` configuration option for cleaner integration with `bslib`.
+
+# [rhino 1.8.0](https://github.com/Appsilon/rhino/releases/tag/v1.8.0)
 
 1. All linter functions migrated to `box.linters`. New rhino projects will be configured to use linters from `box.linters`.
 2. Updated GitHub Workflow template triggers.

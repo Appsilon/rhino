@@ -107,7 +107,8 @@ load_main <- function(use_source, expect_shiny_module) {
     } else {
       main <- load_main_box()
     }
-    normalize_main(main, expect_shiny_module)
+    main <- normalize_main(main, expect_shiny_module)
+    list(ui = with_head_tags(main$ui), server = main$server)
   }
   load_main_with_autoreload(loader)
 }
@@ -161,6 +162,25 @@ normalize_server <- function(server, is_module = FALSE) {
     function(input, output, session) {
       server(input = input, output = output)
     }
+  }
+}
+
+with_head_tags <- function(ui) {
+  head <- shiny::tags$head(
+    react_support(), # Needs to go before `app.min.js`, which defines the React components.
+    if (fs::file_exists("app/static/js/app.min.js")) {
+      shiny::tags$script(src = "static/js/app.min.js")
+    },
+    if (fs::file_exists("app/static/css/app.min.css")) {
+      shiny::tags$link(rel = "stylesheet", href = "static/css/app.min.css", type = "text/css")
+    },
+    if (fs::file_exists("app/static/favicon.ico")) {
+      shiny::tags$link(rel = "icon", href = "static/favicon.ico", sizes = "any")
+    }
+  )
+  force(ui) # Avoid the pitfalls of lazy evaluation.
+  function(request) {
+    shiny::tagList(head, ui(request))
   }
 }
 
@@ -232,22 +252,9 @@ warn_on_error <- function(expr, text) {
 
 make_app <- function(main) {
   shiny::shinyApp(
-    ui = with_head_tags(main$ui),
+    ui = main$ui,
     server = fix_server(main$server)
   )
-}
-
-with_head_tags <- function(ui) {
-  head <- shiny::tags$head(
-    react_support(), # Needs to go before `app.min.js`, which defines the React components.
-    shiny::tags$script(src = "static/js/app.min.js"),
-    shiny::tags$link(rel = "stylesheet", href = "static/css/app.min.css", type = "text/css"),
-    shiny::tags$link(rel = "icon", href = "static/favicon.ico", sizes = "any")
-  )
-  force(ui) # Avoid the pitfalls of lazy evaluation.
-  function(request) {
-    shiny::tagList(head, ui(request))
-  }
 }
 
 # A workaround for issues with server reloading:

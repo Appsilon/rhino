@@ -260,6 +260,13 @@ lint_js <- function(fix = FALSE) {
 #' @export
 build_sass <- function(watch = FALSE) {
   config <- read_config()$sass
+  if (config == "custom") {
+    cli::cli_alert_warning(
+      "Using 'custom' configuration for 'sass'. Exiting without doing anything."
+    )
+    return(invisible())
+  }
+
   if (config == "node") {
     tryCatch(
       build_sass_node(watch = watch),
