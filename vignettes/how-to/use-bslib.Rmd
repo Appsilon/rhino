@@ -11,17 +11,24 @@ vignette: >
 
 The `bslib` R package is a UI toolkit based on Bootstrap.
 Shiny uses it under the hood for its default appearance,
-but it's also possible to use `bslib` directly to gain some benefits:
+but it's also possible to use `bslib` directly to gain access to:
+
 1. Additional components (e.g. value boxes, accordions, tooltips).
 2. Customization and theming.
 3. A refined interface (e.g. `bslib::page_sidebar` instead of `shiny::sidebarLayout`).
-4. Access to the latest Bootstrap (v5).
+4. The latest Bootstrap (v5).
 
 Rhino comes with built-in support for writing custom Sass code in `app/styles/main.scss`.
-This guide explains how to combine `bslib` and custom Sass code.
+This guide explains how to combine `bslib` and custom Sass code, allowing you to:
 
-If you don't want to write any custom Sass,
-you can use `bslib` as you would normally without any additional setup.
+1. Share variables (e.g. colors and fonts) between `bslib` and custom Sass.
+2. Use Bootstrap variables, functions and mixins in your custom Sass.
+3. Further customize Bootstrap, e.g. override its mixins.
+
+<p class="alert alert-info">
+  If you don't want to write any custom Sass,
+  you can use `bslib` as you would normally without any additional setup.
+</p>
 
 # Steps
 
@@ -30,19 +37,36 @@ you can use `bslib` as you would normally without any additional setup.
 3. Bundle Rhino Sass with `bslib` theme, e.g.:
 
 ```r
-theme <- bslib$bs_theme() |>
+theme <- bslib$bs_theme(primary = "purple") |>
   bslib$bs_add_rules(sass$sass_file("app/styles/main.scss"))
 ```
 
 You can create the `theme` object in `app/main.R` or in a dedicated file, e.g. `app/view/theme.R`.
 You need to define your UI using one of `bslib::page_*` layout functions,
-and pass the `theme` object as argument.
+and pass the `theme` object as argument, e.g.:
+
+```r
+#' @export
+ui <- function(id) {
+  ns <- NS(id)
+  bslib$page_fillable(
+    theme = theme,
+    shiny$h1("Hello!")
+  )
+}
+```
 
 You don't need to run `rhino::build_sass()`.
 Shiny will build it automatically when needed.
 
 With this setup you can use the `main.scss` file as you would normally,
-but with full access to Bootstrap and variables defined in `bs_theme()`.
+but with full access to Bootstrap and variables defined in `bs_theme()`, e.g.:
+
+```scss
+h1 {
+  color: tint-color($primary, 20%);
+}
+```
 
 ## Advanced use cases
 

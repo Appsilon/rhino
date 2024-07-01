@@ -22,9 +22,10 @@ legacy_entrypoint: string  # optional | one of: "app_dir", "source", "box_top_le
 ### `sass`
 
 This option controls the behavior `rhino::build_sass()`:
+
 * `node`: Build Sass using the [Node.js package](https://www.npmjs.com/package/sass).
 * `r`: Build Sass using the [R package](https://cran.r-project.org/package=sass).
-* `custom`: Do nothing. Useful when bundling custom Sass with `bslib::bs_theme()`.
+* `custom`: Do nothing. Useful when [bundling custom Sass with `bslib` theme](https://appsilon.github.io/rhino/articles/how-to/use-bslib.html).
 
 Read more in [Explanation: Node.js - JavaScript and Sass tools](https://appsilon.github.io/rhino/articles/explanation/node-js-javascript-and-sass-tools.html).
 
