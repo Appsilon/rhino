@@ -145,6 +145,8 @@ reference:
   - build_sass
   - lint_js
   - lint_sass
+  - format_js
+  - format_sass
   - react_component
 
 - title: Other tools

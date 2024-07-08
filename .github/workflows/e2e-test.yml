@@ -101,11 +101,23 @@ jobs:
           cd RhinoApp
           Rscript ../test-lint-js.R
 
+      - name: format_js() should format JS scripts
+        if: always()
+        run: |
+          cd RhinoApp
+          Rscript ../test-format-js.R
+
       - name: lint_sass() should detect lint errors in CSS
         if: always()
         run: |
           cd RhinoApp
           Rscript ../test-lint-sass.R
+
+      - name: format_sass() should format SASS (.scss) scripts
+        if: always()
+        run: |
+          cd RhinoApp
+          Rscript ../test-format-sass.R
 
       - name: build_js() should build app.min.js
         if: always()
