@@ -1,135 +1,47 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url>
-    <loc>https://appsilon.github.io/rhino/v1.3.1/404.html</loc>
-  </url>
-  <url>
-    <loc>https://appsilon.github.io/rhino/v1.3.1/CONTRIBUTING.html</loc>
-  </url>
-  <url>
-    <loc>https://appsilon.github.io/rhino/v1.3.1/PULL_REQUEST_TEMPLATE.html</loc>
-  </url>
-  <url>
-    <loc>https://appsilon.github.io/rhino/v1.3.1/articles/explanation/application-structure.html</loc>
-  </url>
-  <url>
-    <loc>https://appsilon.github.io/rhino/v1.3.1/articles/explanation/box-modules.html</loc>
-  </url>
-  <url>
-    <loc>https://appsilon.github.io/rhino/v1.3.1/articles/explanation/node-js-javascript-and-sass-tools.html</loc>
-  </url>
-  <url>
-    <loc>https://appsilon.github.io/rhino/v1.3.1/articles/explanation/renv-configuration.html</loc>
-  </url>
-  <url>
-    <loc>https://appsilon.github.io/rhino/v1.3.1/articles/explanation/rhino-yml.html</loc>
-  </url>
-  <url>
-    <loc>https://appsilon.github.io/rhino/v1.3.1/articles/explanation/what-is-rhino.html</loc>
-  </url>
-  <url>
-    <loc>https://appsilon.github.io/rhino/v1.3.1/articles/faq.html</loc>
-  </url>
-  <url>
-    <loc>https://appsilon.github.io/rhino/v1.3.1/articles/how-to/add-internationalization.html</loc>
-  </url>
-  <url>
-    <loc>https://appsilon.github.io/rhino/v1.3.1/articles/how-to/add-routing.html</loc>
-  </url>
-  <url>
-    <loc>https://appsilon.github.io/rhino/v1.3.1/articles/how-to/enable-shiny-bookmarking.html</loc>
-  </url>
-  <url>
-    <loc>https://appsilon.github.io/rhino/v1.3.1/articles/how-to/keep-multiple-apps-in-a-single-repository.html</loc>
-  </url>
-  <url>
-    <loc>https://appsilon.github.io/rhino/v1.3.1/articles/how-to/manage-r-dependencies.html</loc>
-  </url>
-  <url>
-    <loc>https://appsilon.github.io/rhino/v1.3.1/articles/how-to/manage-secrets-and-environments.html</loc>
-  </url>
-  <url>
-    <loc>https://appsilon.github.io/rhino/v1.3.1/articles/how-to/migrate-app-to-rhino.html</loc>
-  </url>
-  <url>
-    <loc>https://appsilon.github.io/rhino/v1.3.1/articles/how-to/use-global-variables.html</loc>
-  </url>
-  <url>
-    <loc>https://appsilon.github.io/rhino/v1.3.1/articles/how-to/use-shiny-fluent.html</loc>
-  </url>
-  <url>
-    <loc>https://appsilon.github.io/rhino/v1.3.1/articles/how-to/use-shinymanager.html</loc>
-  </url>
-  <url>
-    <loc>https://appsilon.github.io/rhino/v1.3.1/articles/how-to/use-shinytest2.html</loc>
-  </url>
-  <url>
-    <loc>https://appsilon.github.io/rhino/v1.3.1/articles/how-to/use-static-files.html</loc>
-  </url>
-  <url>
-    <loc>https://appsilon.github.io/rhino/v1.3.1/articles/how-to/write-javascript-code.html</loc>
-  </url>
-  <url>
-    <loc>https://appsilon.github.io/rhino/v1.3.1/articles/how-to/write-r-code.html</loc>
-  </url>
-  <url>
-    <loc>https://appsilon.github.io/rhino/v1.3.1/articles/index.html</loc>
-  </url>
-  <url>
-    <loc>https://appsilon.github.io/rhino/v1.3.1/articles/tutorial/create-your-first-rhino-app.html</loc>
-  </url>
-  <url>
-    <loc>https://appsilon.github.io/rhino/v1.3.1/articles/tutorial/write-end-to-end-tests-with-cypress.html</loc>
-  </url>
-  <url>
-    <loc>https://appsilon.github.io/rhino/v1.3.1/authors.html</loc>
-  </url>
-  <url>
-    <loc>https://appsilon.github.io/rhino/v1.3.1/index.html</loc>
-  </url>
-  <url>
-    <loc>https://appsilon.github.io/rhino/v1.3.1/news/index.html</loc>
-  </url>
-  <url>
-    <loc>https://appsilon.github.io/rhino/v1.3.1/reference/app.html</loc>
-  </url>
-  <url>
-    <loc>https://appsilon.github.io/rhino/v1.3.1/reference/build_js.html</loc>
-  </url>
-  <url>
-    <loc>https://appsilon.github.io/rhino/v1.3.1/reference/build_sass.html</loc>
-  </url>
-  <url>
-    <loc>https://appsilon.github.io/rhino/v1.3.1/reference/diagnostics.html</loc>
-  </url>
-  <url>
-    <loc>https://appsilon.github.io/rhino/v1.3.1/reference/format_r.html</loc>
-  </url>
-  <url>
-    <loc>https://appsilon.github.io/rhino/v1.3.1/reference/index.html</loc>
-  </url>
-  <url>
-    <loc>https://appsilon.github.io/rhino/v1.3.1/reference/init.html</loc>
-  </url>
-  <url>
-    <loc>https://appsilon.github.io/rhino/v1.3.1/reference/lint_js.html</loc>
-  </url>
-  <url>
-    <loc>https://appsilon.github.io/rhino/v1.3.1/reference/lint_r.html</loc>
-  </url>
-  <url>
-    <loc>https://appsilon.github.io/rhino/v1.3.1/reference/lint_sass.html</loc>
-  </url>
-  <url>
-    <loc>https://appsilon.github.io/rhino/v1.3.1/reference/log.html</loc>
-  </url>
-  <url>
-    <loc>https://appsilon.github.io/rhino/v1.3.1/reference/rhinos.html</loc>
-  </url>
-  <url>
-    <loc>https://appsilon.github.io/rhino/v1.3.1/reference/test_e2e.html</loc>
-  </url>
-  <url>
-    <loc>https://appsilon.github.io/rhino/v1.3.1/reference/test_r.html</loc>
-  </url>
+<urlset xmlns = 'http://www.sitemaps.org/schemas/sitemap/0.9'>
+<url><loc>https://appsilon.github.io/rhino/v1.3.1/404.html</loc></url>
+<url><loc>https://appsilon.github.io/rhino/v1.3.1/CONTRIBUTING.html</loc></url>
+<url><loc>https://appsilon.github.io/rhino/v1.3.1/PULL_REQUEST_TEMPLATE.html</loc></url>
+<url><loc>https://appsilon.github.io/rhino/v1.3.1/articles/explanation/application-structure.html</loc></url>
+<url><loc>https://appsilon.github.io/rhino/v1.3.1/articles/explanation/box-modules.html</loc></url>
+<url><loc>https://appsilon.github.io/rhino/v1.3.1/articles/explanation/node-js-javascript-and-sass-tools.html</loc></url>
+<url><loc>https://appsilon.github.io/rhino/v1.3.1/articles/explanation/renv-configuration.html</loc></url>
+<url><loc>https://appsilon.github.io/rhino/v1.3.1/articles/explanation/rhino-yml.html</loc></url>
+<url><loc>https://appsilon.github.io/rhino/v1.3.1/articles/explanation/what-is-rhino.html</loc></url>
+<url><loc>https://appsilon.github.io/rhino/v1.3.1/articles/faq.html</loc></url>
+<url><loc>https://appsilon.github.io/rhino/v1.3.1/articles/how-to/add-internationalization.html</loc></url>
+<url><loc>https://appsilon.github.io/rhino/v1.3.1/articles/how-to/add-routing.html</loc></url>
+<url><loc>https://appsilon.github.io/rhino/v1.3.1/articles/how-to/enable-shiny-bookmarking.html</loc></url>
+<url><loc>https://appsilon.github.io/rhino/v1.3.1/articles/how-to/keep-multiple-apps-in-a-single-repository.html</loc></url>
+<url><loc>https://appsilon.github.io/rhino/v1.3.1/articles/how-to/manage-r-dependencies.html</loc></url>
+<url><loc>https://appsilon.github.io/rhino/v1.3.1/articles/how-to/manage-secrets-and-environments.html</loc></url>
+<url><loc>https://appsilon.github.io/rhino/v1.3.1/articles/how-to/migrate-app-to-rhino.html</loc></url>
+<url><loc>https://appsilon.github.io/rhino/v1.3.1/articles/how-to/use-global-variables.html</loc></url>
+<url><loc>https://appsilon.github.io/rhino/v1.3.1/articles/how-to/use-shiny-fluent.html</loc></url>
+<url><loc>https://appsilon.github.io/rhino/v1.3.1/articles/how-to/use-shinymanager.html</loc></url>
+<url><loc>https://appsilon.github.io/rhino/v1.3.1/articles/how-to/use-shinytest2.html</loc></url>
+<url><loc>https://appsilon.github.io/rhino/v1.3.1/articles/how-to/use-static-files.html</loc></url>
+<url><loc>https://appsilon.github.io/rhino/v1.3.1/articles/how-to/write-javascript-code.html</loc></url>
+<url><loc>https://appsilon.github.io/rhino/v1.3.1/articles/how-to/write-r-code.html</loc></url>
+<url><loc>https://appsilon.github.io/rhino/v1.3.1/articles/index.html</loc></url>
+<url><loc>https://appsilon.github.io/rhino/v1.3.1/articles/tutorial/create-your-first-rhino-app.html</loc></url>
+<url><loc>https://appsilon.github.io/rhino/v1.3.1/articles/tutorial/write-end-to-end-tests-with-cypress.html</loc></url>
+<url><loc>https://appsilon.github.io/rhino/v1.3.1/authors.html</loc></url>
+<url><loc>https://appsilon.github.io/rhino/v1.3.1/index.html</loc></url>
+<url><loc>https://appsilon.github.io/rhino/v1.3.1/news/index.html</loc></url>
+<url><loc>https://appsilon.github.io/rhino/v1.3.1/reference/app.html</loc></url>
+<url><loc>https://appsilon.github.io/rhino/v1.3.1/reference/build_js.html</loc></url>
+<url><loc>https://appsilon.github.io/rhino/v1.3.1/reference/build_sass.html</loc></url>
+<url><loc>https://appsilon.github.io/rhino/v1.3.1/reference/diagnostics.html</loc></url>
+<url><loc>https://appsilon.github.io/rhino/v1.3.1/reference/format_r.html</loc></url>
+<url><loc>https://appsilon.github.io/rhino/v1.3.1/reference/index.html</loc></url>
+<url><loc>https://appsilon.github.io/rhino/v1.3.1/reference/init.html</loc></url>
+<url><loc>https://appsilon.github.io/rhino/v1.3.1/reference/lint_js.html</loc></url>
+<url><loc>https://appsilon.github.io/rhino/v1.3.1/reference/lint_r.html</loc></url>
+<url><loc>https://appsilon.github.io/rhino/v1.3.1/reference/lint_sass.html</loc></url>
+<url><loc>https://appsilon.github.io/rhino/v1.3.1/reference/log.html</loc></url>
+<url><loc>https://appsilon.github.io/rhino/v1.3.1/reference/rhinos.html</loc></url>
+<url><loc>https://appsilon.github.io/rhino/v1.3.1/reference/test_e2e.html</loc></url>
+<url><loc>https://appsilon.github.io/rhino/v1.3.1/reference/test_r.html</loc></url>
 </urlset>
+

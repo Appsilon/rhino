@@ -1,25 +1,24 @@
 pandoc: 2.9.2.1
-pkgdown: 2.0.9
+pkgdown: 2.1.0
 pkgdown_sha: ~
 articles:
-  application-structure: explanation/application-structure.html
-  box-modules: explanation/box-modules.html
-  create-your-first-rhino-app: tutorial/create-your-first-rhino-app.html
-  enable-shiny-bookmarking: how-to/enable-shiny-bookmarking.html
-  keep-multiple-apps-in-a-single-repository: how-to/keep-multiple-apps-in-a-single-repository.html
-  manage-r-dependencies: how-to/manage-r-dependencies.html
-  manage-secrets-and-environments: how-to/manage-secrets-and-environments.html
-  migrate-app-to-rhino: how-to/migrate-app-to-rhino.html
-  node-js-javascript-and-sass-tools: explanation/node-js-javascript-and-sass-tools.html
-  renv-configuration: explanation/renv-configuration.html
-  rhino-yml: explanation/rhino-yml.html
-  use-global-variables: how-to/use-global-variables.html
-  use-static-files: how-to/use-static-files.html
-  what-is-rhino: explanation/what-is-rhino.html
-  write-javascript-code: how-to/write-javascript-code.html
-  write-r-code: how-to/write-r-code.html
-last_built: 2024-07-01T10:59Z
+  explanation/application-structure: explanation/application-structure.html
+  explanation/box-modules: explanation/box-modules.html
+  tutorial/create-your-first-rhino-app: tutorial/create-your-first-rhino-app.html
+  how-to/enable-shiny-bookmarking: how-to/enable-shiny-bookmarking.html
+  how-to/keep-multiple-apps-in-a-single-repository: how-to/keep-multiple-apps-in-a-single-repository.html
+  how-to/manage-r-dependencies: how-to/manage-r-dependencies.html
+  how-to/manage-secrets-and-environments: how-to/manage-secrets-and-environments.html
+  how-to/migrate-app-to-rhino: how-to/migrate-app-to-rhino.html
+  explanation/node-js-javascript-and-sass-tools: explanation/node-js-javascript-and-sass-tools.html
+  explanation/renv-configuration: explanation/renv-configuration.html
+  explanation/rhino-yml: explanation/rhino-yml.html
+  how-to/use-global-variables: how-to/use-global-variables.html
+  how-to/use-static-files: how-to/use-static-files.html
+  explanation/what-is-rhino: explanation/what-is-rhino.html
+  how-to/write-javascript-code: how-to/write-javascript-code.html
+  how-to/write-r-code: how-to/write-r-code.html
+last_built: 2024-07-08T11:20Z
 urls:
   reference: https://appsilon.github.io/rhino/v1.2.1/reference
   article: https://appsilon.github.io/rhino/v1.2.1/articles
-
