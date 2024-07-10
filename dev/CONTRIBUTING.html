@@ -20,9 +20,9 @@
 
     <div id="version-switcher" class="dropdown">
       <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true">
-1.8.0.9001 (dev)
+1.9.0 (dev)
       </a>
-      <ul class="dropdown-menu"><li><a class="dropdown-item" href="https://appsilon.github.io/rhino/dev">1.8.0.9001 (dev)</a></li>
+      <ul class="dropdown-menu"><li><a class="dropdown-item" href="https://appsilon.github.io/rhino/dev">1.9.0 (dev)</a></li>
 <li><a class="external-link dropdown-item" href="https://appsilon.github.io/rhino/">1.8</a></li>
 <li><a class="external-link dropdown-item" href="https://appsilon.github.io/rhino/v1.7.0">1.7</a></li>
 <li><a class="external-link dropdown-item" href="https://appsilon.github.io/rhino/v1.6.0">1.6</a></li>
@@ -89,6 +89,7 @@
     <li><a class="dropdown-item" href="articles/how-to/migrate-1-6.html">Migration to Rhino 1.6</a></li>
     <li><a class="dropdown-item" href="articles/how-to/migrate-1-7.html">Migration to Rhino 1.7</a></li>
     <li><a class="dropdown-item" href="articles/how-to/migrate-1-8.html">Migration to Rhino 1.8</a></li>
+    <li><a class="dropdown-item" href="articles/how-to/migrate-1-9.html">Migration to Rhino 1.9</a></li>
   </ul></li>
 <li class="nav-item"><a class="nav-link" href="reference/index.html">Reference</a></li>
 <li class="nav-item"><a class="nav-link" href="news/index.html">Changelog</a></li>
@@ -152,7 +153,6 @@
 <li>Update <code>NEWS.md</code>.<ul><li>Replace the <code>(development version)</code> with <code>X.Y.Z</code> in the header. Do not add a link to GitHub releases yet - the link won’t work and will fail CRAN checks.</li>
 <li>Edit the list of changes to make it useful and understandable for our users. See <a href="https://keepachangelog.com/" class="external-link">keep a changelog</a> for some guidelines.</li>
 </ul></li>
-<li>Update <code>pkgdown/versions.yml</code>.<ul><li>Add a new version corresponding to the release you are preparing.</li></ul></li>
 <li>Submit the changes in a pull request titled “Release X.Y.Z”. Get it approved and merged.</li>
 </ol></li>
 </ol></div>
@@ -187,9 +187,12 @@
 <li>Check “Set as the latest release”.</li>
 <li>Click “Publish release”.</li>
 </ol></li>
-<li>Prepare the package for further development.<ol style="list-style-type: decimal"><li>Add a development version <code>.9000</code> in <code>DESCRIPTION</code>.</li>
-<li>Add a <code># rhino (development version)</code> header in <code>NEWS.md</code>.</li>
-<li>Link the <code># rhino X.Y.Z</code> header to the GitHub release in <code>NEWS.md</code>.</li>
+<li>Prepare the package for further development.<ol style="list-style-type: decimal"><li>Add the new version to <code>pkgdown/versions.yml</code>.</li>
+<li>Add a development version <code>.9000</code> in <code>DESCRIPTION</code>.</li>
+<li>Update <code>NEWS.md</code>:<ul><li>Add a <code># rhino (development version)</code> header.</li>
+<li>Link the <code># rhino X.Y.Z</code> header to the GitHub release.</li>
+<li>Add a link to the migration guide in <code>NEWS.md</code>.</li>
+</ul></li>
 </ol></li>
 <li>Announce the release on <code>#proj-rhino</code>.</li>
 </ol></div>
