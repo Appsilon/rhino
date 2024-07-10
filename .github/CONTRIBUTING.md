@@ -80,9 +80,7 @@ for the `main` branch should be green).
         Do not add a link to GitHub releases yet - the link won't work and will fail CRAN checks.
         * Edit the list of changes to make it useful and understandable for our users.
         See [keep a changelog](https://keepachangelog.com/) for some guidelines.
-    5. Update `pkgdown/versions.yml`.
-        * Add a new version corresponding to the release you are preparing.
-    6. Submit the changes in a pull request titled "Release X.Y.Z".
+    5. Submit the changes in a pull request titled "Release X.Y.Z".
     Get it approved and merged.
 
 ### Submitting to CRAN
@@ -116,9 +114,12 @@ Use `rc.2`, `rc.3` and so on for subsequent submissions.
     4. Check "Set as the latest release".
     5. Click "Publish release".
 2. Prepare the package for further development.
-    1. Add a development version `.9000` in `DESCRIPTION`.
-    2. Add a `# rhino (development version)` header in `NEWS.md`.
-    3. Link the `# rhino X.Y.Z` header to the GitHub release in `NEWS.md`.
+    1. Add the new version to `pkgdown/versions.yml`.
+    2. Add a development version `.9000` in `DESCRIPTION`.
+    3. Update `NEWS.md`:
+        * Add a `# rhino (development version)` header.
+        * Link the `# rhino X.Y.Z` header to the GitHub release.
+        * Add a link to the migration guide in `NEWS.md`.
 3. Announce the release on `#proj-rhino`.
 
 ## Development process
