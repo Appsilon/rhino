@@ -43,8 +43,10 @@ Imports:
   yaml
 Suggests:
   covr,
+  desc,
   knitr,
   mockery,
+  pkgdown,
   rcmdcheck,
   rex,
   rlang,
