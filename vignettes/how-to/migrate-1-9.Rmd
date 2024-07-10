@@ -1,0 +1,45 @@
+---
+title: "How-to: Rhino 1.9 Migration Guide"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{How-to: Rhino 1.9 Migration Guide}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+Follow the steps outlined in this guide to migrate your project to Rhino 1.9.
+Before starting, ensure your Git working tree is clean, or back up your project if not using Git.
+
+This guide assumes you are migrating from Rhino 1.8.
+If you are currently using an older version of Rhino,
+please review the older migration guides first:
+
+* [Rhino 1.6 Migration Guide](https://appsilon.github.io/rhino/articles/how-to/migrate-1-6.html).
+* [Rhino 1.7 Migration Guide](https://appsilon.github.io/rhino/articles/how-to/migrate-1-7.html).
+* [Rhino 1.8 Migration Guide](https://appsilon.github.io/rhino/articles/how-to/migrate-1-8.html).
+
+# Step 1: Install Rhino 1.9
+
+Use the following command to install Rhino 1.9 and update your `renv.lock` file:
+
+```r
+rhino::pkg_install("rhino@1.9.0")
+```
+
+After the installation, restart your R session to ensure all changes take effect.
+
+# Step 2: Remove the `.rhino` directory
+
+Remove the `.rhino` directory from the root of your project.
+This directory contains Node.js configuration from the previous version of Rhino.
+
+```r
+unlink(".rhino", recursive = TRUE)
+```
+
+# Step 3: Test your project
+
+Test your project thoroughly to ensure everything works properly after the migration.
+If you encounter any issues or have further questions,
+don't hesitate to reach out to us via
+[GitHub Discussions](https://github.com/Appsilon/rhino/discussions).

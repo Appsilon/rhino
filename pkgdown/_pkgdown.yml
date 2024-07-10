@@ -114,6 +114,8 @@ navbar:
           href: articles/how-to/migrate-1-7.html
         - text: Migration to Rhino 1.8
           href: articles/how-to/migrate-1-8.html
+        - text: Migration to Rhino 1.9
+          href: articles/how-to/migrate-1-9.html
 
     faq:
       text: FAQ
