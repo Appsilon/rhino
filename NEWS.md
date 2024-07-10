@@ -1,8 +1,7 @@
-# rhino (development version)
+# rhino 1.9.0
 
 1. Added `sass: custom` configuration option for cleaner integration with `bslib`.
-2. Introduce `format_js()` and `format_sass()` powered by [prettier](https://prettier.io).
-    * **Migration**: Remove the `.rhino` directory if updating Rhino in an existing project.
+2. Introduced `format_js()` and `format_sass()` powered by [prettier](https://prettier.io).
     * **Note:** `lint_js()` and `lint_sass()` report styling errors.
       They _might_ complain about formatting done with `format_js()` and `format_sass()` functions; however, we haven't spotted any issues so far.
       If you face any problems with this, then please [raise an issue on GitHub](https://github.com/Appsilon/rhino/issues/new/choose)
