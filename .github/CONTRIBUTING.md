@@ -121,6 +121,7 @@ Use `rc.2`, `rc.3` and so on for subsequent submissions.
         * Link the `# rhino X.Y.Z` header to the GitHub release.
         * Add a link to the migration guide in `NEWS.md`.
 3. Announce the release on `#proj-rhino`.
+4. Complete the upgrade of Rhino Showcase.
 
 ## Development process
 
