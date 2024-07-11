@@ -20,10 +20,11 @@
 
     <div id="version-switcher" class="dropdown">
       <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true">
-1.8
+1.9
       </a>
-      <ul class="dropdown-menu"><li><a class="dropdown-item" href="https://appsilon.github.io/rhino/dev">1.9.0 (dev)</a></li>
-<li><a class="dropdown-item" href="https://appsilon.github.io/rhino/">1.8</a></li>
+      <ul class="dropdown-menu"><li><a class="dropdown-item" href="https://appsilon.github.io/rhino/dev">1.9.0.9000 (dev)</a></li>
+<li><a class="dropdown-item" href="https://appsilon.github.io/rhino/">1.9</a></li>
+<li><a class="dropdown-item" href="https://appsilon.github.io/rhino/v1.8.0">1.8</a></li>
 <li><a class="dropdown-item" href="https://appsilon.github.io/rhino/v1.7.0">1.7</a></li>
 <li><a class="dropdown-item" href="https://appsilon.github.io/rhino/v1.6.0">1.6</a></li>
 <li><a class="dropdown-item" href="https://appsilon.github.io/rhino/v1.5.0">1.5</a></li>
@@ -76,6 +77,7 @@
     <li><hr class="dropdown-divider"></li>
     <li><h6 class="dropdown-header" data-toc-skip>UI</h6></li>
     <li><a class="dropdown-item" href="articles/how-to/use-shiny-fluent.html">Use shiny.fluent</a></li>
+    <li><a class="dropdown-item" href="articles/how-to/use-bslib.html">Use bslib</a></li>
     <li><hr class="dropdown-divider"></li>
     <li><h6 class="dropdown-header" data-toc-skip>Authentication</h6></li>
     <li><a class="dropdown-item" href="articles/how-to/use-shinymanager.html">Use shinymanager</a></li>
@@ -88,6 +90,7 @@
     <li><a class="dropdown-item" href="articles/how-to/migrate-1-6.html">Migration to Rhino 1.6</a></li>
     <li><a class="dropdown-item" href="articles/how-to/migrate-1-7.html">Migration to Rhino 1.7</a></li>
     <li><a class="dropdown-item" href="articles/how-to/migrate-1-8.html">Migration to Rhino 1.8</a></li>
+    <li><a class="dropdown-item" href="articles/how-to/migrate-1-9.html">Migration to Rhino 1.9</a></li>
   </ul></li>
 <li class="nav-item"><a class="nav-link" href="reference/index.html">Reference</a></li>
 <li class="nav-item"><a class="nav-link" href="news/index.html">Changelog</a></li>
@@ -132,7 +135,7 @@
 </div>
 <div class="section level2">
 <h2 id="website">Website<a class="anchor" aria-label="anchor" href="#website"></a></h2>
-<p>The <a href="https://appsilon.github.io/rhino/">documentation site</a> is built and deployed automatically by our <a href="workflows/pkgdown.yml"><code>pkgdown.yml</code></a> workflow. This workflow is triggered when a <a href="https://docs.github.com/en/repositories/releasing-projects-on-github/managing-releases-in-a-repository" class="external-link">release</a> is published, or a pre-release is changed to a release. It is also possible to manually run it for a selected tag/branch from the <a href="https://github.com/Appsilon/rhino/actions/workflows/pkgdown.yml" class="external-link">Actions</a> tab.</p>
+<p>The <a href="https://appsilon.github.io/rhino/">documentation site</a> is built and deployed automatically by our <a href="workflows/pkgdown.yml"><code>pkgdown.yml</code></a> workflow. It is triggered on each push to the <code>main</code> branch. It runs the <code>pkgdown/build.R</code> script which builds the documentation for all Rhino versions listed in <code>pkgdown/versions.yml</code>.</p>
 </div>
 <div class="section level2">
 <h2 id="release-process">Release process<a class="anchor" aria-label="anchor" href="#release-process"></a></h2>
@@ -185,9 +188,12 @@
 <li>Check “Set as the latest release”.</li>
 <li>Click “Publish release”.</li>
 </ol></li>
-<li>Prepare the package for further development.<ol style="list-style-type: decimal"><li>Add a development version <code>.9000</code> in <code>DESCRIPTION</code>.</li>
-<li>Add a <code># rhino (development version)</code> header in <code>NEWS.md</code>.</li>
-<li>Link the <code># rhino X.Y.Z</code> header to the GitHub release in <code>NEWS.md</code>.</li>
+<li>Prepare the package for further development.<ol style="list-style-type: decimal"><li>Add the new version to <code>pkgdown/versions.yml</code>.</li>
+<li>Add a development version <code>.9000</code> in <code>DESCRIPTION</code>.</li>
+<li>Update <code>NEWS.md</code>:<ul><li>Add a <code># rhino (development version)</code> header.</li>
+<li>Link the <code># rhino X.Y.Z</code> header to the GitHub release.</li>
+<li>Add a link to the migration guide in <code>NEWS.md</code>.</li>
+</ul></li>
 </ol></li>
 <li>Announce the release on <code>#proj-rhino</code>.</li>
 </ol></div>
