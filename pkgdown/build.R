@@ -39,31 +39,39 @@ validate_versions <- function(versions) {
 }
 
 build_version_factory <- function(repo, versions, root_url, destination) {
-  navbar_template <- navbar_template_factory(versions, root_url)
+  version_switcher <- version_switcher_factory(versions, root_url)
   destination <- fs::path_abs(destination)
   extra_css_path <- fs::path_join(c(repo, "pkgdown", "extra.css"))
 
   function(version) {
     # Prepare a worktree for building
     build_dir <- fs::file_temp("versioned-build-worktree-")
-    on.exit(system2("git", c("-C", repo, "worktree", "remove", "--force", build_dir))) # NOTE: --force because we add the navbar file
+    on.exit(system2("git", c("-C", repo, "worktree", "remove", "--force", build_dir))) # NOTE: --force because we overwrite extra.css
     status <- system2("git", c("-C", repo, "worktree", "add", build_dir, version$git_ref))
     if (status != 0) {
       stop("Failed to create a worktree for ref ", version$git_ref)
     }
 
-    # Write the navbar template and extra.css
-    template_dir <- fs::path_join(c(build_dir, "pkgdown", "templates"))
-    fs::dir_create(template_dir)
-    writeLines(navbar_template(version), fs::path_join(c(template_dir, "navbar.html")))
+    # Write extra.css
     fs::file_copy(extra_css_path, fs::path_join(c(build_dir, "pkgdown", "extra.css")), overwrite = TRUE)
 
     # NOTE: providing an absolute path to build_site won't work: https://github.com/r-lib/pkgdown/issues/2172
     withr::with_dir(build_dir, {
+      config <- yaml::read_yaml("pkgdown/_pkgdown.yml")
       pkgdown::build_site_github_pages(
         override = list(
           url = sub("/$", "", url_join(root_url, version$url)),
-          navbar = list(type = "light")
+          navbar = list(type = "light"),
+          template = list(
+            includes = list(
+              # Prepend the version switcher to before_navbar instead of overwriting it.
+              before_navbar = paste(
+                version_switcher(version),
+                config$template$includes$before_navbar,
+                sep = "\n"
+              )
+            )
+          )
         ),
         dest_dir = fs::path_join(c(destination, version$url))
       )
@@ -79,10 +87,27 @@ url_join <- function(url, path) {
   )
 }
 
-navbar_template_factory <- function(versions, root_url) {
-  navbar_code <- readLines("pkgdown/navbar_template.html")
-  index_current <- grep("___CURRENT_PLACEHOLDER___", navbar_code)
-  index_options <- grep("___OPTIONS_PLACEHOLDER___", navbar_code)
+version_switcher_code <- c(
+  '<div id="version-switcher" class="dropdown">',
+  '  <a',
+  '    href="#"',
+  '    class="nav-link dropdown-toggle"',
+  '    data-bs-toggle="dropdown"',
+  '    role="button"',
+  '    aria-expanded="false"',
+  '    aria-haspopup="true"',
+  '  >',
+  '    ___CURRENT_PLACEHOLDER___',
+  '  </a>',
+  '  <ul class="dropdown-menu">',
+  '    ___OPTIONS_PLACEHOLDER___',
+  '  </ul>',
+  '</div>'
+)
+
+version_switcher_factory <- function(versions, root_url) {
+  index_current <- grep("___CURRENT_PLACEHOLDER___", version_switcher_code)
+  index_options <- grep("___OPTIONS_PLACEHOLDER___", version_switcher_code)
   stopifnot(index_current < index_options)
   wrap_label <- function(label) {
     if (isTRUE(label)) {
@@ -91,10 +116,10 @@ navbar_template_factory <- function(versions, root_url) {
     label
   }
   function(version) {
-    c(
-      navbar_code[1:(index_current - 1)],
+    lines <- c(
+      version_switcher_code[1:(index_current - 1)],
       wrap_label(version$label),
-      navbar_code[(index_current + 1):(index_options - 1)],
+      version_switcher_code[(index_current + 1):(index_options - 1)],
       purrr::map_chr(
         versions,
         function(ver) {
@@ -105,7 +130,8 @@ navbar_template_factory <- function(versions, root_url) {
           )
         }
       ),
-      navbar_code[(index_options + 1):length(navbar_code)]
+      version_switcher_code[(index_options + 1):length(version_switcher_code)]
     )
+    paste0(lines, collapse = "\n")
   }
 }

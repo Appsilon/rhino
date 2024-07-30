@@ -65,6 +65,11 @@ button.btn.btn-primary.btn-copy-ex {
   }
 }
 
+/* Hide the version number - it's in the version switcher injected by pkgdown/build.R. */
+.navbar .nav-text {
+  display: none;
+}
+
 #version-switcher {
   margin-inline-start: 0.5rem;
   margin-inline-end: auto;

@@ -22,7 +22,7 @@ template:
         gtag('js', new Date());
         gtag('config', 'G-FQQZL5V93G');
       </script>
-    before_navbar: |
+    before_title: |
       <a href="https://rhinoverse.dev" class="home"><i class="fa fa-lg fa-chevron-left"></i></a>
 
 url: https://appsilon.github.io/rhino/
