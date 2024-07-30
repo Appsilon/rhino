@@ -7,3 +7,10 @@ if (file.exists("renv")) {
 
 # Allow absolute module imports (relative to the app root).
 options(box.path = getwd())
+
+# Add setup for {languageserver}
+options(
+  languageserver.parser_hooks = list(
+    "box::use" = rhino::box_use_parser
+  )
+)
