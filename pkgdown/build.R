@@ -87,51 +87,42 @@ url_join <- function(url, path) {
   )
 }
 
-version_switcher_code <- c(
-  '<div id="version-switcher" class="dropdown">',
-  '  <a',
-  '    href="#"',
-  '    class="nav-link dropdown-toggle"',
-  '    data-bs-toggle="dropdown"',
-  '    role="button"',
-  '    aria-expanded="false"',
-  '    aria-haspopup="true"',
-  '  >',
-  '    ___CURRENT_PLACEHOLDER___',
-  '  </a>',
-  '  <ul class="dropdown-menu">',
-  '    ___OPTIONS_PLACEHOLDER___',
-  '  </ul>',
-  '</div>'
-)
-
 version_switcher_factory <- function(versions, root_url) {
-  index_current <- grep("___CURRENT_PLACEHOLDER___", version_switcher_code)
-  index_options <- grep("___OPTIONS_PLACEHOLDER___", version_switcher_code)
-  stopifnot(index_current < index_options)
   wrap_label <- function(label) {
     if (isTRUE(label)) {
       label <- paste(desc::desc_get_version(), "(dev)")
     }
     label
   }
+  version_list <- purrr::map(
+    versions,
+    function(ver) {
+      htmltools::tags$li(
+        htmltools::a(
+          class = "dropdown-item",
+          href = url_join(root_url, ver$url),
+          wrap_label(ver$label)
+        )
+      )
+    }
+  )
   function(version) {
-    lines <- c(
-      version_switcher_code[1:(index_current - 1)],
-      wrap_label(version$label),
-      version_switcher_code[(index_current + 1):(index_options - 1)],
-      purrr::map_chr(
-        versions,
-        function(ver) {
-          sprintf(
-            '<li><a class="dropdown-item" href="%s">%s</a></li>',
-            url_join(root_url, ver$url),
-            wrap_label(ver$label)
-          )
-        }
+    htmltools::div(
+      id = "version-switcher",
+      class = "dropdown",
+      htmltools::a(
+        href = "#",
+        class = "nav-link dropdown-toggle",
+        role = "button",
+        `data-bs-toggle` = "dropdown",
+        `aria-expanded` = "false",
+        `aria-haspopup` = "true",
+        wrap_label(version$label)
       ),
-      version_switcher_code[(index_options + 1):length(version_switcher_code)]
-    )
-    paste0(lines, collapse = "\n")
+      htmltools::tags$ul(
+        class = "dropdown-menu",
+        version_list
+      )
+    ) |> as.character()
   }
 }
