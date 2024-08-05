@@ -13,11 +13,14 @@ format_r(paths)
 None. This function is called for side effects.
 }
 \description{
-Uses the \code{{styler}} package to automatically format R sources.
+Uses the \code{{styler}} and \code{{box.linters}} packages to automatically format R sources.
 }
 \details{
 The code is formatted according to the \code{styler::tidyverse_style} guide with one adjustment:
 spacing around math operators is not modified to avoid conflicts with \code{box::use()} statements.
+
+\verb{box.linters::style_*} functions require the \code{treesitter} and \code{treesitter.r} packages. These, in
+turn, require R >= 4.3.0.
 }
 \examples{
 if (interactive()) {

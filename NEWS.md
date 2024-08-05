@@ -1,5 +1,8 @@
 # rhino (development version)
 
+* integrate {box.linters} styling functions
+* add compatibility check for `treesitter` and `treesitter.r` dependencies
+
 # [rhino 1.9.0](https://github.com/Appsilon/rhino/releases/tag/v1.9.0)
 
 See _[How-to: Rhino 1.9 Migration Guide](https://appsilon.github.io/rhino/articles/how-to/migrate-1-9.html)_
