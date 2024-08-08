@@ -28,9 +28,13 @@ node_init <- function(npm_command) {
 
 # Run the specified command in Node.js directory (assume it already exists).
 node_run <- function(command, ..., status_ok = 0) {
-  withr::with_dir(node_path(), {
-    status <- system2(command = command, args = c(...))
-  })
+  proc <- processx::process$new(command, args = c(...), wd = node_path(), stdout = "", stderr = "")
+  if (is.null(status_ok)) {
+    return(proc)
+  }
+
+  proc$wait()
+  status <- proc$get_exit_status()
   if (status != status_ok) {
     cli::cli_abort("System command '{command}' exited with status {status}.")
   }

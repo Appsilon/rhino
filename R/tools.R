@@ -1,3 +1,10 @@
+#' @export
+dev <- function(...) {
+  proc <- npm("run", "concurrently", "--", "npm:build-js -- --watch", "npm:build-sass -- --watch", status_ok = NULL)
+  on.exit(proc$kill())
+  shiny::with_devmode(TRUE, shiny::runApp(...))
+}
+
 #' Run R unit tests
 #'
 #' Uses the `{testhat}` package to run all unit tests in `tests/testthat` directory.
