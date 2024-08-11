@@ -3,10 +3,10 @@
 }
 
 .navbar {
-  --bs-primary-rgb: 123, 124, 210;
+  background: var(--primary-color);
 }
 
-.navbar a.dropdown-item:hover {
+.navbar a.dropdown-item:hover { 
   background-color: var(--primary-color);
 }
 
@@ -17,7 +17,18 @@
 
 .navbar .navbar-nav .nav-item > .nav-link {
   color: rgba(255, 255, 255, 0.8);
+  
+  &:hover {
+    background-color: var(--primary-color);
+    color: #fff;
+  }
+}
 
+.navbar .navbar-nav .nav-item .dropdown-menu .dropdown-item {
+  &.active {
+    background-color: var(--primary-color);
+    color: #fff;
+  }
   &:hover {
     background-color: var(--primary-color);
     color: #fff;

@@ -1,5 +1,6 @@
 template:
   bootstrap: 5
+  light-switch: true
   bootswatch: pulse
   bslib:
     pkgdown-nav-height: 100px
@@ -31,7 +32,7 @@ navbar:
   type: light
   structure:
     left: [tutorials, explanation, how-to-guides, reference, news, faq]
-    right: [search, github, twitter, mastodon]
+    right: [search, github, twitter, mastodon, lightswitch]
   components:
     tutorials:
       text: Tutorials
