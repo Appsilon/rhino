@@ -20,7 +20,13 @@ The code is formatted according to the \code{styler::tidyverse_style} guide with
 spacing around math operators is not modified to avoid conflicts with \code{box::use()} statements.
 
 \verb{box.linters::style_*} functions require the \code{treesitter} and \code{treesitter.r} packages. These, in
-turn, require R >= 4.3.0.
+turn, require R >= 4.3.0. \code{box.linters} provides styling functions specific to the \code{box::use()}
+calls. These include:
+\itemize{
+\item Separate \code{box::use()} calls for packages and local modules
+\item Alphabetically sorted packages, modules, and functions.
+\item Trailing commas
+}
 }
 \examples{
 if (interactive()) {

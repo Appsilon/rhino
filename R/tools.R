@@ -143,7 +143,12 @@ rhino_style <- function() {
 #' spacing around math operators is not modified to avoid conflicts with `box::use()` statements.
 #'
 #' `box.linters::style_*` functions require the `treesitter` and `treesitter.r` packages. These, in
-#' turn, require R >= 4.3.0.
+#' turn, require R >= 4.3.0. `box.linters` provides styling functions specific to the `box::use()`
+#' calls. These include:
+#' * Separate `box::use()` calls for packages and local modules
+#' * Alphabetically sorted packages, modules, and functions.
+#' * Trailing commas
+#'
 #'
 #' @param paths Character vector of files and directories to format.
 #' @return None. This function is called for side effects.
@@ -158,10 +163,12 @@ rhino_style <- function() {
 #' }
 #' @export
 format_r <- function(paths) {
+  style_box_use <- box.linters::style_box_use_dir
   if (!box.linters::is_treesitter_installed()) {
-    cli::cli_abort(
+    style_box_use <- function (path) { }
+    cli::cli_warn(
       c(
-        "x" = "The packages {{treesitter}} and {{treesitter.r}} are required by `format_r()`",
+        "x" = "The packages {{treesitter}} and {{treesitter.r}} are required by some features of `format_r()`.", #nolint
         "i" = "These package require R version >= 4.3.0 to install."
       )
     )
@@ -169,10 +176,10 @@ format_r <- function(paths) {
 
   for (path in paths) {
     if (fs::is_dir(path)) {
-      box.linters::style_box_use_dir(path)
+      style_box_use(path)
       styler::style_dir(path, style = rhino_style)
     } else {
-      box.linters::style_box_use_file(path)
+      style_box_use(path)
       styler::style_file(path, style = rhino_style)
     }
   }
