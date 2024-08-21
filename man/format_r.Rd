@@ -4,10 +4,13 @@
 \alias{format_r}
 \title{Format R}
 \usage{
-format_r(paths)
+format_r(paths, exclude_files = c("__init__\\\\.R"))
 }
 \arguments{
 \item{paths}{Character vector of files and directories to format.}
+
+\item{exclude_files}{Character vector with regular expressions of files that should be excluded
+from styling.}
 }
 \value{
 None. This function is called for side effects.

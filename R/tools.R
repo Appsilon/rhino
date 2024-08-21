@@ -151,6 +151,8 @@ rhino_style <- function() {
 #'
 #'
 #' @param paths Character vector of files and directories to format.
+#' @param exclude_files Character vector with regular expressions of files that should be excluded
+#' from styling.
 #' @return None. This function is called for side effects.
 #'
 #' @examples
@@ -162,7 +164,7 @@ rhino_style <- function() {
 #'   format_r("app/view")
 #' }
 #' @export
-format_r <- function(paths) {
+format_r <- function(paths, exclude_files = c("__init__\\.R")) {
   style_box_use <- box.linters::style_box_use_dir
   if (!box.linters::is_treesitter_installed()) {
     style_box_use <- function(path) { }
@@ -176,10 +178,10 @@ format_r <- function(paths) {
 
   for (path in paths) {
     if (fs::is_dir(path)) {
-      style_box_use(path)
-      styler::style_dir(path, style = rhino_style)
+      style_box_use(path, exclude_files = exclude_files)
+      styler::style_dir(path, style = rhino_style, exclude_files = exclude_files)
     } else {
-      style_box_use(path)
+      style_box_use(path, exclude_files = exclude_files)
       styler::style_file(path, style = rhino_style)
     }
   }
