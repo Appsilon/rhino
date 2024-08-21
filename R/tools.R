@@ -165,7 +165,7 @@ rhino_style <- function() {
 format_r <- function(paths) {
   style_box_use <- box.linters::style_box_use_dir
   if (!box.linters::is_treesitter_installed()) {
-    style_box_use <- function (path) { }
+    style_box_use <- function(path) { }
     cli::cli_warn(
       c(
         "x" = "The packages {{treesitter}} and {{treesitter.r}} are required by some features of `format_r()`.", #nolint
