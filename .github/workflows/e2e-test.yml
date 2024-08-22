@@ -64,7 +64,7 @@ jobs:
       - name: Install treesitter dependencies
         if: always()
         shell: Rscript {0}
-        run: install.packages(c('treesitter', 'treesitter.r'))
+        run: rhino::pkg_install('treesitter')
 
       - name: diagnostics() should print system information and Rhino version
         if: always()
