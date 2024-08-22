@@ -50,6 +50,9 @@ jobs:
         uses: r-lib/actions/setup-r-dependencies@v2
         with:
           packages: Appsilon/rhino@${{ github.sha }}
+          extra-packages: |
+            any::treesitter.r
+            any::treesitter
 
       - name: Setup Node
         uses: actions/setup-node@v3
