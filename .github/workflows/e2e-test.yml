@@ -50,9 +50,6 @@ jobs:
         uses: r-lib/actions/setup-r-dependencies@v2
         with:
           packages: Appsilon/rhino@${{ github.sha }}
-          extra-packages: |
-            any::treesitter.r
-            any::treesitter
 
       - name: Setup Node
         uses: actions/setup-node@v3
@@ -63,6 +60,11 @@ jobs:
         if: always()
         shell: Rscript {0}
         run: rhino::init('RhinoApp')
+
+      - name: Install treesitter dependencies
+        if: always()
+        shell: Rscript {0}
+        run: install.packages(c('treesitter', 'treesitter.r'))
 
       - name: diagnostics() should print system information and Rhino version
         if: always()
