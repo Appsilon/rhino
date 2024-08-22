@@ -1,3 +1,7 @@
+if (getRversion() >= 4.3) {
+  install.packages(c("treesitter", "treesitter.r"))
+}
+
 rhino::lint_r()
 # Create bad scripts and test if formatting returns the expected result
 test_file_path <- fs::path("app", "logic", "bad-style.R")
