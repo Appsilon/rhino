@@ -1,6 +1,4 @@
-if (getRversion() >= 4.3) {
-  install.packages(c("treesitter", "treesitter.r"))
-}
+install.packages(c("treesitter", "treesitter.r"))
 
 rhino::lint_r()
 # Create bad scripts and test if formatting returns the expected result
