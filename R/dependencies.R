@@ -12,7 +12,7 @@ read_dependencies <- function() {
 }
 
 write_dependencies <- function(deps) {
-  if (getRversion() >= 4.3) {
+  if (as.numeric(R.Version()$major) >= 4 && as.numeric(R.Version()$minor) >= 3.0) {
     deps <- c(deps, "treesitter", "treesitter.r")
   }
   deps <- sort(unique(c("rhino", deps))) # Rhino is always needed as a dependency.
