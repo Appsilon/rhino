@@ -4,7 +4,7 @@
 \alias{format_r}
 \title{Format R}
 \usage{
-format_r(paths, exclude_files = c("__init__\\\\.R"))
+format_r(paths, exclude_files = NULL)
 }
 \arguments{
 \item{paths}{Character vector of files and directories to format.}

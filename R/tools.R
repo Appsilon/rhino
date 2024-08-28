@@ -164,7 +164,7 @@ rhino_style <- function() {
 #'   format_r("app/view")
 #' }
 #' @export
-format_r <- function(paths, exclude_files = c("__init__\\.R")) {
+format_r <- function(paths, exclude_files = NULL) {
   style_box_use <- box.linters::style_box_use_dir
   if (!box.linters::is_treesitter_installed()) {
     style_box_use <- function(path, exclude_files) { }
