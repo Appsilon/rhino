@@ -116,7 +116,11 @@ navbar:
           href: articles/how-to/migrate-1-8.html
         - text: Migration to Rhino 1.9
           href: articles/how-to/migrate-1-9.html
-
+        - text: -------
+        - text: User tools
+        - text: Box-module auto-complete in VSCode
+          href: articles/how-to/box-lsp.html
+          
     faq:
       text: FAQ
       href: articles/faq.html
