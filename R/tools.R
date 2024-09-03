@@ -404,3 +404,9 @@ test_e2e <- function(interactive = FALSE) {
     npm("run", "test-e2e")
   }
 }
+
+#' box.lsp is not used in the rhino package. It is used by a rhino app. Need to add this here
+#' to tell `R CMD Check` or `devtools::check()` we use `box.lsp`
+#'
+#' @import box.lsp
+NULL

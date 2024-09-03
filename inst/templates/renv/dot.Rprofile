@@ -7,3 +7,10 @@ if (file.exists("renv")) {
 
 # Allow absolute module imports (relative to the app root).
 options(box.path = getwd())
+
+# box.lsp languageserver external hook
+options(
+  languageserver.parser_hooks = list(
+    "box::use" = box.lsp::box_use_parser
+  )
+)
