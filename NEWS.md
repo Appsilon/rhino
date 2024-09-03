@@ -1,6 +1,6 @@
 # rhino (development version)
 
-* Integrate `box.lsp` for autocomplete support for `box` modules in VS Code.
+* Integrate `box.lsp` for auto-complete support for `box` modules in VS Code.
 
 # [rhino 1.9.0](https://github.com/Appsilon/rhino/releases/tag/v1.9.0)
 
