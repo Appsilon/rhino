@@ -79,6 +79,10 @@ check_paths <- function(paths) {
 #' with the `legacy_max_lint_r_errors` option in `rhino.yml`.
 #' This can be useful when inheriting legacy code with multiple styling issues.
 #'
+#' The [box.linters::namespaced_function_calls()] linter requires the `{treesitter}` and
+#' `{treesitter.r}` packages. These require R >= 4.3.0. `lint_r()` will continue to run and skip
+#' `namespaced_function_calls()` if its dependencies are not available.
+#'
 #' @param paths Character vector of directories and files to lint.
 #' When `NULL` (the default), check `app` and `tests/testthat` directories.
 #'
@@ -87,6 +91,17 @@ check_paths <- function(paths) {
 #' @export
 # nolint end
 lint_r <- function(paths = NULL) {
+  if (!box.linters::is_treesitter_installed()) {
+    cli::cli_warn(
+      c(
+        "!" = paste(
+          "`box.linters::namespaced_function_calls()` requires {{treesitter}} and {{treesitter.r}}",
+          "to be installed."
+        ),
+        "i" = "`lintr_r()` will continue to run using the other linter functions."
+      )
+    )
+  }
   if (is.null(paths)) {
     paths <- c("app", "tests/testthat")
   }
@@ -122,12 +137,22 @@ rhino_style <- function() {
 
 #' Format R
 #'
-#' Uses the `{styler}` package to automatically format R sources.
+#' Uses the `{styler}` and `{box.linters}` packages to automatically format R sources.
 #'
 #' The code is formatted according to the `styler::tidyverse_style` guide with one adjustment:
 #' spacing around math operators is not modified to avoid conflicts with `box::use()` statements.
 #'
+#' `box.linters::style_*` functions require the `treesitter` and `treesitter.r` packages. These, in
+#' turn, require R >= 4.3.0. `box.linters` provides styling functions specific to the `box::use()`
+#' calls. These include:
+#' * Separate `box::use()` calls for packages and local modules
+#' * Alphabetically sorted packages, modules, and functions.
+#' * Trailing commas
+#'
+#'
 #' @param paths Character vector of files and directories to format.
+#' @param exclude_files Character vector with regular expressions of files that should be excluded
+#' from styling.
 #' @return None. This function is called for side effects.
 #'
 #' @examples
@@ -139,11 +164,24 @@ rhino_style <- function() {
 #'   format_r("app/view")
 #' }
 #' @export
-format_r <- function(paths) {
+format_r <- function(paths, exclude_files = NULL) {
+  style_box_use <- box.linters::style_box_use_dir
+  if (!box.linters::is_treesitter_installed()) {
+    style_box_use <- function(path, exclude_files) { }
+    cli::cli_warn(
+      c(
+        "x" = "The packages {{treesitter}} and {{treesitter.r}} are required by some features of `format_r()`.", #nolint
+        "i" = "These package require R version >= 4.3.0 to install."
+      )
+    )
+  }
+
   for (path in paths) {
     if (fs::is_dir(path)) {
-      styler::style_dir(path, style = rhino_style)
+      style_box_use(path, exclude_files = exclude_files)
+      styler::style_dir(path, style = rhino_style, exclude_files = exclude_files)
     } else {
+      style_box_use(path, exclude_files = exclude_files)
       styler::style_file(path, style = rhino_style)
     }
   }

@@ -4,20 +4,32 @@
 \alias{format_r}
 \title{Format R}
 \usage{
-format_r(paths)
+format_r(paths, exclude_files = NULL)
 }
 \arguments{
 \item{paths}{Character vector of files and directories to format.}
+
+\item{exclude_files}{Character vector with regular expressions of files that should be excluded
+from styling.}
 }
 \value{
 None. This function is called for side effects.
 }
 \description{
-Uses the \code{{styler}} package to automatically format R sources.
+Uses the \code{{styler}} and \code{{box.linters}} packages to automatically format R sources.
 }
 \details{
 The code is formatted according to the \code{styler::tidyverse_style} guide with one adjustment:
 spacing around math operators is not modified to avoid conflicts with \code{box::use()} statements.
+
+\verb{box.linters::style_*} functions require the \code{treesitter} and \code{treesitter.r} packages. These, in
+turn, require R >= 4.3.0. \code{box.linters} provides styling functions specific to the \code{box::use()}
+calls. These include:
+\itemize{
+\item Separate \code{box::use()} calls for packages and local modules
+\item Alphabetically sorted packages, modules, and functions.
+\item Trailing commas
+}
 }
 \examples{
 if (interactive()) {

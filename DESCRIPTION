@@ -24,8 +24,12 @@ Depends:
   R (>= 2.10)
 Imports:
   box (>= 1.1.3),
+<<<<<<< HEAD
   box.linters (>= 0.9.1),
   box.lsp,
+=======
+  box.linters (>= 0.10.2),
+>>>>>>> integrate-box-linters-styling
   cli,
   config,
   fs,
