@@ -32,8 +32,8 @@ If available, \code{box::use()} calls are reformatted by styling functions provi
 }
 
 \verb{box.linters::style_*} functions require the \code{treesitter} and \code{treesitter.r} packages. These, in
-turn, require R >= 4.3.0. \code{format_r()} will continue to operate without these but will not perform \code{box::use()} call
-styling.
+turn, require R >= 4.3.0. \code{format_r()} will continue to operate without these but will not
+perform \code{box::use()} call styling.
 
 For more information on \code{box::use()} call styling please refer to the \code{{box.linters}} styling
 functions
