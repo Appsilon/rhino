@@ -137,19 +137,27 @@ rhino_style <- function() {
 
 #' Format R
 #'
-#' Uses the `{styler}` and `{box.linters}` packages to automatically format R sources.
+#' Uses the `{styler}` and `{box.linters}` packages to automatically format R sources. As with
+#' `styler`, carefully examine the results after running this function.
 #'
 #' The code is formatted according to the `styler::tidyverse_style` guide with one adjustment:
 #' spacing around math operators is not modified to avoid conflicts with `box::use()` statements.
 #'
+#' If available, `box::use()` calls are reformatted by styling functions provided by
+#' `{box.linters}`. These include:
+#'
+#' * Separating `box::use()` calls for packages and local modules
+#' * Alphabetically sorting packages, modules, and functions.
+#' * Adding trailing commas
+#'
 #' `box.linters::style_*` functions require the `treesitter` and `treesitter.r` packages. These, in
-#' turn, require R >= 4.3.0. `box.linters` provides styling functions specific to the `box::use()`
-#' calls. These include:
-#' * Separate `box::use()` calls for packages and local modules
-#' * Alphabetically sorted packages, modules, and functions.
-#' * Trailing commas
+#' turn, require R >= 4.3.0. `format_r()` will continue to operate without these but will not perform `box::use()` call
+#' styling.
 #'
-#'
+#' For more information on `box::use()` call styling please refer to the `{box.linters}` styling
+#' functions
+#' [documentation](https://appsilon.github.io/box.linters/reference/style_box_use_text.html).
+#' 
 #' @param paths Character vector of files and directories to format.
 #' @param exclude_files Character vector with regular expressions of files that should be excluded
 #' from styling.

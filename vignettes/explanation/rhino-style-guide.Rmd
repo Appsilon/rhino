@@ -129,3 +129,42 @@ box::use(
   shiny[div, fluidPage, navbarPage, sidebarPanel, sidebarLayout, mainPanel, tabPanel, tabsetPanel, titlePanel],
 )
 ```
+
+# Automated Styling of `box::use()` calls
+
+As of Rhino version 1.10.0, `format_r()` includes styling for `box::use()` calls. This is provided by [`{box.linters}`](https://appsilon.github.io/box.linters/) version >= 0.10.4. As with [`{styler}`](https://styler.r-lib.org/), carefully examine the styling results after performing automated styling on your code.
+
+Automated styling covers some of the topics described above such as:
+
+* Separating `box::use()` calls for packages and local modules
+* Alphabetically sorting packages, modules, and functions.
+* Adding trailing commas
+
+```r
+# Original
+box::use(stringr[str_trim, str_pad], dplyr, app/logic/table)
+
+# Styled
+box::use(
+  dplyr,
+  stringr[str_pad, str_trim],
+)
+
+box::use(
+  app/logic/table
+)
+```
+
+## Requirements
+
+* R version >= 4.3.0
+* `box.linters` version >= 0.10.4
+* `treesitter` package
+* `treesitter.r` package
+
+## How to use
+
+1. `box::use()` call styling is included when running `format_r()`.
+2. It can also be separately executed by running one of the [`box.linters::style_*`](https://appsilon.github.io/box.linters/reference/index.html#box-styling) functions.
+
+For more information on the abilities of `{{box.linters}}` styling functions refer to the styling functions [documentation](https://appsilon.github.io/box.linters/reference/style_box_use_text.html).
