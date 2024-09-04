@@ -19,6 +19,7 @@ Rstudio
 SDK
 Stylelint
 UI
+VSCode
 Webpack
 autoreload
 blogpost
@@ -48,6 +49,7 @@ nodejs
 npm
 nvm
 overridable
+parsers
 pnpm
 preconfigured
 renv
