@@ -151,13 +151,13 @@ rhino_style <- function() {
 #' * Adding trailing commas
 #'
 #' `box.linters::style_*` functions require the `treesitter` and `treesitter.r` packages. These, in
-#' turn, require R >= 4.3.0. `format_r()` will continue to operate without these but will not perform `box::use()` call
-#' styling.
+#' turn, require R >= 4.3.0. `format_r()` will continue to operate without these but will not
+#' perform `box::use()` call styling.
 #'
 #' For more information on `box::use()` call styling please refer to the `{box.linters}` styling
 #' functions
 #' [documentation](https://appsilon.github.io/box.linters/reference/style_box_use_text.html).
-#' 
+#'
 #' @param paths Character vector of files and directories to format.
 #' @param exclude_files Character vector with regular expressions of files that should be excluded
 #' from styling.
@@ -450,9 +450,3 @@ test_e2e <- function(interactive = FALSE) {
     npm("run", "test-e2e")
   }
 }
-
-#' box.lsp is not used in the rhino package. It is used by a rhino app. Need to add this here
-#' to tell `R CMD Check` or `devtools::check()` we use `box.lsp`
-#'
-#' @import box.lsp
-NULL

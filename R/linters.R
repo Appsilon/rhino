@@ -5,3 +5,8 @@
 # R CMD Check happy.
 #' @import box.linters
 NULL
+
+# box.lsp is not used in the rhino package. It is used by a rhino app. Need to add this here
+# to tell `R CMD Check` or `devtools::check()` we use `box.lsp`
+#' @import box.lsp
+NULL
