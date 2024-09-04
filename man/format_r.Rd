@@ -22,14 +22,21 @@ Uses the \code{{styler}} and \code{{box.linters}} packages to automatically form
 The code is formatted according to the \code{styler::tidyverse_style} guide with one adjustment:
 spacing around math operators is not modified to avoid conflicts with \code{box::use()} statements.
 
+If available, \code{box::use()} calls are reformatted by styling functions provided by
+\code{{box.linters}}. These include:
+\itemize{
+\item Separating \code{box::use()} calls for packages and local modules
+\item Alphabetically sorting packages, modules, and functions.
+\item Adding trailing commas
+}
+
 \verb{box.linters::style_*} functions require the \code{treesitter} and \code{treesitter.r} packages. These, in
 turn, require R >= 4.3.0. \code{box.linters} provides styling functions specific to the \code{box::use()}
-calls. These include:
-\itemize{
-\item Separate \code{box::use()} calls for packages and local modules
-\item Alphabetically sorted packages, modules, and functions.
-\item Trailing commas
-}
+calls.
+
+For more information on \code{box::use()} call styling please refer to the \code{{box.linters}} styling
+functions
+\href{https://appsilon.github.io/box.linters/reference/style_box_use_text.html}{documentation}.
 }
 \examples{
 if (interactive()) {
