@@ -15,7 +15,7 @@ Rhino utilizes `{box}` modules to manage large code bases. A disadvantage of `{b
 
 # Steps
 
-1. Install `languageserver` to project dependencies: `rhino::pkg_install("languageserver")`.
+1. Install `languageserver`: `renv::install("languageserver")`. `languageserver` is a developer tool, it is _not_ advised to add it to `dependencies.R` or to `renv.lock`.
 2. If you initialized your Rhino app with version 1.10.0 or later, proceed to step 4.
 3. If you are using an existing Rhino app with version < 1.10.0:
     1. Install `box.lsp` to project dependencies: `rhino::pkg_install("box.lsp")`.
