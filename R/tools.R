@@ -178,7 +178,7 @@ format_r <- function(paths, exclude_files = NULL) {
     style_box_use <- function(path, exclude_files) { }
     cli::cli_warn(
       c(
-        "x" = "The packages {{treesitter}} and {{treesitter.r}} are required by some features of `format_r()`.", #nolint
+        "x" = "The packages {{treesitter}} and {{treesitter.r}} are required by `box::use()` styling features of `format_r()`.", #nolint
         "i" = "These package require R version >= 4.3.0 to install."
       )
     )
