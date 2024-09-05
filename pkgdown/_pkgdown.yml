@@ -107,6 +107,10 @@ navbar:
         - text: Publish on Hugging Face
           href: articles/how-to/publish-on-huggingface.html
         - text: -------
+        - text: User tools
+        - text: Box-module auto-complete in VSCode
+          href: articles/how-to/box-lsp.html
+        - text: -------
         - text: Migration guides
         - text: Migration to Rhino 1.6
           href: articles/how-to/migrate-1-6.html
@@ -116,10 +120,6 @@ navbar:
           href: articles/how-to/migrate-1-8.html
         - text: Migration to Rhino 1.9
           href: articles/how-to/migrate-1-9.html
-        - text: -------
-        - text: User tools
-        - text: Box-module auto-complete in VSCode
-          href: articles/how-to/box-lsp.html
           
     faq:
       text: FAQ
