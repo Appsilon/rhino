@@ -21,12 +21,12 @@ for style errors."><!-- Google tag (gtag.js) --><script async src="https://www.g
 
     <a class="navbar-brand me-2" href="../index.html">rhino</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.9.0.9000</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.9.0.9001</small>
 
     <div id="version-switcher" class="dropdown">
-  <a href="#" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">1.9.0.9000 (dev)</a>
+  <a href="#" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">1.9.0.9001 (dev)</a>
   <ul class="dropdown-menu"><li>
-      <a class="dropdown-item" href="https://appsilon.github.io/rhino/dev">1.9.0.9000 (dev)</a>
+      <a class="dropdown-item" href="https://appsilon.github.io/rhino/dev">1.9.0.9001 (dev)</a>
     </li>
     <li>
       <a class="external-link dropdown-item" href="https://appsilon.github.io/rhino/">1.9</a>
@@ -166,6 +166,9 @@ in the <code>.lintr</code> file.</p>
 <p>You can set the maximum number of accepted style errors
 with the <code>legacy_max_lint_r_errors</code> option in <code>rhino.yml</code>.
 This can be useful when inheriting legacy code with multiple styling issues.</p>
+<p>The <code><a href="https://appsilon.github.io/box.linters/reference/namespaced_function_calls.html" class="external-link">box.linters::namespaced_function_calls()</a></code> linter requires the <code>{treesitter}</code> and
+<code>{treesitter.r}</code> packages. These require R &gt;= 4.3.0. <code>lint_r()</code> will continue to run and skip
+<code>namespaced_function_calls()</code> if its dependencies are not available.</p>
     </div>
 
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
