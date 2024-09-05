@@ -24,4 +24,8 @@ in the \code{.lintr} file.
 You can set the maximum number of accepted style errors
 with the \code{legacy_max_lint_r_errors} option in \code{rhino.yml}.
 This can be useful when inheriting legacy code with multiple styling issues.
+
+The \code{\link[box.linters:namespaced_function_calls]{box.linters::namespaced_function_calls()}} linter requires the \code{{treesitter}} and
+\code{{treesitter.r}} packages. These require R >= 4.3.0. \code{lint_r()} will continue to run and skip
+\code{namespaced_function_calls()} if its dependencies are not available.
 }

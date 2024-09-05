@@ -12,6 +12,9 @@ read_dependencies <- function() {
 }
 
 write_dependencies <- function(deps) {
+  if (as.numeric(R.Version()$major) >= 4 && as.numeric(R.Version()$minor) >= 3.0) {
+    deps <- c(deps, "treesitter", "treesitter.r")
+  }
   deps <- sort(unique(c("rhino", deps))) # Rhino is always needed as a dependency.
   deps <- purrr::map_chr(deps, function(name) glue::glue("library({name})"))
   deps <- c(

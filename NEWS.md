@@ -1,5 +1,8 @@
 # rhino (development version)
 
+* Integrated {box.linters} styling functions to style `box::use()` calls according to the Rhino style guide.
+* Added compatibility check for `treesitter` and `treesitter.r` dependencies
+
 # [rhino 1.9.0](https://github.com/Appsilon/rhino/releases/tag/v1.9.0)
 
 See _[How-to: Rhino 1.9 Migration Guide](https://appsilon.github.io/rhino/articles/how-to/migrate-1-9.html)_

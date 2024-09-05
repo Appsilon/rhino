@@ -4,20 +4,40 @@
 \alias{format_r}
 \title{Format R}
 \usage{
-format_r(paths)
+format_r(paths, exclude_files = NULL)
 }
 \arguments{
 \item{paths}{Character vector of files and directories to format.}
+
+\item{exclude_files}{Character vector with regular expressions of files that should be excluded
+from styling.}
 }
 \value{
 None. This function is called for side effects.
 }
 \description{
-Uses the \code{{styler}} package to automatically format R sources.
+Uses the \code{{styler}} and \code{{box.linters}} packages to automatically format R sources. As with
+\code{styler}, carefully examine the results after running this function.
 }
 \details{
 The code is formatted according to the \code{styler::tidyverse_style} guide with one adjustment:
 spacing around math operators is not modified to avoid conflicts with \code{box::use()} statements.
+
+If available, \code{box::use()} calls are reformatted by styling functions provided by
+\code{{box.linters}}. These include:
+\itemize{
+\item Separating \code{box::use()} calls for packages and local modules
+\item Alphabetically sorting packages, modules, and functions.
+\item Adding trailing commas
+}
+
+\verb{box.linters::style_*} functions require the \code{treesitter} and \code{treesitter.r} packages. These, in
+turn, require R >= 4.3.0. \code{format_r()} will continue to operate without these but will not
+perform \code{box::use()} call styling.
+
+For more information on \code{box::use()} call styling please refer to the \code{{box.linters}} styling
+functions
+\href{https://appsilon.github.io/box.linters/reference/style_box_use_text.html}{documentation}.
 }
 \examples{
 if (interactive()) {
