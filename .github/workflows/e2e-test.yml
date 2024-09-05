@@ -131,6 +131,12 @@ jobs:
           cd RhinoApp
           Rscript ../test-build-sass.R
 
+      - name: Rprofile should be configured for box.lsp
+        if: always()
+        run: |
+          cd RhinoApp
+          Rscript ../test-box-lsp.R
+
       - name: test_r() should run testthat tests
         if: always()
         run: |

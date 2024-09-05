@@ -1,0 +1,23 @@
+---
+title: "How-to: Auto-complete in VSCode"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{How-to: Auto-complete in VSCode}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+_Box-module auto-complete only works if one uses VSCode or Vim. It does not have any known adverse effects on RStudio Desktop or Posit Workbench._
+
+# Introduction
+
+Rhino utilizes `{box}` modules to manage large code bases. A disadvantage of `{box}` modules is the lack of syntax auto-complete support in RStudio or VSCode. In VSCode, auto-complete is provided by `{languageserver}` which allows for external parsers. [`{box.lsp}`](https://appsilon.github.io/box.lsp/index.html) is an extension to `{languageserver}` to provide function name and function argument auto-complete support for `{box}` modules. Please refer to the `{box.lsp}` [documentation](https://appsilon.github.io/box.lsp/index.html) for its current capabilities.
+
+# Steps
+
+1. Install `languageserver`: `renv::install("languageserver")`. `languageserver` is a developer tool, it is _not_ advised to add it to `dependencies.R` or to `renv.lock`.
+2. If you initialized your Rhino app with version 1.10.0 or later, proceed to step 4.
+3. If you are using an existing Rhino app with version < 1.10.0:
+    1. Install `box.lsp` to project dependencies: `rhino::pkg_install("box.lsp")`.
+    2. Run [`box.lsp::use_box_lsp()`](https://appsilon.github.io/box.lsp/reference/use_box_lsp.html) to update your project's `.Rprofile` file with `box.lsp` configuration.
+4. Restart the R session (restart VSCode) to reload `.Rprofile`.
