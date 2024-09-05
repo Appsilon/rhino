@@ -5,6 +5,7 @@ articles:
   how-to/add-internationalization: how-to/add-internationalization.html
   how-to/add-routing: how-to/add-routing.html
   explanation/application-structure: explanation/application-structure.html
+  how-to/box-lsp: how-to/box-lsp.html
   explanation/box-modules: explanation/box-modules.html
   how-to/communicate-between-modules: how-to/communicate-between-modules.html
   tutorial/create-your-first-rhino-app: tutorial/create-your-first-rhino-app.html
@@ -36,7 +37,7 @@ articles:
   tutorial/write-end-to-end-tests-with-cypress: tutorial/write-end-to-end-tests-with-cypress.html
   how-to/write-javascript-code: how-to/write-javascript-code.html
   how-to/write-r-code: how-to/write-r-code.html
-last_built: 2024-09-05T04:12Z
+last_built: 2024-09-05T08:05Z
 urls:
   reference: https://appsilon.github.io/rhino/dev/reference
   article: https://appsilon.github.io/rhino/dev/articles
