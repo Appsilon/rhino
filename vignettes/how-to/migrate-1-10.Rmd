@@ -41,7 +41,7 @@ Restart your R session so changes can take effect
 
 Follow ["How-to: Auto-complete in VSCode" guide]() to enable auto-complete in VSCode or Vim.
 
-# Step 3 (optional, require R >= 4.3): Install `treesitter` and `treesitter.r`
+# Step 3 (optional, requires R >= 4.3): Install `treesitter` and `treesitter.r`
 
 To enable automated styling of `box::use` statements and `box.linters::namespace_function_calls()` linter,
 install `treesitter` and `treesitter.r`:
