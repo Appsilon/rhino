@@ -36,19 +36,23 @@
 
 
     <nav class="navbar navbar-expand-lg fixed-top bg-primary" data-bs-theme="light" aria-label="Site navigation"><div class="container">
+    <a href="https://rhinoverse.dev" class="external-link home"><i class="fa fa-lg fa-chevron-left"></i></a>
 
     <a class="navbar-brand me-2" href="../../index.html">rhino</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.9.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.10.0</small>
 
     <div id="version-switcher" class="dropdown">
-  <a href="#" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">1.9</a>
+  <a href="#" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">1.10</a>
   <ul class="dropdown-menu">
 <li>
-      <a class="dropdown-item" href="https://appsilon.github.io/rhino/dev">1.10.0 (dev)</a>
+      <a class="dropdown-item" href="https://appsilon.github.io/rhino/dev">1.10.0.9000 (dev)</a>
     </li>
     <li>
-      <a class="dropdown-item" href="https://appsilon.github.io/rhino/">1.9</a>
+      <a class="dropdown-item" href="https://appsilon.github.io/rhino/">1.10</a>
+    </li>
+    <li>
+      <a class="dropdown-item" href="https://appsilon.github.io/rhino/v1.9.0">1.9</a>
     </li>
     <li>
       <a class="dropdown-item" href="https://appsilon.github.io/rhino/v1.8.0">1.8</a>
@@ -79,7 +83,6 @@
     </li>
   </ul>
 </div>
-<a href="https://rhinoverse.dev" class="external-link home"><i class="fa fa-lg fa-chevron-left"></i></a>
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
@@ -136,11 +139,15 @@
     <li><h6 class="dropdown-header" data-toc-skip>Deployment</h6></li>
     <li><a class="dropdown-item" href="../../articles/how-to/publish-on-huggingface.html">Publish on Hugging Face</a></li>
     <li><hr class="dropdown-divider"></li>
+    <li><h6 class="dropdown-header" data-toc-skip>User tools</h6></li>
+    <li><a class="dropdown-item" href="../../articles/how-to/box-lsp.html">Box-module auto-complete in VSCode</a></li>
+    <li><hr class="dropdown-divider"></li>
     <li><h6 class="dropdown-header" data-toc-skip>Migration guides</h6></li>
     <li><a class="dropdown-item" href="../../articles/how-to/migrate-1-6.html">Migration to Rhino 1.6</a></li>
     <li><a class="dropdown-item" href="../../articles/how-to/migrate-1-7.html">Migration to Rhino 1.7</a></li>
     <li><a class="dropdown-item" href="../../articles/how-to/migrate-1-8.html">Migration to Rhino 1.8</a></li>
     <li><a class="dropdown-item" href="../../articles/how-to/migrate-1-9.html">Migration to Rhino 1.9</a></li>
+    <li><a class="dropdown-item" href="../../articles/how-to/migrate-1-10.html">Migration to Rhino 1.10</a></li>
   </ul>
 </li>
 <li class="nav-item"><a class="nav-link" href="../../reference/index.html">Reference</a></li>
@@ -284,6 +291,53 @@
 <span>  <span class="va">rhino</span><span class="op">[</span><span class="va">log</span><span class="op">]</span>,</span>
 <span>  <span class="va">shiny</span><span class="op">[</span><span class="va">div</span>, <span class="va">fluidPage</span>, <span class="va">navbarPage</span>, <span class="va">sidebarPanel</span>, <span class="va">sidebarLayout</span>, <span class="va">mainPanel</span>, <span class="va">tabPanel</span>, <span class="va">tabsetPanel</span>, <span class="va">titlePanel</span><span class="op">]</span>,</span>
 <span><span class="op">)</span></span></code></pre></div>
+</div>
+<div class="section level2">
+<h2 id="automated-styling-of-boxuse-calls">Automated Styling of <code>box::use()</code> calls<a class="anchor" aria-label="anchor" href="#automated-styling-of-boxuse-calls"></a>
+</h2>
+<p>As of Rhino version 1.10.0, <code><a href="../../reference/format_r.html">format_r()</a></code> includes styling for <code><a href="http://klmr.me/box/reference/use.html" class="external-link">box::use()</a></code> calls. This is provided by <a href="https://appsilon.github.io/box.linters/" class="external-link"><code>{box.linters}</code></a> version &gt;= 0.10.4. As with <a href="https://styler.r-lib.org/" class="external-link"><code>{styler}</code></a>, carefully examine the styling results after performing automated styling on your code.</p>
+<p>Automated styling covers some of the topics described above such as:</p>
+<ul>
+<li>Separating <code><a href="http://klmr.me/box/reference/use.html" class="external-link">box::use()</a></code> calls for packages and local modules</li>
+<li>Alphabetically sorting packages, modules, and functions.</li>
+<li>Adding trailing commas</li>
+</ul>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Original</span></span>
+<span><span class="fu">box</span><span class="fu">::</span><span class="fu"><a href="http://klmr.me/box/reference/use.html" class="external-link">use</a></span><span class="op">(</span><span class="va">stringr</span><span class="op">[</span><span class="va">str_trim</span>, <span class="va">str_pad</span><span class="op">]</span>, <span class="va">dplyr</span>, <span class="va">app</span><span class="op">/</span><span class="va">logic</span><span class="op">/</span><span class="va">table</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Styled</span></span>
+<span><span class="fu">box</span><span class="fu">::</span><span class="fu"><a href="http://klmr.me/box/reference/use.html" class="external-link">use</a></span><span class="op">(</span></span>
+<span>  <span class="va">dplyr</span>,</span>
+<span>  <span class="va">stringr</span><span class="op">[</span><span class="va">str_pad</span>, <span class="va">str_trim</span><span class="op">]</span>,</span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">box</span><span class="fu">::</span><span class="fu"><a href="http://klmr.me/box/reference/use.html" class="external-link">use</a></span><span class="op">(</span></span>
+<span>  <span class="va">app</span><span class="op">/</span><span class="va">logic</span><span class="op">/</span><span class="va">table</span></span>
+<span><span class="op">)</span></span></code></pre></div>
+<div class="section level3">
+<h3 id="requirements">Requirements<a class="anchor" aria-label="anchor" href="#requirements"></a>
+</h3>
+<ul>
+<li>R version &gt;= 4.3.0</li>
+<li>
+<code>box.linters</code> version &gt;= 0.10.4</li>
+<li>
+<code>treesitter</code> package</li>
+<li>
+<code>treesitter.r</code> package</li>
+</ul>
+</div>
+<div class="section level3">
+<h3 id="how-to-use">How to use<a class="anchor" aria-label="anchor" href="#how-to-use"></a>
+</h3>
+<ol style="list-style-type: decimal">
+<li>
+<code><a href="http://klmr.me/box/reference/use.html" class="external-link">box::use()</a></code> call styling is included when running <code><a href="../../reference/format_r.html">format_r()</a></code>.</li>
+<li>It can also be separately executed by running one of the <a href="https://appsilon.github.io/box.linters/reference/index.html#box-styling" class="external-link"><code>box.linters::style_*</code></a> functions.</li>
+</ol>
+<p>For more information on the abilities of <code>{{box.linters}}</code> styling functions refer to the styling functions <a href="https://appsilon.github.io/box.linters/reference/style_box_use_text.html" class="external-link">documentation</a>.</p>
+</div>
 </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside>

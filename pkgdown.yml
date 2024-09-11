@@ -5,6 +5,7 @@ articles:
   how-to/add-internationalization: how-to/add-internationalization.html
   how-to/add-routing: how-to/add-routing.html
   explanation/application-structure: explanation/application-structure.html
+  how-to/box-lsp: how-to/box-lsp.html
   explanation/box-modules: explanation/box-modules.html
   how-to/communicate-between-modules: how-to/communicate-between-modules.html
   tutorial/create-your-first-rhino-app: tutorial/create-your-first-rhino-app.html
@@ -12,6 +13,7 @@ articles:
   faq: faq.html
   how-to/keep-multiple-apps-in-a-single-repository: how-to/keep-multiple-apps-in-a-single-repository.html
   how-to/manage-secrets-and-environments: how-to/manage-secrets-and-environments.html
+  how-to/migrate-1-10: how-to/migrate-1-10.html
   how-to/migrate-1-6: how-to/migrate-1-6.html
   how-to/migrate-1-7: how-to/migrate-1-7.html
   how-to/migrate-1-8: how-to/migrate-1-8.html
@@ -36,7 +38,7 @@ articles:
   tutorial/write-end-to-end-tests-with-cypress: tutorial/write-end-to-end-tests-with-cypress.html
   how-to/write-javascript-code: how-to/write-javascript-code.html
   how-to/write-r-code: how-to/write-r-code.html
-last_built: 2024-09-10T12:59Z
+last_built: 2024-09-11T08:17Z
 urls:
   reference: https://appsilon.github.io/rhino/reference
   article: https://appsilon.github.io/rhino/articles
