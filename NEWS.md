@@ -1,5 +1,7 @@
 # rhino (development version)
 
+* Added check for `box.lsp` package in `.Rprofile` before applying the `languageserver` options.
+
 # [rhino 1.10.0](https://github.com/Appsilon/rhino/releases/tag/v1.10.0)
 
 See _[How-to: Rhino 1.10 Migration Guide](https://appsilon.github.io/rhino/articles/how-to/migrate-1-10.html)_
