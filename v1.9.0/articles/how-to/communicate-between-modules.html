@@ -45,7 +45,7 @@
   <a href="#" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">1.9</a>
   <ul class="dropdown-menu">
 <li>
-      <a class="external-link dropdown-item" href="https://appsilon.github.io/rhino/dev">1.10.0.9001 (dev)</a>
+      <a class="external-link dropdown-item" href="https://appsilon.github.io/rhino/dev">1.10.1 (dev)</a>
     </li>
     <li>
       <a class="external-link dropdown-item" href="https://appsilon.github.io/rhino/">1.10</a>
@@ -194,7 +194,7 @@
 <h3 id="example-1---communicating-between-a-parent-module-and-its-children-modules">Example 1 - Communicating between a parent module and its children modules<a class="anchor" aria-label="anchor" href="#example-1---communicating-between-a-parent-module-and-its-children-modules"></a>
 </h3>
 <p>In this example we are going to have two modules. The parent module will load and process data using filters and will pass it down to the child module that will display a table for this processed data.</p>
-<p><img src="images/communicate_between_modules_1.png"><font size="2"> <strong>Figure 1. Diagram illustrating how a reactive value is passed between a parent and its child module.</strong> </font></p>
+<p><img src="images%2Fcommunicate_between_modules_1.png"><font size="2"> <strong>Figure 1. Diagram illustrating how a reactive value is passed between a parent and its child module.</strong> </font></p>
 <p>Now, let’s explore how the code will look like:</p>
 <p>Let’s start with the table module. Remember from the Figure 1 that this module receives a reactive object with the data to display from its parent module.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
@@ -273,7 +273,7 @@
 <h3 id="example-2---communicating-between-two-sibling-modules">Example 2 - Communicating between two sibling modules<a class="anchor" aria-label="anchor" href="#example-2---communicating-between-two-sibling-modules"></a>
 </h3>
 <p>Suppose we have a data processing module and a plotting module, both functioning as siblings, with their respective roles being to process and exhibit data in a given plot. These sibling modules are nested within another module, which we’ve denoted as <code>main.R</code> which is our main module within a Rhino app.</p>
-<p><img src="images/communicate_between_modules_2.png"><font size="2"> <strong>Figure 2. Diagram illustrating how a reactive value is passed between sibling modules.</strong> </font></p>
+<p><img src="images%2Fcommunicate_between_modules_2.png"><font size="2"> <strong>Figure 2. Diagram illustrating how a reactive value is passed between sibling modules.</strong> </font></p>
 <p>Let’s explore how the code of these modules should look like:</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true"></a><span class="co"># processing_data_module.R</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true"></a>box<span class="op">::</span><span class="kw">use</span>(</span>
@@ -391,7 +391,7 @@ Pay special attention to the server function in which we save the output of the 
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.1.</p>
 </div>
 
     </footer>

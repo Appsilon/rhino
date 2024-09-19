@@ -40,7 +40,7 @@
   <a href="#" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">1.0</a>
   <ul class="dropdown-menu">
 <li>
-      <a class="external-link dropdown-item" href="https://appsilon.github.io/rhino/dev">1.10.0.9001 (dev)</a>
+      <a class="external-link dropdown-item" href="https://appsilon.github.io/rhino/dev">1.10.1 (dev)</a>
     </li>
     <li>
       <a class="external-link dropdown-item" href="https://appsilon.github.io/rhino/">1.10</a>
@@ -169,7 +169,7 @@
 </h3>
 <p>If you use RStudio, probably the easiest way to create a new Rhino application is to simply use Create New Project feature. Once Rhino is installed, it will be automatically added as one of the options in RStudio:</p>
 <p>Choose it, provide your brand new project name and you are ready to go.</p>
-<p><img src="images/rstudio_wizard.png"></p>
+<p><img src="images%2Frstudio_wizard.png"></p>
 </div>
 <div class="section level3">
 <h3 id="create-an-application-using-rhinoinit">Create an application using <code>rhino::init()</code><a class="anchor" aria-label="anchor" href="#create-an-application-using-rhinoinit"></a>
@@ -225,7 +225,7 @@
 <span></span>
 <span><span class="fu">shiny</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/shinyApp.html" class="external-link">shinyAppDir</a></span><span class="op">(</span><span class="st">"."</span><span class="op">)</span></span></code></pre></div>
 <p>And here is what you should be seeing right now:</p>
-<p><img src="images/init_application.png"></p>
+<p><img src="images%2Finit_application.png"></p>
 </div>
 </div>
 <div class="section level2">
@@ -297,7 +297,7 @@
 <span>  <span class="op">}</span><span class="op">)</span></span>
 <span><span class="op">}</span></span></code></pre></div>
 <p>Now, when you run your application, you should see the message from the newly created module:</p>
-<p><img src="images/first_module.png"></p>
+<p><img src="images%2Ffirst_module.png"></p>
 </div>
 <div class="section level3">
 <h3 id="adding-components-to-a-module">Adding components to a module<a class="anchor" aria-label="anchor" href="#adding-components-to-a-module"></a>
@@ -385,7 +385,7 @@
 <p>One thing worth noting here is that in the UI part we had to use another function from Shiny - <code>tagList</code>. To be able to do that, you have to adjust your import in <code><a href="http://klmr.me/box/reference/use.html" class="external-link">box::use</a></code> - simply add <code>tagList</code> to the list of imported functions.</p>
 <hr>
 <p>Finally, when you run your application, you should see something similar to this:</p>
-<p><img src="images/chart.png"></p>
+<p><img src="images%2Fchart.png"></p>
 </div>
 </div>
 </div>
@@ -573,7 +573,7 @@
 <span>  <span class="op">}</span><span class="op">)</span></span>
 <span><span class="op">}</span></span></code></pre></div>
 <p>The application should look similar to this:</p>
-<p><img src="images/table_1.png"></p>
+<p><img src="images%2Ftable_1.png"></p>
 </div>
 </div>
 <div class="section level2">
@@ -634,7 +634,7 @@
 <span>  <span class="op">}</span><span class="op">)</span></span>
 <span><span class="op">}</span></span></code></pre></div>
 <p>When you run the application, you should see something similar to this:</p>
-<p><img src="images/table_2.png"></p>
+<p><img src="images%2Ftable_2.png"></p>
 <p>You can notice, that table is arranged by the Black Rhino population. It would make sense to change it to Year using <code>dplyr::arrange</code>.</p>
 <p>Next, add arrange to <code>transform_data</code> function:</p>
 <div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
@@ -655,7 +655,7 @@
 <span>    <span class="fu">arrange</span><span class="op">(</span><span class="va">Year</span><span class="op">)</span></span>
 <span><span class="op">}</span></span></code></pre></div>
 <p>The result looks much more understandable:</p>
-<p><img src="images/table_3.png"></p>
+<p><img src="images%2Ftable_3.png"></p>
 <p>There is still one element that can be improved. If you check the X-axis in the chart, values contain a comma. It’s the default behavior for integers, but this is a year! To fix that, you need to add a custom formatter. Let’s create another file, <code>app/logic/chart_utils.R</code>:</p>
 <div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># app/logic/chart_utils.R</span></span>
@@ -712,7 +712,7 @@
 <span>  <span class="op">}</span><span class="op">)</span></span>
 <span><span class="op">}</span></span></code></pre></div>
 <p>It should now look better:</p>
-<p><img src="images/chart_2.png"></p>
+<p><img src="images%2Fchart_2.png"></p>
 </div>
 <div class="section level2">
 <h2 id="add-custom-styles">Add custom styles<a class="anchor" aria-label="anchor" href="#add-custom-styles"></a>
@@ -847,7 +847,7 @@
 <code class="sourceCode R"><span><span class="co"># in R console</span></span>
 <span><span class="fu">rhino</span><span class="fu">::</span><span class="fu"><a href="../../reference/build_sass.html">build_sass</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <p>Now, after running the application you should see something similar to this:</p>
-<p><img src="images/styles_1.png"></p>
+<p><img src="images%2Fstyles_1.png"></p>
 <p>It is worth noting, that you don’t need to add <code>app/static/app.min.css</code> to your application header - Rhino does that for you.</p>
 <p>Let’s adjust the application a little bit more by adding a title:</p>
 <div class="sourceCode" id="cb30"><pre class="downlit sourceCode r">
@@ -901,7 +901,7 @@
 <code class="sourceCode R"><span><span class="co"># in R console</span></span>
 <span><span class="fu">rhino</span><span class="fu">::</span><span class="fu"><a href="../../reference/build_sass.html">build_sass</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <p>The result should look similar to this:</p>
-<p><img src="images/styles_2.png"></p>
+<p><img src="images%2Fstyles_2.png"></p>
 <hr>
 </div>
 <div class="section level2">
@@ -970,7 +970,7 @@
 <span id="cb34-25"><a href="#cb34-25" aria-hidden="true"></a>}</span></code></pre></div>
 <p>Remember to rebuild Sass with <code><a href="../../reference/build_sass.html">rhino::build_sass()</a></code>!</p>
 <p>You should now see a button with a question mark in the top right corner of the application:</p>
-<p><img src="images/js_1.png"></p>
+<p><img src="images%2Fjs_1.png"></p>
 <p>Now, it’s time for writing the JavaScript code that should show the popup with a message. All JS code should be stored in the <code>app/js</code> directory. You already have the first (empty) file there - <code>index.js</code>. Let’s use it:</p>
 <div class="sourceCode" id="cb35"><pre class="sourceCode js"><code class="sourceCode javascript"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true"></a><span class="co">// app/js/index.js</span></span>
 <span id="cb35-2"><a href="#cb35-2" aria-hidden="true"></a></span>
@@ -1018,7 +1018,7 @@
 <span><span class="va">...</span></span></code></pre></div>
 <p>You have probably noticed the second difference between the classic Shiny approach and the one used in Rhino. All exported JS functions are now available under <code>App</code> (same as any other JavaScript function from a library, e.g. <code>Math.round</code>).</p>
 <p>Now, if you run the application and click the button, you should see something like this:</p>
-<p><img src="images/js_2.png"></p>
+<p><img src="images%2Fjs_2.png"></p>
 <hr>
 <p><strong>Congratulations! You now have a fully armed and operational <del>battle station</del> Rhino application!</strong></p>
 </div>
@@ -1033,7 +1033,7 @@
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.1.</p>
 </div>
 
     </footer>

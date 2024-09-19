@@ -46,7 +46,7 @@
   <a href="#" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">1.10</a>
   <ul class="dropdown-menu">
 <li>
-      <a class="dropdown-item" href="https://appsilon.github.io/rhino/dev">1.10.0.9001 (dev)</a>
+      <a class="dropdown-item" href="https://appsilon.github.io/rhino/dev">1.10.1 (dev)</a>
     </li>
     <li>
       <a class="dropdown-item" href="https://appsilon.github.io/rhino/">1.10</a>
@@ -300,7 +300,7 @@
 <span>  <span class="op">}</span><span class="op">)</span></span>
 <span><span class="op">}</span></span></code></pre></div>
 <p>If you now run the application, you should see something similar to this:</p>
-<p><img src="images/cypress_test_app.gif"></p>
+<p><img src="images%2Fcypress_test_app.gif"></p>
 <p>There are two functionalities that we are going to test:</p>
 <ol style="list-style-type: decimal">
 <li>We will check if the message is shown after clicking the button.</li>
@@ -315,7 +315,7 @@
 <p>It contains a simple test that just starts the application. If your app can start, it will pass, no matter if it crashes a few seconds later.</p>
 <p>Now, if you call <code><a href="../../reference/test_e2e.html">rhino::test_e2e()</a></code> the test will be run, but before that, since this is the first time you use one of the functionalities that depend on Node.js, it needs to install all the required libraries. Don’t worry, this is just a one-time step and is done automatically.</p>
 <p>Once everything is installed, you will see the output of the test:</p>
-<p><img src="images/basic_e2e_test.png"></p>
+<p><img src="images%2Fbasic_e2e_test.png"></p>
 <p>There is one more thing worth noticing. End-to-end tests have an interactive mode, where you can see Cypress interacting with your application. To use it, simply run tests with one additional argument: <code>rhino::test_e2e(interactive = TRUE)</code> Since we have just one simple test, there will be not much there, but soon this will change.</p>
 </div>
 <div class="section level2">
@@ -395,7 +395,7 @@
 <span id="cb7-14"><a href="#cb7-14" aria-hidden="true"></a>  })<span class="op">;</span></span>
 <span id="cb7-15"><a href="#cb7-15" aria-hidden="true"></a>})<span class="op">;</span></span></code></pre></div>
 <p>If you run tests (<code><a href="../../reference/test_e2e.html">rhino::test_e2e()</a></code>), you will see that it passes - the button is there:</p>
-<p><img src="images/message_e2e_test_1.png"></p>
+<p><img src="images%2Fmessage_e2e_test_1.png"></p>
 </div>
 <div class="section level3">
 <h3 id="test-if-the-button-shows-the-message">Test if the button shows the message<a class="anchor" aria-label="anchor" href="#test-if-the-button-shows-the-message"></a>
@@ -435,7 +435,7 @@
 <span id="cb9-15"><a href="#cb9-15" aria-hidden="true"></a>  })<span class="op">;</span></span>
 <span id="cb9-16"><a href="#cb9-16" aria-hidden="true"></a>})<span class="op">;</span></span></code></pre></div>
 <p>Run tests again and you should see that again, all passed:</p>
-<p><img src="images/message_e2e_test_2.png"></p>
+<p><img src="images%2Fmessage_e2e_test_2.png"></p>
 </div>
 </div>
 <div class="section level2">
@@ -477,7 +477,7 @@
 <span id="cb11-14"><a href="#cb11-14" aria-hidden="true"></a>  })<span class="op">;</span></span>
 <span id="cb11-15"><a href="#cb11-15" aria-hidden="true"></a>})<span class="op">;</span></span></code></pre></div>
 <p>Now, if you run tests, you will see the new ones. And they should pass.</p>
-<p><img src="images/clicks_e2e_test_1.png"></p>
+<p><img src="images%2Fclicks_e2e_test_1.png"></p>
 </div>
 <div class="section level3">
 <h3 id="test-if-clicks-are-counted-correctly">Test if clicks are counted correctly<a class="anchor" aria-label="anchor" href="#test-if-clicks-are-counted-correctly"></a>
@@ -542,9 +542,9 @@
 <span id="cb14-20"><a href="#cb14-20" aria-hidden="true"></a>  })<span class="op">;</span></span>
 <span id="cb14-21"><a href="#cb14-21" aria-hidden="true"></a>})<span class="op">;</span></span></code></pre></div>
 <p>Now, run your tests. You should see something similar to this (you might have noticed that now clicking test took more time than previously - that’s because the clicking finally happened):</p>
-<p><img src="images/clicks_e2e_test_2.png"></p>
+<p><img src="images%2Fclicks_e2e_test_2.png"></p>
 <p>If you run tests using the interactive mode (<code>rhino::test_e2e(interactive = TRUE)</code>), you will be able to check each click as a separate action!</p>
-<p><img src="images/interactive_e2e_test.png"></p>
+<p><img src="images%2Finteractive_e2e_test.png"></p>
 </div>
 </div>
 <div class="section level2">
@@ -579,7 +579,7 @@
 <span>  <span class="op">}</span><span class="op">)</span></span>
 <span><span class="op">}</span></span></code></pre></div>
 <p>If you now run tests, you will see that the counting one failed:</p>
-<p><img src="images/failing_e2e_test.png"></p>
+<p><img src="images%2Ffailing_e2e_test.png"></p>
 <p>This way we spotted the (unexpected) change in the application behavior in an automated way. Without end-to-end tests, this could go unnoticed, since the app still works - there are no errors, it is just the logic that has been changed in a way we didn’t want it to be modified.</p>
 </div>
 <div class="section level2">
@@ -588,7 +588,7 @@
 <p>But here comes a question: <strong>Do you need to run those tests each time you make a change?</strong></p>
 <p>Fortunately, this can be automated! Rhino comes with a setup for <a href="https://github.com/features/actions" class="external-link">GitHub Actions</a> will run those tests for you and inform you if there is a problem. You can even block merging changes that don’t pass those automated checks.</p>
 <p>What do you need to do to get all of this? If you are using GitHub - literally nothing! Your Rhino application comes with a GitHub Actions configuration (<code>.github/workflows/rhino-test.yml</code>) that includes end-to-end tests!</p>
-<p><img src="images/e2e_in_CI.png"></p>
+<p><img src="images%2Fe2e_in_CI.png"></p>
 </div>
 <div class="section level2">
 <h2 id="summary">Summary<a class="anchor" aria-label="anchor" href="#summary"></a>
@@ -609,7 +609,7 @@
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.1.</p>
 </div>
 
     </footer>
