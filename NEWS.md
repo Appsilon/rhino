@@ -1,4 +1,4 @@
-# rhino (development version)
+# rhino 1.10.1
 
 * Added check for `box.lsp` package in `.Rprofile` before applying the `languageserver` options.
 
