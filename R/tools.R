@@ -234,9 +234,9 @@ format_r <- function(paths, exclude_files = NULL) {
 #' @export
 build_js <- function(watch = FALSE) {
   if (watch) {
-    npm("run", "build-js", "--", "--watch", status_ok = 2)
+    npm_run("build-js", "--", "--watch")
   } else {
-    npm("run", "build-js")
+    npm_run("build-js")
   }
 }
 
@@ -273,9 +273,9 @@ build_js <- function(watch = FALSE) {
 # nolint end
 lint_js <- function(fix = FALSE) {
   if (fix) {
-    npm("run", "lint-js", "--", "--fix")
+    npm_run("lint-js", "--", "--fix")
   } else {
-    npm("run", "lint-js")
+    npm_run("lint-js")
   }
 }
 
@@ -296,9 +296,9 @@ lint_js <- function(fix = FALSE) {
 #' @export
 format_js <- function(fix = TRUE) {
   if (fix) {
-    npm("run", "format-js", "--", "--write")
+    npm_run("format-js", "--", "--write")
   } else {
-    npm("run", "format-js", "--", "--check")
+    npm_run("format-js", "--", "--check")
   }
 }
 
@@ -356,9 +356,9 @@ build_sass <- function(watch = FALSE) {
 
 build_sass_node <- function(watch = FALSE) {
   if (watch) {
-    npm("run", "build-sass", "--", "--watch", status_ok = 2)
+    npm_run("build-sass", "--", "--watch")
   } else {
-    npm("run", "build-sass")
+    npm_run("build-sass")
   }
 }
 
@@ -389,9 +389,9 @@ build_sass_r <- function() {
 #' @export
 lint_sass <- function(fix = FALSE) {
   if (fix) {
-    npm("run", "lint-sass", "--", "--fix")
+    npm_run("lint-sass", "--", "--fix")
   } else {
-    npm("run", "lint-sass")
+    npm_run("lint-sass")
   }
 }
 
@@ -412,9 +412,9 @@ lint_sass <- function(fix = FALSE) {
 #' @export
 format_sass <- function(fix = TRUE) {
   if (fix) {
-    npm("run", "format-sass", "--", "--write")
+    npm_run("format-sass", "--", "--write")
   } else {
-    npm("run", "format-sass", "--", "--check")
+    npm_run("format-sass", "--", "--check")
   }
 }
 
@@ -445,8 +445,8 @@ format_sass <- function(fix = TRUE) {
 #' @export
 test_e2e <- function(interactive = FALSE) {
   if (interactive) {
-    npm("run", "test-e2e-interactive")
+    npm_run("test-e2e-interactive")
   } else {
-    npm("run", "test-e2e")
+    npm_run("test-e2e")
   }
 }
