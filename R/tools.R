@@ -1,3 +1,58 @@
+#' Development mode
+#'
+#' Run application in development mode with automatic rebuilding and reloading.
+#'
+#' This function will launch the Shiny app in
+#' [development mode](https://shiny.posit.co/r/reference/shiny/latest/devmode.html)
+#' (as if `options(shiny.devmode = TRUE)` was set).
+#' The app will be automatically reloaded whenever the sources change.
+#'
+#' Additionally, Rhino will automatically rebuild JavaScript and Sass in the background.
+#' Please note that this feature requires Node.js.
+#'
+#' @param build_js Boolean. Rebuild JavaScript automatically in the background?
+#' @param build_sass Boolean. Rebuild Sass automatically in the background?
+#' @param ... Additional arguments passed to `shiny::runApp()`.
+#' @return None. This function is called for side effects.
+#'
+#' @export
+dev <- function(build_js = TRUE, build_sass = TRUE, ...) {
+  proc <- dev_build(build_js, build_sass)
+  if (!is.null(proc)) on.exit(proc$kill())
+  shiny::with_devmode(TRUE, shiny::runApp(...))
+}
+
+dev_build <- function(build_js, build_sass) {
+  if (!build_js && !build_sass) return()
+
+  node <- node_check()
+  if (!node$status_ok) {
+    node_missing(node$npm_command, info = "JavaScript and Sass won't be automatically rebuilt.")
+    return()
+  }
+
+  if (build_sass) {
+    config <- read_config()
+    if (config$sass != "node") {
+      build_sass <- FALSE
+      cli::cli_bullets(c(
+        "!" = "Sass won't be automatically rebuilt.",
+        "i" = "Use {.code sass: node} configuration in {.file rhino.yml} to enable it."
+      ))
+    }
+  }
+
+  # Is there is anything to do? Check again - building Sass might have been disabled.
+  if (!build_js && !build_sass) return()
+
+  npm_run(
+    "concurrently", "--",
+    if (build_js) "npm:build-js -- --watch",
+    if (build_sass) "npm:build-sass -- --watch",
+    background = TRUE
+  )
+}
+
 #' Run R unit tests
 #'
 #' Uses the `{testhat}` package to run all unit tests in `tests/testthat` directory.

@@ -141,6 +141,7 @@ reference:
 
 - title: R development
   contents:
+  - dev
   - dependencies
   - log
   - format_r

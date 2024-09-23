@@ -3,6 +3,7 @@
 export(app)
 export(build_js)
 export(build_sass)
+export(dev)
 export(diagnostics)
 export(format_js)
 export(format_r)
