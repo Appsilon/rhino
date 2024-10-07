@@ -60,18 +60,29 @@ node_init <- function(npm_command) {
 
 # Run the specified command in Node.js directory (assume it already exists).
 node_run <- function(command, ..., background = FALSE) {
-  args <- list(
-    command = command,
-    args = rlang::chr(...),
+  if (.Platform$OS.type == "windows") {
+    # Workaround: {processx} cannot find `npm` on Windows, but it works with a shell.
+    call_args <- list(
+      command = "cmd",
+      args = rlang::chr("/c", command, ...)
+    )
+  } else {
+    call_args <- list(
+      command = command,
+      args = rlang::chr(...)
+    )
+  }
+  call_args <- c(
+    call_args,
     wd = node_path(),
     stdin = NULL,
     stdout = "",
     stderr = ""
   )
   if (background) {
-    do.call(processx::process$new, args)
+    do.call(processx::process$new, call_args)
   } else {
-    do.call(processx::run, args)
+    do.call(processx::run, call_args)
     invisible()
   }
 }
