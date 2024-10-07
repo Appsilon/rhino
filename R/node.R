@@ -2,6 +2,10 @@ node_path <- function(...) {
   fs::path(".rhino", ...)
 }
 
+npm_command <- function() {
+  Sys.getenv("RHINO_NPM", "npm")
+}
+
 # Run a script defined in `package.json`.
 npm_run <- function(...) {
   # Use `--silent` to prevent `npm` from echoing the command it runs.
@@ -14,29 +18,27 @@ npm_run <- function(...) {
 npm <- function(...) {
   node <- node_check()
   if (!node$status_ok) {
-    node_missing(node$npm_command, abort = TRUE)
+    node_missing(abort = TRUE)
   }
-  node_init(node$npm_command)
-  node_run(node$npm_command, ...)
+  node_init()
+  node_run(..., wd = node_path())
 }
 
 node_check <- function() {
-  npm_command <- Sys.getenv("RHINO_NPM", "npm")
   version <- tryCatch(
-    processx::run(npm_command, "--version")$stdout,
+    node_run("--version", stdout = "|")$stdout,
     error = function(e) NULL
   )
   list(
-    npm_command = npm_command,
     status_ok = !is.null(version),
-    diagnostic_info = paste(npm_command, ifelse(is.null(version), "failed", trimws(version)))
+    diagnostic_info = paste(npm_command(), ifelse(is.null(version), "failed", trimws(version)))
   )
 }
 
-node_missing <- function(npm_command, info = NULL, abort = FALSE) {
+node_missing <- function(info = NULL, abort = FALSE) {
   docs_url <- "https://go.appsilon.com/rhino-system-dependencies" # nolint object_usage_linter
   msg <- c(
-    "!" = "Failed to run system command {.code {npm_command}}.",
+    "!" = "Failed to run system command {.code {npm_command()}}.",
     " " = "Do you have Node.js installed? Read more: {.url {docs_url}}",
     "i" = info
   )
@@ -47,31 +49,38 @@ node_missing <- function(npm_command, info = NULL, abort = FALSE) {
   }
 }
 
-node_init <- function(npm_command) {
+node_init <- function() {
   if (!fs::dir_exists(node_path())) {
     cli::cli_alert_info("Initializing Node.js directory...")
     copy_template("node", node_path())
   }
   if (!fs::dir_exists(node_path("node_modules"))) {
-    cli::cli_alert_info("Installing Node.js packages with {.code {npm_command}}...")
-    node_run(npm_command, "install", "--no-audit", "--no-fund")
+    cli::cli_alert_info("Installing Node.js packages with {.code {npm_command()}}...")
+    node_run("install", "--no-audit", "--no-fund", wd = node_path())
   }
 }
 
 # Run the specified command in Node.js directory (assume it already exists).
-node_run <- function(command, ..., background = FALSE) {
-  args <- list(
-    command = command,
-    args = rlang::chr(...),
-    wd = node_path(),
-    stdin = NULL,
-    stdout = "",
-    stderr = ""
-  )
+node_run <- function(..., stdout = NULL, wd = NULL, background = FALSE) {
   if (background) {
-    do.call(processx::process$new, args)
+    run <- processx::process$new
   } else {
-    do.call(processx::run, args)
-    invisible()
+    run <- processx::run
   }
+
+  # Workaround: {processx} cannot find `npm` on Windows, but it works with a shell.
+  if (.Platform$OS.type == "windows") {
+    command <- "cmd"
+    args <- rlang::chr("/c", npm_command(), ...)
+  } else {
+    command <- npm_command()
+    args <- rlang::chr(...)
+  }
+
+  run(
+    command = command,
+    args = args,
+    stdout = stdout,
+    wd = wd
+  )
 }
