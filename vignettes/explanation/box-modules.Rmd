@@ -194,7 +194,7 @@ box::use(
 # Style guide
 
 To enhance the readability and maintainability of code,
-we suggest following [the Rhino style guide](https://appsilon.github.io/rhino/articles/explanation/rhino-styleguide.html).
+we suggest following [the Rhino style guide](https://appsilon.github.io/rhino/articles/explanation/rhino-style-guide.html).
 
 # Known issues
 
