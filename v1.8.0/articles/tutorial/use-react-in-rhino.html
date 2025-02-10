@@ -14,8 +14,8 @@
 <link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../../apple-touch-icon-60x60.png">
 <script src="../../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="../../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
-<script src="../../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../../deps/font-awesome-6.4.2/css/all.min.css" rel="stylesheet">
-<link href="../../deps/font-awesome-6.4.2/css/v4-shims.min.css" rel="stylesheet">
+<script src="../../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
+<link href="../../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
 <script src="../../deps/headroom-0.11.0/headroom.min.js"></script><script src="../../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../../deps/search-1.0.0/fuse.min.js"></script><script src="../../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../../pkgdown.js"></script><link href="../../extra.css" rel="stylesheet">
 <meta property="og:title" content="Tutorial: Use React in Rhino">
 <!-- Google tag (gtag.js) --><script async src="https://www.googletagmanager.com/gtag/js?id=G-NEHZJ9B11D"></script><script>
@@ -164,7 +164,8 @@
 
 
 
-<script src="use-react-in-rhino_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
+
+<div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
 
       <h1>Tutorial: Use React in Rhino</h1>
@@ -176,62 +177,87 @@
 
     
     
-<p>This tutorial will show you how to seamlessly use React components in your Rhino application. It assumes that you already have some experience with <a href="https://react.dev/" class="external-link">React</a>, the popular JavaScript library for creating web interfaces.</p>
-<p>Familiarity with <a href="https://github.com/Appsilon/shiny.react" class="external-link"><code>shiny.react</code></a>, or with packages based on it (<a href="https://github.com/Appsilon/shiny.fluent" class="external-link"><code>shiny.fluent</code></a>, <a href="https://github.com/Appsilon/shiny.blueprint" class="external-link"><code>shiny.blueprint</code></a>) will be helpful, but it is not a requirement.</p>
+<p>This tutorial will show you how to seamlessly use React components in
+your Rhino application. It assumes that you already have some experience
+with <a href="https://react.dev/" class="external-link">React</a>, the popular JavaScript
+library for creating web interfaces.</p>
+<p>Familiarity with <a href="https://github.com/Appsilon/shiny.react" class="external-link"><code>shiny.react</code></a>,
+or with packages based on it (<a href="https://github.com/Appsilon/shiny.fluent" class="external-link"><code>shiny.fluent</code></a>,
+<a href="https://github.com/Appsilon/shiny.blueprint" class="external-link"><code>shiny.blueprint</code></a>)
+will be helpful, but it is not a requirement.</p>
 <p>Before starting make sure that you have installed:</p>
 <ol style="list-style-type: decimal">
-<li>Rhino 1.4 or later. You can install the latest version with <code>install.packages("rhino")</code>.</li>
+<li>Rhino 1.4 or later. You can install the latest version with
+<code>install.packages("rhino")</code>.</li>
 <li>Node.js v16 or later. You can download the latest version from <a href="https://nodejs.org/en/download" class="external-link">nodejs.org</a>.</li>
 </ol>
 <div class="section level2">
 <h2 id="starting-off">Starting off<a class="anchor" aria-label="anchor" href="#starting-off"></a>
 </h2>
-<p>To start off, let’s initialize a fresh Rhino application. Launch the R console in an empty directory and run:</p>
+<p>To start off, let’s initialize a fresh Rhino application. Launch the
+R console in an empty directory and run:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">rhino</span><span class="fu">::</span><span class="fu"><a href="../../reference/init.html">init</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<p>To use React in Rhino we need to add the <a href="https://github.com/Appsilon/shiny.react" class="external-link"><code>shiny.react</code></a> package to our <a href="https://appsilon.github.io/rhino/reference/dependencies.html" class="external-link">project dependencies</a>:</p>
+<p>To use React in Rhino we need to add the <a href="https://github.com/Appsilon/shiny.react" class="external-link"><code>shiny.react</code></a>
+package to our <a href="https://appsilon.github.io/rhino/reference/dependencies.html" class="external-link">project
+dependencies</a>:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">rhino</span><span class="fu">::</span><span class="fu"><a href="../../reference/dependencies.html">pkg_install</a></span><span class="op">(</span><span class="st">"shiny.react"</span><span class="op">)</span></span></code></pre></div>
-<p>Now, there are three steps to add a React component to your Rhino application:</p>
+<p>Now, there are three steps to add a React component to your Rhino
+application:</p>
 <ol style="list-style-type: decimal">
 <li>Define the component using <a href="https://react.dev/learn/writing-markup-with-jsx" class="external-link">JSX</a>.</li>
 <li>Declare the component in R.</li>
 <li>Use the component in your application.</li>
 </ol>
-<p>Let’s go through these steps to add a simple <code>Reveal</code> component to our app.</p>
+<p>Let’s go through these steps to add a simple <code>Reveal</code>
+component to our app.</p>
 </div>
 <div class="section level2">
 <h2 id="defining-the-component">Defining the component<a class="anchor" aria-label="anchor" href="#defining-the-component"></a>
 </h2>
-<p>We will use <a href="https://react.dev/learn/writing-markup-with-jsx" class="external-link">JSX</a>, a syntax extension for JavaScript, to define our component. Create a <code>Reveal.jsx</code> file in the <code>app/js</code> directory with the following content:</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode jsx"><code class="sourceCode javascriptreact"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true"></a><span class="kw">const</span> { useState } <span class="op">=</span> React<span class="op">;</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true"></a></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true"></a><span class="im">export</span> <span class="im">default</span> <span class="kw">function</span> <span class="fu">Reveal</span>({ id<span class="op">,</span> children }) {</span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true"></a>  <span class="kw">const</span> [visible<span class="op">,</span> setVisible] <span class="op">=</span> <span class="fu">useState</span>(<span class="kw">false</span>)<span class="op">;</span></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true"></a>  <span class="cf">return</span> (</span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true"></a>    <span class="kw">&lt;div</span> <span class="ot">id</span><span class="op">=</span><span class="va">{</span>id<span class="va">}</span><span class="kw">&gt;</span></span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true"></a>      <span class="kw">&lt;button</span> <span class="ot">type</span><span class="op">=</span><span class="st">"button"</span> <span class="ot">onClick</span><span class="op">=</span><span class="va">{</span>() <span class="kw">=&gt;</span> <span class="fu">setVisible</span>(<span class="op">!</span>visible)<span class="va">}</span><span class="kw">&gt;</span></span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true"></a>        <span class="va">{</span>visible <span class="op">?</span> <span class="st">'Hide'</span> <span class="op">:</span> <span class="st">'Show'</span><span class="va">}</span></span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true"></a>      <span class="kw">&lt;/button&gt;</span></span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true"></a>      <span class="va">{</span>visible <span class="op">&amp;&amp;</span> children<span class="va">}</span></span>
-<span id="cb3-11"><a href="#cb3-11" aria-hidden="true"></a>    <span class="kw">&lt;/div&gt;</span></span>
-<span id="cb3-12"><a href="#cb3-12" aria-hidden="true"></a>  )<span class="op">;</span></span>
-<span id="cb3-13"><a href="#cb3-13" aria-hidden="true"></a>}</span></code></pre></div>
-<p>The <code>Reveal</code> component is just a <code>&lt;div&gt;</code> with the provided ID, and a button which can be used to show or hide its children.</p>
-<p>To make this component available for Rhino, we need to register it. Edit the <code>app/js/index.js</code> file like so:</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode js"><code class="sourceCode javascript"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true"></a><span class="im">import</span> Reveal <span class="im">from</span> <span class="st">'./Reveal'</span><span class="op">;</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true"></a></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true"></a>Rhino<span class="op">.</span><span class="fu">registerReactComponents</span>({ Reveal })<span class="op">;</span></span></code></pre></div>
-<p><code>Rhino</code> is a global variable which can be used without any declaration, similar to <code>Shiny</code>. The <code>registerReactComponents()</code> function takes an object mapping component names to their definitions (<code>{ Reveal }</code> is a shorthand for <code>{ Reveal: Reveal }</code>).</p>
+<p>We will use <a href="https://react.dev/learn/writing-markup-with-jsx" class="external-link">JSX</a>, a syntax
+extension for JavaScript, to define our component. Create a
+<code>Reveal.jsx</code> file in the <code>app/js</code> directory with
+the following content:</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode jsx"><code class="sourceCode javascriptreact"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a><span class="kw">const</span> { useState } <span class="op">=</span> React<span class="op">;</span></span>
+<span id="cb3-2"><a href="#cb3-2" tabindex="-1"></a></span>
+<span id="cb3-3"><a href="#cb3-3" tabindex="-1"></a><span class="im">export</span> <span class="im">default</span> <span class="kw">function</span> <span class="fu">Reveal</span>({ id<span class="op">,</span> children }) {</span>
+<span id="cb3-4"><a href="#cb3-4" tabindex="-1"></a>  <span class="kw">const</span> [visible<span class="op">,</span> setVisible] <span class="op">=</span> <span class="fu">useState</span>(<span class="kw">false</span>)<span class="op">;</span></span>
+<span id="cb3-5"><a href="#cb3-5" tabindex="-1"></a>  <span class="cf">return</span> (</span>
+<span id="cb3-6"><a href="#cb3-6" tabindex="-1"></a>    <span class="kw">&lt;div</span> <span class="ot">id</span><span class="op">=</span><span class="va">{</span>id<span class="va">}</span><span class="kw">&gt;</span></span>
+<span id="cb3-7"><a href="#cb3-7" tabindex="-1"></a>      <span class="kw">&lt;button</span> <span class="ot">type</span><span class="op">=</span><span class="st">"button"</span> <span class="ot">onClick</span><span class="op">=</span><span class="va">{</span>() <span class="kw">=&gt;</span> <span class="fu">setVisible</span>(<span class="op">!</span>visible)<span class="va">}</span><span class="kw">&gt;</span></span>
+<span id="cb3-8"><a href="#cb3-8" tabindex="-1"></a>        <span class="va">{</span>visible <span class="op">?</span> <span class="st">'Hide'</span> <span class="op">:</span> <span class="st">'Show'</span><span class="va">}</span></span>
+<span id="cb3-9"><a href="#cb3-9" tabindex="-1"></a>      <span class="kw">&lt;/button&gt;</span></span>
+<span id="cb3-10"><a href="#cb3-10" tabindex="-1"></a>      <span class="va">{</span>visible <span class="op">&amp;&amp;</span> children<span class="va">}</span></span>
+<span id="cb3-11"><a href="#cb3-11" tabindex="-1"></a>    <span class="kw">&lt;/div&gt;</span></span>
+<span id="cb3-12"><a href="#cb3-12" tabindex="-1"></a>  )<span class="op">;</span></span>
+<span id="cb3-13"><a href="#cb3-13" tabindex="-1"></a>}</span></code></pre></div>
+<p>The <code>Reveal</code> component is just a <code>&lt;div&gt;</code>
+with the provided ID, and a button which can be used to show or hide its
+children.</p>
+<p>To make this component available for Rhino, we need to register it.
+Edit the <code>app/js/index.js</code> file like so:</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode js"><code class="sourceCode javascript"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a><span class="im">import</span> Reveal <span class="im">from</span> <span class="st">'./Reveal'</span><span class="op">;</span></span>
+<span id="cb4-2"><a href="#cb4-2" tabindex="-1"></a></span>
+<span id="cb4-3"><a href="#cb4-3" tabindex="-1"></a>Rhino<span class="op">.</span><span class="fu">registerReactComponents</span>({ Reveal })<span class="op">;</span></span></code></pre></div>
+<p><code>Rhino</code> is a global variable which can be used without any
+declaration, similar to <code>Shiny</code>. The
+<code>registerReactComponents()</code> function takes an object mapping
+component names to their definitions (<code>{ Reveal }</code> is a
+shorthand for <code>{ Reveal: Reveal }</code>).</p>
 <p>Lastly, we need to build our JavaScript:</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">rhino</span><span class="fu">::</span><span class="fu"><a href="../../reference/build_js.html">build_js</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<p>This will create the <code>app/static/js/app.min.js</code> file which will be automatically included by Rhino.</p>
+<p>This will create the <code>app/static/js/app.min.js</code> file which
+will be automatically included by Rhino.</p>
 </div>
 <div class="section level2">
 <h2 id="declaring-the-component">Declaring the component<a class="anchor" aria-label="anchor" href="#declaring-the-component"></a>
 </h2>
-<p>Declaring the component simply means creating a function which will allow us to use the component in R. Let’s create a new <code>react.R</code> file in the <code>app/view</code> directory:</p>
+<p>Declaring the component simply means creating a function which will
+allow us to use the component in R. Let’s create a new
+<code>react.R</code> file in the <code>app/view</code> directory:</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">box</span><span class="fu">::</span><span class="fu"><a href="http://klmr.me/box/reference/use.html" class="external-link">use</a></span><span class="op">(</span></span>
 <span>  <span class="va">rhino</span><span class="op">[</span><span class="va">react_component</span><span class="op">]</span>,</span>
@@ -239,12 +265,15 @@
 <span></span>
 <span><span class="co">#' @export</span></span>
 <span><span class="va">Reveal</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/react_component.html">react_component</a></span><span class="op">(</span><span class="st">"Reveal"</span><span class="op">)</span></span></code></pre></div>
-<p>The name passed to <code><a href="../../reference/react_component.html">rhino::react_component()</a></code> has to match the name used in the call to <code>registerReactComponents()</code> in the previous step.</p>
+<p>The name passed to <code><a href="../../reference/react_component.html">rhino::react_component()</a></code> has to match
+the name used in the call to <code>registerReactComponents()</code> in
+the previous step.</p>
 </div>
 <div class="section level2">
 <h2 id="using-the-component">Using the component<a class="anchor" aria-label="anchor" href="#using-the-component"></a>
 </h2>
-<p>Let’s use our <code>Reveal</code> component to wrap the entire UI of our application. Edit the <code>app/main.R</code> file like so:</p>
+<p>Let’s use our <code>Reveal</code> component to wrap the entire UI of
+our application. Edit the <code>app/main.R</code> file like so:</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">box</span><span class="fu">::</span><span class="fu"><a href="http://klmr.me/box/reference/use.html" class="external-link">use</a></span><span class="op">(</span></span>
 <span>  <span class="va">shiny</span><span class="op">[</span><span class="va">bootstrapPage</span>, <span class="va">div</span>, <span class="va">moduleServer</span>, <span class="va">NS</span>, <span class="va">renderUI</span>, <span class="va">tags</span>, <span class="va">uiOutput</span><span class="op">]</span>,</span>
@@ -280,8 +309,16 @@
 <span>    <span class="op">}</span><span class="op">)</span></span>
 <span>  <span class="op">}</span><span class="op">)</span></span>
 <span><span class="op">}</span></span></code></pre></div>
-<p><code>Reveal</code> is a function representing our component. Named arguments will be passed to the component as props, while unnamed arguments will become its children.</p>
-<p>The return value of the <code>Reveal</code> function is a <code>shiny.tag</code> object. It can be used in the UI definition of your application, or rendered dynamically using either <code><a href="https://rdrr.io/pkg/shiny/man/renderUI.html" class="external-link">shiny::renderUI()</a></code> or <code><a href="https://appsilon.github.io/shiny.react/reference/renderReact.html" class="external-link">shiny.react::renderReact()</a></code>. This object behaves much like vanilla Shiny components and can be freely mixed with them, as the example illustrates.</p>
+<p><code>Reveal</code> is a function representing our component. Named
+arguments will be passed to the component as props, while unnamed
+arguments will become its children.</p>
+<p>The return value of the <code>Reveal</code> function is a
+<code>shiny.tag</code> object. It can be used in the UI definition of
+your application, or rendered dynamically using either
+<code><a href="https://rdrr.io/pkg/shiny/man/renderUI.html" class="external-link">shiny::renderUI()</a></code> or
+<code><a href="https://appsilon.github.io/shiny.react/reference/renderReact.html" class="external-link">shiny.react::renderReact()</a></code>. This object behaves much like
+vanilla Shiny components and can be freely mixed with them, as the
+example illustrates.</p>
 <p>We can now run the application and see our component in action:</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">shiny</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/runApp.html" class="external-link">runApp</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
@@ -289,26 +326,35 @@
 <div class="section level2">
 <h2 id="testing-the-component">Testing the component<a class="anchor" aria-label="anchor" href="#testing-the-component"></a>
 </h2>
-<p>As a bonus, let’s write a Cypress end-to-end test to check if our component works as expected. Edit the <code>tests/cypress/e2e/app.cy.js</code> file as follows:</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode js"><code class="sourceCode javascript"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true"></a><span class="fu">describe</span>(<span class="st">'app'</span><span class="op">,</span> () <span class="kw">=&gt;</span> {</span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true"></a>  <span class="fu">beforeEach</span>(() <span class="kw">=&gt;</span> {</span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true"></a>    cy<span class="op">.</span><span class="fu">visit</span>(<span class="st">'/'</span>)</span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true"></a>  })</span>
-<span id="cb9-5"><a href="#cb9-5" aria-hidden="true"></a></span>
-<span id="cb9-6"><a href="#cb9-6" aria-hidden="true"></a>  <span class="fu">it</span>(<span class="st">'works with React components'</span><span class="op">,</span> () <span class="kw">=&gt;</span> {</span>
-<span id="cb9-7"><a href="#cb9-7" aria-hidden="true"></a>    cy<span class="op">.</span><span class="fu">get</span>(<span class="st">'#app-reveal button'</span>)<span class="op">.</span><span class="fu">click</span>()<span class="op">;</span></span>
-<span id="cb9-8"><a href="#cb9-8" aria-hidden="true"></a>    cy<span class="op">.</span><span class="fu">get</span>(<span class="st">'#app-reveal'</span>)<span class="op">.</span><span class="fu">contains</span>(<span class="st">'Check out Rhino docs!'</span>)<span class="op">;</span></span>
-<span id="cb9-9"><a href="#cb9-9" aria-hidden="true"></a>  })</span>
-<span id="cb9-10"><a href="#cb9-10" aria-hidden="true"></a>})</span></code></pre></div>
-<p>This code tells Cypress to click the button found in the element with ID <code>#app-reveal</code>, and then to verify that it contains a <code>Check out Rhino docs!</code> string. To run this test we can use:</p>
+<p>As a bonus, let’s write a Cypress end-to-end test to check if our
+component works as expected. Edit the
+<code>tests/cypress/e2e/app.cy.js</code> file as follows:</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode js"><code class="sourceCode javascript"><span id="cb9-1"><a href="#cb9-1" tabindex="-1"></a><span class="fu">describe</span>(<span class="st">'app'</span><span class="op">,</span> () <span class="kw">=&gt;</span> {</span>
+<span id="cb9-2"><a href="#cb9-2" tabindex="-1"></a>  <span class="fu">beforeEach</span>(() <span class="kw">=&gt;</span> {</span>
+<span id="cb9-3"><a href="#cb9-3" tabindex="-1"></a>    cy<span class="op">.</span><span class="fu">visit</span>(<span class="st">'/'</span>)</span>
+<span id="cb9-4"><a href="#cb9-4" tabindex="-1"></a>  })</span>
+<span id="cb9-5"><a href="#cb9-5" tabindex="-1"></a></span>
+<span id="cb9-6"><a href="#cb9-6" tabindex="-1"></a>  <span class="fu">it</span>(<span class="st">'works with React components'</span><span class="op">,</span> () <span class="kw">=&gt;</span> {</span>
+<span id="cb9-7"><a href="#cb9-7" tabindex="-1"></a>    cy<span class="op">.</span><span class="fu">get</span>(<span class="st">'#app-reveal button'</span>)<span class="op">.</span><span class="fu">click</span>()<span class="op">;</span></span>
+<span id="cb9-8"><a href="#cb9-8" tabindex="-1"></a>    cy<span class="op">.</span><span class="fu">get</span>(<span class="st">'#app-reveal'</span>)<span class="op">.</span><span class="fu">contains</span>(<span class="st">'Check out Rhino docs!'</span>)<span class="op">;</span></span>
+<span id="cb9-9"><a href="#cb9-9" tabindex="-1"></a>  })</span>
+<span id="cb9-10"><a href="#cb9-10" tabindex="-1"></a>})</span></code></pre></div>
+<p>This code tells Cypress to click the button found in the element with
+ID <code>#app-reveal</code>, and then to verify that it contains a
+<code>Check out Rhino docs!</code> string. To run this test we can
+use:</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">rhino</span><span class="fu">::</span><span class="fu"><a href="../../reference/test_e2e.html">test_e2e</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<p>You can learn more about Cypress tests in our <a href="https://appsilon.github.io/rhino/articles/tutorial/write-end-to-end-tests-with-cypress.html" class="external-link">Tutorial: Write end-to-end tests with Cypress</a>.</p>
+<p>You can learn more about Cypress tests in our <a href="https://appsilon.github.io/rhino/articles/tutorial/write-end-to-end-tests-with-cypress.html" class="external-link">Tutorial:
+Write end-to-end tests with Cypress</a>.</p>
 </div>
 <div class="section level2">
 <h2 id="summary">Summary<a class="anchor" aria-label="anchor" href="#summary"></a>
 </h2>
-<p>After this tutorial you should know how to add React components to your Rhino application. To get a deeper understanding of the underlying mechanism, take a look at <a href="https://appsilon.github.io/shiny.react/articles/shiny-react.html" class="external-link"><code>shiny.react</code> tutorial</a>.</p>
+<p>After this tutorial you should know how to add React components to
+your Rhino application. To get a deeper understanding of the underlying
+mechanism, take a look at <a href="https://appsilon.github.io/shiny.react/articles/shiny-react.html" class="external-link"><code>shiny.react</code>
+tutorial</a>.</p>
 </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside>

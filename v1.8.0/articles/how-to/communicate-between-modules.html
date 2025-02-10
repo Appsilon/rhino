@@ -14,8 +14,8 @@
 <link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../../apple-touch-icon-60x60.png">
 <script src="../../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="../../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
-<script src="../../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../../deps/font-awesome-6.4.2/css/all.min.css" rel="stylesheet">
-<link href="../../deps/font-awesome-6.4.2/css/v4-shims.min.css" rel="stylesheet">
+<script src="../../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
+<link href="../../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
 <script src="../../deps/headroom-0.11.0/headroom.min.js"></script><script src="../../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../../deps/search-1.0.0/fuse.min.js"></script><script src="../../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../../pkgdown.js"></script><link href="../../extra.css" rel="stylesheet">
 <meta property="og:title" content="How-to: Communicate between modules">
 <!-- Google tag (gtag.js) --><script async src="https://www.googletagmanager.com/gtag/js?id=G-NEHZJ9B11D"></script><script>
@@ -164,8 +164,8 @@
 
 
 
-<script src="communicate-between-modules_files/accessible-code-block-0.0.1/empty-anchor.js"></script><link href="communicate-between-modules_files/font-awesome-6.4.2/css/all.min.css" rel="stylesheet">
-<link href="communicate-between-modules_files/font-awesome-6.4.2/css/v4-shims.min.css" rel="stylesheet">
+<link href="communicate-between-modules_files/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
+<link href="communicate-between-modules_files/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
 
@@ -181,20 +181,36 @@
 <div class="section level2">
 <h2 id="introduction">Introduction<a class="anchor" aria-label="anchor" href="#introduction"></a>
 </h2>
-<p>State management is a topic that comes along very often when it comes to reactive programming.</p>
-<p>As the application grows in size and becomes more intricate, it’s common to find an increasing number of <a href="https://shiny.posit.co/r/articles/improve/modules/" class="external-link">Shiny modules</a> distributed across various levels of depth. This results in the necessity to share information, particularly the application’s state, among these diverse Shiny modules.</p>
-<p>While there are many ways to approach this problem here we are going to present two examples. In the first example we are going to pass information (reactive objects) from a parent module to a child module and in the second example we are going to pass information between two sibling modules.</p>
+<p>State management is a topic that comes along very often when it comes
+to reactive programming.</p>
+<p>As the application grows in size and becomes more intricate, it’s
+common to find an increasing number of <a href="https://shiny.posit.co/r/articles/improve/modules/" class="external-link">Shiny
+modules</a> distributed across various levels of depth. This results in
+the necessity to share information, particularly the application’s
+state, among these diverse Shiny modules.</p>
+<p>While there are many ways to approach this problem here we are going
+to present two examples. In the first example we are going to pass
+information (reactive objects) from a parent module to a child module
+and in the second example we are going to pass information between two
+sibling modules.</p>
 </div>
 <div class="section level2">
 <h2 id="examples">Examples<a class="anchor" aria-label="anchor" href="#examples"></a>
 </h2>
 <div class="section level3">
-<h3 id="example-1---communicating-between-a-parent-module-and-its-children-modules">Example 1 - Communicating between a parent module and its children modules<a class="anchor" aria-label="anchor" href="#example-1---communicating-between-a-parent-module-and-its-children-modules"></a>
+<h3 id="example-1---communicating-between-a-parent-module-and-its-children-modules">Example 1 - Communicating between a parent module and its children
+modules<a class="anchor" aria-label="anchor" href="#example-1---communicating-between-a-parent-module-and-its-children-modules"></a>
 </h3>
-<p>In this example we are going to have two modules. The parent module will load and process data using filters and will pass it down to the child module that will display a table for this processed data.</p>
-<p><img src="images%2Fcommunicate_between_modules_1.png"><font size="2"> <strong>Figure 1. Diagram illustrating how a reactive value is passed between a parent and its child module.</strong> </font></p>
+<p>In this example we are going to have two modules. The parent module
+will load and process data using filters and will pass it down to the
+child module that will display a table for this processed data.</p>
+<p><img src="images%2Fcommunicate_between_modules_1.png"><font size="2"> <strong>Figure 1. Diagram illustrating how a reactive
+value is passed between a parent and its child module.</strong>
+</font></p>
 <p>Now, let’s explore how the code will look like:</p>
-<p>Let’s start with the table module. Remember from the Figure 1 that this module receives a reactive object with the data to display from its parent module.</p>
+<p>Let’s start with the table module. Remember from the Figure 1 that
+this module receives a reactive object with the data to display from its
+parent module.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">box</span><span class="fu">::</span><span class="fu"><a href="http://klmr.me/box/reference/use.html" class="external-link">use</a></span><span class="op">(</span></span>
 <span>  <span class="va">shiny</span><span class="op">[</span><span class="va">div</span>, <span class="va">moduleServer</span>, <span class="va">NS</span>, <span class="va">renderTable</span>, <span class="va">req</span>, <span class="va">tableOutput</span><span class="op">]</span>,</span>
@@ -224,7 +240,8 @@
 <span></span>
 <span>  <span class="op">}</span><span class="op">)</span></span>
 <span><span class="op">}</span></span></code></pre></div>
-<p>And continue with the usage of the table module within its parent module.</p>
+<p>And continue with the usage of the table module within its parent
+module.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Parent Module</span></span>
 <span><span class="fu">box</span><span class="fu">::</span><span class="fu"><a href="http://klmr.me/box/reference/use.html" class="external-link">use</a></span><span class="op">(</span></span>
@@ -265,83 +282,101 @@
 <span>    <span class="va">table_module</span><span class="op">$</span><span class="fu">server</span><span class="op">(</span>id <span class="op">=</span> <span class="st">"table_module"</span>, table_data <span class="op">=</span> <span class="va">processed_data</span><span class="op">)</span></span>
 <span>  <span class="op">}</span><span class="op">)</span></span>
 <span><span class="op">}</span></span></code></pre></div>
-<p><font size="2"> <i class="fas fa-triangle-exclamation text-warning" role="presentation" aria-label="triangle-exclamation icon"></i> Both <code>read_data_from_database</code> and <code>process_data</code> imported from the <code>utils.R</code> module are mocked functions that we are using for the purpose of aiding the example. These functions are not defined in this example code. </font></p>
+<p><font size="2">
+<i class="fas fa-triangle-exclamation text-warning" role="presentation" aria-label="triangle-exclamation icon"></i>
+Both <code>read_data_from_database</code> and <code>process_data</code>
+imported from the <code>utils.R</code> module are mocked functions that
+we are using for the purpose of aiding the example. These functions are
+not defined in this example code. </font></p>
 </div>
 <div class="section level3">
 <h3 id="example-2---communicating-between-two-sibling-modules">Example 2 - Communicating between two sibling modules<a class="anchor" aria-label="anchor" href="#example-2---communicating-between-two-sibling-modules"></a>
 </h3>
-<p>Suppose we have a data processing module and a plotting module, both functioning as siblings, with their respective roles being to process and exhibit data in a given plot. These sibling modules are nested within another module, which we’ve denoted as <code>main.R</code> which is our main module within a Rhino app.</p>
-<p><img src="images%2Fcommunicate_between_modules_2.png"><font size="2"> <strong>Figure 2. Diagram illustrating how a reactive value is passed between sibling modules.</strong> </font></p>
+<p>Suppose we have a data processing module and a plotting module, both
+functioning as siblings, with their respective roles being to process
+and exhibit data in a given plot. These sibling modules are nested
+within another module, which we’ve denoted as <code>main.R</code> which
+is our main module within a Rhino app.</p>
+<p><img src="images%2Fcommunicate_between_modules_2.png"><font size="2"> <strong>Figure 2. Diagram illustrating how a reactive
+value is passed between sibling modules.</strong> </font></p>
 <p>Let’s explore how the code of these modules should look like:</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true"></a><span class="co"># processing_data_module.R</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true"></a>box<span class="op">::</span><span class="kw">use</span>(</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true"></a>  shiny[</span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true"></a>    div, moduleServer, NS, reactive, req, selectInput</span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true"></a>  ],</span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true"></a>)</span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true"></a></span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true"></a>box<span class="op">::</span><span class="kw">use</span>(</span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true"></a>  <span class="dt">utils =</span> utils<span class="op">/</span>utils.R <span class="co"># This module is not defined in this example</span></span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true"></a>)</span>
-<span id="cb3-11"><a href="#cb3-11" aria-hidden="true"></a></span>
-<span id="cb3-12"><a href="#cb3-12" aria-hidden="true"></a><span class="co">#' @export</span></span>
-<span id="cb3-13"><a href="#cb3-13" aria-hidden="true"></a>ui &lt;-<span class="st"> </span><span class="cf">function</span>(id) {</span>
-<span id="cb3-14"><a href="#cb3-14" aria-hidden="true"></a>  ns &lt;-<span class="st"> </span><span class="kw">NS</span>(id)</span>
-<span id="cb3-15"><a href="#cb3-15" aria-hidden="true"></a>  <span class="kw">div</span>(</span>
-<span id="cb3-16"><a href="#cb3-16" aria-hidden="true"></a>    <span class="kw">selectInput</span>(</span>
-<span id="cb3-17"><a href="#cb3-17" aria-hidden="true"></a>      <span class="dt">inputId =</span> <span class="kw">ns</span>(<span class="st">"parameter"</span>),</span>
-<span id="cb3-18"><a href="#cb3-18" aria-hidden="true"></a>      <span class="dt">label =</span> Select a parameter,</span>
-<span id="cb3-19"><a href="#cb3-19" aria-hidden="true"></a>      <span class="dt">choices =</span> <span class="kw">c</span>(<span class="st">"alfa"</span>, <span class="st">"beta"</span>, <span class="st">"gamma"</span>)</span>
-<span id="cb3-20"><a href="#cb3-20" aria-hidden="true"></a>    )</span>
-<span id="cb3-21"><a href="#cb3-21" aria-hidden="true"></a>  )</span>
-<span id="cb3-22"><a href="#cb3-22" aria-hidden="true"></a>}</span>
-<span id="cb3-23"><a href="#cb3-23" aria-hidden="true"></a></span>
-<span id="cb3-24"><a href="#cb3-24" aria-hidden="true"></a><span class="co">#' @export</span></span>
-<span id="cb3-25"><a href="#cb3-25" aria-hidden="true"></a>server &lt;-<span class="st"> </span><span class="cf">function</span>(id) {</span>
-<span id="cb3-26"><a href="#cb3-26" aria-hidden="true"></a>  <span class="kw">moduleServer</span>(id, <span class="cf">function</span>(input, output, session) {</span>
-<span id="cb3-27"><a href="#cb3-27" aria-hidden="true"></a>    example_data &lt;-<span class="st"> </span>utils<span class="op">$</span><span class="kw">read_data_from_database</span>()</span>
-<span id="cb3-28"><a href="#cb3-28" aria-hidden="true"></a></span>
-<span id="cb3-29"><a href="#cb3-29" aria-hidden="true"></a>    <span class="kw">reactive</span>({</span>
-<span id="cb3-30"><a href="#cb3-30" aria-hidden="true"></a>      utils<span class="op">$</span><span class="kw">process_data</span>(example_data, input<span class="op">$</span>parameter)</span>
-<span id="cb3-31"><a href="#cb3-31" aria-hidden="true"></a>    })</span>
-<span id="cb3-32"><a href="#cb3-32" aria-hidden="true"></a>  })</span>
-<span id="cb3-33"><a href="#cb3-33" aria-hidden="true"></a>}</span></code></pre></div>
-<p><font size="2"> <i class="fas fa-triangle-exclamation text-warning" role="presentation" aria-label="triangle-exclamation icon"></i> Both <code>read_data_from_database</code> and <code>process_data</code> imported from the <code>utils.R</code> module are mocked functions that we are using for the purpose of aiding the example. These functions are not defined in this example code. </font></p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a><span class="co"># processing_data_module.R</span></span>
+<span id="cb3-2"><a href="#cb3-2" tabindex="-1"></a>box<span class="sc">::</span><span class="fu">use</span>(</span>
+<span id="cb3-3"><a href="#cb3-3" tabindex="-1"></a>  shiny[</span>
+<span id="cb3-4"><a href="#cb3-4" tabindex="-1"></a>    div, moduleServer, NS, reactive, req, selectInput</span>
+<span id="cb3-5"><a href="#cb3-5" tabindex="-1"></a>  ],</span>
+<span id="cb3-6"><a href="#cb3-6" tabindex="-1"></a>)</span>
+<span id="cb3-7"><a href="#cb3-7" tabindex="-1"></a></span>
+<span id="cb3-8"><a href="#cb3-8" tabindex="-1"></a>box<span class="sc">::</span><span class="fu">use</span>(</span>
+<span id="cb3-9"><a href="#cb3-9" tabindex="-1"></a>  <span class="at">utils =</span> utils<span class="sc">/</span>utils.R <span class="co"># This module is not defined in this example</span></span>
+<span id="cb3-10"><a href="#cb3-10" tabindex="-1"></a>)</span>
+<span id="cb3-11"><a href="#cb3-11" tabindex="-1"></a></span>
+<span id="cb3-12"><a href="#cb3-12" tabindex="-1"></a><span class="co">#' @export</span></span>
+<span id="cb3-13"><a href="#cb3-13" tabindex="-1"></a>ui <span class="ot">&lt;-</span> <span class="cf">function</span>(id) {</span>
+<span id="cb3-14"><a href="#cb3-14" tabindex="-1"></a>  ns <span class="ot">&lt;-</span> <span class="fu">NS</span>(id)</span>
+<span id="cb3-15"><a href="#cb3-15" tabindex="-1"></a>  <span class="fu">div</span>(</span>
+<span id="cb3-16"><a href="#cb3-16" tabindex="-1"></a>    <span class="fu">selectInput</span>(</span>
+<span id="cb3-17"><a href="#cb3-17" tabindex="-1"></a>      <span class="at">inputId =</span> <span class="fu">ns</span>(<span class="st">"parameter"</span>),</span>
+<span id="cb3-18"><a href="#cb3-18" tabindex="-1"></a>      <span class="at">label =</span> Select a parameter,</span>
+<span id="cb3-19"><a href="#cb3-19" tabindex="-1"></a>      <span class="at">choices =</span> <span class="fu">c</span>(<span class="st">"alfa"</span>, <span class="st">"beta"</span>, <span class="st">"gamma"</span>)</span>
+<span id="cb3-20"><a href="#cb3-20" tabindex="-1"></a>    )</span>
+<span id="cb3-21"><a href="#cb3-21" tabindex="-1"></a>  )</span>
+<span id="cb3-22"><a href="#cb3-22" tabindex="-1"></a>}</span>
+<span id="cb3-23"><a href="#cb3-23" tabindex="-1"></a></span>
+<span id="cb3-24"><a href="#cb3-24" tabindex="-1"></a><span class="co">#' @export</span></span>
+<span id="cb3-25"><a href="#cb3-25" tabindex="-1"></a>server <span class="ot">&lt;-</span> <span class="cf">function</span>(id) {</span>
+<span id="cb3-26"><a href="#cb3-26" tabindex="-1"></a>  <span class="fu">moduleServer</span>(id, <span class="cf">function</span>(input, output, session) {</span>
+<span id="cb3-27"><a href="#cb3-27" tabindex="-1"></a>    example_data <span class="ot">&lt;-</span> utils<span class="sc">$</span><span class="fu">read_data_from_database</span>()</span>
+<span id="cb3-28"><a href="#cb3-28" tabindex="-1"></a></span>
+<span id="cb3-29"><a href="#cb3-29" tabindex="-1"></a>    <span class="fu">reactive</span>({</span>
+<span id="cb3-30"><a href="#cb3-30" tabindex="-1"></a>      utils<span class="sc">$</span><span class="fu">process_data</span>(example_data, input<span class="sc">$</span>parameter)</span>
+<span id="cb3-31"><a href="#cb3-31" tabindex="-1"></a>    })</span>
+<span id="cb3-32"><a href="#cb3-32" tabindex="-1"></a>  })</span>
+<span id="cb3-33"><a href="#cb3-33" tabindex="-1"></a>}</span></code></pre></div>
+<p><font size="2">
+<i class="fas fa-triangle-exclamation text-warning" role="presentation" aria-label="triangle-exclamation icon"></i>
+Both <code>read_data_from_database</code> and <code>process_data</code>
+imported from the <code>utils.R</code> module are mocked functions that
+we are using for the purpose of aiding the example. These functions are
+not defined in this example code. </font></p>
 <p>And the plotting module:</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true"></a><span class="co"># plotting_module.R</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true"></a>box<span class="op">::</span><span class="kw">use</span>(</span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true"></a>  shiny[div, moduleServer, NS, plotOutput, renderPlot, req],</span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true"></a>  graphics[plot],</span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true"></a>)</span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true"></a></span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true"></a></span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true"></a><span class="co">#' @params id Id of the module</span></span>
-<span id="cb4-9"><a href="#cb4-9" aria-hidden="true"></a><span class="co">#' @export</span></span>
-<span id="cb4-10"><a href="#cb4-10" aria-hidden="true"></a>ui &lt;-<span class="st"> </span><span class="cf">function</span>(id) {</span>
-<span id="cb4-11"><a href="#cb4-11" aria-hidden="true"></a>  ns &lt;-<span class="st"> </span><span class="kw">NS</span>(id)</span>
-<span id="cb4-12"><a href="#cb4-12" aria-hidden="true"></a>  <span class="kw">div</span>(</span>
-<span id="cb4-13"><a href="#cb4-13" aria-hidden="true"></a>    <span class="kw">plotOutput</span>(</span>
-<span id="cb4-14"><a href="#cb4-14" aria-hidden="true"></a>      <span class="dt">inputId =</span> <span class="kw">ns</span>(<span class="st">"plot"</span>)</span>
-<span id="cb4-15"><a href="#cb4-15" aria-hidden="true"></a>    )</span>
-<span id="cb4-16"><a href="#cb4-16" aria-hidden="true"></a>  )</span>
-<span id="cb4-17"><a href="#cb4-17" aria-hidden="true"></a><span class="er">)</span></span>
-<span id="cb4-18"><a href="#cb4-18" aria-hidden="true"></a></span>
-<span id="cb4-19"><a href="#cb4-19" aria-hidden="true"></a><span class="co">#' @params id Id of the module</span></span>
-<span id="cb4-20"><a href="#cb4-20" aria-hidden="true"></a><span class="co">#' @params data_to_display A reactive that contains that the data that will be</span></span>
-<span id="cb4-21"><a href="#cb4-21" aria-hidden="true"></a><span class="co">#' plotted</span></span>
-<span id="cb4-22"><a href="#cb4-22" aria-hidden="true"></a><span class="co">#' @export</span></span>
-<span id="cb4-23"><a href="#cb4-23" aria-hidden="true"></a>server &lt;-<span class="st"> </span><span class="cf">function</span>(id, data_to_display) {</span>
-<span id="cb4-24"><a href="#cb4-24" aria-hidden="true"></a>  <span class="kw">moduleServer</span>(id, <span class="cf">function</span>(input, output, session) {</span>
-<span id="cb4-25"><a href="#cb4-25" aria-hidden="true"></a>  </span>
-<span id="cb4-26"><a href="#cb4-26" aria-hidden="true"></a>    output<span class="op">$</span>plot &lt;-<span class="st"> </span><span class="kw">renderPlot</span>({</span>
-<span id="cb4-27"><a href="#cb4-27" aria-hidden="true"></a>      <span class="kw">req</span>(data_to_display)</span>
-<span id="cb4-28"><a href="#cb4-28" aria-hidden="true"></a>      <span class="kw">plot</span>(<span class="kw">data_to_display</span>())</span>
-<span id="cb4-29"><a href="#cb4-29" aria-hidden="true"></a>    })</span>
-<span id="cb4-30"><a href="#cb4-30" aria-hidden="true"></a>   </span>
-<span id="cb4-31"><a href="#cb4-31" aria-hidden="true"></a>  })</span>
-<span id="cb4-32"><a href="#cb4-32" aria-hidden="true"></a>}</span></code></pre></div>
-<p>After we have our sibling modules ready we use them in our <code>main.R</code> function.<br>
-Pay special attention to the server function in which we save the output of the data processing module in a variable and we pass it down to the plot module.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a><span class="co"># plotting_module.R</span></span>
+<span id="cb4-2"><a href="#cb4-2" tabindex="-1"></a>box<span class="sc">::</span><span class="fu">use</span>(</span>
+<span id="cb4-3"><a href="#cb4-3" tabindex="-1"></a>  shiny[div, moduleServer, NS, plotOutput, renderPlot, req],</span>
+<span id="cb4-4"><a href="#cb4-4" tabindex="-1"></a>  graphics[plot],</span>
+<span id="cb4-5"><a href="#cb4-5" tabindex="-1"></a>)</span>
+<span id="cb4-6"><a href="#cb4-6" tabindex="-1"></a></span>
+<span id="cb4-7"><a href="#cb4-7" tabindex="-1"></a></span>
+<span id="cb4-8"><a href="#cb4-8" tabindex="-1"></a><span class="co">#' @params id Id of the module</span></span>
+<span id="cb4-9"><a href="#cb4-9" tabindex="-1"></a><span class="co">#' @export</span></span>
+<span id="cb4-10"><a href="#cb4-10" tabindex="-1"></a>ui <span class="ot">&lt;-</span> <span class="cf">function</span>(id) {</span>
+<span id="cb4-11"><a href="#cb4-11" tabindex="-1"></a>  ns <span class="ot">&lt;-</span> <span class="fu">NS</span>(id)</span>
+<span id="cb4-12"><a href="#cb4-12" tabindex="-1"></a>  <span class="fu">div</span>(</span>
+<span id="cb4-13"><a href="#cb4-13" tabindex="-1"></a>    <span class="fu">plotOutput</span>(</span>
+<span id="cb4-14"><a href="#cb4-14" tabindex="-1"></a>      <span class="at">inputId =</span> <span class="fu">ns</span>(<span class="st">"plot"</span>)</span>
+<span id="cb4-15"><a href="#cb4-15" tabindex="-1"></a>    )</span>
+<span id="cb4-16"><a href="#cb4-16" tabindex="-1"></a>  )</span>
+<span id="cb4-17"><a href="#cb4-17" tabindex="-1"></a><span class="er">)</span></span>
+<span id="cb4-18"><a href="#cb4-18" tabindex="-1"></a></span>
+<span id="cb4-19"><a href="#cb4-19" tabindex="-1"></a><span class="co">#' @params id Id of the module</span></span>
+<span id="cb4-20"><a href="#cb4-20" tabindex="-1"></a><span class="co">#' @params data_to_display A reactive that contains that the data that will be</span></span>
+<span id="cb4-21"><a href="#cb4-21" tabindex="-1"></a><span class="co">#' plotted</span></span>
+<span id="cb4-22"><a href="#cb4-22" tabindex="-1"></a><span class="co">#' @export</span></span>
+<span id="cb4-23"><a href="#cb4-23" tabindex="-1"></a>server <span class="ot">&lt;-</span> <span class="cf">function</span>(id, data_to_display) {</span>
+<span id="cb4-24"><a href="#cb4-24" tabindex="-1"></a>  <span class="fu">moduleServer</span>(id, <span class="cf">function</span>(input, output, session) {</span>
+<span id="cb4-25"><a href="#cb4-25" tabindex="-1"></a>  </span>
+<span id="cb4-26"><a href="#cb4-26" tabindex="-1"></a>    output<span class="sc">$</span>plot <span class="ot">&lt;-</span> <span class="fu">renderPlot</span>({</span>
+<span id="cb4-27"><a href="#cb4-27" tabindex="-1"></a>      <span class="fu">req</span>(data_to_display)</span>
+<span id="cb4-28"><a href="#cb4-28" tabindex="-1"></a>      <span class="fu">plot</span>(<span class="fu">data_to_display</span>())</span>
+<span id="cb4-29"><a href="#cb4-29" tabindex="-1"></a>    })</span>
+<span id="cb4-30"><a href="#cb4-30" tabindex="-1"></a>   </span>
+<span id="cb4-31"><a href="#cb4-31" tabindex="-1"></a>  })</span>
+<span id="cb4-32"><a href="#cb4-32" tabindex="-1"></a>}</span></code></pre></div>
+<p>After we have our sibling modules ready we use them in our
+<code>main.R</code> function.<br>
+Pay special attention to the server function in which we save the output
+of the data processing module in a variable and we pass it down to the
+plot module.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">box</span><span class="fu">::</span><span class="fu"><a href="http://klmr.me/box/reference/use.html" class="external-link">use</a></span><span class="op">(</span></span>
 <span>  <span class="va">shiny</span><span class="op">[</span><span class="va">bootstrapPage</span>, <span class="va">div</span>, <span class="va">moduleServer</span>, <span class="va">NS</span><span class="op">]</span>,</span>
@@ -375,7 +410,11 @@ Pay special attention to the server function in which we save the output of the 
 <span>    <span class="va">plot_module</span><span class="op">$</span><span class="fu">server</span><span class="op">(</span><span class="st">"plot_module"</span>, <span class="va">data_to_display</span><span class="op">)</span></span>
 <span>  <span class="op">}</span><span class="op">)</span></span>
 <span><span class="op">}</span></span></code></pre></div>
-<p>To sum up, in the aforementioned example, the data processing module returns a reactive that holds the processed data. Subsequently, this reactive is passed down to the server function of the plotting module. The plotting module utilizes this specific reactive, containing the processed data, to create visualizations.</p>
+<p>To sum up, in the aforementioned example, the data processing module
+returns a reactive that holds the processed data. Subsequently, this
+reactive is passed down to the server function of the plotting module.
+The plotting module utilizes this specific reactive, containing the
+processed data, to create visualizations.</p>
 </div>
 </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>

@@ -14,8 +14,8 @@
 <link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../../apple-touch-icon-60x60.png">
 <script src="../../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="../../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
-<script src="../../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../../deps/font-awesome-6.4.2/css/all.min.css" rel="stylesheet">
-<link href="../../deps/font-awesome-6.4.2/css/v4-shims.min.css" rel="stylesheet">
+<script src="../../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
+<link href="../../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
 <script src="../../deps/headroom-0.11.0/headroom.min.js"></script><script src="../../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../../deps/search-1.0.0/fuse.min.js"></script><script src="../../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../../pkgdown.js"></script><link href="../../extra.css" rel="stylesheet">
 <meta property="og:title" content="How-to: Use bslib with Rhino">
 <!-- Google tag (gtag.js) --><script async src="https://www.googletagmanager.com/gtag/js?id=G-NEHZJ9B11D"></script><script>
@@ -170,7 +170,8 @@
 
 
 
-<script src="use-bslib_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
+
+<div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
 
       <h1>How-to: Use bslib with Rhino</h1>
@@ -185,35 +186,49 @@
 <div class="section level2">
 <h2 id="introduction">Introduction<a class="anchor" aria-label="anchor" href="#introduction"></a>
 </h2>
-<p>The <code>bslib</code> R package is a UI toolkit based on Bootstrap. Shiny uses it under the hood for its default appearance, but it’s also possible to use <code>bslib</code> directly to gain access to:</p>
+<p>The <code>bslib</code> R package is a UI toolkit based on Bootstrap.
+Shiny uses it under the hood for its default appearance, but it’s also
+possible to use <code>bslib</code> directly to gain access to:</p>
 <ol style="list-style-type: decimal">
 <li>Additional components (e.g. value boxes, accordions, tooltips).</li>
 <li>Customization and theming.</li>
-<li>A refined interface (e.g. <code><a href="https://rstudio.github.io/bslib/reference/page_sidebar.html" class="external-link">bslib::page_sidebar</a></code> instead of <code><a href="https://rdrr.io/pkg/shiny/man/sidebarLayout.html" class="external-link">shiny::sidebarLayout</a></code>).</li>
+<li>A refined interface (e.g. <code><a href="https://rstudio.github.io/bslib/reference/page_sidebar.html" class="external-link">bslib::page_sidebar</a></code> instead
+of <code><a href="https://rdrr.io/pkg/shiny/man/sidebarLayout.html" class="external-link">shiny::sidebarLayout</a></code>).</li>
 <li>The latest Bootstrap (v5).</li>
 </ol>
-<p>Rhino comes with built-in support for writing custom Sass code in <code>app/styles/main.scss</code>. This guide explains how to combine <code>bslib</code> and custom Sass code, allowing you to:</p>
+<p>Rhino comes with built-in support for writing custom Sass code in
+<code>app/styles/main.scss</code>. This guide explains how to combine
+<code>bslib</code> and custom Sass code, allowing you to:</p>
 <ol style="list-style-type: decimal">
-<li>Share variables (e.g. colors and fonts) between <code>bslib</code> and custom Sass.</li>
-<li>Use Bootstrap variables, functions and mixins in your custom Sass.</li>
+<li>Share variables (e.g. colors and fonts) between <code>bslib</code>
+and custom Sass.</li>
+<li>Use Bootstrap variables, functions and mixins in your custom
+Sass.</li>
 <li>Further customize Bootstrap, e.g. override its mixins.</li>
 </ol>
 <p class="alert alert-info">
-If you don’t want to write any custom Sass, you can use <code>bslib</code> as you would normally without any additional setup.
+If you don’t want to write any custom Sass, you can use
+<code>bslib</code> as you would normally without any additional setup.
 </p>
 </div>
 <div class="section level2">
 <h2 id="steps">Steps<a class="anchor" aria-label="anchor" href="#steps"></a>
 </h2>
 <ol style="list-style-type: decimal">
-<li>Add <code>bslib</code> to project dependencies: <code>rhino::pkg_install("bslib")</code>.</li>
-<li>Use <code>sass: custom</code> configuration option in <code>rhino.yml</code>.</li>
+<li>Add <code>bslib</code> to project dependencies:
+<code>rhino::pkg_install("bslib")</code>.</li>
+<li>Use <code>sass: custom</code> configuration option in
+<code>rhino.yml</code>.</li>
 <li>Bundle Rhino Sass with <code>bslib</code> theme, e.g.:</li>
 </ol>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">theme</span> <span class="op">&lt;-</span> <span class="va">bslib</span><span class="op">$</span><span class="fu">bs_theme</span><span class="op">(</span>primary <span class="op">=</span> <span class="st">"purple"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="va">bslib</span><span class="op">$</span><span class="fu">bs_add_rules</span><span class="op">(</span><span class="va">sass</span><span class="op">$</span><span class="fu">sass_file</span><span class="op">(</span><span class="st">"app/styles/main.scss"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<p>You can create the <code>theme</code> object in <code>app/main.R</code> or in a dedicated file, e.g. <code>app/view/theme.R</code>. You need to define your UI using one of <code>bslib::page_*</code> layout functions, and pass the <code>theme</code> object as argument, e.g.:</p>
+<p>You can create the <code>theme</code> object in
+<code>app/main.R</code> or in a dedicated file,
+e.g. <code>app/view/theme.R</code>. You need to define your UI using one
+of <code>bslib::page_*</code> layout functions, and pass the
+<code>theme</code> object as argument, e.g.:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">#' @export</span></span>
 <span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">id</span><span class="op">)</span> <span class="op">{</span></span>
@@ -223,15 +238,19 @@ If you don’t want to write any custom Sass, you can use <code>bslib</code> as 
 <span>    <span class="va">shiny</span><span class="op">$</span><span class="fu">h1</span><span class="op">(</span><span class="st">"Hello!"</span><span class="op">)</span></span>
 <span>  <span class="op">)</span></span>
 <span><span class="op">}</span></span></code></pre></div>
-<p>You don’t need to run <code><a href="../../reference/build_sass.html">rhino::build_sass()</a></code>. Shiny will build it automatically when needed.</p>
-<p>With this setup you can use the <code>main.scss</code> file as you would normally, but with full access to Bootstrap and variables defined in <code>bs_theme()</code>, e.g.:</p>
-<pre class="scss"><code>h1 {
-  color: tint-color($primary, 20%);
-}</code></pre>
+<p>You don’t need to run <code><a href="../../reference/build_sass.html">rhino::build_sass()</a></code>. Shiny will
+build it automatically when needed.</p>
+<p>With this setup you can use the <code>main.scss</code> file as you
+would normally, but with full access to Bootstrap and variables defined
+in <code>bs_theme()</code>, e.g.:</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode scss"><code class="sourceCode scss"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a>h1 {</span>
+<span id="cb3-2"><a href="#cb3-2" tabindex="-1"></a>  <span class="kw">color</span>: <span class="fu">tint-color(</span><span class="va">$primary</span><span class="op">,</span> <span class="dv">20</span><span class="dt">%</span><span class="fu">)</span><span class="op">;</span></span>
+<span id="cb3-3"><a href="#cb3-3" tabindex="-1"></a>}</span></code></pre></div>
 <div class="section level3">
 <h3 id="advanced-use-cases">Advanced use cases<a class="anchor" aria-label="anchor" href="#advanced-use-cases"></a>
 </h3>
-<p>For advanced use cases, consider creating a complete <a href="https://rstudio.github.io/sass/reference/sass_layer.html" class="external-link">Sass layer</a>:</p>
+<p>For advanced use cases, consider creating a complete <a href="https://rstudio.github.io/sass/reference/sass_layer.html" class="external-link">Sass
+layer</a>:</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">theme</span> <span class="op">&lt;-</span> <span class="va">bslib</span><span class="op">$</span><span class="fu">bs_bundle</span><span class="op">(</span></span>
 <span>  <span class="va">bslib</span><span class="op">$</span><span class="fu">bs_theme</span><span class="op">(</span><span class="op">)</span>,</span>

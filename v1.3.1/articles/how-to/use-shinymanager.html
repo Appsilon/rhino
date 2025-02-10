@@ -14,8 +14,8 @@
 <link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../../apple-touch-icon-60x60.png">
 <script src="../../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="../../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
-<script src="../../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../../deps/font-awesome-6.4.2/css/all.min.css" rel="stylesheet">
-<link href="../../deps/font-awesome-6.4.2/css/v4-shims.min.css" rel="stylesheet">
+<script src="../../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
+<link href="../../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
 <script src="../../deps/headroom-0.11.0/headroom.min.js"></script><script src="../../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../../deps/search-1.0.0/fuse.min.js"></script><script src="../../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../../pkgdown.js"></script><link href="../../extra.css" rel="stylesheet">
 <meta property="og:title" content="How-to: Use shinymanager">
 <!-- Google tag (gtag.js) --><script async src="https://www.googletagmanager.com/gtag/js?id=G-NEHZJ9B11D"></script><script>
@@ -146,7 +146,8 @@
 
 
 
-<script src="use-shinymanager_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
+
+<div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
 
       <h1>How-to: Use shinymanager</h1>
@@ -158,10 +159,17 @@
 
     
     
-<p>Rhino puts strong emphasis on modularization and for consistency even the outermost UI and server are defined as a Shiny module. Unfortunately, <a href="https://datastorm-open.github.io/shinymanager/reference/secure-app.html" class="external-link"><code>shinymanager::secure_app()</code></a> cannot be placed in a Shiny module as it is designed to be passed directly to <code><a href="https://rdrr.io/pkg/shiny/man/shinyApp.html" class="external-link">shiny::shinyApp()</a></code>.</p>
-<p>To overcome this you can setup a <a href="https://appsilon.github.io/rhino/reference/app.html#legacy-entrypoint" class="external-link">legacy entrypoint</a> in your <code>rhino.yml</code>. Please be aware that it is a workaround and not a setting recommended for all cases:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode yml"><code class="sourceCode yaml"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true"></a><span class="fu">legacy_entrypoint</span><span class="kw">:</span><span class="at"> box_top_level</span></span></code></pre></div>
-<p>After adding <code>shinymanager</code> to your <a href="https://appsilon.github.io/rhino/articles/how-to/manage-r-dependencies.html" class="external-link">dependencies</a> you can use it in <code>app/main.R</code> as follows:</p>
+<p>Rhino puts strong emphasis on modularization and for consistency even
+the outermost UI and server are defined as a Shiny module.
+Unfortunately, <a href="https://datastorm-open.github.io/shinymanager/reference/secure-app.html" class="external-link"><code>shinymanager::secure_app()</code></a>
+cannot be placed in a Shiny module as it is designed to be passed
+directly to <code><a href="https://rdrr.io/pkg/shiny/man/shinyApp.html" class="external-link">shiny::shinyApp()</a></code>.</p>
+<p>To overcome this you can setup a <a href="https://appsilon.github.io/rhino/reference/app.html#legacy-entrypoint" class="external-link">legacy
+entrypoint</a> in your <code>rhino.yml</code>. Please be aware that it
+is a workaround and not a setting recommended for all cases:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode yml"><code class="sourceCode yaml"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="fu">legacy_entrypoint</span><span class="kw">:</span><span class="at"> box_top_level</span></span></code></pre></div>
+<p>After adding <code>shinymanager</code> to your <a href="https://appsilon.github.io/rhino/articles/how-to/manage-r-dependencies.html" class="external-link">dependencies</a>
+you can use it in <code>app/main.R</code> as follows:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">box</span><span class="fu">::</span><span class="fu"><a href="http://klmr.me/box/reference/use.html" class="external-link">use</a></span><span class="op">(</span></span>
 <span>  <span class="va">shiny</span>,</span>
@@ -188,11 +196,16 @@
 <span>  <span class="va">shinymanager</span><span class="op">$</span><span class="fu">secure_server</span><span class="op">(</span><span class="va">check_credentials</span><span class="op">)</span></span>
 <span>  <span class="va">output</span><span class="op">$</span><span class="va">message</span> <span class="op">&lt;-</span> <span class="fu">shiny</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/renderPrint.html" class="external-link">renderText</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="st">"Hello "</span>, <span class="va">input</span><span class="op">$</span><span class="va">name</span>, <span class="st">"!"</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="op">}</span></span></code></pre></div>
-<p>This is just an example. <strong>Do not hard-code the credentials</strong> in your actual application. Store them in a database or use <a href="https://appsilon.github.io/rhino/articles/how-to/manage-secrets-and-environments.html" class="external-link">environment variables</a>.</p>
+<p>This is just an example. <strong>Do not hard-code the
+credentials</strong> in your actual application. Store them in a
+database or use <a href="https://appsilon.github.io/rhino/articles/how-to/manage-secrets-and-environments.html" class="external-link">environment
+variables</a>.</p>
 <div class="section level3">
 <h3 id="bookmarking">Bookmarking<a class="anchor" aria-label="anchor" href="#bookmarking"></a>
 </h3>
-<p>If you want to use <a href="https://shiny.posit.co/r/articles/share/bookmarking-state/" class="external-link">bookmarking</a> together with <code>shinymanager</code>, you will need to wrap the UI passed to <code>secure_app()</code> in a function:</p>
+<p>If you want to use <a href="https://shiny.posit.co/r/articles/share/bookmarking-state/" class="external-link">bookmarking</a>
+together with <code>shinymanager</code>, you will need to wrap the UI
+passed to <code>secure_app()</code> in a function:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">shiny</span><span class="op">$</span><span class="fu">enableBookmarking</span><span class="op">(</span><span class="op">)</span></span>
 <span></span>

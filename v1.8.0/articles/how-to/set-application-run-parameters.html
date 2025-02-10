@@ -14,8 +14,8 @@
 <link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../../apple-touch-icon-60x60.png">
 <script src="../../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="../../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
-<script src="../../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../../deps/font-awesome-6.4.2/css/all.min.css" rel="stylesheet">
-<link href="../../deps/font-awesome-6.4.2/css/v4-shims.min.css" rel="stylesheet">
+<script src="../../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
+<link href="../../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
 <script src="../../deps/headroom-0.11.0/headroom.min.js"></script><script src="../../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../../deps/search-1.0.0/fuse.min.js"></script><script src="../../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../../pkgdown.js"></script><link href="../../extra.css" rel="stylesheet">
 <meta property="og:title" content="How-to: Set application run parameters">
 <!-- Google tag (gtag.js) --><script async src="https://www.googletagmanager.com/gtag/js?id=G-NEHZJ9B11D"></script><script>
@@ -164,7 +164,8 @@
 
 
 
-<script src="set-application-run-parameters_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
+
+<div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
 
       <h1>How-to: Set application run parameters</h1>
@@ -176,13 +177,19 @@
 
     
     
-<p>When running a Shiny application you might want to set parameters like port or host. In Rhino, this can be done the same as in a regular Shiny application - by passing arguments to <a href="https://shiny.posit.co/r/reference/shiny/1.7.4/runapp" class="external-link"><code>shiny::runApp</code></a>.</p>
-<p>For example, if you want to run your application with the host set to <code>0.0.0.0</code> (so you can serve it in your local network) and port set to <code>5000</code>, you can run:</p>
+<p>When running a Shiny application you might want to set parameters
+like port or host. In Rhino, this can be done the same as in a regular
+Shiny application - by passing arguments to <a href="https://shiny.posit.co/r/reference/shiny/1.7.4/runapp" class="external-link"><code>shiny::runApp</code></a>.</p>
+<p>For example, if you want to run your application with the host set to
+<code>0.0.0.0</code> (so you can serve it in your local network) and
+port set to <code>5000</code>, you can run:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># R console</span></span>
 <span></span>
 <span><span class="fu">shiny</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/runApp.html" class="external-link">runApp</a></span><span class="op">(</span>host <span class="op">=</span> <span class="st">"0.0.0.0"</span>, port <span class="op">=</span> <span class="fl">5000</span><span class="op">)</span></span></code></pre></div>
-<p>If you want to make your settings permanent, you can modify your <code>.Rprofile</code> file and set <a href="https://shiny.posit.co/r/reference/shiny/1.7.4/shinyoptions" class="external-link">Shiny options</a> there:</p>
+<p>If you want to make your settings permanent, you can modify your
+<code>.Rprofile</code> file and set <a href="https://shiny.posit.co/r/reference/shiny/1.7.4/shinyoptions" class="external-link">Shiny
+options</a> there:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># .Rprofile</span></span>
 <span></span>
@@ -199,7 +206,9 @@
 <span><span class="co"># Shiny options</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">options</a></span><span class="op">(</span>shiny.host <span class="op">=</span> <span class="st">"0.0.0.0"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">options</a></span><span class="op">(</span>shiny.port <span class="op">=</span> <span class="fl">5000</span><span class="op">)</span></span></code></pre></div>
-<p>Make sure you don’t remove entries related to <code>renv</code> and <code>box</code> as they are required for your Rhino application to work!</p>
+<p>Make sure you don’t remove entries related to <code>renv</code> and
+<code>box</code> as they are required for your Rhino application to
+work!</p>
   </main>
 </div>
 

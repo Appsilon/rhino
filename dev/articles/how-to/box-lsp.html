@@ -14,8 +14,8 @@
 <link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../../apple-touch-icon-60x60.png">
 <script src="../../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="../../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
-<script src="../../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../../deps/font-awesome-6.4.2/css/all.min.css" rel="stylesheet">
-<link href="../../deps/font-awesome-6.4.2/css/v4-shims.min.css" rel="stylesheet">
+<script src="../../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
+<link href="../../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
 <script src="../../deps/headroom-0.11.0/headroom.min.js"></script><script src="../../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../../deps/search-1.0.0/fuse.min.js"></script><script src="../../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../../pkgdown.js"></script><link href="../../extra.css" rel="stylesheet">
 <meta property="og:title" content="How-to: Auto-complete in VSCode">
 <!-- Google tag (gtag.js) --><script async src="https://www.googletagmanager.com/gtag/js?id=G-NEHZJ9B11D"></script><script>
@@ -170,7 +170,8 @@
 
 
 
-<script src="box-lsp_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
+
+<div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
 
       <h1>How-to: Auto-complete in VSCode</h1>
@@ -182,25 +183,44 @@
 
     
     
-<p><em>Box-module auto-complete only works if one uses VSCode or Vim. It does not have any known adverse effects on RStudio Desktop or Posit Workbench.</em></p>
+<p><em>Box-module auto-complete only works if one uses VSCode or Vim. It
+does not have any known adverse effects on RStudio Desktop or Posit
+Workbench.</em></p>
 <div class="section level2">
 <h2 id="introduction">Introduction<a class="anchor" aria-label="anchor" href="#introduction"></a>
 </h2>
-<p>Rhino utilizes <a href="https://klmr.me/box/" class="external-link">box</a> modules to manage large code bases. A disadvantage of <a href="https://klmr.me/box/" class="external-link">box</a> modules is the lack of syntax auto-complete support in RStudio or VSCode. In VSCode, auto-complete is provided by <a href="https://github.com/REditorSupport/languageserver/" class="external-link">languageserver</a> which allows for external parsers. <a href="https://appsilon.github.io/box.lsp/index.html" class="external-link"><code>{box.lsp}</code></a> is an extension to <a href="https://github.com/REditorSupport/languageserver/" class="external-link">languageserver</a> to provide function name and function argument auto-complete support for <a href="https://klmr.me/box/" class="external-link">box</a> modules. Please refer to the <a href="https://github.com/Appsilon/box.lsp" class="external-link">box.lsp</a> <a href="https://appsilon.github.io/box.lsp/index.html" class="external-link">documentation</a> for its current capabilities.</p>
+<p>Rhino utilizes <a href="https://klmr.me/box/" class="external-link">box</a> modules to manage large code bases.
+A disadvantage of <a href="https://klmr.me/box/" class="external-link">box</a> modules is the lack of syntax
+auto-complete support in RStudio or VSCode. In VSCode, auto-complete is
+provided by <a href="https://github.com/REditorSupport/languageserver/" class="external-link">languageserver</a> which allows for external
+parsers. <a href="https://appsilon.github.io/box.lsp/index.html" class="external-link"><code>{box.lsp}</code></a>
+is an extension to <a href="https://github.com/REditorSupport/languageserver/" class="external-link">languageserver</a> to provide function
+name and function argument auto-complete support for <a href="https://klmr.me/box/" class="external-link">box</a>
+modules. Please refer to the <a href="https://github.com/Appsilon/box.lsp" class="external-link">box.lsp</a> <a href="https://appsilon.github.io/box.lsp/index.html" class="external-link">documentation</a>
+for its current capabilities.</p>
 </div>
 <div class="section level2">
 <h2 id="steps">Steps<a class="anchor" aria-label="anchor" href="#steps"></a>
 </h2>
 <ol style="list-style-type: decimal">
-<li>Install <code>languageserver</code>: <code>renv::install("languageserver")</code>. <code>languageserver</code> is a developer tool, it is <em>not</em> advised to add it to <code>dependencies.R</code> or to <code>renv.lock</code>.</li>
-<li>If you initialized your Rhino app with version 1.10.0 or later, proceed to step 4.</li>
+<li>Install <code>languageserver</code>:
+<code>renv::install("languageserver")</code>.
+<code>languageserver</code> is a developer tool, it is <em>not</em>
+advised to add it to <code>dependencies.R</code> or to
+<code>renv.lock</code>.</li>
+<li>If you initialized your Rhino app with version 1.10.0 or later,
+proceed to step 4.</li>
 <li>If you are using an existing Rhino app with version &lt; 1.10.0:
 <ol style="list-style-type: decimal">
-<li>Install <code>box.lsp</code> to project dependencies: <code>rhino::pkg_install("box.lsp")</code>.</li>
-<li>Run <a href="https://appsilon.github.io/box.lsp/reference/use_box_lsp.html" class="external-link"><code>box.lsp::use_box_lsp()</code></a> to update your project’s <code>.Rprofile</code> file with <code>box.lsp</code> configuration.</li>
+<li>Install <code>box.lsp</code> to project dependencies:
+<code>rhino::pkg_install("box.lsp")</code>.</li>
+<li>Run <a href="https://appsilon.github.io/box.lsp/reference/use_box_lsp.html" class="external-link"><code>box.lsp::use_box_lsp()</code></a>
+to update your project’s <code>.Rprofile</code> file with
+<code>box.lsp</code> configuration.</li>
 </ol>
 </li>
-<li>Restart the R session (restart VSCode) to reload <code>.Rprofile</code>.</li>
+<li>Restart the R session (restart VSCode) to reload
+<code>.Rprofile</code>.</li>
 </ol>
 </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>

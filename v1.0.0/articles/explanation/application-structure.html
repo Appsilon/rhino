@@ -14,8 +14,8 @@
 <link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../../apple-touch-icon-60x60.png">
 <script src="../../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="../../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
-<script src="../../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../../deps/font-awesome-6.4.2/css/all.min.css" rel="stylesheet">
-<link href="../../deps/font-awesome-6.4.2/css/v4-shims.min.css" rel="stylesheet">
+<script src="../../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
+<link href="../../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
 <script src="../../deps/headroom-0.11.0/headroom.min.js"></script><script src="../../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../../deps/search-1.0.0/fuse.min.js"></script><script src="../../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../../pkgdown.js"></script><link href="../../extra.css" rel="stylesheet">
 <meta property="og:title" content="Explanation: Application structure">
 <!-- Global site tag (gtag.js) - Google Analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=G-DL2H66RTY1"></script><script>
@@ -124,7 +124,8 @@
 
 
 
-<script src="application-structure_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
+
+<div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
 
       <h1>Explanation: Application structure</h1>
@@ -139,8 +140,17 @@
 <div class="section level2">
 <h2 id="philosophy">Philosophy<a class="anchor" aria-label="anchor" href="#philosophy"></a>
 </h2>
-<p>Shiny comes with a powerful <a href="https://shiny.rstudio.com/articles/reactivity-overview.html" class="external-link">reactive programming</a> model and a rich set of functions for creating UI widgets or custom <a href="https://shiny.rstudio.com/articles/tag-glossary.html" class="external-link">HTML structure</a>. These features make it possible to quickly build impressive, interactive applications, but they can also make your code harder to test and reuse.</p>
-<p>To address this, we recommend to separate the code which must depend on Shiny from the logic which can be expressed without it. The division makes for more robust and maintainable apps in our experience. To support this separation, Rhino encourages a specific structure for the R sources of your application:</p>
+<p>Shiny comes with a powerful <a href="https://shiny.rstudio.com/articles/reactivity-overview.html" class="external-link">reactive
+programming</a> model and a rich set of functions for creating UI
+widgets or custom <a href="https://shiny.rstudio.com/articles/tag-glossary.html" class="external-link">HTML
+structure</a>. These features make it possible to quickly build
+impressive, interactive applications, but they can also make your code
+harder to test and reuse.</p>
+<p>To address this, we recommend to separate the code which must depend
+on Shiny from the logic which can be expressed without it. The division
+makes for more robust and maintainable apps in our experience. To
+support this separation, Rhino encourages a specific structure for the R
+sources of your application:</p>
 <ul>
 <li>
 <code>main.R</code>: The entry point to your application.</li>
@@ -152,14 +162,21 @@
 <div class="section level3">
 <h3 id="logic">Logic<a class="anchor" aria-label="anchor" href="#logic"></a>
 </h3>
-<p>Code which uses reactivity or UI builder functions can be hard to test and reuse. With proper design it is possible to express most of your application logic using plain R functions and data structures (like lists, data frames).</p>
-<p>Use the <code>logic</code> directory for code which can be expressed without Shiny.</p>
+<p>Code which uses reactivity or UI builder functions can be hard to
+test and reuse. With proper design it is possible to express most of
+your application logic using plain R functions and data structures (like
+lists, data frames).</p>
+<p>Use the <code>logic</code> directory for code which can be expressed
+without Shiny.</p>
 </div>
 <div class="section level3">
 <h3 id="view">View<a class="anchor" aria-label="anchor" href="#view"></a>
 </h3>
-<p>The <code>view</code> directory should contain code which describes the user interface of your application. Use the functions defined in <code>logic</code> here and connect them using reactivity.</p>
-<p>Structure your application using <a href="https://shiny.rstudio.com/articles/modules.html" class="external-link">Shiny modules</a>. A typical module can look something like this:</p>
+<p>The <code>view</code> directory should contain code which describes
+the user interface of your application. Use the functions defined in
+<code>logic</code> here and connect them using reactivity.</p>
+<p>Structure your application using <a href="https://shiny.rstudio.com/articles/modules.html" class="external-link">Shiny
+modules</a>. A typical module can look something like this:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">box</span><span class="fu">::</span><span class="fu"><a href="http://klmr.me/box/reference/use.html" class="external-link">use</a></span><span class="op">(</span></span>
 <span>  <span class="va">shiny</span><span class="op">[</span><span class="va">moduleServer</span>, <span class="va">NS</span>, <span class="va">renderText</span>, <span class="va">tagList</span>, <span class="va">textInput</span>, <span class="va">textOutput</span><span class="op">]</span>,</span>
@@ -192,18 +209,33 @@
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Rhino / shinyApp entrypoint. Do not edit.</span></span>
 <span><span class="fu">rhino</span><span class="fu">::</span><span class="fu"><a href="../../reference/app.html">app</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<p>You should not edit this file and instead write your top-level code in <code>app/main.R</code>. The comment is also important: thanks to the <code>shinyApp</code> string, RStudio recognizes this file as a Shiny application and shows the “Run” and “Publish” buttons.</p>
-<p>Such a solution gives Rhino full control over app startup. Steps performed by <code><a href="../../reference/app.html">rhino::app()</a></code> include:</p>
+<p>You should not edit this file and instead write your top-level code
+in <code>app/main.R</code>. The comment is also important: thanks to the
+<code>shinyApp</code> string, RStudio recognizes this file as a Shiny
+application and shows the “Run” and “Publish” buttons.</p>
+<p>Such a solution gives Rhino full control over app startup. Steps
+performed by <code><a href="../../reference/app.html">rhino::app()</a></code> include:</p>
 <ol style="list-style-type: decimal">
-<li>Purge box cache, so the app can be reloaded without restarting R session.</li>
+<li>Purge box cache, so the app can be reloaded without restarting R
+session.</li>
 <li>Configure logger (log level, log file).</li>
 <li>Configure static files.</li>
 <li>Load the main module / legacy entrypoint.</li>
 <li>Add head tags (favicon, CSS &amp; JS).</li>
 </ol>
-<p>One can wonder if we really need a separate <code>main.R</code> file. Couldn’t we just define the top-level <code>ui</code> and <code>server</code> in <code>app.R</code> and pass it to <code><a href="../../reference/app.html">rhino::app()</a></code> as arguments, much like with <code><a href="https://rdrr.io/pkg/shiny/man/shinyApp.html" class="external-link">shiny::shinyApp()</a></code>?</p>
-<p>We employ this solution to enforce consistent use of box in the entire application. A file loaded with <code><a href="http://klmr.me/box/reference/use.html" class="external-link">box::use()</a></code> can only load other modules/packages with <code><a href="http://klmr.me/box/reference/use.html" class="external-link">box::use()</a></code>. On the other hand, Shiny simply sources <code>app.R</code>, so <code><a href="https://rdrr.io/r/base/library.html" class="external-link">library()</a></code> and <code><a href="https://rdrr.io/r/base/source.html" class="external-link">source()</a></code> could be used in this single file.</p>
-<p>As the entire Rhino application is loaded with <code>box::use(app/main)</code>, all the sources must be properly structured as box modules.</p>
+<p>One can wonder if we really need a separate <code>main.R</code> file.
+Couldn’t we just define the top-level <code>ui</code> and
+<code>server</code> in <code>app.R</code> and pass it to
+<code><a href="../../reference/app.html">rhino::app()</a></code> as arguments, much like with
+<code><a href="https://rdrr.io/pkg/shiny/man/shinyApp.html" class="external-link">shiny::shinyApp()</a></code>?</p>
+<p>We employ this solution to enforce consistent use of box in the
+entire application. A file loaded with <code><a href="http://klmr.me/box/reference/use.html" class="external-link">box::use()</a></code> can only
+load other modules/packages with <code><a href="http://klmr.me/box/reference/use.html" class="external-link">box::use()</a></code>. On the other
+hand, Shiny simply sources <code>app.R</code>, so <code><a href="https://rdrr.io/r/base/library.html" class="external-link">library()</a></code>
+and <code><a href="https://rdrr.io/r/base/source.html" class="external-link">source()</a></code> could be used in this single file.</p>
+<p>As the entire Rhino application is loaded with
+<code>box::use(app/main)</code>, all the sources must be properly
+structured as box modules.</p>
 </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside>

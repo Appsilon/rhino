@@ -14,8 +14,8 @@
 <link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../../apple-touch-icon-60x60.png">
 <script src="../../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="../../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
-<script src="../../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../../deps/font-awesome-6.4.2/css/all.min.css" rel="stylesheet">
-<link href="../../deps/font-awesome-6.4.2/css/v4-shims.min.css" rel="stylesheet">
+<script src="../../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
+<link href="../../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
 <script src="../../deps/headroom-0.11.0/headroom.min.js"></script><script src="../../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../../deps/search-1.0.0/fuse.min.js"></script><script src="../../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../../pkgdown.js"></script><link href="../../extra.css" rel="stylesheet">
 <meta property="og:title" content="How-to: Rhino Addins">
 <!-- Google tag (gtag.js) --><script async src="https://www.googletagmanager.com/gtag/js?id=G-NEHZJ9B11D"></script><script>
@@ -166,7 +166,8 @@
 
 
 
-<script src="use-addins_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
+
+<div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
 
       <h1>How-to: Rhino Addins</h1>
@@ -178,14 +179,21 @@
 
     
     
-<p>To further streamline your development process, a collection of Addins has been designed to integrate with RStudio. These Addins provide convenient shortcuts and tools for common tasks.</p>
-<p>These Addins enhance the RStudio development workflow by providing quick access to essential tasks and enabling background execution, allowing for better transitions between coding and task management.</p>
+<p>To further streamline your development process, a collection of
+Addins has been designed to integrate with RStudio. These Addins provide
+convenient shortcuts and tools for common tasks.</p>
+<p>These Addins enhance the RStudio development workflow by providing
+quick access to essential tasks and enabling background execution,
+allowing for better transitions between coding and task management.</p>
 <p>This guide shows Addins available for Rhino.</p>
 <div class="section level2">
 <h2 id="addins">Addins<a class="anchor" aria-label="anchor" href="#addins"></a>
 </h2>
 <p><img src="images%2Frhino_addins.png"></p>
-<p>RStudio <a href="https://rstudio.github.io/rstudioaddins/" class="external-link">Addins</a> provide a mechanism for executing R functions interactively from within the RStudio IDE either through keyboard shortcuts, or through the Addins menu.</p>
+<p>RStudio <a href="https://rstudio.github.io/rstudioaddins/" class="external-link">Addins</a>
+provide a mechanism for executing R functions interactively from within
+the RStudio IDE either through keyboard shortcuts, or through the Addins
+menu.</p>
 </div>
 <div class="section level2">
 <h2 id="available-addins">Available Addins<a class="anchor" aria-label="anchor" href="#available-addins"></a>
@@ -193,47 +201,67 @@
 <div class="section level3">
 <h3 id="create-a-new-rhino-module">Create a new Rhino Module<a class="anchor" aria-label="anchor" href="#create-a-new-rhino-module"></a>
 </h3>
-<p>Jump start your module development by creating a new R script document with a Rhino module template. This Addin sets the foundation for your module structure, letting you dive straight into coding.</p>
+<p>Jump start your module development by creating a new R script
+document with a Rhino module template. This Addin sets the foundation
+for your module structure, letting you dive straight into coding.</p>
 </div>
 <div class="section level3">
 <h3 id="format-r-code">Format R Code<a class="anchor" aria-label="anchor" href="#format-r-code"></a>
 </h3>
-<p>Uses the <a href="https://github.com/r-lib/styler" class="external-link">styler</a> package to automatically format R script. This Addin ensures consistency and readability.</p>
+<p>Uses the <a href="https://github.com/r-lib/styler" class="external-link">styler</a> package to automatically format R
+script. This Addin ensures consistency and readability.</p>
 </div>
 <div class="section level3">
 <h3 id="lint-r-code">Lint R Code<a class="anchor" aria-label="anchor" href="#lint-r-code"></a>
 </h3>
-<p>Uses the <a href="https://github.com/r-lib/lintr" class="external-link">lintr</a> package to check all R sources for style errors. Identify and address potential issues in your R scripts with ease.</p>
+<p>Uses the <a href="https://github.com/r-lib/lintr" class="external-link">lintr</a> package to check all R sources for
+style errors. Identify and address potential issues in your R scripts
+with ease.</p>
 </div>
 <div class="section level3">
 <h3 id="run-r-tests">Run R Tests<a class="anchor" aria-label="anchor" href="#run-r-tests"></a>
 </h3>
-<p>Uses the <code>{testhat}</code> package to run all unit tests in <code>tests/testthat</code> directory. Maintain your functions and components reliability.</p>
+<p>Uses the <code>{testhat}</code> package to run all unit tests in
+<code>tests/testthat</code> directory. Maintain your functions and
+components reliability.</p>
 </div>
 <div class="section level3">
 <h3 id="build-javascript">Build JavaScript<a class="anchor" aria-label="anchor" href="#build-javascript"></a>
 </h3>
-<p>Simplify the process of building JavaScript files using Babel and Webpack. Builds the <code>app/js/index.js</code> file into <code>app/static/js/app.min.js</code>. Choose to watch for changes, automating the build process whenever you save the JavaScript file.</p>
+<p>Simplify the process of building JavaScript files using Babel and
+Webpack. Builds the <code>app/js/index.js</code> file into
+<code>app/static/js/app.min.js</code>. Choose to watch for changes,
+automating the build process whenever you save the JavaScript file.</p>
 </div>
 <div class="section level3">
 <h3 id="build-sass-styles">Build Sass Styles<a class="anchor" aria-label="anchor" href="#build-sass-styles"></a>
 </h3>
-<p>Effortlessly build Sass styles using Dart Sass or the <a href="https://rstudio.github.io/sass/" class="external-link">sass</a> R package. It builds the <code>app/styles/main.scss</code> file into <code>app/static/css/app.min.css</code>. Opt to watch for changes, allowing for automatic rebuilding of style sheets.</p>
+<p>Effortlessly build Sass styles using Dart Sass or the
+<a href="https://rstudio.github.io/sass/" class="external-link">sass</a> R package. It builds the
+<code>app/styles/main.scss</code> file into
+<code>app/static/css/app.min.css</code>. Opt to watch for changes,
+allowing for automatic rebuilding of style sheets.</p>
 </div>
 <div class="section level3">
 <h3 id="lint-javascript">Lint JavaScript<a class="anchor" aria-label="anchor" href="#lint-javascript"></a>
 </h3>
-<p>Runs <code>ESLint</code> on the JavaScript sources in the <code>app/js</code> directory. It performs linting on JavaScript files with ease. Opt to fix issues automatically for fixing it directly.</p>
+<p>Runs <code>ESLint</code> on the JavaScript sources in the
+<code>app/js</code> directory. It performs linting on JavaScript files
+with ease. Opt to fix issues automatically for fixing it directly.</p>
 </div>
 <div class="section level3">
 <h3 id="lint-sass-styles">Lint Sass Styles<a class="anchor" aria-label="anchor" href="#lint-sass-styles"></a>
 </h3>
-<p>Runs <code>Stylelint</code> on the Sass sources in the <code>app/styles</code> directory. Choose to automatically fix issues to streamline the process of linting Sass styles.</p>
+<p>Runs <code>Stylelint</code> on the Sass sources in the
+<code>app/styles</code> directory. Choose to automatically fix issues to
+streamline the process of linting Sass styles.</p>
 </div>
 <div class="section level3">
 <h3 id="run-end-to-end-tests">Run End-to-End Tests<a class="anchor" aria-label="anchor" href="#run-end-to-end-tests"></a>
 </h3>
-<p>Execute Cypress end-to-end tests for your application. Choose between interactive and non-interactive modes to validate application behavior.</p>
+<p>Execute Cypress end-to-end tests for your application. Choose between
+interactive and non-interactive modes to validate application
+behavior.</p>
 </div>
 </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>

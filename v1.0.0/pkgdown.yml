@@ -1,4 +1,4 @@
-pandoc: 2.9.2.1
+pandoc: 3.1.3
 pkgdown: 2.1.1
 pkgdown_sha: ~
 articles:
@@ -17,7 +17,7 @@ articles:
   explanation/what-is-rhino: explanation/what-is-rhino.html
   how-to/write-javascript-code: how-to/write-javascript-code.html
   how-to/write-r-code: how-to/write-r-code.html
-last_built: 2024-09-23T04:35Z
+last_built: 2025-02-10T10:16Z
 urls:
   reference: https://appsilon.github.io/rhino/v1.0.0/reference
   article: https://appsilon.github.io/rhino/v1.0.0/articles

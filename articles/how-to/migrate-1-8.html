@@ -14,8 +14,8 @@
 <link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../../apple-touch-icon-60x60.png">
 <script src="../../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="../../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
-<script src="../../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../../deps/font-awesome-6.4.2/css/all.min.css" rel="stylesheet">
-<link href="../../deps/font-awesome-6.4.2/css/v4-shims.min.css" rel="stylesheet">
+<script src="../../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
+<link href="../../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
 <script src="../../deps/headroom-0.11.0/headroom.min.js"></script><script src="../../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../../deps/search-1.0.0/fuse.min.js"></script><script src="../../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../../pkgdown.js"></script><link href="../../extra.css" rel="stylesheet">
 <meta property="og:title" content="How-to: Rhino 1.8 Migration Guide">
 <!-- Google tag (gtag.js) --><script async src="https://www.googletagmanager.com/gtag/js?id=G-NEHZJ9B11D"></script><script>
@@ -170,7 +170,8 @@
 
 
 
-<script src="migrate-1-8_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
+
+<div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
 
       <h1>How-to: Rhino 1.8 Migration Guide</h1>
@@ -182,30 +183,40 @@
 
     
     
-<p>Follow the steps outlined in this guide to migrate your project to Rhino 1.8. Before starting, ensure your Git working tree is clean, or back up your project if not using Git.</p>
-<p>This guide assumes you are migrating from Rhino 1.6 or 1.7. If you are currently using an older version of Rhino, please start with <a href="https://appsilon.github.io/rhino/articles/how-to/migrate-1-6.html">Rhino 1.6 Migration Guide</a>.</p>
+<p>Follow the steps outlined in this guide to migrate your project to
+Rhino 1.8. Before starting, ensure your Git working tree is clean, or
+back up your project if not using Git.</p>
+<p>This guide assumes you are migrating from Rhino 1.6 or 1.7. If you
+are currently using an older version of Rhino, please start with <a href="https://appsilon.github.io/rhino/articles/how-to/migrate-1-6.html">Rhino
+1.6 Migration Guide</a>.</p>
 <div class="section level2">
 <h2 id="step-1-install-rhino-1-8">Step 1: Install Rhino 1.8<a class="anchor" aria-label="anchor" href="#step-1-install-rhino-1-8"></a>
 </h2>
-<p>Use the following command to install Rhino 1.8 and update your <code>renv.lock</code> file:</p>
+<p>Use the following command to install Rhino 1.8 and update your
+<code>renv.lock</code> file:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">rhino</span><span class="fu">::</span><span class="fu"><a href="../../reference/dependencies.html">pkg_install</a></span><span class="op">(</span><span class="st">"rhino@1.8.0"</span><span class="op">)</span></span></code></pre></div>
-<p>After the installation, restart your R session to ensure all changes take effect.</p>
+<p>After the installation, restart your R session to ensure all changes
+take effect.</p>
 </div>
 <div class="section level2">
 <h2 id="step-2-update-your-linter-rules">Step 2: Update your linter rules<a class="anchor" aria-label="anchor" href="#step-2-update-your-linter-rules"></a>
 </h2>
 <div class="section level3">
-<h3 id="option-a-you-use--lintr-provided-by-rhino-without-modifications">Option A: You use <code>.lintr</code> provided by Rhino without modifications<a class="anchor" aria-label="anchor" href="#option-a-you-use--lintr-provided-by-rhino-without-modifications"></a>
+<h3 id="option-a-you-use--lintr-provided-by-rhino-without-modifications">Option A: You use <code>.lintr</code> provided by Rhino without
+modifications<a class="anchor" aria-label="anchor" href="#option-a-you-use--lintr-provided-by-rhino-without-modifications"></a>
 </h3>
-<p>Run the following command to replace your <code>.lintr</code> file with the new default one provided by Rhino:</p>
+<p>Run the following command to replace your <code>.lintr</code> file
+with the new default one provided by Rhino:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">box.linters</span><span class="fu">::</span><span class="fu"><a href="https://appsilon.github.io/box.linters/reference/use_box_lintr.html" class="external-link">use_box_lintr</a></span><span class="op">(</span>type <span class="op">=</span> <span class="st">"rhino"</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="option-b-you-have-customized--lintr-file">Option B: You have customized <code>.lintr</code> file<a class="anchor" aria-label="anchor" href="#option-b-you-have-customized--lintr-file"></a>
 </h3>
-<p>Edit the <code>.lintr</code> file in your project so it uses <code><a href="https://appsilon.github.io/box.linters/reference/rhino_default_linters.html" class="external-link">box.linters::rhino_default_linters</a></code> as the default linters:</p>
+<p>Edit the <code>.lintr</code> file in your project so it uses
+<code><a href="https://appsilon.github.io/box.linters/reference/rhino_default_linters.html" class="external-link">box.linters::rhino_default_linters</a></code> as the default
+linters:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">linters</span><span class="op">:</span></span>
 <span>  <span class="fu">linters_with_defaults</span><span class="op">(</span></span>
@@ -217,20 +228,29 @@
 <div class="section level2">
 <h2 id="step-3-update-github-actions-workflow">Step 3: Update GitHub Actions workflow<a class="anchor" aria-label="anchor" href="#step-3-update-github-actions-workflow"></a>
 </h2>
-<p><em>Note: This step is only necessary if you are using GitHub Actions in your project.</em></p>
+<p><em>Note: This step is only necessary if you are using GitHub Actions
+in your project.</em></p>
 <p>To update your workflow, run:</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/files.html" class="external-link">file.copy</a></span><span class="op">(</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"templates"</span>, <span class="st">"github_ci"</span>, <span class="st">"dot.github"</span>, <span class="st">"workflows"</span>, <span class="st">"rhino-test.yml"</span>, package <span class="op">=</span> <span class="st">"rhino"</span><span class="op">)</span>,</span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="st">".github"</span>, <span class="st">"workflows"</span>, <span class="st">"rhino-test.yml"</span><span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
-<p>This command will replace the current GitHub Actions workflow with the new Rhino-provided one. If you have customized your workflow, you will need to manually update it to include the new triggers added to the template. The changes can be found in <a href="https://github.com/Appsilon/rhino/commit/8e080655f81865a30af51330cd81f4614d3a7405" class="external-link">this commit</a>.</p>
+<p>This command will replace the current GitHub Actions workflow with
+the new Rhino-provided one. If you have customized your workflow, you
+will need to manually update it to include the new triggers added to the
+template. The changes can be found in <a href="https://github.com/Appsilon/rhino/commit/8e080655f81865a30af51330cd81f4614d3a7405" class="external-link">this
+commit</a>.</p>
 </div>
 <div class="section level2">
 <h2 id="step-4-test-your-project">Step 4: Test your project<a class="anchor" aria-label="anchor" href="#step-4-test-your-project"></a>
 </h2>
-<p>Test your project thoroughly to ensure everything works properly after the migration. In particular, run <code><a href="../../reference/lint_r.html">rhino::lint_r()</a></code> and fix the problems it reports.</p>
-<p>If you encounter any issues or have further questions, don’t hesitate to reach out to us via <a href="https://github.com/Appsilon/rhino/discussions" class="external-link">GitHub Discussions</a>.</p>
+<p>Test your project thoroughly to ensure everything works properly
+after the migration. In particular, run <code><a href="../../reference/lint_r.html">rhino::lint_r()</a></code> and
+fix the problems it reports.</p>
+<p>If you encounter any issues or have further questions, don’t hesitate
+to reach out to us via <a href="https://github.com/Appsilon/rhino/discussions" class="external-link">GitHub
+Discussions</a>.</p>
 </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside>

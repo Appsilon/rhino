@@ -14,8 +14,8 @@
 <link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png">
 <script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
-<script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.4.2/css/all.min.css" rel="stylesheet">
-<link href="../deps/font-awesome-6.4.2/css/v4-shims.min.css" rel="stylesheet">
+<script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
+<link href="../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
 <script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><link href="../extra.css" rel="stylesheet">
 <meta property="og:title" content="FAQ">
 <!-- Google tag (gtag.js) --><script async src="https://www.googletagmanager.com/gtag/js?id=G-NEHZJ9B11D"></script><script>
@@ -170,7 +170,8 @@
 
 
 
-<script src="faq_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
+
+<div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
 
       <h1>FAQ</h1>
@@ -185,52 +186,90 @@
 <div class="section level2">
 <h2 id="running-and-deployment">Running and deployment<a class="anchor" aria-label="anchor" href="#running-and-deployment"></a>
 </h2>
-<details><p><summary>How to run a Rhino application?</summary></p>
-<p>You can run a Rhino application exactly the same as a regular Shiny app:</p>
+<details><summary>
+How to run a Rhino application?
+</summary><p>You can run a Rhino application exactly the same as a regular Shiny
+app:</p>
 <ul>
 <li>using <code><a href="https://rdrr.io/pkg/shiny/man/runApp.html" class="external-link">shiny::runApp()</a></code>
 </li>
 <li>using the “Run app” button in RStudio</li>
-</ul></details><details><p><summary>How to automatically reload the application during development?</summary></p>
-<p>Call <code>options(shiny.autoreload = TRUE)</code> in your R session. Shiny will monitor the app directory and reload all connected sessions if any changes are detected. More details can be found in <a href="https://shiny.posit.co/r/reference/shiny/latest/shinyoptions" class="external-link">Shiny reference</a>.</p>
-<p>Note: you have to use <code><a href="https://rdrr.io/pkg/shiny/man/runApp.html" class="external-link">shiny::runApp()</a></code> for the autoreload to work - using <code><a href="../reference/app.html">rhino::app()</a></code> <em>won’t</em> work. For context see <a href="https://github.com/rstudio/shiny/issues/3964" class="external-link">issue #3964 in Shiny</a>.</p>
-</details><details><p><summary>How to use a specific port when running a Rhino application?</summary></p>
-<p>You can:</p>
+</ul></details><details><summary>
+How to automatically reload the application during development?
+</summary><p>Call <code>options(shiny.autoreload = TRUE)</code> in your R session.
+Shiny will monitor the app directory and reload all connected sessions
+if any changes are detected. More details can be found in <a href="https://shiny.posit.co/r/reference/shiny/latest/shinyoptions" class="external-link">Shiny
+reference</a>.</p>
+<p>Note: you have to use <code><a href="https://rdrr.io/pkg/shiny/man/runApp.html" class="external-link">shiny::runApp()</a></code> for the autoreload
+to work - using <code><a href="../reference/app.html">rhino::app()</a></code> <em>won’t</em> work. For
+context see <a href="https://github.com/rstudio/shiny/issues/3964" class="external-link">issue
+#3964 in Shiny</a>.</p>
+</details><details><summary>
+How to use a specific port when running a Rhino application?
+</summary><p>You can:</p>
 <ul>
-<li>set port in <code><a href="https://rdrr.io/pkg/shiny/man/runApp.html" class="external-link">shiny::runApp</a></code>, e.g. <code>shiny:runApp(port = 5000)</code>
+<li>set port in <code><a href="https://rdrr.io/pkg/shiny/man/runApp.html" class="external-link">shiny::runApp</a></code>,
+e.g. <code>shiny:runApp(port = 5000)</code>
 </li>
-<li>add <code>options(shiny.port = 5000)</code> to your <code>.Rprofile</code> file</li>
+<li>add <code>options(shiny.port = 5000)</code> to your
+<code>.Rprofile</code> file</li>
 </ul>
-<p>More details can be found in <a href="./how-to/set-application-run-parameters.html">How-to: Set application run parameters</a>.</p>
-</details><details><p><summary>How to deploy a Rhino application?</summary></p>
-<p>The same as in the case of a regular Shiny app, e.g. you can use “Deploy” button in RStudio IDE.</p>
+<p>More details can be found in <a href="./how-to/set-application-run-parameters.html">How-to: Set
+application run parameters</a>.</p>
+</details><details><summary>
+How to deploy a Rhino application?
+</summary><p>The same as in the case of a regular Shiny app, e.g. you can use
+“Deploy” button in RStudio IDE.</p>
 </details>
 </div>
 <div class="section level2">
 <h2 id="differences-between-rhino-and-vanilla-shiny">Differences between Rhino and vanilla Shiny<a class="anchor" aria-label="anchor" href="#differences-between-rhino-and-vanilla-shiny"></a>
 </h2>
-<details><p><summary>Where are <code>server.R</code> and <code>ui.R</code> files?</summary></p>
-<p>Instead of <code>server.R</code> and <code>ui.R</code>, Rhino uses a single file <code>app/main.R</code>. It includes both the server and UI part of the application. The main difference is that both are already Shiny modules so you need to use namespace (<code>ns</code>) in the UI part.</p>
-</details><details><p><summary>Where is the <code>global.R</code> file?</summary></p>
-<p>Rhino encourages you to work with encapsulated modules instead of using global objects, thus it does not include <code>global.R</code> file. Instead, objects are by default only available on the level of a particular script. Depending on the context, objects can be shared explicitly, by being passed as an argument or being exported with <code>@export</code>.</p>
-</details><details><p><summary>Where should I put <code>library</code> calls?</summary></p>
-<p>Rhino application doesn’t use <code>library</code> to load packages. Instead, each script imports its dependencies with <code><a href="http://klmr.me/box/reference/use.html" class="external-link">box::use</a></code>:</p>
+<details><summary>
+Where are <code>server.R</code> and <code>ui.R</code> files?
+</summary><p>Instead of <code>server.R</code> and <code>ui.R</code>, Rhino uses a
+single file <code>app/main.R</code>. It includes both the server and UI
+part of the application. The main difference is that both are already
+Shiny modules so you need to use namespace (<code>ns</code>) in the UI
+part.</p>
+</details><details><summary>
+Where is the <code>global.R</code> file?
+</summary><p>Rhino encourages you to work with encapsulated modules instead of
+using global objects, thus it does not include <code>global.R</code>
+file. Instead, objects are by default only available on the level of a
+particular script. Depending on the context, objects can be shared
+explicitly, by being passed as an argument or being exported with
+<code>@export</code>.</p>
+</details><details><summary>
+Where should I put <code>library</code> calls?
+</summary><p>Rhino application doesn’t use <code>library</code> to load packages.
+Instead, each script imports its dependencies with
+<code><a href="http://klmr.me/box/reference/use.html" class="external-link">box::use</a></code>:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">box</span><span class="fu">::</span><span class="fu"><a href="http://klmr.me/box/reference/use.html" class="external-link">use</a></span><span class="op">(</span></span>
 <span>  <span class="va">dplyr</span>, <span class="co"># functions from `dplyr` are available using `$`, e.g. `dplyr$mutate()`</span></span>
 <span>  <span class="va">shiny</span><span class="op">[</span><span class="va">div</span>, <span class="va">moduleServer</span>, <span class="va">NS</span><span class="op">]</span>, <span class="co"># `div`, `moduleServer`, and `NS` are available (but other functions from `shiny` are not)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
-<p>The only place where you should use <code>library</code> calls is the <code>dependencies.R</code> file. You can read more about managing R dependencies in <a href="https://appsilon.github.io/rhino/articles/how-to/manage-r-dependencies.html" class="external-link">this article</a>.</p>
-</details><details><p><summary>Where is the <code>www</code> directory?</summary></p>
-<p>Instead of <code>www</code>, Rhino uses <code>app/static</code>. To utilize it, you need to provide the path to your assets that include <code>static</code>, for example:</p>
+<p>The only place where you should use <code>library</code> calls is the
+<code>dependencies.R</code> file. You can read more about managing R
+dependencies in <a href="https://appsilon.github.io/rhino/articles/how-to/manage-r-dependencies.html" class="external-link">this
+article</a>.</p>
+</details><details><summary>
+Where is the <code>www</code> directory?
+</summary><p>Instead of <code>www</code>, Rhino uses <code>app/static</code>. To
+utilize it, you need to provide the path to your assets that include
+<code>static</code>, for example:</p>
 <pre><code><span><span class="fu">img</span><span class="op">(</span>src <span class="op">=</span> <span class="st">"static/images/appsilon-logo.png"</span><span class="op">)</span></span></code></pre>
 </details>
 </div>
 <div class="section level2">
 <h2 id="common-problems">Common problems<a class="anchor" aria-label="anchor" href="#common-problems"></a>
 </h2>
-<details><p><summary>Why doesn’t my <code>input</code> trigger the reactive chain?</summary></p>
-<p>Rhino uses Shiny modules to encapsulate the whole application, so the <code>id</code> of every input you create needs to be wrapped in <code>ns</code>, for example:</p>
+<details><summary>
+Why doesn’t my <code>input</code> trigger the reactive chain?
+</summary><p>Rhino uses Shiny modules to encapsulate the whole application, so the
+<code>id</code> of every input you create needs to be wrapped in
+<code>ns</code>, for example:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">box</span><span class="fu">::</span><span class="fu"><a href="http://klmr.me/box/reference/use.html" class="external-link">use</a></span><span class="op">(</span></span>
 <span>  <span class="va">shiny</span><span class="op">[</span><span class="va">NS</span>, <span class="va">textInput</span><span class="op">]</span>,</span>
@@ -245,8 +284,11 @@
 <span>    label <span class="op">=</span> <span class="st">"My Input"</span></span>
 <span>  <span class="op">)</span></span>
 <span><span class="op">}</span></span></code></pre></div>
-</details><details><p><summary>Why is my <code>output</code> not visible?</summary></p>
-<p>Rhino uses Shiny modules to encapsulate the whole application, so the <code>id</code> of every output you create needs to be wrapped in <code>ns</code>, for example:</p>
+</details><details><summary>
+Why is my <code>output</code> not visible?
+</summary><p>Rhino uses Shiny modules to encapsulate the whole application, so the
+<code>id</code> of every output you create needs to be wrapped in
+<code>ns</code>, for example:</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">box</span><span class="fu">::</span><span class="fu"><a href="http://klmr.me/box/reference/use.html" class="external-link">use</a></span><span class="op">(</span></span>
 <span>  <span class="va">shiny</span><span class="op">[</span><span class="va">moduleServer</span>, <span class="va">NS</span>, <span class="va">renderText</span>, <span class="va">textOutput</span><span class="op">]</span>,</span>
@@ -265,28 +307,53 @@
 <span>    <span class="va">output</span><span class="op">$</span><span class="va">text</span> <span class="op">&lt;-</span> <span class="fu">renderText</span><span class="op">(</span><span class="st">"This is a message!"</span><span class="op">)</span></span>
 <span>  <span class="op">}</span><span class="op">)</span></span>
 <span><span class="op">}</span></span></code></pre></div>
-</details><details><p><summary><code>shinyBS</code> is not working in my Rhino application.</summary></p>
-<p><code>shinyBS</code> uses the <code>.onAttach()</code> hook to call <code><a href="https://rdrr.io/pkg/shiny/man/resourcePaths.html" class="external-link">shiny::addResourcePath()</a></code> which is necessary for its resources (JS and CSS) to be loaded correctly. This hook is never run with <code><a href="http://klmr.me/box/reference/use.html" class="external-link">box::use()</a></code> (normally a <code><a href="https://rdrr.io/r/base/library.html" class="external-link">library()</a></code> call would run it). It is worth noting that the problem will be also present in vanilla Shiny if you only use <code>::</code> to access <code>shinyBS</code> functions (<code>shinyBS</code> should use <code>.onLoad()</code> instead).</p>
-<p><em>Workaround:</em> Add the following snippet to your <code>app/main.R</code> (just below the <code><a href="http://klmr.me/box/reference/use.html" class="external-link">box::use()</a></code> statements is a good place):</p>
+</details><details><summary><code>shinyBS</code> is not working in my Rhino application.
+</summary><p><code>shinyBS</code> uses the <code>.onAttach()</code> hook to call
+<code><a href="https://rdrr.io/pkg/shiny/man/resourcePaths.html" class="external-link">shiny::addResourcePath()</a></code> which is necessary for its
+resources (JS and CSS) to be loaded correctly. This hook is never run
+with <code><a href="http://klmr.me/box/reference/use.html" class="external-link">box::use()</a></code> (normally a <code><a href="https://rdrr.io/r/base/library.html" class="external-link">library()</a></code> call
+would run it). It is worth noting that the problem will be also present
+in vanilla Shiny if you only use <code>::</code> to access
+<code>shinyBS</code> functions (<code>shinyBS</code> should use
+<code>.onLoad()</code> instead).</p>
+<p><em>Workaround:</em> Add the following snippet to your
+<code>app/main.R</code> (just below the <code><a href="http://klmr.me/box/reference/use.html" class="external-link">box::use()</a></code>
+statements is a good place):</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Run the `.onAttach` hook (shinyBS uses it to add a Shiny resource path).</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/warning.html" class="external-link">suppressWarnings</a></span><span class="op">(</span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ebailey78.github.io/shinyBS" class="external-link">shinyBS</a></span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<p>You’ll still need to explicitly <code><a href="http://klmr.me/box/reference/use.html" class="external-link">box::use()</a></code> whatever functions you need from <code>shinyBS</code> (<code><a href="https://rdrr.io/r/base/library.html" class="external-link">library()</a></code> doesn’t work in a box module).</p>
+<p>You’ll still need to explicitly <code><a href="http://klmr.me/box/reference/use.html" class="external-link">box::use()</a></code> whatever
+functions you need from <code>shinyBS</code> (<code><a href="https://rdrr.io/r/base/library.html" class="external-link">library()</a></code>
+doesn’t work in a box module).</p>
 <p>More details can be found <a href="https://github.com/Appsilon/rhino/discussions/279" class="external-link">here</a>.</p>
-</details><details><p><summary>I have an R package installed, but <code>renv::snapshot()</code> didn’t add it to the <code>renv.lock</code> file.</summary></p>
-<p>In Rhino, <code>renv</code> only uses packages added to the <code>dependencies.R</code> file. This way you have full control over what libraries are used by your application. Adding <code>library(your package name)</code> to the <code>dependencies.R</code> file should fix the problem.</p>
+</details><details><summary>
+I have an R package installed, but <code>renv::snapshot()</code> didn’t
+add it to the <code>renv.lock</code> file.
+</summary><p>In Rhino, <code>renv</code> only uses packages added to the
+<code>dependencies.R</code> file. This way you have full control over
+what libraries are used by your application. Adding
+<code>library(your package name)</code> to the
+<code>dependencies.R</code> file should fix the problem.</p>
 <p>Check also:</p>
 <ul>
-<li><a href="https://appsilon.github.io/rhino/articles/explanation/renv-configuration.html" class="external-link"><code>renv</code> configuration</a></li>
+<li><a href="https://appsilon.github.io/rhino/articles/explanation/renv-configuration.html" class="external-link"><code>renv</code>
+configuration</a></li>
 <li>
-<a href="https://appsilon.github.io/rhino/articles/how-to/manage-r-dependencies.html" class="external-link">dependencies management</a>.</li>
+<a href="https://appsilon.github.io/rhino/articles/how-to/manage-r-dependencies.html" class="external-link">dependencies
+management</a>.</li>
 </ul></details>
 </div>
 <div class="section level2">
 <h2 id="styling-rhino-application">Styling Rhino application<a class="anchor" aria-label="anchor" href="#styling-rhino-application"></a>
 </h2>
-<details><p><summary>Can I use multiple Sass files?</summary></p>
-<p>Yes, you can have any file/directory structure in <code>app/styles</code> that you desire. The <code>app/styles/main.scss</code> is the entry point: you’ll need to <a href="https://sass-lang.com/documentation/at-rules/use" class="external-link"><code>@use</code></a> the other files from <code>main.scss</code>. Then running <code><a href="../reference/build_sass.html">rhino::build_sass()</a></code> will be sufficient to include the styles in your application.</p>
+<details><summary>
+Can I use multiple Sass files?
+</summary><p>Yes, you can have any file/directory structure in
+<code>app/styles</code> that you desire. The
+<code>app/styles/main.scss</code> is the entry point: you’ll need to <a href="https://sass-lang.com/documentation/at-rules/use" class="external-link"><code>@use</code></a>
+the other files from <code>main.scss</code>. Then running
+<code><a href="../reference/build_sass.html">rhino::build_sass()</a></code> will be sufficient to include the
+styles in your application.</p>
 </details>
 </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>

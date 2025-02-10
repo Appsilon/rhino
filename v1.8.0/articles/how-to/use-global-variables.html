@@ -14,8 +14,8 @@
 <link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../../apple-touch-icon-60x60.png">
 <script src="../../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="../../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
-<script src="../../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../../deps/font-awesome-6.4.2/css/all.min.css" rel="stylesheet">
-<link href="../../deps/font-awesome-6.4.2/css/v4-shims.min.css" rel="stylesheet">
+<script src="../../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
+<link href="../../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
 <script src="../../deps/headroom-0.11.0/headroom.min.js"></script><script src="../../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../../deps/search-1.0.0/fuse.min.js"></script><script src="../../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../../pkgdown.js"></script><link href="../../extra.css" rel="stylesheet">
 <meta property="og:title" content="How-to: Use global variables">
 <!-- Google tag (gtag.js) --><script async src="https://www.googletagmanager.com/gtag/js?id=G-NEHZJ9B11D"></script><script>
@@ -164,7 +164,8 @@
 
 
 
-<script src="use-global-variables_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
+
+<div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
 
       <h1>How-to: Use global variables</h1>
@@ -176,8 +177,14 @@
 
     
     
-<p>Rhino uses <a href="https://appsilon.github.io/rhino/articles/explanation/box-modules.html" class="external-link"><code>box</code></a> to ensure reusable and modular code, both from using packages and using the scripts within the app itself. Rhino favors the explicit over the implicit, and a local scope over a global scope.</p>
-<p>Sometimes we need global definitions however and storing constants is the most common reason for that. The suggested way to create global constants in Rhino is to define and export the constant inside its own <code>R</code> script in <code>app/logic</code>.</p>
+<p>Rhino uses <a href="https://appsilon.github.io/rhino/articles/explanation/box-modules.html" class="external-link"><code>box</code></a>
+to ensure reusable and modular code, both from using packages and using
+the scripts within the app itself. Rhino favors the explicit over the
+implicit, and a local scope over a global scope.</p>
+<p>Sometimes we need global definitions however and storing constants is
+the most common reason for that. The suggested way to create global
+constants in Rhino is to define and export the constant inside its own
+<code>R</code> script in <code>app/logic</code>.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># app/logic/constant.R</span></span>
 <span><span class="co">#' @export</span></span>
@@ -186,16 +193,26 @@
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># app/logic/another_module.R</span></span>
 <span><span class="fu">box</span><span class="fu">::</span><span class="fu"><a href="http://klmr.me/box/reference/use.html" class="external-link">use</a></span><span class="op">(</span><span class="va">app</span><span class="op">/</span><span class="va">logic</span><span class="op">/</span><span class="va">constant</span><span class="op">[</span><span class="va">answer</span><span class="op">]</span><span class="op">)</span></span></code></pre></div>
-<p>Most of the time, it is sufficient to define a constant and then export and use it throughout the app.</p>
-<p>However, there are instances when an object may need to change its value as the app runs. In such cases, Rhino suggests the following ways to handle global variables.</p>
-<p>Note: Using global variables can make the app more difficult to manage and understand. If the variable can change its value at any point in the app, future changes to the app must consider how this global variable will be affected. A changing global variable may also make testing difficult because tests may affect the global variables. The tests are no longer independent of each other.</p>
+<p>Most of the time, it is sufficient to define a constant and then
+export and use it throughout the app.</p>
+<p>However, there are instances when an object may need to change its
+value as the app runs. In such cases, Rhino suggests the following ways
+to handle global variables.</p>
+<p>Note: Using global variables can make the app more difficult to
+manage and understand. If the variable can change its value at any point
+in the app, future changes to the app must consider how this global
+variable will be affected. A changing global variable may also make
+testing difficult because tests may affect the global variables. The
+tests are no longer independent of each other.</p>
 <div class="section level2">
 <h2 id="global-variables">Global Variables<a class="anchor" aria-label="anchor" href="#global-variables"></a>
 </h2>
 <div class="section level3">
 <h3 id="vanilla-r">Vanilla R<a class="anchor" aria-label="anchor" href="#vanilla-r"></a>
 </h3>
-<p>In <code>R</code>, <a href="http://adv-r.had.co.nz/Environments.html" class="external-link">global variables live inside <code>.GlobalEnv</code></a>. Global variables can be updated within a function using <code>&lt;&lt;-</code>.</p>
+<p>In <code>R</code>, <a href="http://adv-r.had.co.nz/Environments.html" class="external-link">global variables live
+inside <code>.GlobalEnv</code></a>. Global variables can be updated
+within a function using <code>&lt;&lt;-</code>.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># constants.R</span></span>
 <span><span class="va">answer</span> <span class="op">&lt;-</span> <span class="fl">42</span></span>
@@ -209,7 +226,10 @@
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">answer</span><span class="op">)</span> <span class="co"># 42</span></span>
 <span><span class="fu">set_answer</span><span class="op">(</span><span class="fl">0</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">answer</span><span class="op">)</span> <span class="co"># 0</span></span></code></pre></div>
-<p>When code is loaded with <code><a href="http://klmr.me/box/reference/use.html" class="external-link">box::use()</a></code>, global variables live inside the <a href="https://klmr.me/box/articles/mod-env-hierarchy.html#environments-1" class="external-link">module’s own immutable environment</a>. Updating global variables with <code>&lt;&lt;-</code> will not work.</p>
+<p>When code is loaded with <code><a href="http://klmr.me/box/reference/use.html" class="external-link">box::use()</a></code>, global variables
+live inside the <a href="https://klmr.me/box/articles/mod-env-hierarchy.html#environments-1" class="external-link">module’s
+own immutable environment</a>. Updating global variables with
+<code>&lt;&lt;-</code> will not work.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># app/logic/constants.R</span></span>
 <span></span>
@@ -230,7 +250,9 @@
 <div class="section level3">
 <h3 id="variables-in-a-new-environment">Variables in a new environment<a class="anchor" aria-label="anchor" href="#variables-in-a-new-environment"></a>
 </h3>
-<p>To overcome <code>box</code>’s feature of limiting scope, Rhino suggests creating a new environment and use that environment to contain the global variables.</p>
+<p>To overcome <code>box</code>’s feature of limiting scope, Rhino
+suggests creating a new environment and use that environment to contain
+the global variables.</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># app/logic/__init__.R</span></span>
 <span></span>
@@ -255,7 +277,9 @@
 <div class="section level3">
 <h3 id="variables-in--globalenv">Variables in <code>.GlobalEnv</code><a class="anchor" aria-label="anchor" href="#variables-in--globalenv"></a>
 </h3>
-<p>Alternatively, variables can still be stored in and imported from <code>.GlobalEnv</code>. The variable must also be defined and updated using <code>&lt;-</code>.</p>
+<p>Alternatively, variables can still be stored in and imported from
+<code>.GlobalEnv</code>. The variable must also be defined and updated
+using <code>&lt;-</code>.</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># app/logic/__init__.R</span></span>
 <span><span class="va">.GlobalEnv</span><span class="op">$</span><span class="va">answer</span> <span class="op">&lt;-</span> <span class="fl">42</span></span>
@@ -276,7 +300,8 @@
 <div class="section level2">
 <h2 id="session-variables">Session Variables<a class="anchor" aria-label="anchor" href="#session-variables"></a>
 </h2>
-<p>Rhino suggests using arguments in module servers for explicit handling of session variables or user inputs.</p>
+<p>Rhino suggests using arguments in module servers for explicit
+handling of session variables or user inputs.</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">module_ui</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">id</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  <span class="va">ns</span> <span class="op">&lt;-</span> <span class="fu">NS</span><span class="op">(</span><span class="va">id</span><span class="op">)</span></span>
@@ -299,7 +324,8 @@
 <span>    <span class="fu">module_server</span><span class="op">(</span><span class="st">"module"</span>, <span class="va">answer</span><span class="op">)</span></span>
 <span>  <span class="op">}</span></span>
 <span><span class="op">)</span></span></code></pre></div>
-<p>However, <code>shiny</code> has support for <a href="https://shiny.rstudio.com/reference/shiny/latest/session.html" class="external-link"><code>session$userData</code></a>, an environment that can store session-specific data.</p>
+<p>However, <code>shiny</code> has support for <a href="https://shiny.rstudio.com/reference/shiny/latest/session.html" class="external-link"><code>session$userData</code></a>,
+an environment that can store session-specific data.</p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">module_ui</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">id</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  <span class="va">ns</span> <span class="op">&lt;-</span> <span class="fu">NS</span><span class="op">(</span><span class="va">id</span><span class="op">)</span></span>
@@ -322,7 +348,8 @@
 <span>    <span class="fu">module_server</span><span class="op">(</span><span class="st">"module"</span><span class="op">)</span></span>
 <span>  <span class="op">}</span></span>
 <span><span class="op">)</span></span></code></pre></div>
-<p>All modules have access to the variables inside <code>session$userData</code>.</p>
+<p>All modules have access to the variables inside
+<code>session$userData</code>.</p>
 </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside>

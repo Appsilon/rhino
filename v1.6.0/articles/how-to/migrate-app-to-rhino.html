@@ -14,8 +14,8 @@
 <link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../../apple-touch-icon-60x60.png">
 <script src="../../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="../../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
-<script src="../../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../../deps/font-awesome-6.4.2/css/all.min.css" rel="stylesheet">
-<link href="../../deps/font-awesome-6.4.2/css/v4-shims.min.css" rel="stylesheet">
+<script src="../../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
+<link href="../../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
 <script src="../../deps/headroom-0.11.0/headroom.min.js"></script><script src="../../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../../deps/search-1.0.0/fuse.min.js"></script><script src="../../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../../pkgdown.js"></script><link href="../../extra.css" rel="stylesheet">
 <meta property="og:title" content="How-to: Migrate app to Rhino">
 <!-- Google tag (gtag.js) --><script async src="https://www.googletagmanager.com/gtag/js?id=G-NEHZJ9B11D"></script><script>
@@ -161,7 +161,8 @@
 
 
 
-<script src="migrate-app-to-rhino_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
+
+<div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
 
       <h1>How-to: Migrate app to Rhino</h1>
@@ -179,7 +180,9 @@
   font-weight: bold;
 }
 </style>
-<p>This guide aims to make your application up and running using Rhino as quickly as possible. Lets assume an application has a following structure:</p>
+<p>This guide aims to make your application up and running using Rhino
+as quickly as possible. Lets assume an application has a following
+structure:</p>
 <pre><code>.
 ├── utils
 │   ├── foo.R
@@ -189,11 +192,14 @@
 │   └── main.js
 ├── server.R
 └── ui.R</code></pre>
-<p>The migration process should not be affected by the combination of server.R, ui.R, global.R, and app.R files in your application, or lack of thereof.</p>
+<p>The migration process should not be affected by the combination of
+server.R, ui.R, global.R, and app.R files in your application, or lack
+of thereof.</p>
 <div class="section level2">
 <h2 id="prepare-your-application-for-rhinoinit">Prepare Your Application for <code>rhino::init()</code><a class="anchor" aria-label="anchor" href="#prepare-your-application-for-rhinoinit"></a>
 </h2>
-The first step is moving all application source files to a new <code>app</code> directory:
+The first step is moving all application source files to a new
+<code>app</code> directory:
 <pre><code>.
 └── <span class="tree-change">app</span>
     ├── utils
@@ -205,7 +211,10 @@ The first step is moving all application source files to a new <code>app</code> 
     ├── server.R
     └── ui.R
 </code></pre>
-Once source files are moved, if you have a list of <code><a href="https://rdrr.io/r/base/library.html" class="external-link">library()</a></code> calls put it in <code>dependencies.R</code> in the root directory. If you do not have such list, then Rhino will try to create one for you in <a href="#initialize-your-rhino-application">initialization step</a>.
+Once source files are moved, if you have a list of
+<code><a href="https://rdrr.io/r/base/library.html" class="external-link">library()</a></code> calls put it in <code>dependencies.R</code> in
+the root directory. If you do not have such list, then Rhino will try to
+create one for you in <a href="#initialize-your-rhino-application">initialization step</a>.
 <pre><code>.
 ├── app
 │   ├── utils
@@ -218,19 +227,24 @@ Once source files are moved, if you have a list of <code><a href="https://rdrr.i
 │   └── ui.R
 └── <span class="tree-change">dependencies.R</span>
 </code></pre>
-<p>After doing so, you should be able to run your application using <code>shiny::shinyAppDir("app")</code>.</p>
+<p>After doing so, you should be able to run your application using
+<code>shiny::shinyAppDir("app")</code>.</p>
 <div class="section level3">
 <h3 id="what-if-my-app-uses-renv">
 <em>What if:</em> My App Uses renv<a class="anchor" aria-label="anchor" href="#what-if-my-app-uses-renv"></a>
 </h3>
-<p>If you have used renv in your application, then chances are your active renv session does not have Rhino installed. To address this either deactivate renv or run <code>renv::install("rhino")</code>.</p>
-<p>Apart from additional files related to renv, the target file structure is no different than the one presented above.</p>
+<p>If you have used renv in your application, then chances are your
+active renv session does not have Rhino installed. To address this
+either deactivate renv or run <code>renv::install("rhino")</code>.</p>
+<p>Apart from additional files related to renv, the target file
+structure is no different than the one presented above.</p>
 </div>
 </div>
 <div class="section level2">
 <h2 id="initialize-your-rhino-application">Initialize Your Rhino Application<a class="anchor" aria-label="anchor" href="#initialize-your-rhino-application"></a>
 </h2>
-Having your application prepared, you can now run <code><a href="../../reference/init.html">rhino::init()</a></code>.
+Having your application prepared, you can now run
+<code><a href="../../reference/init.html">rhino::init()</a></code>.
 <pre><code>.
 ├── <span class="tree-change">.github</span>
 │   └── <span class="tree-change">workflows</span>
@@ -274,19 +288,34 @@ Having your application prepared, you can now run <code><a href="../../reference
 ├── <span class="tree-change">rhino.yml</span>
 └── <span class="tree-change">app.Rproj</span>
 </code></pre>
-<p>If you did not use renv before, then Rhino initialized it for you. However, if you did use renv, then Rhino added necessary dependencies to <code>renv.lock</code> file.</p>
+<p>If you did not use renv before, then Rhino initialized it for you.
+However, if you did use renv, then Rhino added necessary dependencies to
+<code>renv.lock</code> file.</p>
 <div class="section level3">
 <h3 id="what-if-my-app-had--rprofile">
 <em>What if:</em> My App Had .Rprofile<a class="anchor" aria-label="anchor" href="#what-if-my-app-had--rprofile"></a>
 </h3>
-<p>Your <code>.Rprofile</code> has been moved to <code>old.Rprofile</code>. If it contained any relevant bits (e.g. setting options), then carry it over to <code>.Rprofile</code> created by Rhino.</p>
+<p>Your <code>.Rprofile</code> has been moved to
+<code>old.Rprofile</code>. If it contained any relevant bits
+(e.g. setting options), then carry it over to <code>.Rprofile</code>
+created by Rhino.</p>
 </div>
 </div>
 <div class="section level2">
 <h2 id="configure-your-rhino-application">Configure Your Rhino Application<a class="anchor" aria-label="anchor" href="#configure-your-rhino-application"></a>
 </h2>
-<p>The last step to get started with Rhino is configuring it. A minimal setup that allows running the application is setting <code>legacy_entrypoint</code> in <code>rhino.yml</code>. To be able to run application immediately set <code>legacy_entrypoint: app_dir</code>, as this approach requires no further adjustments to application’s structure.</p>
-<p>As you adjust adjust your application to fit best practices suggested by Rhino, you can modify <code>legacy_entrypoint</code>. Ultimately, when application is fully migrated to Rhino, <code>legacy_entrypoint</code> setting can be removed from <code>rhino.yml</code>. Refer to <a href="#next-steps">Next Steps</a> section to see how to continue improving your application!</p>
+<p>The last step to get started with Rhino is configuring it. A minimal
+setup that allows running the application is setting
+<code>legacy_entrypoint</code> in <code>rhino.yml</code>. To be able to
+run application immediately set <code>legacy_entrypoint: app_dir</code>,
+as this approach requires no further adjustments to application’s
+structure.</p>
+<p>As you adjust adjust your application to fit best practices suggested
+by Rhino, you can modify <code>legacy_entrypoint</code>. Ultimately,
+when application is fully migrated to Rhino,
+<code>legacy_entrypoint</code> setting can be removed from
+<code>rhino.yml</code>. Refer to <a href="#next-steps">Next Steps</a>
+section to see how to continue improving your application!</p>
 </div>
 <div class="section level2">
 <h2 id="next-steps">Next Steps<a class="anchor" aria-label="anchor" href="#next-steps"></a>
@@ -294,7 +323,8 @@ Having your application prepared, you can now run <code><a href="../../reference
 <div class="section level3">
 <h3 id="migrating-javascript-code">Migrating JavaScript Code<a class="anchor" aria-label="anchor" href="#migrating-javascript-code"></a>
 </h3>
-<p>TODO: something along the lines of <code><a href="../../reference/build_js.html">build_js()</a></code> details</p>
+<p>TODO: something along the lines of <code><a href="../../reference/build_js.html">build_js()</a></code>
+details</p>
 </div>
 <div class="section level3">
 <h3 id="migrating-css-styles-to-sass">Migrating CSS styles to SASS<a class="anchor" aria-label="anchor" href="#migrating-css-styles-to-sass"></a>
@@ -310,12 +340,29 @@ Having your application prepared, you can now run <code><a href="../../reference
 <div class="section level2">
 <h2 id="additional-notes">Additional notes<a class="anchor" aria-label="anchor" href="#additional-notes"></a>
 </h2>
-<p>The process described in <code><a href="../../reference/init.html">rhino::init()</a></code> documentation, albeit not in great detail. The first step is to put all app files in the <code>app</code> directory, so it can be run with <code>shinyAppDir("app")</code>. Practical experience of migrating apps shows that it’s a useful step which quickly lets you verify whether the app still works.</p>
-<p>The process can be a bit unintuitive however. For example, if you already have an <code>app.R</code> file and ui/server/global in <code>R</code> subdirectory, you should still move the whole structure under <code>app</code>. In this case you’ll end up with <code>app.R</code>, <code>app/app.R</code> and ui/server/global in <code>app/R/</code>. Having two <code>app.R</code> files might feel awkward.</p>
-<p>In general you use <code><a href="../../reference/init.html">rhino::init()</a></code> for migration. This cannot be done via RStudio GUI.</p>
-<p>If you already have <code>.Rprofile</code> with renv when migrating, you’ll load it and won’t have Rhino inside. You need to run <code><a href="../../reference/init.html">rhino::init()</a></code> from a different directory (or perhaps run renv::deactivate()).</p>
-<p>Rhino will renv::load() your renv.lock. In particular it will set your <code>options("repos"</code>) based on <code>renv.lock</code>.</p>
-<p>What to do when I get “unsatisfied dependencies” during migration?</p>
+<p>The process described in <code><a href="../../reference/init.html">rhino::init()</a></code> documentation,
+albeit not in great detail. The first step is to put all app files in
+the <code>app</code> directory, so it can be run with
+<code>shinyAppDir("app")</code>. Practical experience of migrating apps
+shows that it’s a useful step which quickly lets you verify whether the
+app still works.</p>
+<p>The process can be a bit unintuitive however. For example, if you
+already have an <code>app.R</code> file and ui/server/global in
+<code>R</code> subdirectory, you should still move the whole structure
+under <code>app</code>. In this case you’ll end up with
+<code>app.R</code>, <code>app/app.R</code> and ui/server/global in
+<code>app/R/</code>. Having two <code>app.R</code> files might feel
+awkward.</p>
+<p>In general you use <code><a href="../../reference/init.html">rhino::init()</a></code> for migration. This
+cannot be done via RStudio GUI.</p>
+<p>If you already have <code>.Rprofile</code> with renv when migrating,
+you’ll load it and won’t have Rhino inside. You need to run
+<code><a href="../../reference/init.html">rhino::init()</a></code> from a different directory (or perhaps run
+renv::deactivate()).</p>
+<p>Rhino will renv::load() your renv.lock. In particular it will set
+your <code>options("repos"</code>) based on <code>renv.lock</code>.</p>
+<p>What to do when I get “unsatisfied dependencies” during
+migration?</p>
 </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside>

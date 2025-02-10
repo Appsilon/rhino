@@ -14,8 +14,8 @@
 <link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../../apple-touch-icon-60x60.png">
 <script src="../../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="../../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
-<script src="../../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../../deps/font-awesome-6.4.2/css/all.min.css" rel="stylesheet">
-<link href="../../deps/font-awesome-6.4.2/css/v4-shims.min.css" rel="stylesheet">
+<script src="../../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
+<link href="../../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
 <script src="../../deps/headroom-0.11.0/headroom.min.js"></script><script src="../../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../../deps/search-1.0.0/fuse.min.js"></script><script src="../../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../../pkgdown.js"></script><link href="../../extra.css" rel="stylesheet">
 <meta property="og:title" content="Explanation: Configuring Rhino - rhino.yml">
 <!-- Google tag (gtag.js) --><script async src="https://www.googletagmanager.com/gtag/js?id=G-NEHZJ9B11D"></script><script>
@@ -126,7 +126,8 @@
 
 
 
-<script src="rhino-yml_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
+
+<div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
 
       <h1>Explanation: Configuring Rhino - rhino.yml</h1>
@@ -144,24 +145,32 @@ This article is a stub. We are working to edit and expand it.
 <div class="section level2">
 <h2 id="wrench-configure-rhino-with-rhino-yml">:wrench: Configure Rhino with <code>rhino.yml</code><a class="anchor" aria-label="anchor" href="#wrench-configure-rhino-with-rhino-yml"></a>
 </h2>
-<p>Rhino uses its own <code>rhino.yml</code> config file where you can set a few options on how it works in your app. Currently available options are described below.</p>
+<p>Rhino uses its own <code>rhino.yml</code> config file where you can
+set a few options on how it works in your app. Currently available
+options are described below.</p>
 <div class="section level3">
 <h3 id="rhino-yml-options">
 <code>rhino.yml</code> options<a class="anchor" aria-label="anchor" href="#rhino-yml-options"></a>
 </h3>
-<div class="sourceCode" id="cb1"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true"></a><span class="fu">sass</span><span class="kw">:</span><span class="at"> string</span><span class="co">               # required | one of: "node", "r"</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true"></a><span class="fu">legacy_entrypoint</span><span class="kw">:</span><span class="at"> string</span><span class="co">  # optional | one of: "app_dir", "source", "box_top_level"</span></span></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="fu">sass</span><span class="kw">:</span><span class="at"> string</span><span class="co">               # required | one of: "node", "r"</span></span>
+<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a><span class="fu">legacy_entrypoint</span><span class="kw">:</span><span class="at"> string</span><span class="co">  # optional | one of: "app_dir", "source", "box_top_level"</span></span></code></pre></div>
 <div class="section level4">
 <h4 id="sass">
 <code>sass</code><a class="anchor" aria-label="anchor" href="#sass"></a>
 </h4>
-<p>Configures whether <a href="https://sass-lang.com/" class="external-link">Sass</a> should be built using the <a href="https://cran.r-project.org/package=sass" class="external-link">R package</a> or the <a href="https://www.npmjs.com/package/sass" class="external-link">Node.js package</a>. Read more in <a href="https://appsilon.github.io/rhino/articles/explanation/node-js-javascript-and-sass-tools.html" class="external-link">Explanation: Node.js - JavaScript and Sass tools</a>.</p>
+<p>Configures whether <a href="https://sass-lang.com/" class="external-link">Sass</a> should
+be built using the <a href="https://cran.r-project.org/package=sass" class="external-link">R
+package</a> or the <a href="https://www.npmjs.com/package/sass" class="external-link">Node.js
+package</a>. Read more in <a href="https://appsilon.github.io/rhino/articles/explanation/node-js-javascript-and-sass-tools.html" class="external-link">Explanation:
+Node.js - JavaScript and Sass tools</a>.</p>
 </div>
 <div class="section level4">
 <h4 id="legacy_entrypoint">
 <code>legacy_entrypoint</code><a class="anchor" aria-label="anchor" href="#legacy_entrypoint"></a>
 </h4>
-<p>This setting is useful when migrating an existing Shiny application to Rhino. For more details see <a href="https://appsilon.github.io/rhino/reference/app.html#details-1" class="external-link"><code>rhino::app()</code> details section</a>.</p>
+<p>This setting is useful when migrating an existing Shiny application
+to Rhino. For more details see <a href="https://appsilon.github.io/rhino/reference/app.html#details-1" class="external-link"><code>rhino::app()</code>
+details section</a>.</p>
 </div>
 </div>
 </div>

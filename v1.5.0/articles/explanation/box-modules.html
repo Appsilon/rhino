@@ -14,8 +14,8 @@
 <link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../../apple-touch-icon-60x60.png">
 <script src="../../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="../../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
-<script src="../../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../../deps/font-awesome-6.4.2/css/all.min.css" rel="stylesheet">
-<link href="../../deps/font-awesome-6.4.2/css/v4-shims.min.css" rel="stylesheet">
+<script src="../../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
+<link href="../../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
 <script src="../../deps/headroom-0.11.0/headroom.min.js"></script><script src="../../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../../deps/search-1.0.0/fuse.min.js"></script><script src="../../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../../pkgdown.js"></script><link href="../../extra.css" rel="stylesheet">
 <meta property="og:title" content="Explanation: Box modules">
 <!-- Google tag (gtag.js) --><script async src="https://www.googletagmanager.com/gtag/js?id=G-NEHZJ9B11D"></script><script>
@@ -156,7 +156,8 @@
 
 
 
-<script src="box-modules_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
+
+<div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
 
       <h1>Explanation: Box modules</h1>
@@ -171,8 +172,14 @@
 <div class="section level2">
 <h2 id="rationale">Rationale<a class="anchor" aria-label="anchor" href="#rationale"></a>
 </h2>
-<p>With large applications it is critical for maintainability to properly structure your code using files and directories. R comes with the <code><a href="https://rdrr.io/r/base/library.html" class="external-link">library()</a></code> and <code><a href="https://rdrr.io/r/base/source.html" class="external-link">source()</a></code> functions, but its functionality is limited when it comes to dividing your code into modules and expressing their dependencies.</p>
-<p>To address this, Rhino uses the <a href="https://klmr.me/box/" class="external-link">box</a> R package, which allows you to modularize your code in a similar way to languages like Python and Java:</p>
+<p>With large applications it is critical for maintainability to
+properly structure your code using files and directories. R comes with
+the <code><a href="https://rdrr.io/r/base/library.html" class="external-link">library()</a></code> and <code><a href="https://rdrr.io/r/base/source.html" class="external-link">source()</a></code> functions, but its
+functionality is limited when it comes to dividing your code into
+modules and expressing their dependencies.</p>
+<p>To address this, Rhino uses the <a href="https://klmr.me/box/" class="external-link">box</a> R package, which allows you to
+modularize your code in a similar way to languages like Python and
+Java:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">box</span><span class="fu">::</span><span class="fu"><a href="http://klmr.me/box/reference/use.html" class="external-link">use</a></span><span class="op">(</span></span>
 <span>  <span class="va">dplyr</span>, <span class="co"># Import dplyr. Its functions can be used via `$`, e.g. `dplyr$filter`.</span></span>
@@ -181,13 +188,25 @@
 <span><span class="fu">box</span><span class="fu">::</span><span class="fu"><a href="http://klmr.me/box/reference/use.html" class="external-link">use</a></span><span class="op">(</span></span>
 <span>  <span class="va">logic</span><span class="op">/</span><span class="va">data_validation</span>, <span class="co"># Import the `logic/data_validation.R` module.</span></span>
 <span><span class="op">)</span></span></code></pre></div>
-<p>Box modules force you to be explicit about the dependencies between your files and packages. The graph of dependencies is visible at a glance in an app developed with box, while the traditional approach (<code>global.R</code>, <code><a href="https://rdrr.io/r/base/library.html" class="external-link">library()</a></code>, <code><a href="https://rdrr.io/r/base/source.html" class="external-link">source()</a></code>) makes it easy to build an app which only the author understands. Introduction of box to existing apps written without it has helped to improve the code structure and find bugs.</p>
+<p>Box modules force you to be explicit about the dependencies between
+your files and packages. The graph of dependencies is visible at a
+glance in an app developed with box, while the traditional approach
+(<code>global.R</code>, <code><a href="https://rdrr.io/r/base/library.html" class="external-link">library()</a></code>, <code><a href="https://rdrr.io/r/base/source.html" class="external-link">source()</a></code>)
+makes it easy to build an app which only the author understands.
+Introduction of box to existing apps written without it has helped to
+improve the code structure and find bugs.</p>
 </div>
 <div class="section level2">
 <h2 id="usage">Usage<a class="anchor" aria-label="anchor" href="#usage"></a>
 </h2>
-<p>The best place to learn about box is its official <a href="https://klmr.me/box/" class="external-link">documentation</a>. The discussion here will mainly focus on how to use box inside Rhino.</p>
-<p>Rhino suggests the use of <a href="https://appsilon.github.io/rhino/articles/explanation/application-structure.html" class="external-link"><code>app/logic</code> and <code>app/view</code></a>. Rhino creates these directories by default. Code that is independent of Shiny should be kept in <code>app/logic</code> while code using or related to Shiny modules should be kept in <code>app/view</code>. This structure makes it easy to make a nested hierarchy of code with the help of box.</p>
+<p>The best place to learn about box is its official <a href="https://klmr.me/box/" class="external-link">documentation</a>. The discussion here will
+mainly focus on how to use box inside Rhino.</p>
+<p>Rhino suggests the use of <a href="https://appsilon.github.io/rhino/articles/explanation/application-structure.html" class="external-link"><code>app/logic</code>
+and <code>app/view</code></a>. Rhino creates these directories by
+default. Code that is independent of Shiny should be kept in
+<code>app/logic</code> while code using or related to Shiny modules
+should be kept in <code>app/view</code>. This structure makes it easy to
+make a nested hierarchy of code with the help of box.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># app/logic/messages.R</span></span>
 <span><span class="co">#' @export</span></span>
@@ -199,7 +218,8 @@
 <span><span class="va">say_bye</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">name</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="st">"Goodbye, "</span>, <span class="va">name</span>, <span class="st">"!"</span><span class="op">)</span></span>
 <span><span class="op">}</span></span></code></pre></div>
-<p>Both <code>say_hello()</code> and <code>say_bye()</code> can be exported from <code>app/logic/messages.R</code>.</p>
+<p>Both <code>say_hello()</code> and <code>say_bye()</code> can be
+exported from <code>app/logic/messages.R</code>.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">box</span><span class="fu">::</span><span class="fu"><a href="http://klmr.me/box/reference/use.html" class="external-link">use</a></span><span class="op">(</span><span class="va">app</span><span class="op">/</span><span class="va">logic</span><span class="op">/</span><span class="va">messages</span><span class="op">[</span><span class="va">say_hello</span>, <span class="va">say_bye</span><span class="op">]</span><span class="op">)</span></span>
 <span></span>
@@ -209,7 +229,10 @@
 <span>    <span class="fu">say_hello</span><span class="op">(</span><span class="va">name</span><span class="op">)</span>, <span class="fu">say_bye</span><span class="op">(</span><span class="va">name</span><span class="op">)</span></span>
 <span>  <span class="op">)</span></span>
 <span><span class="op">}</span></span></code></pre></div>
-<p>Note that <code><a href="http://klmr.me/box/reference/use.html" class="external-link">box::use()</a></code> allows for explicit attaching of function names from a module as shown above. Modules can also be imported across directories; use code from <code>app/logic</code> in <code>app/view</code>.</p>
+<p>Note that <code><a href="http://klmr.me/box/reference/use.html" class="external-link">box::use()</a></code> allows for explicit attaching of
+function names from a module as shown above. Modules can also be
+imported across directories; use code from <code>app/logic</code> in
+<code>app/view</code>.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># app/view/greet_module.R</span></span>
 <span><span class="fu">box</span><span class="fu">::</span><span class="fu"><a href="http://klmr.me/box/reference/use.html" class="external-link">use</a></span><span class="op">(</span></span>
@@ -239,7 +262,9 @@
 <span>    <span class="op">}</span><span class="op">)</span></span>
 <span>  <span class="op">}</span><span class="op">)</span></span>
 <span><span class="op">}</span></span></code></pre></div>
-<p>With explicit attaching of function names, it is clear from above that the code uses <code>shiny.semantic::textInput()</code> and not <code><a href="https://rdrr.io/pkg/shiny/man/textInput.html" class="external-link">shiny::textInput()</a></code>.</p>
+<p>With explicit attaching of function names, it is clear from above
+that the code uses <code>shiny.semantic::textInput()</code> and not
+<code><a href="https://rdrr.io/pkg/shiny/man/textInput.html" class="external-link">shiny::textInput()</a></code>.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># app/main.R</span></span>
 <span><span class="fu">box</span><span class="fu">::</span><span class="fu"><a href="http://klmr.me/box/reference/use.html" class="external-link">use</a></span><span class="op">(</span></span>
@@ -263,46 +288,58 @@
 <span>    <span class="va">greet_module</span><span class="op">$</span><span class="fu">server</span><span class="op">(</span><span class="st">"message"</span><span class="op">)</span></span>
 <span>  <span class="op">}</span><span class="op">)</span></span>
 <span><span class="op">}</span></span></code></pre></div>
-<p>In <code>main.R</code>, Shiny modules can be attached without attaching the function names. The Shiny module functions are accessed via <code>$</code>.</p>
+<p>In <code>main.R</code>, Shiny modules can be attached without
+attaching the function names. The Shiny module functions are accessed
+via <code>$</code>.</p>
 </div>
 <div class="section level2">
 <h2 id="advanced-features">Advanced Features<a class="anchor" aria-label="anchor" href="#advanced-features"></a>
 </h2>
-<p>Some useful box features are also explained in the sections below.</p>
+<p>Some useful box features are also explained in the sections
+below.</p>
 <div class="section level3">
 <h3 id="init-files">Init files<a class="anchor" aria-label="anchor" href="#init-files"></a>
 </h3>
-<p>Objects exported by an <code>__init__.R</code> file can be imported from its parent directory.</p>
+<p>Objects exported by an <code>__init__.R</code> file can be imported
+from its parent directory.</p>
 <div class="section level4">
 <h4 id="example">Example<a class="anchor" aria-label="anchor" href="#example"></a>
 </h4>
-<p>Assume we have an <code>app/foo/__init__.R</code> file with the following content:</p>
+<p>Assume we have an <code>app/foo/__init__.R</code> file with the
+following content:</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">#' @export</span></span>
 <span><span class="va">bar</span> <span class="op">&lt;-</span> <span class="st">"Hello!"</span></span></code></pre></div>
-<p>We can now import <code>bar</code> as if it was defined in <code>app/foo.R</code>:</p>
+<p>We can now import <code>bar</code> as if it was defined in
+<code>app/foo.R</code>:</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">box</span><span class="fu">::</span><span class="fu"><a href="http://klmr.me/box/reference/use.html" class="external-link">use</a></span><span class="op">(</span></span>
 <span>  <span class="va">app</span><span class="op">/</span><span class="va">foo</span><span class="op">[</span><span class="va">bar</span><span class="op">]</span></span>
 <span><span class="op">)</span></span></code></pre></div>
-<p>This mechanism can be used in combination with reexports to make it easier to import multiple modules from a single directory.</p>
+<p>This mechanism can be used in combination with reexports to make it
+easier to import multiple modules from a single directory.</p>
 </div>
 </div>
 <div class="section level3">
 <h3 id="reexports">Reexports<a class="anchor" aria-label="anchor" href="#reexports"></a>
 </h3>
-<p>A module can reexport objects imported from a different module by applying <code>#' @export</code> to a <code><a href="http://klmr.me/box/reference/use.html" class="external-link">box::use()</a></code> statement.</p>
+<p>A module can reexport objects imported from a different module by
+applying <code>#' @export</code> to a <code><a href="http://klmr.me/box/reference/use.html" class="external-link">box::use()</a></code>
+statement.</p>
 <div class="section level4">
 <h4 id="example-1">Example<a class="anchor" aria-label="anchor" href="#example-1"></a>
 </h4>
-<p>Assume we have modules <code>analysis_tab.R</code> and <code>download_tab.R</code> in the <code>app/view</code> directory. We can reexport them from <code>app/view/__init__.R</code> like this:</p>
+<p>Assume we have modules <code>analysis_tab.R</code> and
+<code>download_tab.R</code> in the <code>app/view</code> directory. We
+can reexport them from <code>app/view/__init__.R</code> like this:</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">#' @export</span></span>
 <span><span class="fu">box</span><span class="fu">::</span><span class="fu"><a href="http://klmr.me/box/reference/use.html" class="external-link">use</a></span><span class="op">(</span></span>
 <span>  <span class="va">app</span><span class="op">/</span><span class="va">view</span><span class="op">/</span><span class="va">analysis_tab</span>,</span>
 <span>  <span class="va">app</span><span class="op">/</span><span class="va">view</span><span class="op">/</span><span class="va">download_tab</span></span>
 <span><span class="op">)</span></span></code></pre></div>
-<p>The following <code><a href="http://klmr.me/box/reference/use.html" class="external-link">box::use()</a></code> statements are now equivalent:</p>
+<p>The following <code><a href="http://klmr.me/box/reference/use.html" class="external-link">box::use()</a></code> statements are now
+equivalent:</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">box</span><span class="fu">::</span><span class="fu"><a href="http://klmr.me/box/reference/use.html" class="external-link">use</a></span><span class="op">(</span></span>
 <span>  <span class="va">app</span><span class="op">/</span><span class="va">view</span><span class="op">/</span><span class="va">analysis_tab</span>,</span>
@@ -317,16 +354,22 @@
 <div class="section level2">
 <h2 id="known-issues">Known issues<a class="anchor" aria-label="anchor" href="#known-issues"></a>
 </h2>
-<p>The following issues were fixed in box v1.1.3, which is required by Rhino starting with v1.4.0. This section is left here for reference.</p>
+<p>The following issues were fixed in box v1.1.3, which is required by
+Rhino starting with v1.4.0. This section is left here for reference.</p>
 <div class="section level4">
 <h4 id="lazy-loaded-data">Lazy-loaded data<a class="anchor" aria-label="anchor" href="#lazy-loaded-data"></a>
 </h4>
-<p>Prior to v1.1.3 box didn’t support lazy-loaded <a href="https://r-pkgs.org/data.html#data-data" class="external-link">data</a>, so e.g. <code>box::use(datasets[mtcars])</code> wouldn’t work (see this <a href="https://github.com/klmr/box/issues/219" class="external-link">issue</a>). It was possible to workaround it by using <code><a href="https://rdrr.io/r/datasets/mtcars.html" class="external-link">datasets::mtcars</a></code> instead.</p>
+<p>Prior to v1.1.3 box didn’t support lazy-loaded <a href="https://r-pkgs.org/data.html#data-data" class="external-link">data</a>, so
+e.g. <code>box::use(datasets[mtcars])</code> wouldn’t work (see this <a href="https://github.com/klmr/box/issues/219" class="external-link">issue</a>). It was
+possible to workaround it by using <code><a href="https://rdrr.io/r/datasets/mtcars.html" class="external-link">datasets::mtcars</a></code>
+instead.</p>
 </div>
 <div class="section level4">
 <h4 id="trailing-commas">Trailing commas<a class="anchor" aria-label="anchor" href="#trailing-commas"></a>
 </h4>
-<p>Box allows trailing commas in <code><a href="http://klmr.me/box/reference/use.html" class="external-link">box::use()</a></code> statements and code, but prior to v1.1.3 they could cause problems in some circumstances:</p>
+<p>Box allows trailing commas in <code><a href="http://klmr.me/box/reference/use.html" class="external-link">box::use()</a></code> statements and
+code, but prior to v1.1.3 they could cause problems in some
+circumstances:</p>
 <ol style="list-style-type: decimal">
 <li>Reexports (<a href="https://github.com/klmr/box/issues/263" class="external-link">issue</a>).</li>
 <li>Functions accessed via <code>$</code> (<a href="https://github.com/klmr/box/issues/266" class="external-link">issue</a>).</li>

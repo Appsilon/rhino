@@ -14,8 +14,8 @@
 <link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../../apple-touch-icon-60x60.png">
 <script src="../../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="../../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
-<script src="../../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../../deps/font-awesome-6.4.2/css/all.min.css" rel="stylesheet">
-<link href="../../deps/font-awesome-6.4.2/css/v4-shims.min.css" rel="stylesheet">
+<script src="../../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
+<link href="../../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
 <script src="../../deps/headroom-0.11.0/headroom.min.js"></script><script src="../../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../../deps/search-1.0.0/fuse.min.js"></script><script src="../../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../../pkgdown.js"></script><link href="../../extra.css" rel="stylesheet">
 <meta property="og:title" content="Explanation: Renv configuration">
 <!-- Google tag (gtag.js) --><script async src="https://www.googletagmanager.com/gtag/js?id=G-NEHZJ9B11D"></script><script>
@@ -164,7 +164,8 @@
 
 
 
-<script src="renv-configuration_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
+
+<div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
 
       <h1>Explanation: Renv configuration</h1>
@@ -176,31 +177,63 @@
 
     
     
-<p>This article explains the internals of R dependency management in Rhino. Practical instructions for adding, removing and updating dependencies can be found in the documentation of <code><a href="../../reference/dependencies.html">rhino::pkg_install()</a></code> and <code><a href="../../reference/dependencies.html">rhino::pkg_remove()</a></code>.</p>
-<p>Rhino relies on <a href="https://rstudio.github.io/renv/" class="external-link">renv</a> to manage the R package dependencies of your project. With <a href="https://rstudio.github.io/renv/" class="external-link">renv</a> you can create an isolated package library for each application and easily restore it on a different machine using the exact same package versions. This is crucial for the maintainability of any project.</p>
-<p>To learn more about <a href="https://rstudio.github.io/renv/" class="external-link">renv</a> visit its <a href="https://rstudio.github.io/renv/index.html" class="external-link">website</a>. This article describes the specifics of how Rhino uses <a href="https://rstudio.github.io/renv/" class="external-link">renv</a> assuming some basic familiarity with the package.</p>
+<p>This article explains the internals of R dependency management in
+Rhino. Practical instructions for adding, removing and updating
+dependencies can be found in the documentation of
+<code><a href="../../reference/dependencies.html">rhino::pkg_install()</a></code> and
+<code><a href="../../reference/dependencies.html">rhino::pkg_remove()</a></code>.</p>
+<p>Rhino relies on <a href="https://rstudio.github.io/renv/" class="external-link">renv</a> to manage the R package
+dependencies of your project. With <a href="https://rstudio.github.io/renv/" class="external-link">renv</a> you can create an
+isolated package library for each application and easily restore it on a
+different machine using the exact same package versions. This is crucial
+for the maintainability of any project.</p>
+<p>To learn more about <a href="https://rstudio.github.io/renv/" class="external-link">renv</a> visit its <a href="https://rstudio.github.io/renv/index.html" class="external-link">website</a>. This
+article describes the specifics of how Rhino uses <a href="https://rstudio.github.io/renv/" class="external-link">renv</a>
+assuming some basic familiarity with the package.</p>
 <div class="section level2">
 <h2 id="snapshot-types">Snapshot types<a class="anchor" aria-label="anchor" href="#snapshot-types"></a>
 </h2>
-<p><a href="https://rstudio.github.io/renv/" class="external-link">renv</a> offers different <a href="https://rstudio.github.io/renv/reference/snapshot.html#snapshot-type" class="external-link">snapshot types</a>. By default it performs an <em>implicit</em> snapshot: it tries to detect the dependencies of your project by scanning your R sources. While convenient in small projects, this approach lacks fine control and can be inefficient in larger code bases.</p>
-<p>It would be preferable to use <em>explicit</em> snapshots: the dependencies of your project must be listed in a <code>DESCRIPTION</code> file. Unfortunately we faced some issues with this snapshot type in deployments. Instead, Rhino uses the following setup:</p>
+<p><a href="https://rstudio.github.io/renv/" class="external-link">renv</a> offers different <a href="https://rstudio.github.io/renv/reference/snapshot.html#snapshot-type" class="external-link">snapshot
+types</a>. By default it performs an <em>implicit</em> snapshot: it
+tries to detect the dependencies of your project by scanning your R
+sources. While convenient in small projects, this approach lacks fine
+control and can be inefficient in larger code bases.</p>
+<p>It would be preferable to use <em>explicit</em> snapshots: the
+dependencies of your project must be listed in a
+<code>DESCRIPTION</code> file. Unfortunately we faced some issues with
+this snapshot type in deployments. Instead, Rhino uses the following
+setup:</p>
 <ol style="list-style-type: decimal">
-<li>Implicit snapshot (configured in <code>renv/settings.dcf</code>).</li>
-<li>A <code>dependencies.R</code> file with dependencies listed explicitly as <code><a href="https://rdrr.io/r/base/library.html" class="external-link">library()</a></code> calls.</li>
-<li>A <code>.renvignore</code> file which tells <a href="https://rstudio.github.io/renv/" class="external-link">renv</a> to only read <code>dependencies.R</code>.</li>
+<li>Implicit snapshot (configured in
+<code>renv/settings.dcf</code>).</li>
+<li>A <code>dependencies.R</code> file with dependencies listed
+explicitly as <code><a href="https://rdrr.io/r/base/library.html" class="external-link">library()</a></code> calls.</li>
+<li>A <code>.renvignore</code> file which tells <a href="https://rstudio.github.io/renv/" class="external-link">renv</a> to
+only read <code>dependencies.R</code>.</li>
 </ol>
-<p>This solution offers us the benefits of explicit snapshots (fine control, efficiency) and works well in deployment.</p>
+<p>This solution offers us the benefits of explicit snapshots (fine
+control, efficiency) and works well in deployment.</p>
 </div>
 <div class="section level2">
 <h2 id="manual-dependency-management">Manual dependency management<a class="anchor" aria-label="anchor" href="#manual-dependency-management"></a>
 </h2>
-<p>In most cases the only functions you will need are <code><a href="../../reference/dependencies.html">rhino::pkg_install()</a></code> and <code><a href="../../reference/dependencies.html">rhino::pkg_remove()</a></code>. However it is still possible to manage dependencies using the underlying <a href="https://rstudio.github.io/renv/" class="external-link">renv</a> functions directly. This can be helpful in some unusual situations (e.g. broken lockfile, installing a specific package version).</p>
-<p><a href="https://rstudio.github.io/renv/" class="external-link">renv</a> will only save to the lockfile the packages which are installed in the local library, and it will remove the packages which are not installed. Thus you should always run <code>renv::restore(clean = TRUE)</code> before performing the steps below.</p>
+<p>In most cases the only functions you will need are
+<code><a href="../../reference/dependencies.html">rhino::pkg_install()</a></code> and <code><a href="../../reference/dependencies.html">rhino::pkg_remove()</a></code>.
+However it is still possible to manage dependencies using the underlying
+<a href="https://rstudio.github.io/renv/" class="external-link">renv</a> functions directly. This can be helpful in some
+unusual situations (e.g. broken lockfile, installing a specific package
+version).</p>
+<p><a href="https://rstudio.github.io/renv/" class="external-link">renv</a> will only save to the lockfile the packages which
+are installed in the local library, and it will remove the packages
+which are not installed. Thus you should always run
+<code>renv::restore(clean = TRUE)</code> before performing the steps
+below.</p>
 <div class="section level3">
 <h3 id="add-a-dependency">Add a dependency<a class="anchor" aria-label="anchor" href="#add-a-dependency"></a>
 </h3>
 <ol style="list-style-type: decimal">
-<li>Add a <code><a href="https://rdrr.io/r/base/library.html" class="external-link">library(package)</a></code> line to <code>dependencies.R</code>.</li>
+<li>Add a <code><a href="https://rdrr.io/r/base/library.html" class="external-link">library(package)</a></code> line to
+<code>dependencies.R</code>.</li>
 <li>Call <code>renv::install("package")</code>.</li>
 <li>Call <code><a href="https://rstudio.github.io/renv/reference/snapshot.html" class="external-link">renv::snapshot()</a></code>.</li>
 </ol>
@@ -212,17 +245,25 @@
 <li>Call <code>renv::update("package")</code>.</li>
 <li>Call <code><a href="https://rstudio.github.io/renv/reference/snapshot.html" class="external-link">renv::snapshot()</a></code>.</li>
 </ol>
-<p>Calling <code>renv::install("package")</code> instead of <code>renv::update("package")</code> will have the same effect.</p>
+<p>Calling <code>renv::install("package")</code> instead of
+<code>renv::update("package")</code> will have the same effect.</p>
 </div>
 <div class="section level3">
 <h3 id="remove-a-dependency">Remove a dependency<a class="anchor" aria-label="anchor" href="#remove-a-dependency"></a>
 </h3>
 <ol style="list-style-type: decimal">
-<li>Remove the <code><a href="https://rdrr.io/r/base/library.html" class="external-link">library(package)</a></code> line from <code>dependencies.R</code>.</li>
+<li>Remove the <code><a href="https://rdrr.io/r/base/library.html" class="external-link">library(package)</a></code> line from
+<code>dependencies.R</code>.</li>
 <li>Call <code><a href="https://rstudio.github.io/renv/reference/snapshot.html" class="external-link">renv::snapshot()</a></code>.</li>
 <li>Call <code>renv::restore(clean = TRUE)</code>.</li>
 </ol>
-<p>It is not recommended to use the <code><a href="https://rstudio.github.io/renv/reference/remove.html" class="external-link">renv::remove()</a></code> function, as it will remove a package from the local library even if it is still required by other packages. For example, <code>renv::remove("glue")</code> followed by <code><a href="https://rstudio.github.io/renv/reference/snapshot.html" class="external-link">renv::snapshot()</a></code> will leave you without the <a href="https://glue.tidyverse.org/" class="external-link">glue</a> package in your lockfile, even though it is required by <a href="https://shiny.posit.co/" class="external-link">shiny</a>.</p>
+<p>It is not recommended to use the <code><a href="https://rstudio.github.io/renv/reference/remove.html" class="external-link">renv::remove()</a></code>
+function, as it will remove a package from the local library even if it
+is still required by other packages. For example,
+<code>renv::remove("glue")</code> followed by
+<code><a href="https://rstudio.github.io/renv/reference/snapshot.html" class="external-link">renv::snapshot()</a></code> will leave you without the
+<a href="https://glue.tidyverse.org/" class="external-link">glue</a> package in your lockfile, even though it is required
+by <a href="https://shiny.posit.co/" class="external-link">shiny</a>.</p>
 </div>
 </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>

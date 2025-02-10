@@ -14,8 +14,8 @@
 <link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../../apple-touch-icon-60x60.png">
 <script src="../../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="../../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
-<script src="../../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../../deps/font-awesome-6.4.2/css/all.min.css" rel="stylesheet">
-<link href="../../deps/font-awesome-6.4.2/css/v4-shims.min.css" rel="stylesheet">
+<script src="../../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
+<link href="../../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
 <script src="../../deps/headroom-0.11.0/headroom.min.js"></script><script src="../../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../../deps/search-1.0.0/fuse.min.js"></script><script src="../../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../../pkgdown.js"></script><link href="../../extra.css" rel="stylesheet">
 <meta property="og:title" content="Explanation: What is Rhino?">
 <!-- Global site tag (gtag.js) - Google Analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=G-DL2H66RTY1"></script><script>
@@ -124,7 +124,8 @@
 
 
 
-<script src="what-is-rhino_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
+
+<div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
 
       <h1>Explanation: What is Rhino?</h1>
@@ -139,32 +140,56 @@
 <div class="section level2">
 <h2 id="what-is-rhino">What is Rhino?<a class="anchor" aria-label="anchor" href="#what-is-rhino"></a>
 </h2>
-<p>Rhino lets you build high quality, enterprise-grade Shiny applications at speed. It is an opinionated framework with a focus on best practices and development tools. It allows you to create Shiny apps “The Appsilon Way” - like a fullstack software engineer: apply best software engineering practices, modularize your code, test it well, make UI beautiful and think about adoption from the very beginning.</p>
-<p>Rhino started as a series internal projects at Appsilon aiming to:</p>
+<p>Rhino lets you build high quality, enterprise-grade Shiny
+applications at speed. It is an opinionated framework with a focus on
+best practices and development tools. It allows you to create Shiny apps
+“The Appsilon Way” - like a fullstack software engineer: apply best
+software engineering practices, modularize your code, test it well, make
+UI beautiful and think about adoption from the very beginning.</p>
+<p>Rhino started as a series internal projects at Appsilon aiming
+to:</p>
 <ol style="list-style-type: decimal">
-<li>Save time and avoid repetitive tasks: include all best practices we care about from the very beginning of a project.</li>
-<li>Unify applications’ architecture: provide sensible defaults so that we don’t reinvent the wheel.</li>
-<li>Automate and codify our existing practices: pass knowledge in the form of code instead of documents and manuals.</li>
+<li>Save time and avoid repetitive tasks: include all best practices we
+care about from the very beginning of a project.</li>
+<li>Unify applications’ architecture: provide sensible defaults so that
+we don’t reinvent the wheel.</li>
+<li>Automate and codify our existing practices: pass knowledge in the
+form of code instead of documents and manuals.</li>
 </ol>
-<p>It has since evolved into an R package that we are now sharing with the Shiny community.</p>
+<p>It has since evolved into an R package that we are now sharing with
+the Shiny community.</p>
 </div>
 <div class="section level2">
 <h2 id="why-rhino">Why Rhino?<a class="anchor" aria-label="anchor" href="#why-rhino"></a>
 </h2>
-<p>Why Rhino? Because Rhino helps you build Shiny apps faster, while making them more reliable and easier to maintain. It bundles in a coherent way a set of tools and practices that are beneficial for most Shiny applications, especially in enterprise.</p>
+<p>Why Rhino? Because Rhino helps you build Shiny apps faster, while
+making them more reliable and easier to maintain. It bundles in a
+coherent way a set of tools and practices that are beneficial for most
+Shiny applications, especially in enterprise.</p>
 <p>You may want to use Rhino if:</p>
 <ol style="list-style-type: decimal">
-<li>You need a nested files structure that will handle a bigger application.</li>
-<li>You want to follow a complete set of solutions for typical problems, avoid “reinventing the wheel”</li>
-<li>You’d like to have a scalable, modularized application, with separation of responsibility, and would like to follow a suggested approach to that (box, Shiny modules, view / logic separation).</li>
-<li>You want to save time and avoid repetitive tasks: quickly start an app with a set of preconfigured development tools (linters, CI, Cypress, logging, Sass and JS building)</li>
-<li>You are building an application for production use in enterprise - you need to make sure it’s highly maintainable and reliable in the long term.</li>
+<li>You need a nested files structure that will handle a bigger
+application.</li>
+<li>You want to follow a complete set of solutions for typical problems,
+avoid “reinventing the wheel”</li>
+<li>You’d like to have a scalable, modularized application, with
+separation of responsibility, and would like to follow a suggested
+approach to that (box, Shiny modules, view / logic separation).</li>
+<li>You want to save time and avoid repetitive tasks: quickly start an
+app with a set of preconfigured development tools (linters, CI, Cypress,
+logging, Sass and JS building)</li>
+<li>You are building an application for production use in enterprise -
+you need to make sure it’s highly maintainable and reliable in the long
+term.</li>
 </ol>
 </div>
 <div class="section level2">
 <h2 id="why-not-use-golem-leprechaun">Why not use Golem, Leprechaun?<a class="anchor" aria-label="anchor" href="#why-not-use-golem-leprechaun"></a>
 </h2>
-<p>Golem is a great package, and we believe it is a good fit for many developers. Choose whichever works best for you and your project! You can learn more about the differences in <a href="articles/explanation/similar-projects.html">Similar projects</a>.</p>
+<p>Golem is a great package, and we believe it is a good fit for many
+developers. Choose whichever works best for you and your project! You
+can learn more about the differences in <a href="articles/explanation/similar-projects.html">Similar
+projects</a>.</p>
 </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside>

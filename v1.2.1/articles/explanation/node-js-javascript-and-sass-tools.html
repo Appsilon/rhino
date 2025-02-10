@@ -14,8 +14,8 @@
 <link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../../apple-touch-icon-60x60.png">
 <script src="../../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="../../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
-<script src="../../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../../deps/font-awesome-6.4.2/css/all.min.css" rel="stylesheet">
-<link href="../../deps/font-awesome-6.4.2/css/v4-shims.min.css" rel="stylesheet">
+<script src="../../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
+<link href="../../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
 <script src="../../deps/headroom-0.11.0/headroom.min.js"></script><script src="../../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../../deps/search-1.0.0/fuse.min.js"></script><script src="../../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../../pkgdown.js"></script><link href="../../extra.css" rel="stylesheet">
 <meta property="og:title" content="Explanation: Node.js - JavaScript and Sass tools">
 <!-- Google tag (gtag.js) --><script async src="https://www.googletagmanager.com/gtag/js?id=G-NEHZJ9B11D"></script><script>
@@ -126,7 +126,8 @@
 
 
 
-<script src="node-js-javascript-and-sass-tools_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
+
+<div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
 
       <h1>Explanation: Node.js - JavaScript and Sass tools</h1>
@@ -141,12 +142,18 @@
 <div class="section level2">
 <h2 id="about">About<a class="anchor" aria-label="anchor" href="#about"></a>
 </h2>
-<p><a href="https://nodejs.org/en/about/" class="external-link">Node.js</a> is a runtime environment which can execute JavaScript code outside a web browser. It is used widely for web development. Its package manager, <a href="https://docs.npmjs.com/about-npm" class="external-link">npm</a>, makes it easy to install virtually any JavaScript library.</p>
-<p>Rhino uses Node.js to provide state of the art tools for working with JavaScript and Sass. The following functions require Node.js to work:</p>
+<p><a href="https://nodejs.org/en/about/" class="external-link">Node.js</a> is a runtime
+environment which can execute JavaScript code outside a web browser. It
+is used widely for web development. Its package manager, <a href="https://docs.npmjs.com/about-npm" class="external-link">npm</a>, makes it easy to
+install virtually any JavaScript library.</p>
+<p>Rhino uses Node.js to provide state of the art tools for working with
+JavaScript and Sass. The following functions require Node.js to
+work:</p>
 <ol style="list-style-type: decimal">
 <li><code><a href="../../reference/build_js.html">build_js()</a></code></li>
 <li>
-<code><a href="../../reference/build_sass.html">build_sass()</a></code> (with <code>sass: node</code> configuration in <code>rhino.yml</code>)</li>
+<code><a href="../../reference/build_sass.html">build_sass()</a></code> (with <code>sass: node</code>
+configuration in <code>rhino.yml</code>)</li>
 <li><code><a href="../../reference/lint_js.html">lint_js()</a></code></li>
 <li><code><a href="../../reference/lint_sass.html">lint_sass()</a></code></li>
 <li><code><a href="../../reference/test_e2e.html">test_e2e()</a></code></li>
@@ -154,24 +161,41 @@
 <div class="section level3">
 <h3 id="node-directory">Node directory<a class="anchor" aria-label="anchor" href="#node-directory"></a>
 </h3>
-<p>Under the hood Rhino will create a <code>.rhino/node</code> directory in your project to store the specific libraries needed by these tools. This directory is git-ignored by default and safe to remove.</p>
+<p>Under the hood Rhino will create a <code>.rhino/node</code> directory
+in your project to store the specific libraries needed by these tools.
+This directory is git-ignored by default and safe to remove.</p>
 </div>
 <div class="section level3">
 <h3 id="node-installation-via-nvm">Node installation via nvm<a class="anchor" aria-label="anchor" href="#node-installation-via-nvm"></a>
 </h3>
-<p>Node can be installed in various ways. One of them relies on <a href="https://github.com/nvm-sh/nvm" class="external-link"><code>nvm</code></a> (Node Version Manager).</p>
-<p>There’s a known <a href="https://github.com/Appsilon/rhino/issues/345" class="external-link">issue</a> when using multiple versions of <code>Node</code> that were installed with <code>nvm</code> that causes RStudio to not recognize properly the chosen version. It’s caused by <code>nvm</code> and RStudio and can be easily mitigated by starting the RStudio through the terminal:</p>
-<p><strong>Ubuntu/Debian</strong> Open your terminal of choice (i.e. Bash) and run</p>
+<p>Node can be installed in various ways. One of them relies on <a href="https://github.com/nvm-sh/nvm" class="external-link"><code>nvm</code></a> (Node Version
+Manager).</p>
+<p>There’s a known <a href="https://github.com/Appsilon/rhino/issues/345" class="external-link">issue</a> when using
+multiple versions of <code>Node</code> that were installed with
+<code>nvm</code> that causes RStudio to not recognize properly the
+chosen version. It’s caused by <code>nvm</code> and RStudio and can be
+easily mitigated by starting the RStudio through the terminal:</p>
+<p><strong>Ubuntu/Debian</strong> Open your terminal of choice
+(i.e. Bash) and run</p>
 <pre><code><span><span class="va">rstudio</span></span></code></pre>
-<p><strong>Windows</strong> Open your Windows terminal of choice (i.e. Terminal, PowerShell, Git Bash) and run:</p>
+<p><strong>Windows</strong> Open your Windows terminal of choice
+(i.e. Terminal, PowerShell, Git Bash) and run:</p>
 <pre><code><span><span class="va">path</span><span class="op">/</span><span class="va">to</span><span class="op">/</span><span class="va">your</span><span class="op">/</span><span class="va">rstudio</span><span class="op">/</span><span class="va">folder</span><span class="op">/</span><span class="va">Rstudio.exe</span></span></code></pre>
-<p><strong>Mac</strong> Open your Mac terminal of choice (i.e. default Terminal) and run:</p>
+<p><strong>Mac</strong> Open your Mac terminal of choice (i.e. default
+Terminal) and run:</p>
 <pre><code>open -na Rstudio</code></pre>
 </div>
 <div class="section level3">
 <h3 id="build_sass-function">build_sass() function<a class="anchor" aria-label="anchor" href="#build_sass-function"></a>
 </h3>
-<p>The <code><a href="../../reference/build_sass.html">build_sass()</a></code> function is worth an additional comment. Depending on the configuration in <code>rhino.yml</code> it can use either the <a href="https://www.npmjs.com/package/sass" class="external-link">sass</a> Node.js package or the <a href="https://rstudio.github.io/sass/" class="external-link">sass</a> R package. We recommend the Node.js version, as it is the primary, actively developed implementation of Sass. In contrast, the R package uses the deprecated <a href="https://sass-lang.com/blog/libsass-is-deprecated" class="external-link">LibSass</a> implementation.</p>
+<p>The <code><a href="../../reference/build_sass.html">build_sass()</a></code> function is worth an additional
+comment. Depending on the configuration in <code>rhino.yml</code> it can
+use either the <a href="https://www.npmjs.com/package/sass" class="external-link">sass</a>
+Node.js package or the <a href="https://rstudio.github.io/sass/" class="external-link">sass</a> R package. We recommend
+the Node.js version, as it is the primary, actively developed
+implementation of Sass. In contrast, the R package uses the deprecated
+<a href="https://sass-lang.com/blog/libsass-is-deprecated" class="external-link">LibSass</a>
+implementation.</p>
 </div>
 </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>

@@ -14,8 +14,8 @@
 <link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../../apple-touch-icon-60x60.png">
 <script src="../../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="../../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
-<script src="../../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../../deps/font-awesome-6.4.2/css/all.min.css" rel="stylesheet">
-<link href="../../deps/font-awesome-6.4.2/css/v4-shims.min.css" rel="stylesheet">
+<script src="../../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
+<link href="../../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
 <script src="../../deps/headroom-0.11.0/headroom.min.js"></script><script src="../../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../../deps/search-1.0.0/fuse.min.js"></script><script src="../../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../../pkgdown.js"></script><link href="../../extra.css" rel="stylesheet">
 <meta property="og:title" content="How-to: Publish Rhino app on Hugging Face">
 <!-- Google tag (gtag.js) --><script async src="https://www.googletagmanager.com/gtag/js?id=G-NEHZJ9B11D"></script><script>
@@ -170,7 +170,8 @@
 
 
 
-<script src="publish-on-huggingface_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
+
+<div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
 
       <h1>How-to: Publish Rhino app on Hugging Face</h1>
@@ -182,28 +183,37 @@
 
     
     
-<p><a href="https://huggingface.co/" class="external-link">Hugging Face</a> is a platform that allows publishing models, datasets, and web applications. Shiny applications (including Rhino) also can be hosted this way, with Hugging Face support for Docker containers as SDK. A sample Rhino application can be found <a href="https://huggingface.co/spaces/Appsilon/shiny-for-r-rhino" class="external-link">here</a>.</p>
-<p>To publish your application, you will need to provide a <code>Dockerfile</code> that defines the container that will be used to host it. Such a <code>Dockerfile</code> can look like this:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode dockerfile"><code class="sourceCode dockerfile"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true"></a><span class="kw">FROM</span> rocker/shiny-verse:4.3.0</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true"></a></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true"></a><span class="co"># Workaround for renv cache</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true"></a><span class="kw">RUN</span> mkdir /.cache</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true"></a><span class="kw">RUN</span> chmod 777 /.cache</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true"></a></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true"></a><span class="kw">WORKDIR</span> /code</span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true"></a></span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true"></a><span class="co"># Install renv</span></span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true"></a><span class="kw">RUN</span> install2.r --error \</span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true"></a>    renv</span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true"></a></span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true"></a><span class="co"># Copy application code</span></span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true"></a><span class="kw">COPY</span> . .</span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true"></a></span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true"></a><span class="co"># Install dependencies</span></span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true"></a><span class="kw">RUN</span> Rscript -e <span class="st">'options(renv.config.cache.enabled = FALSE); renv::restore(prompt = FALSE)'</span></span>
-<span id="cb1-18"><a href="#cb1-18" aria-hidden="true"></a></span>
-<span id="cb1-19"><a href="#cb1-19" aria-hidden="true"></a><span class="kw">CMD</span> [<span class="st">"R"</span>, <span class="st">"--quiet"</span>, <span class="st">"-e"</span>, <span class="st">"shiny::runApp(host='0.0.0.0', port=7860)"</span>]</span></code></pre></div>
-<p>You might need to modify it with e.g. different R version, base Docker image, or some additional dependencies. Check <a href="https://docs.docker.com/engine/reference/builder/" class="external-link">Docker documentation</a> and <a href="https://huggingface.co/docs/hub/spaces-sdks-docker" class="external-link">Hugging Face documentation</a> for more details.</p>
+<p><a href="https://huggingface.co/" class="external-link">Hugging Face</a> is a platform that
+allows publishing models, datasets, and web applications. Shiny
+applications (including Rhino) also can be hosted this way, with Hugging
+Face support for Docker containers as SDK. A sample Rhino application
+can be found <a href="https://huggingface.co/spaces/Appsilon/shiny-for-r-rhino" class="external-link">here</a>.</p>
+<p>To publish your application, you will need to provide a
+<code>Dockerfile</code> that defines the container that will be used to
+host it. Such a <code>Dockerfile</code> can look like this:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode dockerfile"><code class="sourceCode dockerfile"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="kw">FROM</span> rocker/shiny-verse:4.3.0</span>
+<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a><span class="co"># Workaround for renv cache</span></span>
+<span id="cb1-4"><a href="#cb1-4" tabindex="-1"></a><span class="kw">RUN</span> <span class="fu">mkdir</span> /.cache</span>
+<span id="cb1-5"><a href="#cb1-5" tabindex="-1"></a><span class="kw">RUN</span> <span class="fu">chmod</span> 777 /.cache</span>
+<span id="cb1-6"><a href="#cb1-6" tabindex="-1"></a></span>
+<span id="cb1-7"><a href="#cb1-7" tabindex="-1"></a><span class="kw">WORKDIR</span> /code</span>
+<span id="cb1-8"><a href="#cb1-8" tabindex="-1"></a></span>
+<span id="cb1-9"><a href="#cb1-9" tabindex="-1"></a><span class="co"># Install renv</span></span>
+<span id="cb1-10"><a href="#cb1-10" tabindex="-1"></a><span class="kw">RUN</span> <span class="ex">install2.r</span> <span class="at">--error</span> <span class="dt">\</span></span>
+<span id="cb1-11"><a href="#cb1-11" tabindex="-1"></a>    renv</span>
+<span id="cb1-12"><a href="#cb1-12" tabindex="-1"></a></span>
+<span id="cb1-13"><a href="#cb1-13" tabindex="-1"></a><span class="co"># Copy application code</span></span>
+<span id="cb1-14"><a href="#cb1-14" tabindex="-1"></a><span class="kw">COPY</span> . .</span>
+<span id="cb1-15"><a href="#cb1-15" tabindex="-1"></a></span>
+<span id="cb1-16"><a href="#cb1-16" tabindex="-1"></a><span class="co"># Install dependencies</span></span>
+<span id="cb1-17"><a href="#cb1-17" tabindex="-1"></a><span class="kw">RUN</span> <span class="ex">Rscript</span> <span class="at">-e</span> <span class="st">'options(renv.config.cache.enabled = FALSE); renv::restore(prompt = FALSE)'</span></span>
+<span id="cb1-18"><a href="#cb1-18" tabindex="-1"></a></span>
+<span id="cb1-19"><a href="#cb1-19" tabindex="-1"></a><span class="kw">CMD</span> [<span class="st">"R"</span>, <span class="st">"--quiet"</span>, <span class="st">"-e"</span>, <span class="st">"shiny::runApp(host='0.0.0.0', port=7860)"</span>]</span></code></pre></div>
+<p>You might need to modify it with e.g. different R version, base
+Docker image, or some additional dependencies. Check <a href="https://docs.docker.com/engine/reference/builder/" class="external-link">Docker
+documentation</a> and <a href="https://huggingface.co/docs/hub/spaces-sdks-docker" class="external-link">Hugging Face
+documentation</a> for more details.</p>
   </main>
 </div>
 

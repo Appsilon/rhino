@@ -14,8 +14,8 @@
 <link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../../apple-touch-icon-60x60.png">
 <script src="../../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="../../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
-<script src="../../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../../deps/font-awesome-6.4.2/css/all.min.css" rel="stylesheet">
-<link href="../../deps/font-awesome-6.4.2/css/v4-shims.min.css" rel="stylesheet">
+<script src="../../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
+<link href="../../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
 <script src="../../deps/headroom-0.11.0/headroom.min.js"></script><script src="../../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../../deps/search-1.0.0/fuse.min.js"></script><script src="../../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../../pkgdown.js"></script><link href="../../extra.css" rel="stylesheet">
 <meta property="og:title" content="How-to: Manage R dependencies">
 <!-- Google Tag Manager --><script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start': new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0], j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src= 'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f); })(window,document,'script','dataLayer','GTM-K4Z9M9Z');</script><!-- End Google Tag Manager -->
@@ -119,7 +119,8 @@
 
 
 
-<script src="manage-r-dependencies_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
+
+<div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
 
       <h1>How-to: Manage R dependencies</h1>
@@ -131,13 +132,18 @@
 
     
     
-<p>Rhino uses <a href="https://rstudio.github.io/renv/" class="external-link">renv</a> to manage the R package dependencies of your project. To learn about the details and rationale for the particular setup used by Rhino, please refer to <a href="https://appsilon.github.io/rhino/articles/explanation/renv-configuration.html" class="external-link">Explanation: Renv configuration</a>.</p>
-<p>This article offers short recipes for the most common tasks: adding, updating and removing dependencies.</p>
+<p>Rhino uses <a href="https://rstudio.github.io/renv/" class="external-link">renv</a> to manage the R package dependencies
+of your project. To learn about the details and rationale for the
+particular setup used by Rhino, please refer to <a href="https://appsilon.github.io/rhino/articles/explanation/renv-configuration.html" class="external-link">Explanation:
+Renv configuration</a>.</p>
+<p>This article offers short recipes for the most common tasks: adding,
+updating and removing dependencies.</p>
 <div class="section level3">
 <h3 id="add-a-dependency">Add a dependency<a class="anchor" aria-label="anchor" href="#add-a-dependency"></a>
 </h3>
 <ol style="list-style-type: decimal">
-<li>Add a <code><a href="https://rdrr.io/r/base/library.html" class="external-link">library(package)</a></code> line to <code>dependencies.R</code>.</li>
+<li>Add a <code><a href="https://rdrr.io/r/base/library.html" class="external-link">library(package)</a></code> line to
+<code>dependencies.R</code>.</li>
 <li>Call <code>renv::install("package")</code>.</li>
 <li>Call <code><a href="https://rstudio.github.io/renv/reference/snapshot.html" class="external-link">renv::snapshot()</a></code>.</li>
 </ol>
@@ -154,7 +160,8 @@
 <h3 id="remove-a-dependency">Remove a dependency<a class="anchor" aria-label="anchor" href="#remove-a-dependency"></a>
 </h3>
 <ol style="list-style-type: decimal">
-<li>Remove the <code><a href="https://rdrr.io/r/base/library.html" class="external-link">library(package)</a></code> line from <code>dependencies.R</code>.</li>
+<li>Remove the <code><a href="https://rdrr.io/r/base/library.html" class="external-link">library(package)</a></code> line from
+<code>dependencies.R</code>.</li>
 <li>Call <code><a href="https://rstudio.github.io/renv/reference/snapshot.html" class="external-link">renv::snapshot()</a></code>.</li>
 <li>Call <code>renv::restore(clean = TRUE)</code>.</li>
 </ol>
