@@ -1,0 +1,42 @@
+#' @export
+`%<-%` <- function(lhs, rhs) {
+  # LHS validation
+  lhs <- substitute(lhs)
+  if (!is.call(lhs)) {
+    stop("%<-% : only calls are allowed on the left-hand side")
+  }
+
+  if (lhs[[1]] != as.name("c")) {
+    stop("%<-% : invalid call on the left-hand side - only c() is allowed")
+  }
+
+  # RHS validation
+  if (!is.list(rhs)) {
+    stop("%<-% : only lists are allowed on the right-hand side")
+  }
+
+  if (is.data.frame(rhs)) {
+    stop("%<-% : data.frames are not supported on the right-hand side")
+  }
+
+  if (is.null(names(rhs))) {
+    stop("%<-% : only *named* lists are supported on the right-hand side")
+  }
+
+  lhs_names <- as.list(lhs)[-1]
+  for (name in lhs_names) {
+    name <- as.character(name)
+    if (name == "...") {
+      stop("%<-% : ... is not supported on the left-hand side")
+    }
+
+    value <- rhs[[name]]
+    if (is.null(value)) {
+      stop(paste0("%<-% : couldn't find the '", name, "' key in the list on the right-hand side"))
+    }
+
+    assign(name, value, envir = parent.frame())
+  }
+
+  invisible(rhs)
+}
