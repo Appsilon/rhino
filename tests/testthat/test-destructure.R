@@ -80,4 +80,22 @@ describe("%<-% - destructuring", {
     # Assert
     expect_equal(y, 123)
   })
+
+  it("works with functions that return a list", {
+    # Arrange
+    get_person <- function() {
+      list(
+        name = "John Doe",
+        age = 30,
+        email = "john@example.com"
+      )
+    }
+
+    # Act
+    c(name, age) %<-% get_person()
+
+    # Assert
+    expect_equal(name, "John Doe")
+    expect_equal(age, 30)
+  })
 })
