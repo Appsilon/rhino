@@ -45,6 +45,7 @@ Imports:
 Suggests:
   covr,
   knitr,
+  lifecycle,
   mockery,
   rcmdcheck,
   rex,

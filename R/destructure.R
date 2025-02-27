@@ -1,3 +1,34 @@
+#' Destructure a named list into individual variables
+#'
+#' @description
+#' `r lifecycle::badge("experimental")`
+#'
+#' The destructuring operator `%<-%` allows you to extract multiple named values from a list
+#' into individual variables in a single assignment. This provides a convenient way to
+#' unpack list elements by name.
+#'
+#' @param lhs A call to `c()` containing variable names to assign to
+#' @param rhs A named list containing the values to assign
+#'
+#' @return Invisibly returns the right-hand side list
+#'
+#' @examples
+#' # Basic destructuring
+#' data <- list(x = 1, y = 2, z = 3)
+#' c(x, y) %<-% data
+#' x  # 1
+#' y  # 2
+#'
+#' # Works with unsorted names
+#' result <- list(last = "Smith", first = "John")
+#' c(first, last) %<-% result
+#'
+#' # Can be used with pipe operations
+#' c(value) %<-% (
+#'   123 |>
+#'     list(value = _)
+#' )
+#'
 #' @export
 `%<-%` <- function(lhs, rhs) {
   # LHS validation
