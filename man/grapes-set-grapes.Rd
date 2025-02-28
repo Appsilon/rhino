@@ -20,6 +20,11 @@ Invisibly returns the right-hand side list
 The destructuring operator \verb{\%<-\%} allows you to extract multiple named values from a list
 into individual variables in a single assignment. This provides a convenient way to
 unpack list elements by name.
+
+While it works with any named list, it was primarily designed to improve the ergonomics
+of working with Shiny modules that return multiple reactive values. Instead of manually
+assigning each reactive value from a module's return list, you can destructure them all
+at once.
 }
 \examples{
 # Basic destructuring
@@ -31,6 +36,21 @@ y  # 2
 # Works with unsorted names
 result <- list(last = "Smith", first = "John")
 c(first, last) \%<-\% result
+
+# Shiny module example
+if (interactive()) {
+  module_server <- function(id) {
+    shiny::moduleServer(id, function(input, output, session) {
+      list(
+        value = shiny::reactive(input$num),
+        text = shiny::reactive(input$txt)
+      )
+    })
+  }
+
+  # Clean extraction of reactive values
+  c(value, text) \%<-\% module_server("my_module")
+}
 
 # Can be used with pipe operations
 c(value) \%<-\% (
