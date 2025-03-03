@@ -53,6 +53,7 @@ if (interactive()) {
 }
 
 # Can be used with pipe operations
+# Note: The piped expression must be wrapped in brackets
 c(value) \%<-\% (
   123 |>
     list(value = _)
