@@ -37,10 +37,10 @@ react_support <- function() {
 #'
 #' @examples
 #' # Declare the component.
-#' TextBox <- react_component("TextBox")
+#' TextBox <- try(react_component("TextBox"))
 #'
 #' # Use the component.
-#' ui <- TextBox("Hello!", font_size = 20)
+#' ui <- try(TextBox("Hello!", font_size = 20))
 #' @export
 # nolint end
 react_component <- function(name) {
