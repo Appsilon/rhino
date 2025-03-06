@@ -28,9 +28,9 @@ jobs:
       # but it subsequentially fails in the pushed app and breaks the test
       # (see https://github.com/rstudio/renv/issues/1772).
       # This step is is a workaround and can be removed once the issue is resolved.
-      - name: Install renv
-        shell: Rscript {0}
-        run: install.packages("renv")
+      # - name: Install renv
+      #   shell: Rscript {0}
+      #   run: install.packages("renv")
 
       - name: Checkout repository
         uses: actions/checkout@v3
