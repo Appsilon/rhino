@@ -3,9 +3,6 @@ is_installed <- function(package) {
   length(find.package(package, quiet = TRUE)) > 0
 }
 
-# Use renv and install rhino
-renv::install()
-
 initial_dependencies <- readLines("dependencies.R")
 initial_lockfile <- readLines("renv.lock")
 
@@ -30,7 +27,7 @@ testthat::expect_contains(
 rhino::pkg_remove("dplyr")
 testthat::expect_false(is_installed("dplyr"))
 testthat::expect_identical(readLines("dependencies.R"), initial_dependencies)
-# testthat::expect_identical(readLines("renv.lock"), initial_lockfile)
+testthat::expect_identical(readLines("renv.lock"), initial_lockfile)
 
 # install package from GitHub
 
