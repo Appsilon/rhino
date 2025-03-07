@@ -59,7 +59,7 @@ jobs:
       - name: init() should create a Rhino directory
         if: always()
         shell: Rscript {0}
-        run: rhino::init('RhinoApp')
+        run: rhino::init('RhinoApp', rhino_version = 'Appsilon/rhino@${{ github.sha }}')
 
       - name: diagnostics() should print system information and Rhino version
         if: always()
