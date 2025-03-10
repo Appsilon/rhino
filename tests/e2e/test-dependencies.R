@@ -1,3 +1,5 @@
+# regression test trigger
+
 # Check if package is installed without loading or attaching it.
 is_installed <- function(package) {
   length(find.package(package, quiet = TRUE)) > 0
