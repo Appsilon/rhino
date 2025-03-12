@@ -38,6 +38,7 @@ jobs:
           # The default GITHUB_PAT has insufficient permissions to push workflow changes.
           # The token passed here must have write access to code and workflows.
           token: ${{ secrets.APP_PUSH_TEST_PAT }}
+          persist-credentials: false
 
       - name: Prepare branch
         run: git switch --orphan "$BRANCH_NAME"
