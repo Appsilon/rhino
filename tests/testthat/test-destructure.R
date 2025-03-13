@@ -98,4 +98,17 @@ describe("%<-% - destructuring", {
     expect_equal(name, "John Doe")
     expect_equal(age, 30)
   })
+
+  it("fails when destructuring non-existent names from a function return value", {
+    # Arrange
+    get_person <- function() {
+      list(
+        name = "John Doe",
+        age = 30
+      )
+    }
+
+    # Assert
+    expect_error(c(name, phone) %<-% get_person())
+  })
 })

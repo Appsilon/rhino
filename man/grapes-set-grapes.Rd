@@ -7,7 +7,8 @@
 lhs \%<-\% rhs
 }
 \arguments{
-\item{lhs}{A call to \code{c()} containing variable names to assign to}
+\item{lhs}{A call to \code{c()} containing variable names to assign to. All variable names should
+exist in the rhs list.}
 
 \item{rhs}{A named list containing the values to assign}
 }

@@ -12,7 +12,8 @@
 #' assigning each reactive value from a module's return list, you can destructure them all
 #' at once.
 #'
-#' @param lhs A call to `c()` containing variable names to assign to
+#' @param lhs A call to `c()` containing variable names to assign to. All variable names should
+#'   exist in the rhs list.
 #' @param rhs A named list containing the values to assign
 #'
 #' @return Invisibly returns the right-hand side list
