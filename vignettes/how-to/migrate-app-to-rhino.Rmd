@@ -104,7 +104,7 @@ Having your application prepared, you can now run `rhino::init()`.
 │   └── ...
 ├── <span class="tree-change">tests</span>
 │   ├── <span class="tree-change">cypress</span>
-│   │   ├── <span class="tree-change">integration</span>
+│   │   ├── <span class="tree-change">e2e</span>
 │   │   └── <span class="tree-change">.gitignore</span>
 │   ├── <span class="tree-change">testthat</span>
 │   │   └── <span class="tree-change">test-main.R</span>
@@ -140,17 +140,6 @@ you can modify `legacy_entrypoint`. Ultimately, when application is fully
 migrated to Rhino, `legacy_entrypoint` setting can be removed from `rhino.yml`.
 Refer to [Next Steps](#next-steps) section to see how to continue improving
 your application!
-
-
-## Next Steps
-### Migrating JavaScript Code
-TODO: something along the lines of `build_js()` details
-
-### Migrating CSS styles to SASS
-TODO
-
-### Boxifying Application
-TODO: adjusting application to fit structure proposed by Rhino
 
 ## Additional notes
 

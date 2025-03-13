@@ -4,12 +4,12 @@
 <!-- badges: start -->
 [![CRAN](https://www.r-pkg.org/badges/version/rhino)](https://cran.r-project.org/package=rhino)
 [![CI](https://github.com/Appsilon/rhino/actions/workflows/ci.yml/badge.svg)](https://github.com/Appsilon/rhino/actions/workflows/ci.yml)
-[![Rhino Test](https://github.com/Appsilon/rhino/actions/workflows/rhino-test.yml/badge.svg?branch=bot%2Fapp-push-test)](https://github.com/Appsilon/rhino/actions/workflows/rhino-test.yml)
 [![downloads monthly](https://cranlogs.r-pkg.org/badges/rhino)](https://CRAN.R-project.org/package=rhino)
 [![downloads total](https://cranlogs.r-pkg.org/badges/grand-total/rhino)](https://CRAN.R-project.org/package=rhino)
 [![License: LGPL-3.0](https://img.shields.io/badge/License-LGPL--3.0-blue.svg)](https://opensource.org/licenses/LGPL-3.0)
+[![Pharmaverse](http://pharmaverse.org/shields/rhino.svg)](https://pharmaverse.org)
 <!--
-[![codecov](https://codecov.io/gh/Appsilon/rhino/branch/main/graph/badge.svg)](https://codecov.io/gh/Appsilon/rhino) 
+[![codecov](https://codecov.io/gh/Appsilon/rhino/branch/main/graph/badge.svg)](https://codecov.io/gh/Appsilon/rhino)
 -->
 <!-- badges: end -->
 
@@ -20,7 +20,16 @@
 Would you like to learn about Rhino hands-on? Join our events!
 Upcoming events will be added to this section - stay tuned.
 
-### Past
+<details>
+<summary><h3>Past</h3> <i>(click to expand)</i></summary>
+
+* [**Open Source Spotlight: New developments in Rhino**](https://events.ringcentral.com/events/shiny-gathering-11-b3775827-5b59-4068-ab59-82d9a262b7f0)<br>
+2024-02-27 at 18:00 (UTC+1)<br>
+Shiny Gathering led by [Kamil Żyła](https://www.linkedin.com/in/kamil-zyla/)
+
+* [**Best practices for coding Shiny apps with Rhino Team**](https://www.youtube.com/watch?v=QmyilJr7jXs)<br>
+2023-06-27 at 18:00 (UTC+2)<br>
+Online gathering led by [Kamil Żyła](https://www.linkedin.com/in/kamil-zyla/)
 
 * [**Creating Shiny Apps with Rhino: the new framework for Shiny apps**](https://www.youtube.com/watch?v=8H_ZHUy8Yj4)<br>
 2022-05-13 at 18:00 (UTC+2)<br>
@@ -45,6 +54,7 @@ at [EARL 2022](https://www.ascent.io/earl)
 2022-10-11 at 19:00 (UTC+2)<br>
 Led by [Kamil Żyła](https://www.linkedin.com/in/kamil-zyla/)
 at [LatinR 2022](https://latin-r.com/en)
+</details>
 
 ## Why Rhino?
 
@@ -108,9 +118,11 @@ A repository with step-by-step commits for the workshop application can be found
 Developed with :heart: at [Appsilon](https://appsilon.com).
 Get in touch: <opensource@appsilon.com>.
 
+Explore the [Rhinoverse](https://rhinoverse.dev) - a family of R packages built around [Rhino](https://appsilon.github.io/rhino/)!
+
 Appsilon is a
-[**Full Service Certified RStudio Partner**](https://www.rstudio.com/certified-partners/).
+[**Posit (formerly RStudio) Full Service Certified Partner**](https://www.rstudio.com/certified-partners/).
 
 <a href="https://appsilon.com/careers/">
-  <img src="http://d2v95fjda94ghc.cloudfront.net/hiring.png" alt="We are hiring!">
+  <img src="https://raw.githubusercontent.com/Appsilon/website-cdn/gh-pages/WeAreHiring1.png" alt="We are hiring!">
 </a>

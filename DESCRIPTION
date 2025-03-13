@@ -1,6 +1,6 @@
 Package: rhino
 Title: A Framework for Enterprise Shiny Applications
-Version: 1.3.0.9001
+Version: 1.10.1.9000
 Authors@R:
   c(
     person("Kamil", "Żyła", role = c("aut", "cre"), email = "opensource+kamil@appsilon.com"),
@@ -8,7 +8,9 @@ Authors@R:
     person("Leszek", "Siemiński", role = "aut", email = "leszek.sieminski@appsilon.com"),
     person("Marek", "Rogala", role = "aut", email = "marek@appsilon.com"),
     person("Recle", "Vibal", role = "aut", email = "recle.vibal@appsilon.com"),
-    person("Tymoteusz", "Makowski", role = "aut", email = "tymek.makowski@gmail.com"),
+    person("Tymoteusz", "Makowski", role = "aut", email = "tymoteusz@appsilon.com"),
+    person("Rodrigo", "Basa", role = "aut", email = "rodrigo@appsilon.com"),
+    person("Eduardo", "Almeida", role = "ctb", email = "eduardo@appsilon.com"),
     person("Appsilon Sp. z o.o.", role = "cph", email = "opensource@appsilon.com")
   )
 Description: A framework that supports creating and extending enterprise Shiny applications using best practices.
@@ -17,11 +19,13 @@ BugReports: https://github.com/Appsilon/rhino/issues
 License: LGPL-3
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.2.3
+RoxygenNote: 7.3.2
 Depends:
   R (>= 2.10)
 Imports:
-  box,
+  box (>= 1.1.3),
+  box.linters (>= 0.10.5),
+  box.lsp,
   cli,
   config,
   fs,
@@ -43,7 +47,10 @@ Suggests:
   knitr,
   mockery,
   rcmdcheck,
+  rex,
+  rlang,
   rmarkdown,
+  shiny.react,
   spelling
 LazyData: true
 Config/testthat/edition: 3

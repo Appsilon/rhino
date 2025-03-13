@@ -25,15 +25,33 @@ This document contains guidelines specific to Rhino.
 
 ## App Push Test
 
-Rhino creates a `.github/workflows/rhino-test.yml` file on `rhino::init()`.
-This GitHub Actions workflow automatically runs all linters and tests
-once a project is pushed to GitHub.
-To test that it works correctly we have the [App Push Test](https://github.com/Appsilon/rhino/actions/workflows/app-push-test.yml) workflow.
+Rhino comes with a CI setup out of the box.
+On `rhino::init()` it creates a  `rhino-test.yml` file,
+a GitHub Actions workflow which automatically runs all linters and tests
+once the project is pushed to GitHub.
 
-The Push Test initializes a fresh Rhino application and pushes it to the `bot/app-push-test` branch.
-The Rhino Test of this application then runs and its results can be viewed
+To test `rhino-test.yml` itself, we have the [`app-push-test.yml`](workflows/app-push-test.yml) workflow.
+It initializes a fresh Rhino application and pushes it to the `bot/app-push-test` branch.
+Then `rhino-test.yml` of this application runs and its results can be viewed
 in the [list of workflow runs](https://github.com/Appsilon/rhino/actions/workflows/rhino-test.yml).
-The App Push Test is triggered automatically on pushes to `main` and can also be triggered manually.
+
+The App Push Test is triggered automatically on pushes to `main`
+and can also be triggered manually for any branch via the
+[Actions](https://github.com/Appsilon/rhino/actions/workflows/app-push-test.yml) tab.
+
+The workflow requires a
+[fine-grained personal access token](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens#fine-grained-personal-access-tokens)
+with write access to code and workflows.
+It should be saved as the `APP_PUSH_TEST_PAT`
+[repository secret](https://github.com/Appsilon/rhino/settings/secrets/actions).
+
+## Website
+
+The [documentation site](https://appsilon.github.io/rhino/)
+is built and deployed automatically by our [`pkgdown.yml`](workflows/pkgdown.yml) workflow.
+It is triggered on each push to the `main` branch.
+It runs the `pkgdown/build.R` script which builds the documentation
+for all Rhino versions listed in `pkgdown/versions.yml`.
 
 ## Release process
 
@@ -55,12 +73,14 @@ for the `main` branch should be green).
     2. Update `DESCRIPTION`.
         * Bump the package version according to [SemVer](https://semver.org/).
         Drop the development version (last component, e.g. `.9001`).
-    3. Update `NEWS.md`.
+    3. Create a migration guide.
+        * Refer to `NEWS.md` for hints on what to include in the guide.
+    4. Update `NEWS.md`.
         * Replace the `(development version)` with `X.Y.Z` in the header.
         Do not add a link to GitHub releases yet - the link won't work and will fail CRAN checks.
         * Edit the list of changes to make it useful and understandable for our users.
         See [keep a changelog](https://keepachangelog.com/) for some guidelines.
-    4. Submit the changes in a pull request titled "Release X.Y.Z".
+    5. Submit the changes in a pull request titled "Release X.Y.Z".
     Get it approved and merged.
 
 ### Submitting to CRAN
@@ -94,10 +114,14 @@ Use `rc.2`, `rc.3` and so on for subsequent submissions.
     4. Check "Set as the latest release".
     5. Click "Publish release".
 2. Prepare the package for further development.
-    1. Add a development version `.9000` in `DESCRIPTION`.
-    2. Add a `# rhino (development version)` header in `NEWS.md`.
-    3. Link the `# rhino X.Y.Z` header to the GitHub release in `NEWS.md`.
+    1. Add the new version to `pkgdown/versions.yml`.
+    2. Add a development version `.9000` in `DESCRIPTION`.
+    3. Update `NEWS.md`:
+        * Add a `# rhino (development version)` header.
+        * Link the `# rhino X.Y.Z` header to the GitHub release.
+        * Add a link to the migration guide in `NEWS.md`.
 3. Announce the release on `#proj-rhino`.
+4. Complete the upgrade of Rhino Showcase.
 
 ## Development process
 
@@ -114,3 +138,4 @@ Starting with `1.0.0`, all versions should be released to CRAN.
 1. The PR has at least 1 approval and 0 change requests.
 2. The CI passes (`R CMD check`, linter, unit tests, spelling).
 3. The change is thoroughly documented.
+    * Namely, `NEWS.md` is updated and if applicable contains a hint on how to migrate.

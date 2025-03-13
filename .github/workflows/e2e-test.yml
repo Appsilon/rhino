@@ -1,0 +1,186 @@
+name: E2E Test
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+  workflow_dispatch:
+
+defaults:
+  run:
+    working-directory: ./tests/e2e/
+
+permissions:
+  contents: read
+
+jobs:
+  main:
+    name: ${{ matrix.config.os }} (${{ matrix.config.r }})
+
+    runs-on: ${{ matrix.config.os }}
+
+    timeout-minutes: 30
+
+    strategy:
+      fail-fast: false
+      matrix:
+        config:
+        - {os: macOS-latest,   r: 'release'}
+        - {os: windows-latest, r: 'release'}
+        - {os: ubuntu-22.04, r: 'devel'}
+        - {os: ubuntu-22.04, r: 'release'}
+        - {os: ubuntu-22.04, r: 'oldrel'}
+
+    steps:
+      - name: Checkout E2E directory
+        uses: actions/checkout@v4
+        with:
+          # Only checkout the necessary files; the DESCRIPTION file breaks test_r():
+          # https://github.com/Appsilon/rhino/issues/461
+          sparse-checkout: /tests/e2e/
+          sparse-checkout-cone-mode: false
+
+      - name: Install R
+        uses: r-lib/actions/setup-r@v2
+        with:
+          r-version: ${{ matrix.config.r }}
+          use-public-rspm: true # Dramatically speeds up installation of dependencies.
+
+      - name: Install R package dependencies
+        uses: r-lib/actions/setup-r-dependencies@v2
+        with:
+          packages: | # A temporary workaround for https://github.com/rstudio/renv/issues/2109
+            renv@1.0.11
+            Appsilon/rhino@${{ github.sha }}
+
+      - name: Setup Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16
+
+      - name: init() should create a Rhino directory
+        if: always()
+        shell: Rscript {0}
+        run: rhino::init('RhinoApp')
+
+      - name: diagnostics() should print system information and Rhino version
+        if: always()
+        shell: Rscript {0}
+        run: rhino::diagnostics()
+
+      - name: pkg_install() and pkg_remove() should work for managing dependencies
+        if: always()
+        run: |
+          cd RhinoApp
+          Rscript ../test-dependencies.R
+        env:
+          # Without `GITHUB_PAT`, `renv::install()` fails randomly on macOS
+          # when installing packages from GitHub (see issue #591).
+          GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Node.js commands should respect RHINO_NPM
+        # Skip this test on Windows because it requires a Unix shell.
+        if: runner.os != 'Windows'
+        run: |
+          cd RhinoApp
+          Rscript ../test-custom-npm.R
+
+      - name: lint_r() should detect lint errors in R scripts
+        if: always()
+        run: |
+          cd RhinoApp
+          Rscript ../test-lint-r.R
+
+      - name: format_r() should format R scripts
+        if: always()
+        run: |
+          cd RhinoApp
+          Rscript ../test-format-r.R
+
+      - name: lint_js() should detect lint errors in JS
+        if: always()
+        run: |
+          cd RhinoApp
+          Rscript ../test-lint-js.R
+
+      - name: format_js() should format JS scripts
+        if: always()
+        run: |
+          cd RhinoApp
+          Rscript ../test-format-js.R
+
+      - name: lint_sass() should detect lint errors in CSS
+        if: always()
+        run: |
+          cd RhinoApp
+          Rscript ../test-lint-sass.R
+
+      - name: format_sass() should format SASS (.scss) scripts
+        if: always()
+        run: |
+          cd RhinoApp
+          Rscript ../test-format-sass.R
+
+      - name: build_js() should build app.min.js
+        if: always()
+        run: |
+          cd RhinoApp
+          Rscript ../test-build-js.R
+
+      - name: build_css() should build app.min.css
+        if: always()
+        run: |
+          cd RhinoApp
+          Rscript ../test-build-sass.R
+
+      - name: Rprofile should be configured for box.lsp
+        if: always()
+        run: |
+          cd RhinoApp
+          Rscript ../test-box-lsp.R
+
+      - name: test_r() should run testthat tests
+        if: always()
+        run: |
+          cd RhinoApp
+          Rscript -e "rhino::test_r()"
+
+      - name: test_e2e() should run cypress tests
+        if: always()
+        run: |
+          cd RhinoApp
+          Rscript -e "rhino::test_e2e()"
+
+      - name: Add shiny.react dependency
+        if: always()
+        shell: Rscript {0}
+        working-directory: tests/e2e/RhinoApp
+        run: rhino::pkg_install("shiny.react")
+
+      - name: Copy template files to RhinoApp
+        if: always()
+        shell: Rscript {0}
+        run: |
+          file.copy("app-files/config.yml", "RhinoApp/config.yml", overwrite = TRUE)
+          file.copy("app-files/main.R", "RhinoApp/app/main.R", overwrite = TRUE)
+          file.copy("app-files/say_hello.R", "RhinoApp/app/logic/say_hello.R", overwrite = TRUE)
+          file.copy("app-files/hello.R", "RhinoApp/app/view/hello.R", overwrite = TRUE)
+          file.copy("app-files/main.scss", "RhinoApp/app/styles/main.scss", overwrite = TRUE)
+          file.copy("app-files/index.js", "RhinoApp/app/js/index.js", overwrite = TRUE)
+          file.copy("app-files/Box.jsx", "RhinoApp/app/js/Box.jsx", overwrite = TRUE)
+          file.copy("app-files/test-hello.R", "RhinoApp/tests/testthat/test-hello.R", overwrite = TRUE)
+          file.copy("app-files/test-say_hello.R", "RhinoApp/tests/testthat/test-say_hello.R", overwrite = TRUE)
+          file.copy("app-files/hello.cy.js", "RhinoApp/tests/cypress/e2e/hello.cy.js", overwrite = TRUE)
+          file.remove("RhinoApp/tests/testthat/test-main.R")
+
+      - name: Cypress tests should confirm RhinoApp works
+        if: always()
+        run: |
+          cd RhinoApp
+          Rscript -e "rhino::lint_r()"
+          Rscript -e "rhino::lint_sass()"
+          Rscript -e "rhino::lint_js()"
+          Rscript -e "rhino::build_sass()"
+          Rscript -e "rhino::build_js()"
+          Rscript -e "rhino::test_r()"
+          Rscript -e "rhino::test_e2e()"

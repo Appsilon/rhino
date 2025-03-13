@@ -7,3 +7,5 @@
 ^pkgdown$
 ^README\.md$
 ^vignettes$
+^docs$
+^cran-comments\.md$

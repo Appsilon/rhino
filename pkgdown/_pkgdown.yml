@@ -14,12 +14,23 @@ template:
 
         gtag('config', 'G-NEHZJ9B11D');
       </script>
+      <!-- Google tag (gtag.js) -->
+      <script async src="https://www.googletagmanager.com/gtag/js?id=G-FQQZL5V93G"></script>
+      <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-FQQZL5V93G');
+      </script>
+    before_title: |
+      <a href="https://rhinoverse.dev" class="home"><i class="fa fa-lg fa-chevron-left"></i></a>
 
 url: https://appsilon.github.io/rhino/
 
 navbar:
+  type: light
   structure:
-    left: [tutorials, explanation, how-to-guides, reference, news]
+    left: [tutorials, explanation, how-to-guides, reference, news, faq]
     right: [search, github, twitter, mastodon]
   components:
     tutorials:
@@ -29,6 +40,8 @@ navbar:
           href: articles/tutorial/create-your-first-rhino-app.html
         - text: Write end-to-end tests with Cypress
           href: articles/tutorial/write-end-to-end-tests-with-cypress.html
+        - text: Use React in Rhino
+          href: articles/tutorial/use-react-in-rhino.html
     explanation:
       text: Explanation
       menu:
@@ -44,6 +57,8 @@ navbar:
           href: articles/explanation/renv-configuration.html
         - text: Node.js - JavaScript and Sass tools
           href: articles/explanation/node-js-javascript-and-sass-tools.html
+        - text: Rhino style guide
+          href: articles/explanation/rhino-style-guide.html
     how-to-guides:
       text: How-to Guides
       menu:
@@ -55,8 +70,6 @@ navbar:
           href: articles/how-to/write-javascript-code.html
         - text: Use static files
           href: articles/how-to/use-static-files.html
-        - text: Manage R dependencies
-          href: articles/how-to/manage-r-dependencies.html
         - text: Manage secrets and environments
           href: articles/how-to/manage-secrets-and-environments.html
         - text: Enable Shiny bookmarking
@@ -69,6 +82,50 @@ navbar:
           href: articles/how-to/use-shinytest2.html
         - text: Add internationalization
           href: articles/how-to/add-internationalization.html
+        - text: Add routing
+          href: articles/how-to/add-routing.html
+        - text: Set application run parameters
+          href: articles/how-to/set-application-run-parameters.html
+        - text: Use Rhino Addin(s)
+          href: articles/how-to/use-addins.html
+        - text: Communicate between modules
+          href: articles/how-to/communicate-between-modules.html
+        - text: -------
+        - text: UI
+        - text: Use shiny.fluent
+          href: articles/how-to/use-shiny-fluent.html
+        - text: Use bslib
+          href: articles/how-to/use-bslib.html
+        - text: -------
+        - text: Authentication
+        - text: Use shinymanager
+          href: articles/how-to/use-shinymanager.html
+        - text: Use polished
+          href: articles/how-to/use-polished.html
+        - text: -------
+        - text: Deployment
+        - text: Publish on Hugging Face
+          href: articles/how-to/publish-on-huggingface.html
+        - text: -------
+        - text: User tools
+        - text: Box-module auto-complete in VSCode
+          href: articles/how-to/box-lsp.html
+        - text: -------
+        - text: Migration guides
+        - text: Migration to Rhino 1.6
+          href: articles/how-to/migrate-1-6.html
+        - text: Migration to Rhino 1.7
+          href: articles/how-to/migrate-1-7.html
+        - text: Migration to Rhino 1.8
+          href: articles/how-to/migrate-1-8.html
+        - text: Migration to Rhino 1.9
+          href: articles/how-to/migrate-1-9.html
+        - text: Migration to Rhino 1.10
+          href: articles/how-to/migrate-1-10.html
+
+    faq:
+      text: FAQ
+      href: articles/faq.html
     twitter:
       icon: fa-twitter fa-lg
       href: https://twitter.com/Appsilon
@@ -84,6 +141,7 @@ reference:
 
 - title: R development
   contents:
+  - dependencies
   - log
   - format_r
   - lint_r
@@ -95,6 +153,9 @@ reference:
   - build_sass
   - lint_js
   - lint_sass
+  - format_js
+  - format_sass
+  - react_component
 
 - title: Other tools
   contents:

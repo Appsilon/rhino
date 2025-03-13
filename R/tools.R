@@ -12,7 +12,7 @@
 #' }
 #' @export
 test_r <- function(...) {
-  purge_box_cache()
+  box::purge_cache()
   testthat::test_dir(
     path = fs::path("tests", "testthat"),
     ...
@@ -70,16 +70,22 @@ check_paths <- function(paths) {
   }
 }
 
+# nolint start: line_length_linter
 #' Lint R
 #'
 #' Uses the `{lintr}` package to check all R sources in the `app` and `tests/testthat` directories
 #' for style errors.
 #'
-#' The linter rules can be adjusted in the `.lintr` file.
+#' The linter rules can be [adjusted](https://lintr.r-lib.org/articles/lintr.html#configuring-linters)
+#' in the `.lintr` file.
 #'
 #' You can set the maximum number of accepted style errors
 #' with the `legacy_max_lint_r_errors` option in `rhino.yml`.
 #' This can be useful when inheriting legacy code with multiple styling issues.
+#'
+#' The [box.linters::namespaced_function_calls()] linter requires the `{treesitter}` and
+#' `{treesitter.r}` packages. These require R >= 4.3.0. `lint_r()` will continue to run and skip
+#' `namespaced_function_calls()` if its dependencies are not available.
 #'
 #' @param paths Character vector of directories and files to lint.
 #' When `NULL` (the default), check `app` and `tests/testthat` directories.
@@ -87,7 +93,19 @@ check_paths <- function(paths) {
 #' @return None. This function is called for side effects.
 #'
 #' @export
+# nolint end
 lint_r <- function(paths = NULL) {
+  if (!box.linters::is_treesitter_installed()) {
+    cli::cli_warn(
+      c(
+        "!" = paste(
+          "`box.linters::namespaced_function_calls()` requires {{treesitter}} and {{treesitter.r}}",
+          "to be installed."
+        ),
+        "i" = "`lintr_r()` will continue to run using the other linter functions."
+      )
+    )
+  }
   if (is.null(paths)) {
     paths <- c("app", "tests/testthat")
   }
@@ -118,19 +136,35 @@ lint_r <- function(paths = NULL) {
 }
 
 rhino_style <- function() {
-  style <- styler::tidyverse_style()
-  style$space$style_space_around_math_token <- NULL
-  style
+  styler::tidyverse_style(math_token_spacing = styler::specify_math_token_spacing(zero = "'/'"))
 }
 
 #' Format R
 #'
-#' Uses the `{styler}` package to automatically format R sources.
+#' Uses the `{styler}` and `{box.linters}` packages to automatically format R sources. As with
+#' `styler`, carefully examine the results after running this function.
 #'
 #' The code is formatted according to the `styler::tidyverse_style` guide with one adjustment:
 #' spacing around math operators is not modified to avoid conflicts with `box::use()` statements.
 #'
+#' If available, `box::use()` calls are reformatted by styling functions provided by
+#' `{box.linters}`. These include:
+#'
+#' * Separating `box::use()` calls for packages and local modules
+#' * Alphabetically sorting packages, modules, and functions.
+#' * Adding trailing commas
+#'
+#' `box.linters::style_*` functions require the `treesitter` and `treesitter.r` packages. These, in
+#' turn, require R >= 4.3.0. `format_r()` will continue to operate without these but will not
+#' perform `box::use()` call styling.
+#'
+#' For more information on `box::use()` call styling please refer to the `{box.linters}` styling
+#' functions
+#' [documentation](https://appsilon.github.io/box.linters/reference/style_box_use_text.html).
+#'
 #' @param paths Character vector of files and directories to format.
+#' @param exclude_files Character vector with regular expressions of files that should be excluded
+#' from styling.
 #' @return None. This function is called for side effects.
 #'
 #' @examples
@@ -142,11 +176,24 @@ rhino_style <- function() {
 #'   format_r("app/view")
 #' }
 #' @export
-format_r <- function(paths) {
+format_r <- function(paths, exclude_files = NULL) {
+  style_box_use <- box.linters::style_box_use_dir
+  if (!box.linters::is_treesitter_installed()) {
+    style_box_use <- function(path, exclude_files) { }
+    cli::cli_warn(
+      c(
+        "x" = "The packages {{treesitter}} and {{treesitter.r}} are required by `box::use()` styling features of `format_r()`.", #nolint
+        "i" = "These package require R version >= 4.3.0 to install."
+      )
+    )
+  }
+
   for (path in paths) {
     if (fs::is_dir(path)) {
-      styler::style_dir(path, style = rhino_style)
+      style_box_use(path, exclude_files = exclude_files)
+      styler::style_dir(path, style = rhino_style, exclude_files = exclude_files)
     } else {
+      style_box_use(path, exclude_files = exclude_files)
       styler::style_file(path, style = rhino_style)
     }
   }
@@ -236,6 +283,29 @@ lint_js <- function(fix = FALSE) {
   }
 }
 
+#' Format JavaScript
+#'
+#' Runs [prettier](https://prettier.io/) on JavaScript files in `app/js` directory.
+#' Requires Node.js installed.
+#'
+#' You can prevent prettier from formatting a given chunk of your code by adding a special comment:
+#' ```js
+#' // prettier-ignore
+#' ```
+#' Read more about [ignoring code](https://prettier.io/docs/en/ignore).
+#'
+#' @param fix If `TRUE`, fixes formatting. If FALSE, reports formatting errors without fixing them.
+#' @return None. This function is called for side effects.
+#'
+#' @export
+format_js <- function(fix = TRUE) {
+  if (fix) {
+    npm("run", "format-js", "--", "--write")
+  } else {
+    npm("run", "format-js", "--", "--check")
+  }
+}
+
 #' Build Sass
 #'
 #' Builds the `app/styles/main.scss` file into `app/static/css/app.min.css`.
@@ -263,6 +333,13 @@ lint_js <- function(fix = FALSE) {
 #' @export
 build_sass <- function(watch = FALSE) {
   config <- read_config()$sass
+  if (config == "custom") {
+    cli::cli_alert_warning(
+      "Using 'custom' configuration for 'sass'. Exiting without doing anything."
+    )
+    return(invisible())
+  }
+
   if (config == "node") {
     tryCatch(
       build_sass_node(watch = watch),
@@ -295,7 +372,8 @@ build_sass_r <- function() {
   sass::sass(
     input = sass::sass_file(fs::path("app", "styles", "main.scss")),
     output = fs::path(output_dir, "app.min.css"),
-    cache = FALSE
+    cache = FALSE,
+    options = sass::sass_options(output_style = "compressed")
   )
 }
 
@@ -321,11 +399,40 @@ lint_sass <- function(fix = FALSE) {
   }
 }
 
+#' Format Sass
+#'
+#' Runs [prettier](https://prettier.io/) on Sass (.scss) files in `app/styles` directory.
+#' Requires Node.js installed.
+#'
+#' You can prevent prettier from formatting a given chunk of your code by adding a special comment:
+#' ```scss
+#' // prettier-ignore
+#' ```
+#' Read more about [ignoring code](https://prettier.io/docs/en/ignore).
+#'
+#' @param fix If `TRUE`, fixes formatting. If FALSE, reports formatting errors without fixing them.
+#' @return None. This function is called for side effects.
+#'
+#' @export
+format_sass <- function(fix = TRUE) {
+  if (fix) {
+    npm("run", "format-sass", "--", "--write")
+  } else {
+    npm("run", "format-sass", "--", "--check")
+  }
+}
+
 #' Run Cypress end-to-end tests
 #'
 #' Uses [Cypress](https://www.cypress.io/) to run end-to-end tests
 #' defined in the `tests/cypress` directory.
 #' Requires Node.js to be available on the system.
+#'
+#' Check out:
+# nolint start: line_length_linter
+#' [Tutorial: Write end-to-end tests with Cypress](https://appsilon.github.io/rhino/articles/tutorial/write-end-to-end-tests-with-cypress.html)
+# nolint end
+#' to learn how to write end-to-end tests for your Rhino app.
 #'
 #' If you want to write end-to-end tests with `{shinytest2}`, see our
 #' [How-to: Use shinytest2](https://appsilon.github.io/rhino/articles/how-to/use-shinytest2.html)

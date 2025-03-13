@@ -1,0 +1,10 @@
+.components-container {
+  display: inline-grid;
+  grid-template-columns: 1fr 1fr;
+  width: 100%;
+
+  .component-box {
+    padding: 10px;
+    margin: 10px;
+  }
+}

@@ -2,3 +2,43 @@ Name: Rhino module
 Description: Inserts Rhino module at your cursor position.
 Binding: addin_module
 Interactive: false
+
+Name: Format R code
+Description: Uses the {styler} package to automatically format R script.
+Binding: addin_format_r
+Interactive: false
+
+Name: Lint R Code
+Description: Uses the {lintr} package to check all R sources for style errors.
+Binding: addin_lint_r
+Interactive: false
+
+Name: Lint JavaScript
+Description: Runs ESLint on the JavaScript sources in the app/js directory
+Binding: addin_lint_js
+Interactive: false
+
+Name: Lint Sass
+Description: Runs Stylelint on the Sass sources in the app/styles directory.
+Binding: addin_lint_sass
+Interactive: false
+
+Name: Run R unit tests
+Description: Uses the {testhat} package to run all unit tests in tests/testthat directory.
+Binding: addin_test_r
+Interactive: false
+
+Name: Run Cypress end-to-end tests
+Description: Uses Cypress to run end-to-end tests defined in the tests/cypress directory.
+Binding: addin_test_e2e
+Interactive: false
+
+Name: Build JavaScript
+Description: Builds the app/js/index.js file into app/static/js/app.min.js
+Binding: addin_build_js
+Interactive: false
+
+Name: Build Sass
+Description: Builds the app/styles/main.scss file into app/static/css/app.min.css
+Binding: addin_build_sass
+Interactive: false

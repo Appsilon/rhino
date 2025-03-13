@@ -1,0 +1,45 @@
+---
+title: "How-to: Set application run parameters"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{How-to: Set application run parameters}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+When running a Shiny application you might want to set parameters like port or host.
+In Rhino, this can be done the same as in a regular Shiny application
+ - by passing arguments to [`shiny::runApp`](https://shiny.posit.co/r/reference/shiny/1.7.4/runapp).
+
+For example, if you want to run your application with the host set to `0.0.0.0`
+(so you can serve it in your local network) and port set to `5000`, you can run:
+
+```r
+# R console
+
+shiny::runApp(host = "0.0.0.0", port = 5000)
+```
+
+If you want to make your settings permanent, you can modify your `.Rprofile`
+file and set [Shiny options](https://shiny.posit.co/r/reference/shiny/1.7.4/shinyoptions) there:
+
+```r
+# .Rprofile
+
+if (file.exists("renv")) {
+  source("renv/activate.R")
+} else {
+  # The `renv` directory is automatically skipped when deploying with rsconnect.
+  message("No 'renv' directory found; renv won't be activated.")
+}
+
+# Allow absolute module imports (relative to the app root).
+options(box.path = getwd())
+
+# Shiny options
+options(shiny.host = "0.0.0.0")
+options(shiny.port = 5000)
+```
+
+Make sure you don't remove entries related to `renv` and `box` as
+they are required for your Rhino application to work!

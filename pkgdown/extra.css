@@ -1,27 +1,103 @@
+:root {
+  --primary-color: #7b7cd2;
+}
+
 .navbar {
-  background-color: #4747B1 !important;
+  --bs-primary-rgb: 123, 124, 210;
 }
 
-#navbar > ul.navbar-nav.me-auto > li.nav-item.dropdown a:hover {
-  background-color: #4747B1 !important;
+.navbar a.dropdown-item:hover {
+  background-color: var(--primary-color);
 }
 
-.navbar-dark .navbar-nav .active>.nav-link {
-  background-color: #4747B1 !important;
+.navbar .navbar-nav .nav-item.active > .nav-link {
   color: #fff;
+  background-color: var(--primary-color);
 }
 
-.navbar-dark input[type="search"] {
-  background-color: #fff !important;
-  color: #444 !important;
+.navbar .navbar-nav .nav-item > .nav-link {
+  color: rgba(255, 255, 255, 0.8);
+
+  &:hover {
+    background-color: var(--primary-color);
+    color: #fff;
+  }
 }
 
-.app-preview {
-  margin: 1.5em 0.75em;
-  padding: 0.25em;
-  box-shadow:
-    0 3.9px 4.6px rgba(0, 0, 0, 0.08),
-    0 12.3px 8.4px rgba(0, 0, 0, 0.056),
-    0 18.8px 19.2px rgba(0, 0, 0, 0.037),
-    0 22px 40px rgba(0, 0, 0, 0.019);
+.navbar-brand {
+  --bs-navbar-brand-color: #fff;
+
+  &:hover {
+    --bs-navbar-brand-hover-color: rgba(255, 255, 255, 0.8);
+  }
+}
+
+a {
+  color: var(--primary-color);
+}
+
+a.nav-link,
+.home {
+  color: hsl(0, 0%, 80%);
+
+  &:hover {
+    color: hsl(0, 0%, 100%);
+  }
+}
+
+a:hover {
+  color: #2c2b2b;
+}
+
+button.btn.btn-primary.btn-copy-ex {
+  background-color: var(--primary-color);
+  border-color: var(--primary-color);
+}
+
+.home {
+  display: none;
+  left: 0px;
+  position: absolute;
+  padding: 8px 30px;
+
+  @media (min-width: 1250px) {
+    display: initial;
+  }
+}
+
+/* Hide the version number - it's in the version switcher injected by pkgdown/build.R. */
+.navbar .nav-text {
+  display: none;
+}
+
+#version-switcher {
+  margin-inline-start: 0.5rem;
+  margin-inline-end: auto;
+
+  @media (min-width: 992px) {
+    margin-inline-end: 2rem;
+  }
+
+  & > a {
+    background-color: hsl(239.3, 40.2%, 55.3%);
+    color: rgba(255, 255, 255, 0.8);
+    padding: 0.25rem 1rem;
+    border-radius: 1rem;
+
+    &:hover {
+      color: white;
+    }
+  }
+}
+
+summary:has(h3#past) {
+  & > * {
+    display: inline;
+  }
+
+  &::marker,
+  &::-webkit-details-marker {
+    /* an equivalent of Bootstrap's h3 that's within the summary */
+    font-size: calc(1.3rem + 0.6vw);
+  }
 }
