@@ -90,6 +90,8 @@ navbar:
           href: articles/how-to/use-addins.html
         - text: Communicate between modules
           href: articles/how-to/communicate-between-modules.html
+        - text: Use destructure operator
+          href: articles/how-to/use-destructure-operator.html
         - text: -------
         - text: UI
         - text: Use shiny.fluent
@@ -161,6 +163,7 @@ reference:
   contents:
   - diagnostics
   - test_e2e
+  - "%<-%"
 
 - title: Data
   contents:
