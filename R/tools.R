@@ -450,3 +450,42 @@ test_e2e <- function(interactive = FALSE) {
     npm("run", "test-e2e")
   }
 }
+
+#' Development mode
+#'
+#' Run application in development mode with automatic rebuilding and reloading.
+#'
+#' This function will launch the Shiny app in
+#' [development mode](https://shiny.posit.co/r/reference/shiny/latest/devmode.html)
+#' (as if `options(shiny.devmode = TRUE)` was set).
+#' The app will be automatically reloaded whenever the sources change.
+#'
+#' Additionally, Rhino will automatically rebuild JavaScript and Sass in the background.
+#' Please note that this feature requires Node.js.
+#'
+#' @param build_sass Boolean. Rebuild Sass automatically in the background?
+#' @param build_js Boolean. Rebuild JavaScript automatically in the background?
+#' @param ... Additional arguments passed to `shiny::runApp()`.
+#' @return None. This function is called for side effects.
+#'
+#' @export
+devmode <- function(build_sass = TRUE, build_js = TRUE, ...) {
+  cli::cli_alert_info("Starting Rhino in devmode...")
+
+  if (build_sass) {
+    cli::cli_alert_info("Starting Sass watcher...")
+    sass <- callr::r_bg(function() { rhino::build_sass(watch = TRUE) }, stdout = "", stderr = "")
+  }
+
+  if (build_js) {
+    cli::cli_alert_info("Starting JS watcher...")
+    js <- callr::r_bg(function() { rhino::build_js(watch = TRUE) }, stdout = "", stderr = "")
+  }
+
+  on.exit({
+    sass$kill()
+    js$kill()
+  })
+
+  shiny::with_devmode(TRUE, shiny::runApp(...))
+}
