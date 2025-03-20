@@ -1,5 +1,8 @@
 # rhino (development version)
 
+1. Added destructure operator `%<-%`.
+2. `test_r` accepts additional arguments passed to `testthat::test_dir`.
+
 # [rhino 1.10.1](https://github.com/Appsilon/rhino/releases/tag/v1.10.1)
 
 * Added check for `box.lsp` package in `.Rprofile` before applying the `languageserver` options.

@@ -1,0 +1,129 @@
+---
+title: "How-to: Use destructure operator"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{How-to: Use destructure operator}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+> **Note:** The destructure operator is currently an experimental feature and its behavior may change in future releases.
+
+## Overview
+
+The destructure operator `%<-%` allows you to extract multiple named values from a list into individual variables in a single assignment.
+While it was originally introduced to improve the ergonomics of working with Shiny modules,
+its clean syntax makes it valuable for any situation where you need to unpack multiple values from a named list.
+
+## Basic Usage
+
+The operator works with any named list in R. The basic syntax is:
+
+```r
+c(var1, var2) %<-% list_object
+```
+
+Here are the key features:
+
+1. **Named List Requirements**
+   - The right-hand side must be a named list
+   - Data frames are not supported
+   - Unnamed lists will raise an error
+
+2. **Partial Extraction**
+   - You can extract only the values you need
+   - Order doesn't matter - matching is done by name
+
+```r
+# Create a list with named elements
+config <- list(host = "localhost", port = 8080, debug = TRUE)
+
+# Extract only what you need
+c(host, port) %<-% config
+```
+
+3. **Pipe Operator Compatibility**
+   - Works with the native pipe operator (`|>`)
+   - Requires wrapping the piped expression in parentheses
+
+```r
+c(value) %<-% (
+  123 |>
+    list(value = _)
+)
+```
+
+## Shiny Modules Integration
+
+The destructure operator particularly shines when working with Shiny modules. Here's a practical example:
+
+```r
+# app/view/module.R
+
+box::use(
+  shiny[div, moduleServer, NS, numericInput, reactive],
+)
+
+#' @export
+ui <- function(id) {
+  ns <- NS(id)
+  div(
+    numericInput(ns("number"), "Enter a number", value = 0),
+    numericInput(ns("number2"), "Enter another number", value = 0),
+  )
+}
+
+#' @export
+server <- function(id) {
+  moduleServer(id, function(input, output, session) {
+    return(list(
+      number = reactive(input$number),
+      number2 = reactive(input$number2)
+    ))
+  })
+}
+```
+
+```r
+# app/main.R
+
+box::use(
+  rhino[`%<-%`],
+  shiny[div, moduleServer, NS, renderText, textOutput],
+)
+
+box::use(
+  app/view/module,
+)
+
+#' @export
+ui <- function(id) {
+  ns <- NS(id)
+  div(
+    module$ui(ns("module")),
+    textOutput(ns("result"))
+  )
+}
+
+#' @export
+server <- function(id) {
+  moduleServer(id, function(input, output, session) {
+    # Clean extraction of multiple reactive values
+    c(number, number2) %<-% module$server("module")
+
+    output$result <- renderText({
+      paste0("Sum of ", number(), " and ", number2(), " is ", number() + number2())
+    })
+  })
+}
+```
+
+In this example, the module's server function returns a list of reactive values.
+The destructure operator provides a clean and intuitive way to extract these values into separate variables, making the code more readable and maintainable.

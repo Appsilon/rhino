@@ -1,6 +1,7 @@
 Addin
 Addins
 Appsilon
+Destructure
 ESLint
 Init
 JS
@@ -26,6 +27,8 @@ blogpost
 bslib
 conf
 config
+destructure
+destructuring
 devtools
 entrypoint
 favicon
