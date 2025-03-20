@@ -21,12 +21,12 @@ styler, carefully examine the results after running this function."><!-- Google 
 
     <a class="navbar-brand me-2" href="../index.html">rhino</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.10.1.9002</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.10.1.9003</small>
 
     <div id="version-switcher" class="dropdown">
-  <a href="#" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">1.10.1.9002 (dev)</a>
+  <a href="#" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">1.10.1.9003 (dev)</a>
   <ul class="dropdown-menu"><li>
-      <a class="dropdown-item" href="https://appsilon.github.io/rhino/dev">1.10.1.9002 (dev)</a>
+      <a class="dropdown-item" href="https://appsilon.github.io/rhino/dev">1.10.1.9003 (dev)</a>
     </li>
     <li>
       <a class="external-link dropdown-item" href="https://appsilon.github.io/rhino/">1.10</a>
@@ -151,7 +151,7 @@ styler, carefully examine the results after running this function."><!-- Google 
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">format_r</span><span class="op">(</span><span class="va">paths</span>, exclude_files <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">format_r</span><span class="op">(</span><span class="va">paths</span>, exclude_files <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -165,6 +165,10 @@ styler, carefully examine the results after running this function."><!-- Google 
 <dt id="arg-exclude-files">exclude_files<a class="anchor" aria-label="anchor" href="#arg-exclude-files"></a></dt>
 <dd><p>Character vector with regular expressions of files that should be excluded
 from styling.</p></dd>
+
+
+<dt id="arg--">...<a class="anchor" aria-label="anchor" href="#arg--"></a></dt>
+<dd><p>Optional arguments to pass to <code>box.linters::style_*</code> functions.</p></dd>
 
 </dl></div>
     <div class="section level2">
