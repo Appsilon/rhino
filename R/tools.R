@@ -165,6 +165,7 @@ rhino_style <- function() {
 #' @param paths Character vector of files and directories to format.
 #' @param exclude_files Character vector with regular expressions of files that should be excluded
 #' from styling.
+#' @param ... Optional arguments to pass to `box.linters::style_*` functions.
 #' @return None. This function is called for side effects.
 #'
 #' @examples
@@ -176,10 +177,12 @@ rhino_style <- function() {
 #'   format_r("app/view")
 #' }
 #' @export
-format_r <- function(paths, exclude_files = NULL) {
-  style_box_use <- box.linters::style_box_use_dir
+format_r <- function(paths, exclude_files = NULL, ...) {
+  style_box_use_dir <- box.linters::style_box_use_dir
+  style_box_use_file <- box.linters::style_box_use_file
   if (!box.linters::is_treesitter_installed()) {
-    style_box_use <- function(path, exclude_files) { }
+    style_box_use_dir <- function(path, exclude_files, ...) { }
+    style_box_use_file <- function(path, ...) { }
     cli::cli_warn(
       c(
         "x" = "The packages {{treesitter}} and {{treesitter.r}} are required by `box::use()` styling features of `format_r()`.", #nolint
@@ -190,10 +193,10 @@ format_r <- function(paths, exclude_files = NULL) {
 
   for (path in paths) {
     if (fs::is_dir(path)) {
-      style_box_use(path, exclude_files = exclude_files)
+      style_box_use_dir(path, exclude_files = exclude_files, ...)
       styler::style_dir(path, style = rhino_style, exclude_files = exclude_files)
     } else {
-      style_box_use(path, exclude_files = exclude_files)
+      style_box_use_file(path, ...)
       styler::style_file(path, style = rhino_style)
     }
   }
