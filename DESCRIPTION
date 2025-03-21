@@ -26,6 +26,7 @@ Imports:
   box (>= 1.1.3),
   box.linters (>= 0.10.5),
   box.lsp,
+  callr,
   cli,
   config,
   fs,
