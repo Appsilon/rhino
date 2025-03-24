@@ -4,9 +4,14 @@
 \alias{auto_test_r}
 \title{Watch and automatically run R tests}
 \usage{
-auto_test_r(hash = TRUE)
+auto_test_r(reporter = NULL, hash = TRUE)
 }
 \arguments{
+\item{reporter}{\code{{testthat}} reporter to use.
+If NULL, will use \code{testthat::default_reporter()} for tests when running all tests
+and \code{testthat::default_compact_reporter()} for single file tests.
+See \href{https://testthat.r-lib.org/articles/reporters.htmlhttps://testthat.r-lib.org/reference/Reporter.html}{\code{{testthat}} reporters} for more details.}
+
 \item{hash}{Logical. Whether to use file hashing to detect changes. Default is TRUE.
 If FALSE, file modification times are used instead.}
 }

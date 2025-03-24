@@ -34,12 +34,17 @@ check_if_includes_r_files <- function(path) {
   NULL
 }
 
+# nolint start: line_length_linter
 #' Watch and automatically run R tests
 #'
 #' Watches R files in the `app` directory and `tests/testthat` directory for changes.
 #' When code files in `app` change, all tests are rerun. When test files change,
 #' only the changed test file is rerun.
 #'
+#' @param reporter `{testthat}` reporter to use.
+#'   If NULL, will use `testthat::default_reporter()` for tests when running all tests
+#'   and `testthat::default_compact_reporter()` for single file tests.
+#'   See [`{testthat}` reporters](https://testthat.r-lib.org/articles/reporters.htmlhttps://testthat.r-lib.org/reference/Reporter.html) for more details.
 #' @param hash Logical. Whether to use file hashing to detect changes. Default is TRUE.
 #'   If FALSE, file modification times are used instead.
 #'
@@ -51,7 +56,8 @@ check_if_includes_r_files <- function(path) {
 #'   auto_test_r()
 #' }
 #' @export
-auto_test_r <- function(hash = TRUE) {
+# nolint end
+auto_test_r <- function(reporter = NULL, hash = TRUE) {
   test_path <- normalizePath(fs::path("tests", "testthat"))
 
   code_path <- c(
@@ -59,7 +65,13 @@ auto_test_r <- function(hash = TRUE) {
     unlist(fs::dir_map("app", check_if_includes_r_files, recurse = TRUE, type = "directory"))
   )
 
-  rhino::test_r()
+  if (is.null(reporter)) {
+    single_file_reporter <- testthat::default_compact_reporter()
+  } else {
+    single_file_reporter <- reporter
+  }
+
+  test_r(reporter = reporter)
 
   watcher <- function(added, deleted, modified) {
     changed <- normalizePath(c(added, modified))
@@ -72,13 +84,12 @@ auto_test_r <- function(hash = TRUE) {
       # Reload code and rerun all tests
       cat("Changed code: ", paste0(basename(code), collapse = ", "), "\n")
       cat("Rerunning all tests\n")
-      box::purge_cache()
-      testthat::test_dir(test_path)
+      test_r(reporter = reporter)
     } else if (length(tests) > 0) {
       # If test changes, rerun just that test
       box::purge_cache()
       cat("Rerunning tests: ", paste0(basename(tests), collapse = ", "), "\n")
-      testthat::test_file(tests)
+      testthat::test_file(tests, reporter = single_file_reporter)
     }
 
     TRUE
