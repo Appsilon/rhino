@@ -82,13 +82,13 @@ auto_test_r <- function(reporter = NULL, hash = TRUE) {
 
     if (length(code) > 0) {
       # Reload code and rerun all tests
-      cat("Changed code: ", paste0(basename(code), collapse = ", "), "\n")
-      cat("Rerunning all tests\n")
+      cli::cli_alert_info("Changed code: {paste0(basename(code), collapse = ', ')}")
+      cli::cli_alert_info("Rerunning all tests")
       test_r(reporter = reporter)
     } else if (length(tests) > 0) {
       # If test changes, rerun just that test
       box::purge_cache()
-      cat("Rerunning tests: ", paste0(basename(tests), collapse = ", "), "\n")
+      cli::cli_alert_info("Rerunning tests: {paste0(basename(tests), collapse = ', ')}")
       testthat::test_file(tests, reporter = single_file_reporter)
     }
 
