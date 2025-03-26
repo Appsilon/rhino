@@ -10,7 +10,7 @@ auto_test_r(reporter = NULL, filter = NULL, hash = TRUE)
 \item{reporter}{\code{{testthat}} reporter to use.
 If NULL, will use \code{testthat::default_reporter()} for tests when running all tests
 and \code{testthat::default_compact_reporter()} for single file tests.
-See \href{https://testthat.r-lib.org/articles/reporters.htmlhttps://testthat.r-lib.org/reference/Reporter.html}{\code{{testthat}} reporters} for more details.}
+See \href{https://testthat.r-lib.org/reference/Reporter.html}{\code{{testthat}} reporters} for more details.}
 
 \item{filter}{filter passed to \code{testthat::test_dir()}. If not NULL, only tests with file names matching this regular expression will be executed.
 Matching is performed on the file name after it's stripped of "test-" and ".R".

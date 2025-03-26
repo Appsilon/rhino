@@ -148,6 +148,7 @@ reference:
   - format_r
   - lint_r
   - test_r
+  - auto_test_r
 
 - title: JavaScript & Sass development
   contents:
