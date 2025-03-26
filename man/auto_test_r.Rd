@@ -4,13 +4,17 @@
 \alias{auto_test_r}
 \title{Watch and automatically run R tests}
 \usage{
-auto_test_r(reporter = NULL, hash = TRUE)
+auto_test_r(reporter = NULL, filter = NULL, hash = TRUE)
 }
 \arguments{
 \item{reporter}{\code{{testthat}} reporter to use.
 If NULL, will use \code{testthat::default_reporter()} for tests when running all tests
 and \code{testthat::default_compact_reporter()} for single file tests.
 See \href{https://testthat.r-lib.org/articles/reporters.htmlhttps://testthat.r-lib.org/reference/Reporter.html}{\code{{testthat}} reporters} for more details.}
+
+\item{filter}{filter passed to \code{testthat::test_dir()}. If not NULL, only tests with file names matching this regular expression will be executed.
+Matching is performed on the file name after it's stripped of "test-" and ".R".
+Does not affect the case when a test file is changed. In this case, this test file is rerun.}
 
 \item{hash}{Logical. Whether to use file hashing to detect changes. Default is TRUE.
 If FALSE, file modification times are used instead.}

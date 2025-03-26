@@ -25,7 +25,7 @@ starts_with <- function(string, prefix) {
 }
 
 check_if_includes_r_files <- function(path) {
-  r_files <- fs::dir_ls(path, recurse = TRUE, glob = "*.R$")
+  r_files <- fs::dir_ls(path, recurse = TRUE, regexp = "*.[Rr]$")
 
   if (length(r_files) > 0) {
     return(normalizePath(path))
@@ -45,6 +45,9 @@ check_if_includes_r_files <- function(path) {
 #'   If NULL, will use `testthat::default_reporter()` for tests when running all tests
 #'   and `testthat::default_compact_reporter()` for single file tests.
 #'   See [`{testthat}` reporters](https://testthat.r-lib.org/articles/reporters.htmlhttps://testthat.r-lib.org/reference/Reporter.html) for more details.
+#' @param filter filter passed to `testthat::test_dir()`. If not NULL, only tests with file names matching this regular expression will be executed.
+#'   Matching is performed on the file name after it's stripped of "test-" and ".R".
+#'   Does not affect the case when a test file is changed. In this case, this test file is rerun.
 #' @param hash Logical. Whether to use file hashing to detect changes. Default is TRUE.
 #'   If FALSE, file modification times are used instead.
 #'
@@ -57,7 +60,7 @@ check_if_includes_r_files <- function(path) {
 #' }
 #' @export
 # nolint end
-auto_test_r <- function(reporter = NULL, hash = TRUE) {
+auto_test_r <- function(reporter = NULL, filter = NULL, hash = TRUE) {
   test_path <- normalizePath(fs::path("tests", "testthat"))
 
   code_path <- c(
@@ -71,7 +74,7 @@ auto_test_r <- function(reporter = NULL, hash = TRUE) {
     single_file_reporter <- reporter
   }
 
-  test_r(reporter = reporter)
+  test_r(reporter = reporter, filter = filter)
 
   watcher <- function(added, deleted, modified) {
     changed <- normalizePath(c(added, modified))
@@ -84,7 +87,7 @@ auto_test_r <- function(reporter = NULL, hash = TRUE) {
       # Reload code and rerun all tests
       cli::cli_alert_info("Changed code: {paste0(basename(code), collapse = ', ')}")
       cli::cli_alert_info("Rerunning all tests")
-      test_r(reporter = reporter)
+      test_r(reporter = reporter, filter = filter)
     } else if (length(tests) > 0) {
       # If test changes, rerun just that test
       box::purge_cache()
