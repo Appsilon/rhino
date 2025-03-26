@@ -4,13 +4,15 @@
 \alias{format_r}
 \title{Format R}
 \usage{
-format_r(paths, exclude_files = NULL)
+format_r(paths, exclude_files = NULL, ...)
 }
 \arguments{
 \item{paths}{Character vector of files and directories to format.}
 
 \item{exclude_files}{Character vector with regular expressions of files that should be excluded
 from styling.}
+
+\item{...}{Optional arguments to pass to \verb{box.linters::style_*} functions.}
 }
 \value{
 None. This function is called for side effects.

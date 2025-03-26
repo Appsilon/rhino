@@ -19,6 +19,87 @@ test_r <- function(...) {
   )
 }
 
+# From testthat https://github.com/r-lib/testthat/blob/v3.2.3/R/auto-test.R#L130
+starts_with <- function(string, prefix) {
+  substr(string, 1, nchar(prefix)) == prefix
+}
+
+check_if_includes_r_files <- function(path) {
+  r_files <- fs::dir_ls(path, recurse = TRUE, regexp = "*.[Rr]$")
+
+  if (length(r_files) > 0) {
+    return(normalizePath(path))
+  }
+
+  NULL
+}
+
+# nolint start: line_length_linter
+#' Watch and automatically run R tests
+#'
+#' Watches R files in the `app` directory and `tests/testthat` directory for changes.
+#' When code files in `app` change, all tests are rerun. When test files change,
+#' only the changed test file is rerun.
+#'
+#' @param reporter `{testthat}` reporter to use.
+#'   If NULL, will use `testthat::default_reporter()` for tests when running all tests
+#'   and `testthat::default_compact_reporter()` for single file tests.
+#'   See [`{testthat}` reporters](https://testthat.r-lib.org/reference/Reporter.html) for more details.
+#' @param filter filter passed to `testthat::test_dir()`. If not NULL, only tests with file names matching this regular expression will be executed.
+#'   Matching is performed on the file name after it's stripped of "test-" and ".R".
+#'   Does not affect the case when a test file is changed. In this case, this test file is rerun.
+#' @param hash Logical. Whether to use file hashing to detect changes. Default is TRUE.
+#'   If FALSE, file modification times are used instead.
+#'
+#' @return None. This function is called for side effects.
+#'
+#' @examples
+#' if (interactive()) {
+#'   # Watch files and automatically run tests when changes are detected
+#'   auto_test_r()
+#' }
+#' @export
+# nolint end
+auto_test_r <- function(reporter = NULL, filter = NULL, hash = TRUE) {
+  test_path <- normalizePath(fs::path("tests", "testthat"))
+
+  code_path <- c(
+    normalizePath("app"),
+    unlist(fs::dir_map("app", check_if_includes_r_files, recurse = TRUE, type = "directory"))
+  )
+
+  if (is.null(reporter)) {
+    single_file_reporter <- testthat::default_compact_reporter()
+  } else {
+    single_file_reporter <- reporter
+  }
+
+  test_r(reporter = reporter, filter = filter)
+
+  watcher <- function(added, deleted, modified) {
+    changed <- normalizePath(c(added, modified))
+
+    tests <- changed[starts_with(changed, test_path)]
+
+    code <- changed[starts_with(changed, code_path)]
+
+    if (length(code) > 0) {
+      # Reload code and rerun all tests
+      cli::cli_alert_info("Changed code: {paste0(basename(code), collapse = ', ')}")
+      cli::cli_alert_info("Rerunning all tests")
+      test_r(reporter = reporter, filter = filter)
+    } else if (length(tests) > 0) {
+      # If test changes, rerun just that test
+      box::purge_cache()
+      cli::cli_alert_info("Rerunning tests: {paste0(basename(tests), collapse = ', ')}")
+      testthat::test_file(tests, reporter = single_file_reporter)
+    }
+
+    TRUE
+  }
+  testthat::watch(c(code_path, test_path), watcher, hash = hash)
+}
+
 lint_dir <- function(path) {
   if (interactive()) {
     message(cli::format_inline("Linting {.file {path}}"), appendLF = FALSE)
@@ -165,6 +246,7 @@ rhino_style <- function() {
 #' @param paths Character vector of files and directories to format.
 #' @param exclude_files Character vector with regular expressions of files that should be excluded
 #' from styling.
+#' @param ... Optional arguments to pass to `box.linters::style_*` functions.
 #' @return None. This function is called for side effects.
 #'
 #' @examples
@@ -176,10 +258,12 @@ rhino_style <- function() {
 #'   format_r("app/view")
 #' }
 #' @export
-format_r <- function(paths, exclude_files = NULL) {
-  style_box_use <- box.linters::style_box_use_dir
+format_r <- function(paths, exclude_files = NULL, ...) {
+  style_box_use_dir <- box.linters::style_box_use_dir
+  style_box_use_file <- box.linters::style_box_use_file
   if (!box.linters::is_treesitter_installed()) {
-    style_box_use <- function(path, exclude_files) { }
+    style_box_use_dir <- function(path, exclude_files, ...) { }
+    style_box_use_file <- function(path, ...) { }
     cli::cli_warn(
       c(
         "x" = "The packages {{treesitter}} and {{treesitter.r}} are required by `box::use()` styling features of `format_r()`.", #nolint
@@ -190,10 +274,10 @@ format_r <- function(paths, exclude_files = NULL) {
 
   for (path in paths) {
     if (fs::is_dir(path)) {
-      style_box_use(path, exclude_files = exclude_files)
+      style_box_use_dir(path, exclude_files = exclude_files, ...)
       styler::style_dir(path, style = rhino_style, exclude_files = exclude_files)
     } else {
-      style_box_use(path, exclude_files = exclude_files)
+      style_box_use_file(path, ...)
       styler::style_file(path, style = rhino_style)
     }
   }

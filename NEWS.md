@@ -2,10 +2,12 @@
 
 1. Added destructure operator `%<-%`.
 2. `test_r` accepts additional arguments passed to `testthat::test_dir`.
+3. Bugfix for `format_r()` and single files. (#625)
+4. Added `auto_test_r` for automated rerunning R unit test after changing R files.
 
 # [rhino 1.10.1](https://github.com/Appsilon/rhino/releases/tag/v1.10.1)
 
-* Added check for `box.lsp` package in `.Rprofile` before applying the `languageserver` options.
+1. Added check for `box.lsp` package in `.Rprofile` before applying the `languageserver` options.
 
 # [rhino 1.10.0](https://github.com/Appsilon/rhino/releases/tag/v1.10.0)
 

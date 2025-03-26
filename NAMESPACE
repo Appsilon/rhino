@@ -2,6 +2,7 @@
 
 export("%<-%")
 export(app)
+export(auto_test_r)
 export(build_js)
 export(build_sass)
 export(devmode)

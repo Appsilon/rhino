@@ -1,3 +1,9 @@
+test_that("starts_with is able to detect paths that start with a given prefix", {
+  expect_true(starts_with("app/logic/utils.R", "app/logic"))
+  expect_true(starts_with("app/main.R", "app"))
+  expect_false(starts_with("app/view/module.R", "app/logic"))
+})
+
 test_that("build_sass_r builds a minified CSS file out of a Sass file", {
   wd <- getwd()
 
