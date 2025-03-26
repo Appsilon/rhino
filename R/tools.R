@@ -44,7 +44,7 @@ check_if_includes_r_files <- function(path) {
 #' @param reporter `{testthat}` reporter to use.
 #'   If NULL, will use `testthat::default_reporter()` for tests when running all tests
 #'   and `testthat::default_compact_reporter()` for single file tests.
-#'   See [`{testthat}` reporters](https://testthat.r-lib.org/articles/reporters.htmlhttps://testthat.r-lib.org/reference/Reporter.html) for more details.
+#'   See [`{testthat}` reporters](https://testthat.r-lib.org/reference/Reporter.html) for more details.
 #' @param filter filter passed to `testthat::test_dir()`. If not NULL, only tests with file names matching this regular expression will be executed.
 #'   Matching is performed on the file name after it's stripped of "test-" and ".R".
 #'   Does not affect the case when a test file is changed. In this case, this test file is rerun.
