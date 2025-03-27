@@ -591,9 +591,9 @@ devmode <- function(
   }
 
   on.exit({
-    sass$kill()
-    js$kill()
-    r_unit_tests$kill()
+    if (build_sass) sass$kill()
+    if (build_js) js$kill()
+    if (run_r_unit_tests) r_unit_tests$kill()
   })
 
   shiny::with_devmode(TRUE, shiny::runApp(...))
