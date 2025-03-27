@@ -576,6 +576,10 @@ devmode <- function(
   ...
 ) {
   cli::cli_alert_info("Starting Rhino in devmode...")
+  if (build_sass || build_js) {
+    npm_command <- Sys.getenv("RHINO_NPM", "npm")
+    node_check_and_init(npm_command)
+  }
 
   if (build_sass) {
     cli::cli_alert_info("Starting Sass watcher...")
