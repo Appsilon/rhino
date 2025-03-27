@@ -34,6 +34,10 @@ check_if_includes_r_files <- function(path) {
   NULL
 }
 
+formatted_time <- function() {
+  format(as.POSIXct(Sys.time()), "%F %T")
+}
+
 # nolint start: line_length_linter
 #' Watch and automatically run R tests
 #'
@@ -85,13 +89,15 @@ auto_test_r <- function(reporter = NULL, filter = NULL, hash = TRUE) {
 
     if (length(code) > 0) {
       # Reload code and rerun all tests
-      cli::cli_alert_info("Changed code: {paste0(basename(code), collapse = ', ')}")
-      cli::cli_alert_info("Rerunning all tests")
+      cli::cli_alert_info("[{formatted_time()}] Changed code: {paste0(basename(code), collapse = ', ')}")
+      cli::cli_alert_info("[{formatted_time()}] Rerunning all tests")
       test_r(reporter = reporter, filter = filter)
     } else if (length(tests) > 0) {
       # If test changes, rerun just that test
       box::purge_cache()
-      cli::cli_alert_info("Rerunning tests: {paste0(basename(tests), collapse = ', ')}")
+      cli::cli_alert_info(
+        "[{formatted_time()}] Rerunning tests: {paste0(basename(tests), collapse = ', ')}"
+      )
       testthat::test_file(tests, reporter = single_file_reporter)
     }
 
