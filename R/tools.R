@@ -554,7 +554,8 @@ test_e2e <- function(interactive = FALSE) {
 #' (as if `options(shiny.devmode = TRUE)` was set).
 #' The app will be automatically reloaded whenever the sources change.
 #'
-#' Additionally, Rhino will automatically rebuild JavaScript and Sass in the background.
+#' Additionally, Rhino will automatically rebuild JavaScript and Sass in the background
+#' and run R unit tests with the `auto_test_r()` function.
 #' Please note that this feature requires Node.js.
 #'
 #' @param build_sass Boolean. Rebuild Sass automatically in the background?

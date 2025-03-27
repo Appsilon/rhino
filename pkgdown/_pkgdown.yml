@@ -163,6 +163,7 @@ reference:
 - title: Other tools
   contents:
   - diagnostics
+  - devmode
   - test_e2e
   - "%<-%"
 

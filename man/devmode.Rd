@@ -8,7 +8,7 @@ devmode(
   build_sass = TRUE,
   build_js = TRUE,
   run_r_unit_tests = TRUE,
-  auto_test_r_args = list(hash = TRUE),
+  auto_test_r_args = list(reporter = NULL, filter = NULL, hash = TRUE),
   ...
 )
 }
@@ -35,6 +35,7 @@ This function will launch the Shiny app in
 (as if \code{options(shiny.devmode = TRUE)} was set).
 The app will be automatically reloaded whenever the sources change.
 
-Additionally, Rhino will automatically rebuild JavaScript and Sass in the background.
+Additionally, Rhino will automatically rebuild JavaScript and Sass in the background
+and run R unit tests with the \code{auto_test_r()} function.
 Please note that this feature requires Node.js.
 }
