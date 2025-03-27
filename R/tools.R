@@ -553,26 +553,47 @@ test_e2e <- function(interactive = FALSE) {
 #'
 #' @param build_sass Boolean. Rebuild Sass automatically in the background?
 #' @param build_js Boolean. Rebuild JavaScript automatically in the background?
+#' @param run_r_unit_tests Boolean. Run R unit tests automatically in the background?
+#' @param auto_test_r_args List. Additional arguments passed to `auto_test_r()`.
 #' @param ... Additional arguments passed to `shiny::runApp()`.
 #' @return None. This function is called for side effects.
 #'
 #' @export
-devmode <- function(build_sass = TRUE, build_js = TRUE, ...) {
+devmode <- function(
+  build_sass = TRUE,
+  build_js = TRUE,
+  run_r_unit_tests = TRUE,
+  auto_test_r_args = list(reporter = NULL, filter = NULL, hash = TRUE),
+  ...
+) {
   cli::cli_alert_info("Starting Rhino in devmode...")
 
   if (build_sass) {
     cli::cli_alert_info("Starting Sass watcher...")
-    sass <- callr::r_bg(function() { rhino::build_sass(watch = TRUE) }, stdout = "", stderr = "")
+    sass <- callr::r_bg(function() rhino::build_sass(watch = TRUE), stdout = "", stderr = "")
   }
 
   if (build_js) {
     cli::cli_alert_info("Starting JS watcher...")
-    js <- callr::r_bg(function() { rhino::build_js(watch = TRUE) }, stdout = "", stderr = "")
+    js <- callr::r_bg(function() rhino::build_js(watch = TRUE), stdout = "", stderr = "")
+  }
+
+  if (run_r_unit_tests) {
+    cli::cli_alert_info("Starting R unit tests watcher...")
+    r_unit_tests <- callr::r_bg(
+      function(reporter = NULL, filter = NULL, hash = TRUE) {
+        rhino::auto_test_r(reporter = reporter, filter = filter, hash = hash)
+      },
+      args = auto_test_r_args,
+      stdout = "",
+      stderr = ""
+    )
   }
 
   on.exit({
     sass$kill()
     js$kill()
+    r_unit_tests$kill()
   })
 
   shiny::with_devmode(TRUE, shiny::runApp(...))

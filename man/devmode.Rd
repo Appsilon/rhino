@@ -4,12 +4,22 @@
 \alias{devmode}
 \title{Development mode}
 \usage{
-devmode(build_sass = TRUE, build_js = TRUE, ...)
+devmode(
+  build_sass = TRUE,
+  build_js = TRUE,
+  run_r_unit_tests = TRUE,
+  auto_test_r_args = list(hash = TRUE),
+  ...
+)
 }
 \arguments{
 \item{build_sass}{Boolean. Rebuild Sass automatically in the background?}
 
 \item{build_js}{Boolean. Rebuild JavaScript automatically in the background?}
+
+\item{run_r_unit_tests}{Boolean. Run R unit tests automatically in the background?}
+
+\item{auto_test_r_args}{List. Additional arguments passed to \code{auto_test_r()}.}
 
 \item{...}{Additional arguments passed to \code{shiny::runApp()}.}
 }
