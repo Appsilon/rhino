@@ -4,7 +4,7 @@
 2. `test_r` accepts additional arguments passed to `testthat::test_dir`.
 3. Bugfix for `format_r()` and single files. (#625)
 4. Added `auto_test_r` for automated rerunning R unit test after changing R files.
-4. Added `devmode` for running JS build, Sass build, R unit tests and the application in dev mode.
+5. Added `devmode` for running JS build, Sass build, R unit tests and the application in dev mode.
 
 # [rhino 1.10.1](https://github.com/Appsilon/rhino/releases/tag/v1.10.1)
 

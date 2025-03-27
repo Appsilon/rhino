@@ -89,7 +89,9 @@ auto_test_r <- function(reporter = NULL, filter = NULL, hash = TRUE) {
 
     if (length(code) > 0) {
       # Reload code and rerun all tests
-      cli::cli_alert_info("[{formatted_time()}] Changed code: {paste0(basename(code), collapse = ', ')}")
+      cli::cli_alert_info(
+        "[{formatted_time()}] Changed code: {paste0(basename(code), collapse = ', ')}"
+      )
       cli::cli_alert_info("[{formatted_time()}] Rerunning all tests")
       test_r(reporter = reporter, filter = filter)
     } else if (length(tests) > 0) {
