@@ -2,16 +2,20 @@ node_path <- function(...) {
   fs::path(".rhino", ...)
 }
 
-# Run `npm` or an alternative command specified by `RHINO_NPM`.
-# If needed, copy over Node.js template and install dependencies.
-npm <- function(...) {
-  npm_command <- Sys.getenv("RHINO_NPM", "npm")
+node_check_and_init <- function(npm_command) {
   check_system_dependency(
     cmd = npm_command,
     dependency_name = ifelse(npm_command == "npm", "Node.js", npm_command),
     documentation_url = "https://go.appsilon.com/rhino-system-dependencies"
   )
   node_init(npm_command)
+}
+
+# Run `npm` or an alternative command specified by `RHINO_NPM`.
+# If needed, copy over Node.js template and install dependencies.
+npm <- function(...) {
+  npm_command <- Sys.getenv("RHINO_NPM", "npm")
+  node_check_and_init(npm_command)
   node_run(npm_command, ...)
 }
 

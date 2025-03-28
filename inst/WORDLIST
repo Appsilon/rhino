@@ -30,6 +30,7 @@ conf
 config
 destructure
 destructuring
+dev
 devtools
 entrypoint
 favicon

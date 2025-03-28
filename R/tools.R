@@ -34,6 +34,10 @@ check_if_includes_r_files <- function(path) {
   NULL
 }
 
+formatted_time <- function() {
+  format(as.POSIXct(Sys.time()), "%F %T")
+}
+
 # nolint start: line_length_linter
 #' Watch and automatically run R tests
 #'
@@ -85,13 +89,17 @@ auto_test_r <- function(reporter = NULL, filter = NULL, hash = TRUE) {
 
     if (length(code) > 0) {
       # Reload code and rerun all tests
-      cli::cli_alert_info("Changed code: {paste0(basename(code), collapse = ', ')}")
-      cli::cli_alert_info("Rerunning all tests")
+      cli::cli_alert_info(
+        "[{formatted_time()}] Changed code: {paste0(basename(code), collapse = ', ')}"
+      )
+      cli::cli_alert_info("[{formatted_time()}] Rerunning all tests")
       test_r(reporter = reporter, filter = filter)
     } else if (length(tests) > 0) {
       # If test changes, rerun just that test
       box::purge_cache()
-      cli::cli_alert_info("Rerunning tests: {paste0(basename(tests), collapse = ', ')}")
+      cli::cli_alert_info(
+        "[{formatted_time()}] Rerunning tests: {paste0(basename(tests), collapse = ', ')}"
+      )
       testthat::test_file(tests, reporter = single_file_reporter)
     }
 
@@ -537,4 +545,69 @@ test_e2e <- function(interactive = FALSE) {
   } else {
     npm("run", "test-e2e")
   }
+}
+
+#' Development mode
+#'
+#' Run application in development mode with automatic rebuilding and reloading.
+#'
+#' This function will launch the Shiny app in
+#' [development mode](https://shiny.posit.co/r/reference/shiny/latest/devmode.html)
+#' (as if `options(shiny.devmode = TRUE)` was set).
+#' The app will be automatically reloaded whenever the sources change.
+#'
+#' Additionally, Rhino will automatically rebuild JavaScript and Sass in the background
+#' and run R unit tests with the `auto_test_r()` function.
+#' Please note that this feature requires Node.js.
+#'
+#' @param build_sass Boolean. Rebuild Sass automatically in the background?
+#' @param build_js Boolean. Rebuild JavaScript automatically in the background?
+#' @param run_r_unit_tests Boolean. Run R unit tests automatically in the background?
+#' @param auto_test_r_args List. Additional arguments passed to `auto_test_r()`.
+#' @param ... Additional arguments passed to `shiny::runApp()`.
+#' @return None. This function is called for side effects.
+#'
+#' @export
+devmode <- function(
+  build_sass = TRUE,
+  build_js = TRUE,
+  run_r_unit_tests = TRUE,
+  auto_test_r_args = list(reporter = NULL, filter = NULL, hash = TRUE),
+  ...
+) {
+  cli::cli_alert_info("Starting Rhino in devmode...")
+  if (build_sass || build_js) {
+    npm_command <- Sys.getenv("RHINO_NPM", "npm")
+    node_check_and_init(npm_command)
+  }
+
+  if (build_sass) {
+    cli::cli_alert_info("Starting Sass watcher...")
+    sass <- callr::r_bg(function() rhino::build_sass(watch = TRUE), stdout = "", stderr = "")
+  }
+
+  if (build_js) {
+    cli::cli_alert_info("Starting JS watcher...")
+    js <- callr::r_bg(function() rhino::build_js(watch = TRUE), stdout = "", stderr = "")
+  }
+
+  if (run_r_unit_tests) {
+    cli::cli_alert_info("Starting R unit tests watcher...")
+    r_unit_tests <- callr::r_bg(
+      function(reporter = NULL, filter = NULL, hash = TRUE) {
+        rhino::auto_test_r(reporter = reporter, filter = filter, hash = hash)
+      },
+      args = auto_test_r_args,
+      stdout = "",
+      stderr = ""
+    )
+  }
+
+  on.exit({
+    if (build_sass) sass$kill()
+    if (build_js) js$kill()
+    if (run_r_unit_tests) r_unit_tests$kill()
+  })
+
+  shiny::with_devmode(TRUE, shiny::runApp(...))
 }
