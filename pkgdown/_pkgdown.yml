@@ -23,7 +23,7 @@ template:
         gtag('config', 'G-FQQZL5V93G');
       </script>
     before_title: |
-      <a href="https://rhinoverse.dev" class="home"><i class="fa fa-lg fa-chevron-left"></i></a>
+      <a href="https://www.appsilon.com/rhinoverse" class="home"><i class="fa fa-lg fa-chevron-left"></i></a>
 
 url: https://appsilon.github.io/rhino/
 
@@ -31,7 +31,7 @@ navbar:
   type: light
   structure:
     left: [tutorials, explanation, how-to-guides, reference, news, faq]
-    right: [search, github, twitter, mastodon]
+    right: [search, github, bluesky, mastodon]
   components:
     tutorials:
       text: Tutorials
@@ -128,9 +128,9 @@ navbar:
     faq:
       text: FAQ
       href: articles/faq.html
-    twitter:
-      icon: fa-twitter fa-lg
-      href: https://twitter.com/Appsilon
+    bluesky:
+      icon: fa-brands fa-bluesky fa-lg
+      href: https://bsky.app/profile/appsilon.bsky.social
     mastodon:
       icon: fab fa-mastodon fa-lg
       href: https://fosstodon.org/@appsilon
