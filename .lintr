@@ -1,0 +1,5 @@
+linters:
+  linters_with_defaults(
+    defaults = box.linters::rhino_default_linters,
+    line_length_linter = line_length_linter(100)
+  )
