@@ -78,7 +78,7 @@ auto_test_r <- function(reporter = NULL, filter = NULL, hash = TRUE) {
     single_file_reporter <- reporter
   }
 
-  test_r(reporter = reporter, filter = filter)
+  test_r(reporter = reporter, filter = filter, stop_on_failure = FALSE)
 
   watcher <- function(added, deleted, modified) {
     changed <- normalizePath(c(added, modified))
@@ -93,14 +93,14 @@ auto_test_r <- function(reporter = NULL, filter = NULL, hash = TRUE) {
         "[{formatted_time()}] Changed code: {paste0(basename(code), collapse = ', ')}"
       )
       cli::cli_alert_info("[{formatted_time()}] Rerunning all tests")
-      test_r(reporter = reporter, filter = filter)
+      test_r(reporter = reporter, filter = filter, stop_on_failure = FALSE)
     } else if (length(tests) > 0) {
       # If test changes, rerun just that test
       box::purge_cache()
       cli::cli_alert_info(
         "[{formatted_time()}] Rerunning tests: {paste0(basename(tests), collapse = ', ')}"
       )
-      testthat::test_file(tests, reporter = single_file_reporter)
+      testthat::test_file(tests, reporter = single_file_reporter, stop_on_failure = FALSE)
     }
 
     TRUE
