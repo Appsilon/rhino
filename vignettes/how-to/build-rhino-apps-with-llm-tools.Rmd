@@ -74,7 +74,7 @@ Use it if there are more than 8 functions imported from this package/script.
 
 If a function is used only inside a script, it should not be exported.
 
-If a function is used by other scripts, it should be exported by adding `#' @eport` before the function.
+If a function is used by other scripts, it should be exported by adding `#' @export` before the function.
 
 ## Rhino modules
 
