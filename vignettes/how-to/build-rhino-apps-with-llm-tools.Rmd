@@ -14,7 +14,10 @@ The good news is that their performance can be significantly improved by providi
 # Custom instructions for GitHub Copilot
 
 To optimize GitHub Copilot for working with Rhino projects,
-you can create a file named `copilot-instructions.md` in the `.github/` directory of your repository:
+you can create a file named `copilot-instructions.md` in the `.github/` directory of your repository.
+To see instructions below as markdown [visit vignette source](https://github.com/Appsilon/rhino/blob/main/vignettes/how-to/build-rhino-apps-with-llm-tools.Rmd).
+
+Example instuctions:
 
 <div class="p-3 border rounded bg-secondary-subtle">
 ## Importing and exporting
