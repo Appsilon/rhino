@@ -112,6 +112,8 @@ navbar:
         - text: User tools
         - text: Box-module auto-complete in VSCode
           href: articles/how-to/box-lsp.html
+        - text: Build Rhino apps with LLM tools
+          href: articles/how-to/build-rhino-apps-with-llm-tools.html
         - text: -------
         - text: Migration guides
         - text: Migration to Rhino 1.6
