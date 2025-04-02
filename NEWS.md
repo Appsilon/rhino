@@ -1,4 +1,4 @@
-# rhino 1.11.0
+# [rhino 1.11.0](https://github.com/Appsilon/rhino/releases/tag/v1.11.0)
 
 1. Added destructure operator `%<-%`.
 2. `test_r` accepts additional arguments passed to `testthat::test_dir`.
