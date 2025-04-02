@@ -46,11 +46,12 @@
 #'
 #' # Can be used with pipe operations
 #' # Note: The piped expression must be wrapped in brackets
+#' \dontrun{
 #' c(value) %<-% (
 #'   123 |>
 #'     list(value = _)
 #' )
-#'
+#' }
 #' @export
 `%<-%` <- function(lhs, rhs) {
   # LHS validation

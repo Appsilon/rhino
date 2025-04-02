@@ -1,4 +1,4 @@
-# rhino (development version)
+# rhino 1.11.0
 
 1. Added destructure operator `%<-%`.
 2. `test_r` accepts additional arguments passed to `testthat::test_dir`.
@@ -49,7 +49,7 @@ See _[How-to: Rhino 1.7 Migration Guide](https://appsilon.github.io/rhino/articl
     when using a `legacy_entrypoint` ([#395](https://github.com/Appsilon/rhino/issues/395)).
     * Force evaluation of arguments in higher-order functions
     to avoid unexpected behavior due to lazy evaluation (internal).
-3. Add support for [`shiny.autoreload`](https://shiny.posit.co/r/reference/shiny/latest/shinyoptions).
+3. Add support for [`shiny.autoreload`](https://shiny.posit.co/r/reference/shiny/latest/shinyoptions.html).
 
 # [rhino 1.6.0](https://github.com/Appsilon/rhino/releases/tag/v1.6.0)
 
