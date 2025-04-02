@@ -7,6 +7,7 @@ articles:
   explanation/application-structure: explanation/application-structure.html
   how-to/box-lsp: how-to/box-lsp.html
   explanation/box-modules: explanation/box-modules.html
+  how-to/build-rhino-apps-with-llm-tools: how-to/build-rhino-apps-with-llm-tools.html
   how-to/communicate-between-modules: how-to/communicate-between-modules.html
   tutorial/create-your-first-rhino-app: tutorial/create-your-first-rhino-app.html
   how-to/enable-shiny-bookmarking: how-to/enable-shiny-bookmarking.html
@@ -27,6 +28,7 @@ articles:
   how-to/set-application-run-parameters: how-to/set-application-run-parameters.html
   how-to/use-addins: how-to/use-addins.html
   how-to/use-bslib: how-to/use-bslib.html
+  how-to/use-destructure-operator: how-to/use-destructure-operator.html
   how-to/use-global-variables: how-to/use-global-variables.html
   how-to/use-polished: how-to/use-polished.html
   tutorial/use-react-in-rhino: tutorial/use-react-in-rhino.html
@@ -38,7 +40,7 @@ articles:
   tutorial/write-end-to-end-tests-with-cypress: tutorial/write-end-to-end-tests-with-cypress.html
   how-to/write-javascript-code: how-to/write-javascript-code.html
   how-to/write-r-code: how-to/write-r-code.html
-last_built: 2025-04-02T07:13Z
+last_built: 2025-04-02T08:55Z
 urls:
   reference: https://appsilon.github.io/rhino/reference
   article: https://appsilon.github.io/rhino/articles

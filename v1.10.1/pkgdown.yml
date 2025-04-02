@@ -1,0 +1,44 @@
+pandoc: 3.1.3
+pkgdown: 2.1.1
+pkgdown_sha: ~
+articles:
+  how-to/add-internationalization: how-to/add-internationalization.html
+  how-to/add-routing: how-to/add-routing.html
+  explanation/application-structure: explanation/application-structure.html
+  how-to/box-lsp: how-to/box-lsp.html
+  explanation/box-modules: explanation/box-modules.html
+  how-to/communicate-between-modules: how-to/communicate-between-modules.html
+  tutorial/create-your-first-rhino-app: tutorial/create-your-first-rhino-app.html
+  how-to/enable-shiny-bookmarking: how-to/enable-shiny-bookmarking.html
+  faq: faq.html
+  how-to/keep-multiple-apps-in-a-single-repository: how-to/keep-multiple-apps-in-a-single-repository.html
+  how-to/manage-secrets-and-environments: how-to/manage-secrets-and-environments.html
+  how-to/migrate-1-10: how-to/migrate-1-10.html
+  how-to/migrate-1-6: how-to/migrate-1-6.html
+  how-to/migrate-1-7: how-to/migrate-1-7.html
+  how-to/migrate-1-8: how-to/migrate-1-8.html
+  how-to/migrate-1-9: how-to/migrate-1-9.html
+  how-to/migrate-app-to-rhino: how-to/migrate-app-to-rhino.html
+  explanation/node-js-javascript-and-sass-tools: explanation/node-js-javascript-and-sass-tools.html
+  how-to/publish-on-huggingface: how-to/publish-on-huggingface.html
+  explanation/renv-configuration: explanation/renv-configuration.html
+  explanation/rhino-style-guide: explanation/rhino-style-guide.html
+  explanation/rhino-yml: explanation/rhino-yml.html
+  how-to/set-application-run-parameters: how-to/set-application-run-parameters.html
+  how-to/use-addins: how-to/use-addins.html
+  how-to/use-bslib: how-to/use-bslib.html
+  how-to/use-global-variables: how-to/use-global-variables.html
+  how-to/use-polished: how-to/use-polished.html
+  tutorial/use-react-in-rhino: tutorial/use-react-in-rhino.html
+  how-to/use-shiny-fluent: how-to/use-shiny-fluent.html
+  how-to/use-shinymanager: how-to/use-shinymanager.html
+  how-to/use-shinytest2: how-to/use-shinytest2.html
+  how-to/use-static-files: how-to/use-static-files.html
+  explanation/what-is-rhino: explanation/what-is-rhino.html
+  tutorial/write-end-to-end-tests-with-cypress: tutorial/write-end-to-end-tests-with-cypress.html
+  how-to/write-javascript-code: how-to/write-javascript-code.html
+  how-to/write-r-code: how-to/write-r-code.html
+last_built: 2025-04-02T08:57Z
+urls:
+  reference: https://appsilon.github.io/rhino/v1.10.1/reference
+  article: https://appsilon.github.io/rhino/v1.10.1/articles

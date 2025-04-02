@@ -12,6 +12,7 @@
 <url><loc>https://appsilon.github.io/rhino/articles/how-to/add-internationalization.html</loc></url>
 <url><loc>https://appsilon.github.io/rhino/articles/how-to/add-routing.html</loc></url>
 <url><loc>https://appsilon.github.io/rhino/articles/how-to/box-lsp.html</loc></url>
+<url><loc>https://appsilon.github.io/rhino/articles/how-to/build-rhino-apps-with-llm-tools.html</loc></url>
 <url><loc>https://appsilon.github.io/rhino/articles/how-to/communicate-between-modules.html</loc></url>
 <url><loc>https://appsilon.github.io/rhino/articles/how-to/enable-shiny-bookmarking.html</loc></url>
 <url><loc>https://appsilon.github.io/rhino/articles/how-to/keep-multiple-apps-in-a-single-repository.html</loc></url>
@@ -26,6 +27,7 @@
 <url><loc>https://appsilon.github.io/rhino/articles/how-to/set-application-run-parameters.html</loc></url>
 <url><loc>https://appsilon.github.io/rhino/articles/how-to/use-addins.html</loc></url>
 <url><loc>https://appsilon.github.io/rhino/articles/how-to/use-bslib.html</loc></url>
+<url><loc>https://appsilon.github.io/rhino/articles/how-to/use-destructure-operator.html</loc></url>
 <url><loc>https://appsilon.github.io/rhino/articles/how-to/use-global-variables.html</loc></url>
 <url><loc>https://appsilon.github.io/rhino/articles/how-to/use-polished.html</loc></url>
 <url><loc>https://appsilon.github.io/rhino/articles/how-to/use-shiny-fluent.html</loc></url>
@@ -42,13 +44,16 @@
 <url><loc>https://appsilon.github.io/rhino/index.html</loc></url>
 <url><loc>https://appsilon.github.io/rhino/news/index.html</loc></url>
 <url><loc>https://appsilon.github.io/rhino/reference/app.html</loc></url>
+<url><loc>https://appsilon.github.io/rhino/reference/auto_test_r.html</loc></url>
 <url><loc>https://appsilon.github.io/rhino/reference/build_js.html</loc></url>
 <url><loc>https://appsilon.github.io/rhino/reference/build_sass.html</loc></url>
 <url><loc>https://appsilon.github.io/rhino/reference/dependencies.html</loc></url>
+<url><loc>https://appsilon.github.io/rhino/reference/devmode.html</loc></url>
 <url><loc>https://appsilon.github.io/rhino/reference/diagnostics.html</loc></url>
 <url><loc>https://appsilon.github.io/rhino/reference/format_js.html</loc></url>
 <url><loc>https://appsilon.github.io/rhino/reference/format_r.html</loc></url>
 <url><loc>https://appsilon.github.io/rhino/reference/format_sass.html</loc></url>
+<url><loc>https://appsilon.github.io/rhino/reference/grapes-set-grapes.html</loc></url>
 <url><loc>https://appsilon.github.io/rhino/reference/index.html</loc></url>
 <url><loc>https://appsilon.github.io/rhino/reference/init.html</loc></url>
 <url><loc>https://appsilon.github.io/rhino/reference/lint_js.html</loc></url>
