@@ -1,5 +1,7 @@
 # rhino (development)
 
+1. Added `AGENTS.md` with repository guidance for AI coding agents.
+
 # [rhino 1.11.0](https://github.com/Appsilon/rhino/releases/tag/v1.11.0)
 
 1. Added destructure operator `%<-%`.
