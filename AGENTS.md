@@ -36,6 +36,7 @@ the lower-level equivalent from `.github/CONTRIBUTING.md` or a workflow file.
 | Lint package sources | `devtools::lint()` |
 | Run R CMD check | `devtools::check()` |
 | Spell check | `devtools::spell_check()` |
+| Regenerate `NAMESPACE` and `man/` files | `devtools::document()` |
 | Build documentation site | `devtools::build_site()` |
 | Build package tarball | `devtools::build()` |
 
@@ -49,6 +50,18 @@ scripts under `tests/e2e/`. The E2E workflow covers `init()`, `diagnostics()`,
 dependency management, `RHINO_NPM`, R/JS/Sass linting and formatting, JS/Sass
 builds, `test_r()`, `test_e2e()`, React support, and `box.lsp` setup.
 
+## Testing Guidance
+
+- Add or update tests for behavioral changes, especially bug fixes.
+- Use `tests/testthat/` for package-level R behavior.
+- Use `tests/e2e/` when changes affect `rhino::init()` output, templates,
+  generated app structure, Node tooling, JS/Sass commands, `RHINO_NPM`,
+  `box.lsp` setup, or generated app test workflows.
+- Template changes usually need generated-app validation, not only package unit
+  tests.
+- Keep test fixtures in `tests/e2e/app-files/` minimal and focused on the
+  generated behavior being exercised.
+
 ## Code Style
 
 - Line length limit is 100 characters, configured in `.lintr`.
@@ -59,6 +72,23 @@ builds, `test_r()`, `test_e2e()`, React support, and `box.lsp` setup.
 - Prefer package-local helper patterns over introducing new abstractions.
 - Do not edit generated files directly: update roxygen comments, vignettes,
   pkgdown sources, or package metadata, then regenerate outputs.
+
+## Dependencies And Imports
+
+- Avoid adding package dependencies unless the dependency provides clear value
+  and is appropriate for a CRAN package.
+- Use explicit `pkg::function()` calls for dependencies. Do not add new broad
+  roxygen `@import` directives.
+- Keep `DESCRIPTION`, `NAMESPACE`, and package code in sync. Run
+  `devtools::document()` after changing exported functions, roxygen
+  documentation, or other `NAMESPACE`-affecting directives.
+- `R/linters.R` contains a deliberate existing import workaround for packages
+  used only by generated Rhino apps. Do not copy this pattern for normal code.
+- Node dependencies for generated apps live in `inst/templates/node/package.json`
+  and `inst/templates/node/package-lock.json`; update both together.
+- Changes to generated app dependencies or scaffolding can affect
+  `dependencies.R`, `renv`, template files, and E2E tests. Check the generated
+  app path before finishing such changes.
 
 ## Architecture
 
@@ -101,7 +131,8 @@ Core source files:
 - `R/destructure.R`: `%<-%` destructuring operator.
 - `R/log.R`: `log` object wrapping logger functions at seven severity levels.
 - `R/addins.R`: RStudio addin entrypoints.
-- `R/linters.R`: roxygen imports for packages used by generated Rhino apps.
+- `R/linters.R`: R CMD check workaround for packages used by generated Rhino
+  apps.
 - `R/data.R`: documentation for packaged sample data.
 
 ## Key Patterns
@@ -126,10 +157,24 @@ Core source files:
 
 - Update `NEWS.md` for user-visible changes.
 - Update or add vignettes for behavior that affects documented workflows.
+- Run `devtools::document()` when roxygen comments, exports, `NAMESPACE`, or data
+  documentation change.
 - Keep release-process details in `.github/CONTRIBUTING.md`; do not duplicate
   the full release checklist here.
+- For code changes, increment the development version in `DESCRIPTION` using the
+  `X.Y.Z.900N` pattern.
+- Do not switch to a release version unless you are following the release
+  process in `.github/CONTRIBUTING.md`.
 - Update this `AGENTS.md` file when changes make its agent guidance stale,
   especially when exported functions, important source files, repository
   structure, workflows, or development commands change.
 - If adding repository-only docs or agent instructions, remember that R package
   builds may need corresponding `.Rbuildignore` entries.
+
+## Security And Local State
+
+- Do not commit secrets, tokens, credentials, or machine-specific local config.
+- Use environment variables, `config.yml` placeholders, or GitHub repository
+  secrets in examples and workflows.
+- Avoid committing generated app credentials, real deployment settings, or local
+  files produced while testing scaffolded Rhino apps.
