@@ -1,0 +1,141 @@
+# Explanation: Rhino style guide
+
+Rhino follows the [`tidyverse` style
+guide](https://style.tidyverse.org/), with specific additional rules for
+[`box::use`](https://klmr.me/box/reference/use.html) statements to
+enhance readability and maintainability of code. These rules are
+designed to work alongside `tidyverse` conventions, providing clarity
+and consistency when using `box` modules.
+
+For more details on how to use
+[`box::use`](https://klmr.me/box/reference/use.html) statements, see
+[Explanation: Box
+modules](https://appsilon.github.io/rhino/articles/explanation/box-modules.html).
+
+For more details on how to configure linter rules in the `.lintr` file,
+see [Configuring
+linters](https://lintr.r-lib.org/articles/lintr.html#configuring-linters).
+
+## Explicit Import
+
+For clarity and ease of tracking function origins, avoid using `[...]`
+for imports. Explicitly declare all packages, modules and functions.
+
+``` r
+# Good
+box::use(
+  infer[specify],
+  shiny,
+)
+
+# Bad
+box::use(
+  infer[...],
+  shiny[...],
+)
+
+observe() # Is it from {infer} or {shiny}?
+```
+
+## Trailing Commas
+
+Trailing commas in [`box::use`](https://klmr.me/box/reference/use.html)
+statements are encouraged. They simplify line additions and reordering.
+
+``` r
+# Good
+box::use(
+  shiny,
+)
+
+# Bad
+box::use(
+  shiny
+)
+```
+
+## Separated Statements for Packages and Modules
+
+Use separate [`box::use`](https://klmr.me/box/reference/use.html)
+statements for importing packages and modules (R scripts) for better
+structure and readability.
+
+``` r
+# Good
+box::use(
+  rhino[log],
+  shiny,
+)
+
+box::use(
+  path/to/module,
+)
+
+# Bad
+box::use(
+  rhino[log],
+  shiny,
+  path/to/module,
+)
+```
+
+## Order of Imports
+
+Order imports alphabetically to ease locating a specific import. This
+applies to both packages/modules and functions within them.
+
+``` r
+# Good
+box::use(
+  rhino,
+  shiny[div, fluidPage],
+)
+
+# Bad
+box::use(
+  shiny[fluidPage, div],
+  rhino,
+)
+```
+
+### Aliases
+
+Aliases can be useful for long package/module and function names.
+Imports should still follow the alphabetical order of package/module
+names and function names.
+
+``` r
+# Good
+box::use(
+  z_pkg = rhino,
+  shiny[div, a_fun = fluidPage],
+)
+
+# Bad
+box::use(
+  a_pkg = shiny,
+  rhino[a_fun = react_component, log],
+)
+```
+
+## Number of Imports
+
+Limit the number of functions imported from a module or package to 8. If
+more than 8 functions are needed, import the entire package and
+reference functions using `package$function`. Aliases can be used for
+convenience. Check [`box::use`
+documentation](https://klmr.me/box/reference/use.html) for more details.
+
+``` r
+# Good
+box::use(
+  rhino[log],
+  shiny,
+)
+
+# Bad
+box::use(
+  rhino[log],
+  shiny[div, fluidPage, navbarPage, sidebarPanel, sidebarLayout, mainPanel, tabPanel, tabsetPanel, titlePanel],
+)
+```

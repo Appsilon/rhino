@@ -1,0 +1,238 @@
+# Rhino [![Rhino logo](reference/figures/rhino.png)](https://appsilon.github.io/rhino/)
+
+> *Build high quality, enterprise-grade
+> [Shiny](https://shiny.rstudio.com/) apps at speed.*
+
+## Events
+
+### Upcoming
+
+Would you like to learn about Rhino hands-on? Join our events! Upcoming
+events will be added to this section - stay tuned.
+
+### Past
+
+- [**Best practices for coding Shiny apps with Rhino
+  Team**](https://www.youtube.com/watch?v=QmyilJr7jXs)  
+  2023-06-27 at 18:00 (UTC+2)  
+  Online gathering led by [Kamil
+  Żyła](https://www.linkedin.com/in/kamil-zyla/)
+
+- [**Creating Shiny Apps with Rhino: the new framework for Shiny
+  apps**](https://www.youtube.com/watch?v=8H_ZHUy8Yj4)  
+  2022-05-13 at 18:00 (UTC+2)  
+  Online workshop led by [Kamil
+  Żyła](https://www.linkedin.com/in/kamil-zyla/)
+
+- [**Introducing Rhino: Shiny application framework for
+  enterprise**](https://www.rstudio.com/conference/2022/talks/introducing-rhino-shiny-application-framework/)  
+  2022-07-28 at 15:20 (UTC-4)  
+  Talk given by [Kamil Żyła](https://www.linkedin.com/in/kamil-zyla/) at
+  [rstudio::conf(2022)](https://www.rstudio.com/conference/2022/2022-conf-talks/)
+
+- **Enterprise-grade Shiny App Development with {rhino}**  
+  2022-08-23 at 11:00 (UTC-4)  
+  Workshop led by [Jakub
+  Nowicki](https://www.linkedin.com/in/jakub-nowicki/) at [R/Medicine
+  2022](https://events.linuxfoundation.org/r-medicine/)
+
+- **Introducing Rhino: Shiny application framework for enterprise**  
+  2022-09-07 at 11:30 (UTC+1)  
+  Talk given by [Jakub
+  Nowicki](https://www.linkedin.com/in/jakub-nowicki/) at [EARL
+  2022](https://www.ascent.io/earl)
+
+- **Rhino Workshop**  
+  2022-10-11 at 19:00 (UTC+2)  
+  Led by [Kamil Żyła](https://www.linkedin.com/in/kamil-zyla/) at
+  [LatinR 2022](https://latin-r.com/en)
+
+## Why Rhino?
+
+Rhino allows you to create Shiny apps **The Appsilon Way** - like a
+fullstack software engineer. Apply best software engineering practices,
+modularize your code, test it well, make UI beautiful, and think about
+user adoption from the very beginning. Rhino is an opinionated framework
+with a focus on software engineering practices and development tools.
+
+Rhino supports your work in 3 main areas:
+
+1.  **Clear code**: scalable app architecture, modularization based on
+    Box and Shiny modules.
+2.  **Quality**: unit tests, E2E tests with Cypress, logging and
+    monitoring, linting.
+3.  **Automation**: project startup, CI with GitHub Actions, dependency
+    management with renv, configuration management with config, Sass and
+    JavaScript bundling with ES6 support via Node.js.
+
+These features are often implemented using well-known packages. Rhino
+brings them all working together out of the box!
+
+Read more: [What is
+Rhino?](https://appsilon.github.io/rhino/articles/explanation/what-is-rhino.html)
+
+## Share feedback
+
+Are you a Rhino user who want to share your feedback and shape the
+future of the package?
+
+If yes, we would be very happy to hear from you in [this anonymous
+developer survey](https://forms.gle/roNkgvwE1LYCHwED6)! It shouldn’t
+take you more than 5 to 10 minutes to fill it in and it would definitely
+help us to understand your needs and plan new features.
+
+## Installation
+
+Stable version:
+
+``` r
+install.packages("rhino")
+```
+
+Development version:
+
+``` r
+remotes::install_github("Appsilon/rhino")
+```
+
+## Documentation
+
+[Rhino documentation](https://appsilon.github.io/rhino/) is divided into
+four sections, accessible from the navigation bar at the top:
+
+1.  [**Tutorial**](https://appsilon.github.io/rhino/articles/tutorial/create-your-first-rhino-app.html):
+    Start here to learn the basics.
+2.  **Explanation**: In-depth articles on Rhino machinery and its
+    design.
+3.  **How-to Guides**: Step-by-step instructions for common tasks.
+4.  **Reference**: A list of Rhino functions with technical details.
+
+Check out our [Rhino
+Showcase](https://github.com/Appsilon/rhino-showcase), an example Shiny
+application built using Rhino.
+
+You can also learn about Rhino by watching the video from one of our
+workshops: [Creating Shiny Apps with Rhino: the new framework for Shiny
+apps](https://www.youtube.com/watch?v=8H_ZHUy8Yj4). A repository with
+step-by-step commits for the workshop application can be found
+[here](https://github.com/Appsilon/rhino-workshop/tree/workshop-2022-05-13).
+
+------------------------------------------------------------------------
+
+Developed with ❤️ at [Appsilon](https://appsilon.com). Get in touch:
+<opensource@appsilon.com>.
+
+Explore the [Rhinoverse](https://rhinoverse.dev) - a family of R
+packages built around [Rhino](https://appsilon.github.io/rhino/)!
+
+Appsilon is a [**Posit (formerly RStudio) Full Service Certified
+Partner**](https://www.rstudio.com/certified-partners/).
+
+[![We are
+hiring!](https://raw.githubusercontent.com/Appsilon/website-cdn/gh-pages/WeAreHiring1.png)](https://appsilon.com/careers/)
+
+# Package index
+
+## Project initialization
+
+- [`app()`](https://appsilon.github.io/rhino/v1.5.0/reference/app.md) :
+  Rhino application
+- [`init()`](https://appsilon.github.io/rhino/v1.5.0/reference/init.md)
+  : Create Rhino application
+
+## R development
+
+- [`pkg_install()`](https://appsilon.github.io/rhino/v1.5.0/reference/dependencies.md)
+  [`pkg_remove()`](https://appsilon.github.io/rhino/v1.5.0/reference/dependencies.md)
+  : Manage dependencies
+- [`log`](https://appsilon.github.io/rhino/v1.5.0/reference/log.md) :
+  Logging functions
+- [`format_r()`](https://appsilon.github.io/rhino/v1.5.0/reference/format_r.md)
+  : Format R
+- [`lint_r()`](https://appsilon.github.io/rhino/v1.5.0/reference/lint_r.md)
+  : Lint R
+- [`test_r()`](https://appsilon.github.io/rhino/v1.5.0/reference/test_r.md)
+  : Run R unit tests
+
+## JavaScript & Sass development
+
+- [`build_js()`](https://appsilon.github.io/rhino/v1.5.0/reference/build_js.md)
+  : Build JavaScript
+- [`build_sass()`](https://appsilon.github.io/rhino/v1.5.0/reference/build_sass.md)
+  : Build Sass
+- [`lint_js()`](https://appsilon.github.io/rhino/v1.5.0/reference/lint_js.md)
+  : Lint JavaScript
+- [`lint_sass()`](https://appsilon.github.io/rhino/v1.5.0/reference/lint_sass.md)
+  : Lint Sass
+- [`react_component()`](https://appsilon.github.io/rhino/v1.5.0/reference/react_component.md)
+  : React components
+
+## Other tools
+
+- [`diagnostics()`](https://appsilon.github.io/rhino/v1.5.0/reference/diagnostics.md)
+  : Print diagnostics
+- [`test_e2e()`](https://appsilon.github.io/rhino/v1.5.0/reference/test_e2e.md)
+  : Run Cypress end-to-end tests
+
+## Data
+
+- [`rhinos`](https://appsilon.github.io/rhino/v1.5.0/reference/rhinos.md)
+  : Population of rhinos
+
+# Articles
+
+### All vignettes
+
+- [How-to: Add
+  internationalization](https://appsilon.github.io/rhino/v1.5.0/articles/how-to/add-internationalization.md):
+- [How-to: Add
+  routing](https://appsilon.github.io/rhino/v1.5.0/articles/how-to/add-routing.md):
+- [Explanation: Application
+  structure](https://appsilon.github.io/rhino/v1.5.0/articles/explanation/application-structure.md):
+- [Explanation: Box
+  modules](https://appsilon.github.io/rhino/v1.5.0/articles/explanation/box-modules.md):
+- [Tutorial: Create your first Rhino
+  app](https://appsilon.github.io/rhino/v1.5.0/articles/tutorial/create-your-first-rhino-app.md):
+- [How-to: Enable Shiny
+  bookmarking](https://appsilon.github.io/rhino/v1.5.0/articles/how-to/enable-shiny-bookmarking.md):
+- [FAQ](https://appsilon.github.io/rhino/v1.5.0/articles/faq.md):
+- [How to: Keep multiple apps in a single
+  repository](https://appsilon.github.io/rhino/v1.5.0/articles/how-to/keep-multiple-apps-in-a-single-repository.md):
+- [How to: Manage secrets and
+  environments](https://appsilon.github.io/rhino/v1.5.0/articles/how-to/manage-secrets-and-environments.md):
+- [How-to: Migrate app to
+  Rhino](https://appsilon.github.io/rhino/v1.5.0/articles/how-to/migrate-app-to-rhino.md):
+- [Explanation: Node.js - JavaScript and Sass
+  tools](https://appsilon.github.io/rhino/v1.5.0/articles/explanation/node-js-javascript-and-sass-tools.md):
+- [How-to: Publish Rhino app on Hugging
+  Face](https://appsilon.github.io/rhino/v1.5.0/articles/how-to/publish-on-huggingface.md):
+- [Explanation: Renv
+  configuration](https://appsilon.github.io/rhino/v1.5.0/articles/explanation/renv-configuration.md):
+- [Explanation: Configuring Rhino -
+  rhino.yml](https://appsilon.github.io/rhino/v1.5.0/articles/explanation/rhino-yml.md):
+- [How-to: Set application run
+  parameters](https://appsilon.github.io/rhino/v1.5.0/articles/how-to/set-application-run-parameters.md):
+- [How-to: Rhino
+  Addins](https://appsilon.github.io/rhino/v1.5.0/articles/how-to/use-addins.md):
+- [How-to: Use global
+  variables](https://appsilon.github.io/rhino/v1.5.0/articles/how-to/use-global-variables.md):
+- [How-to: Use
+  polished](https://appsilon.github.io/rhino/v1.5.0/articles/how-to/use-polished.md):
+- [Tutorial: Use React in
+  Rhino](https://appsilon.github.io/rhino/v1.5.0/articles/tutorial/use-react-in-rhino.md):
+- [How-to: Use shiny.fluent with
+  Rhino](https://appsilon.github.io/rhino/v1.5.0/articles/how-to/use-shiny-fluent.md):
+- [How-to: Use
+  shinymanager](https://appsilon.github.io/rhino/v1.5.0/articles/how-to/use-shinymanager.md):
+- [How-to: Use
+  shinytest2](https://appsilon.github.io/rhino/v1.5.0/articles/how-to/use-shinytest2.md):
+- [How-to: Use static
+  files](https://appsilon.github.io/rhino/v1.5.0/articles/how-to/use-static-files.md):
+- [Explanation: What is
+  Rhino?](https://appsilon.github.io/rhino/v1.5.0/articles/explanation/what-is-rhino.md):
+- [Tutorial: Write end-to-end tests with
+  Cypress](https://appsilon.github.io/rhino/v1.5.0/articles/tutorial/write-end-to-end-tests-with-cypress.md):
+- [How-to: Write JavaScript
+  code](https://appsilon.github.io/rhino/v1.5.0/articles/how-to/write-javascript-code.md):
+- [How-to: Write R
+  code](https://appsilon.github.io/rhino/v1.5.0/articles/how-to/write-r-code.md):

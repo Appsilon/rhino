@@ -1,0 +1,30 @@
+# Explanation: Configuring Rhino - rhino.yml
+
+This article is a stub. We are working to edit and expand it.
+
+## Configure Rhino with `rhino.yml`
+
+Rhino uses its own `rhino.yml` config file where you can set a few
+options on how it works in your app. Currently available options are
+described below.
+
+### `rhino.yml` options
+
+``` yaml
+sass: string               # required | one of: "node", "r"
+legacy_entrypoint: string  # optional | one of: "app_dir", "source", "box_top_level"
+```
+
+#### `sass`
+
+Configures whether [Sass](https://sass-lang.com/) should be built using
+the [R package](https://cran.r-project.org/package=sass) or the [Node.js
+package](https://www.npmjs.com/package/sass). Read more in [Explanation:
+Node.js - JavaScript and Sass
+tools](https://appsilon.github.io/rhino/articles/explanation/node-js-javascript-and-sass-tools.html).
+
+#### `legacy_entrypoint`
+
+This setting is useful when migrating an existing Shiny application to
+Rhino. For more details see [`rhino::app()` details
+section](https://appsilon.github.io/rhino/reference/app.html#details-1).

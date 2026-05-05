@@ -1,0 +1,148 @@
+# Rhino [![Rhino logo](reference/figures/rhino.png)](https://appsilon.github.io/rhino/)
+
+> *Build high quality, enterprise-grade
+> [Shiny](https://shiny.rstudio.com/) apps at speed.*
+
+## Why Rhino?
+
+Rhino allows you to create Shiny apps **The Appsilon Way** - like a
+fullstack software engineer. Apply best software engineering practices,
+modularize your code, test it well, make UI beautiful, and think about
+user adoption from the very beginning. Rhino is an opinionated framework
+with a focus on software engineering practices and development tools.
+
+Rhino supports your work in 3 main areas:
+
+1.  **Clear code**: scalable app architecture, modularization based on
+    Box and Shiny modules.
+2.  **Quality**: unit tests, E2E tests with Cypress, logging and
+    monitoring, linting.
+3.  **Automation**: project startup, CI with GitHub Actions, dependency
+    management with renv, configuration management with config, Sass and
+    JavaScript bundling with ES6 support via Node.js.
+
+These features are often implemented using well-known packages. Rhino
+brings them all working together out of the box!
+
+Read more: [What is
+Rhino?](https://appsilon.github.io/rhino/articles/explanation/what-is-rhino.html)
+and [Similar
+projects](https://appsilon.github.io/rhino/articles/explanation/similar-projects.html).
+
+## Get it
+
+Stable version:
+
+``` r
+install.packages("rhino")
+```
+
+Development version:
+
+``` r
+remotes::install_github("Appsilon/rhino")
+```
+
+## Usage
+
+- Create a new Rhino application with
+  [`rhino::init()`](https://appsilon.github.io/rhino/v1.0.0/reference/init.md)
+- To learn more, follow the [Rhino
+  tutorial](https://appsilon.github.io/rhino/articles/tutorial/create-your-first-rhino-app.html)
+- To migrate an existing application to Rhino, refer to [`rhino::init()`
+  details
+  section](https://appsilon.github.io/rhino/reference/init.html#details-1)
+
+## About
+
+Rhino is distributed under [LGPL-3.0
+license](https://opensource.org/licenses/LGPL-3.0). Developed with ❤️ at
+[Appsilon](https://appsilon.com).
+
+------------------------------------------------------------------------
+
+Appsilon is the **Full Service Certified RStudio Partner**. Learn more
+at [appsilon.com](https://appsilon.com).
+
+Get in touch: <opensource@appsilon.com>.
+
+[![We are
+hiring!](http://d2v95fjda94ghc.cloudfront.net/hiring.png)](https://appsilon.com/careers/)
+
+# Package index
+
+## Project initialization
+
+- [`app()`](https://appsilon.github.io/rhino/v1.0.0/reference/app.md) :
+  Rhino application
+- [`init()`](https://appsilon.github.io/rhino/v1.0.0/reference/init.md)
+  : Create Rhino application
+
+## R development
+
+- [`log`](https://appsilon.github.io/rhino/v1.0.0/reference/log.md) :
+  Logging functions
+- [`format_r()`](https://appsilon.github.io/rhino/v1.0.0/reference/format_r.md)
+  : Format R
+- [`lint_r()`](https://appsilon.github.io/rhino/v1.0.0/reference/lint_r.md)
+  : Lint R
+- [`test_r()`](https://appsilon.github.io/rhino/v1.0.0/reference/test_r.md)
+  : Run R unit tests
+
+## JavaScript & Sass development
+
+- [`build_js()`](https://appsilon.github.io/rhino/v1.0.0/reference/build_js.md)
+  : Build JavaScript
+- [`build_sass()`](https://appsilon.github.io/rhino/v1.0.0/reference/build_sass.md)
+  : Build Sass
+- [`lint_js()`](https://appsilon.github.io/rhino/v1.0.0/reference/lint_js.md)
+  : Lint JavaScript
+- [`lint_sass()`](https://appsilon.github.io/rhino/v1.0.0/reference/lint_sass.md)
+  : Lint Sass
+
+## Other tools
+
+- [`diagnostics()`](https://appsilon.github.io/rhino/v1.0.0/reference/diagnostics.md)
+  : Print diagnostics
+- [`test_e2e()`](https://appsilon.github.io/rhino/v1.0.0/reference/test_e2e.md)
+  : Run Cypress end-to-end tests
+
+## Data
+
+- [`rhinos`](https://appsilon.github.io/rhino/v1.0.0/reference/rhinos.md)
+  : Population of rhinos
+
+# Articles
+
+### All vignettes
+
+- [Explanation: Application
+  structure](https://appsilon.github.io/rhino/v1.0.0/articles/explanation/application-structure.md):
+- [Explanation: Box
+  modules](https://appsilon.github.io/rhino/v1.0.0/articles/explanation/box-modules.md):
+- [Tutorial: Create your first Rhino
+  app](https://appsilon.github.io/rhino/v1.0.0/articles/tutorial/create-your-first-rhino-app.md):
+- [How to: Keep multiple apps in a single
+  repository](https://appsilon.github.io/rhino/v1.0.0/articles/how-to/keep-multiple-apps-in-a-single-repository.md):
+- [How-to: Manage R
+  dependencies](https://appsilon.github.io/rhino/v1.0.0/articles/how-to/manage-r-dependencies.md):
+- [How-to: Migrate app to
+  Rhino](https://appsilon.github.io/rhino/v1.0.0/articles/how-to/migrate-app-to-rhino.md):
+- [Explanation: Node.js - JavaScript and Sass
+  tools](https://appsilon.github.io/rhino/v1.0.0/articles/explanation/node-js-javascript-and-sass-tools.md):
+- [Explanation: Renv
+  configuration](https://appsilon.github.io/rhino/v1.0.0/articles/explanation/renv-configuration.md):
+- [Explanation: Configuring Rhino -
+  rhino.yml](https://appsilon.github.io/rhino/v1.0.0/articles/explanation/rhino-yml.md):
+- [Explanation: Similar
+  projects](https://appsilon.github.io/rhino/v1.0.0/articles/explanation/similar-projects.md):
+- [How-to: Use Rhino on
+  Windows](https://appsilon.github.io/rhino/v1.0.0/articles/how-to/use-rhino-on-windows.md):
+- [How-to: Use static
+  files](https://appsilon.github.io/rhino/v1.0.0/articles/how-to/use-static-files.md):
+- [Explanation: What is
+  Rhino?](https://appsilon.github.io/rhino/v1.0.0/articles/explanation/what-is-rhino.md):
+- [How-to: Write JavaScript
+  code](https://appsilon.github.io/rhino/v1.0.0/articles/how-to/write-javascript-code.md):
+- [How-to: Write R
+  code](https://appsilon.github.io/rhino/v1.0.0/articles/how-to/write-r-code.md):

@@ -1,0 +1,238 @@
+# Explanation: Box modules
+
+## Rationale
+
+With large applications it is critical for maintainability to properly
+structure your code using files and directories. R comes with the
+[`library()`](https://rdrr.io/r/base/library.html) and
+[`source()`](https://rdrr.io/r/base/source.html) functions, but its
+functionality is limited when it comes to dividing your code into
+modules and expressing their dependencies.
+
+To address this, Rhino uses the [box](https://klmr.me/box/) R package,
+which allows you to modularize your code in a similar way to languages
+like Python and Java:
+
+``` r
+box::use(
+  dplyr, # Import dplyr. Its functions can be used via `$`, e.g. `dplyr$filter`.
+  shiny[reactive], # Import the `reactive()` function from shiny package.
+)
+box::use(
+  logic/data_validation, # Import the `logic/data_validation.R` module.
+)
+```
+
+Box modules force you to be explicit about the dependencies between your
+files and packages. The graph of dependencies is visible at a glance in
+an app developed with box, while the traditional approach (`global.R`,
+[`library()`](https://rdrr.io/r/base/library.html),
+[`source()`](https://rdrr.io/r/base/source.html)) makes it easy to build
+an app which only the author understands. Introduction of box to
+existing apps written without it has helped to improve the code
+structure and find bugs.
+
+## Usage
+
+The best place to learn about box is its official
+[documentation](https://klmr.me/box/). The discussion here will mainly
+focus on how to use box inside Rhino.
+
+Rhino suggests the use of [`app/logic` and
+`app/view`](https://appsilon.github.io/rhino/articles/explanation/application-structure.html).
+Rhino creates these directories by default. Code that is independent of
+Shiny should be kept in `app/logic` while code using or related to Shiny
+modules should be kept in `app/view`. This structure makes it easy to
+make a nested hierarchy of code with the help of box.
+
+``` r
+# app/logic/messages.R
+#' @export
+say_hello <- function(name) {
+  paste0("Hello, ", name, "!")
+}
+
+#' @export
+say_bye <- function(name) {
+  paste0("Goodbye, ", name, "!")
+}
+```
+
+Both `say_hello()` and `say_bye()` can be exported from
+`app/logic/messages.R`.
+
+``` r
+box::use(
+  app/logic/messages[say_bye, say_hello],
+)
+
+#' @export
+greet <- function(name) {
+  paste(
+    say_hello(name), say_bye(name)
+  )
+}
+```
+
+Note that [`box::use()`](https://klmr.me/box/reference/use.html) allows
+for explicit attaching of function names from a module as shown above.
+Modules can also be imported across directories; use code from
+`app/logic` in `app/view`.
+
+``` r
+# app/view/greet_module.R
+box::use(
+  shiny[div, moduleServer, NS, renderText, req, textOutput],
+  shiny.semantic[textInput],
+)
+
+box::use(
+  app/logic/greet[greet],
+)
+
+#' @export
+ui <- function(id) {
+  ns <- NS(id)
+  div(
+    textInput(ns("name"), "Name"),
+    textOutput(ns("message"))
+  )
+}
+
+#' @export
+server <- function(id) {
+  moduleServer(id, function(input, output, session) {
+    output$message <- renderText({
+      req(input$name)
+      greet(input$name)
+    })
+  })
+}
+```
+
+With explicit attaching of function names, it is clear from above that
+the code uses `shiny.semantic::textInput()` and not
+[`shiny::textInput()`](https://rdrr.io/pkg/shiny/man/textInput.html).
+
+``` r
+# app/main.R
+box::use(
+  shiny[moduleServer, NS],
+  shiny.semantic[semanticPage],
+)
+
+box::use(
+  app/view/greet_module,
+)
+
+#' @export
+ui <- function(id) {
+  ns <- NS(id)
+  semanticPage(
+    greet_module$ui(ns("message"))
+  )
+}
+
+#' @export
+server <- function(id) {
+  moduleServer(id, function(input, output, session) {
+    greet_module$server("message")
+  })
+}
+```
+
+In `main.R`, Shiny modules can be attached without attaching the
+function names. The Shiny module functions are accessed via `$`.
+
+## Advanced Features
+
+Some useful box features are also explained in the sections below.
+
+### Init files
+
+Objects exported by an `__init__.R` file can be imported from its parent
+directory.
+
+#### Example
+
+Assume we have an `app/foo/__init__.R` file with the following content:
+
+``` r
+#' @export
+bar <- "Hello!"
+```
+
+We can now import `bar` as if it was defined in `app/foo.R`:
+
+``` r
+box::use(
+  app/foo[bar],
+)
+```
+
+This mechanism can be used in combination with reexports to make it
+easier to import multiple modules from a single directory.
+
+### Reexports
+
+A module can reexport objects imported from a different module by
+applying `#' @export` to a
+[`box::use()`](https://klmr.me/box/reference/use.html) statement.
+
+#### Example
+
+Assume we have modules `analysis_tab.R` and `download_tab.R` in the
+`app/view` directory. We can reexport them from `app/view/__init__.R`
+like this:
+
+``` r
+#' @export
+box::use(
+  app/view/analysis_tab,
+  app/view/download_tab,
+)
+```
+
+The following [`box::use()`](https://klmr.me/box/reference/use.html)
+statements are now equivalent:
+
+``` r
+box::use(
+  app/view/analysis_tab,
+  app/view/download_tab,
+)
+box::use(
+  app/view[analysis_tab, download_tab],
+)
+```
+
+## Style guide
+
+To enhance the readability and maintainability of code, we suggest
+following [the Rhino style
+guide](https://appsilon.github.io/rhino/articles/explanation/rhino-styleguide.html).
+
+## Known issues
+
+The following issues were fixed in box v1.1.3, which is required by
+Rhino starting with v1.4.0. This section is left here for reference.
+
+#### Lazy-loaded data
+
+Prior to v1.1.3 box didn’t support lazy-loaded
+[data](https://r-pkgs.org/data.html#data-data), so
+e.g. `box::use(datasets[mtcars])` wouldn’t work (see this
+[issue](https://github.com/klmr/box/issues/219)). It was possible to
+workaround it by using
+[`datasets::mtcars`](https://rdrr.io/r/datasets/mtcars.html) instead.
+
+#### Trailing commas
+
+Box allows trailing commas in
+[`box::use()`](https://klmr.me/box/reference/use.html) statements and
+code, but prior to v1.1.3 they could cause problems in some
+circumstances:
+
+1.  Reexports ([issue](https://github.com/klmr/box/issues/263)).
+2.  Functions accessed via `$`
+    ([issue](https://github.com/klmr/box/issues/266)).

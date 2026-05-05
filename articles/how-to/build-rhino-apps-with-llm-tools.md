@@ -1,0 +1,168 @@
+# How-to: Build Rhino apps with LLM tools
+
+LLM tools like [GitHub Copilot](https://github.com/features/copilot) can
+be extremely helpful when building apps with Rhino. However, the unique
+project structure and the use of the box package for module imports can
+make it harder for these tools to understand and assist effectively. The
+good news is that their performance can be significantly improved by
+providing custom instructions.
+
+## Custom instructions for GitHub Copilot
+
+To optimize GitHub Copilot for working with Rhino projects, you can
+create a file named `copilot-instructions.md` in the `.github/`
+directory of your repository. To see instructions below as markdown
+[visit vignette
+source](https://github.com/Appsilon/rhino/blob/main/vignettes/how-to/build-rhino-apps-with-llm-tools.Rmd).
+
+Example instructions:
+
+### Importing and exporting
+
+Use only [`box::use`](https://klmr.me/box/reference/use.html) for
+imports. Using `library` and `::` is forbidden.
+
+[`box::use`](https://klmr.me/box/reference/use.html) statement (if
+needed) should be located at the top of the file.
+
+There can be two [`box::use`](https://klmr.me/box/reference/use.html)
+statements per file. First one should include only R packages, second
+should only import other scripts.
+
+Imports in [`box::use`](https://klmr.me/box/reference/use.html) should
+be sorted alphabetically.
+
+Using `[...]` is forbidden.
+
+All external functions in a script should be imported. This includes
+operators, like `%>%`.
+
+A script should only import functions that it uses.
+
+#### Ways of importing
+
+There are two ways a package or a script can be imported:
+
+1.  List imported functions - functions imported are listed in \[\]
+
+``` r
+box::use(
+  dplyr[filter],
+)
+
+filter(mtcars, cyl > 4)
+```
+
+Use it if there are no more than 8 functions imported from this
+package/script.
+
+2.  Import package and access functions with `$`
+
+``` r
+box::use(
+  dplyr,
+)
+dplyr$filter(mtcars, cyl > 4)
+```
+
+When moving function into a different script, remember to adjust imports
+in [`box::use`](https://klmr.me/box/reference/use.html):
+
+1.  Add import for all required functions to the file where you moved
+    the function.
+2.  Make sure to follow the correct way of importing (direct or using
+    \$) in the new file. Modify it if needed.
+3.  Remove redundant imports from the original file.
+4.  Import the moved function in the original file.
+
+Use it if there are more than 8 functions imported from this
+package/script.
+
+#### Exporting
+
+If a function is used only inside a script, it should not be exported.
+
+If a function is used by other scripts, it should be exported by adding
+`#' @export` before the function.
+
+### Rhino modules
+
+When creating a new module in `app/view`, use the template:
+
+``` r
+box::use(
+  shiny[moduleServer, NS]
+)
+
+#' @export
+ui <- function(id) {
+  ns <- NS(id)
+
+}
+
+#' @export
+server <- function(id) {
+  moduleServer(id, function(input, output, session) {
+
+  })
+}
+```
+
+### Unit tests
+
+All R unit tests are located in `tests/testthat`.
+
+There should be only one test file per script, named
+`test-{script name}.R`.
+
+If testing private functions (ones that are not exported), use this
+pattern:
+
+``` r
+box::use(app/logic/mymod)
+
+impl <- attr(mymod, "namespace")
+
+test_that('{test description}', {
+    expect_true(impl$this_works())
+})
+```
+
+#### Testing exported and non-exported functions
+
+When testing a box module that contains both exported and non-exported
+functions:
+
+1.  Import the entire module without specifying individual functions:
+
+``` r
+box::use(
+  app/logic/mymodule,
+)
+```
+
+2.  Access exported functions using the module name with `$`:
+
+``` r
+test_that("exported function works", {
+  expect_equal(mymodule$exported_function(1), 2)
+})
+```
+
+3.  For testing non-exported functions, get the module’s namespace at
+    the start of the test file:
+
+``` r
+impl <- attr(mymodule, "namespace")
+
+test_that("non-exported function works", {
+  expect_equal(impl$internal_function(1), 2)
+})
+```
+
+This pattern allows testing both public and private functions while
+maintaining proper encapsulation.
+
+### Code style
+
+The maximum line length is 100 characters.
