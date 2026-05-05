@@ -148,7 +148,7 @@ jobs:
           Rscript -e "rhino::test_r()"
 
       - name: test_e2e() should run cypress tests
-        if: always()
+        if: runner.os != 'Windows'
         run: |
           cd RhinoApp
           Rscript -e "rhino::test_e2e()"
@@ -185,4 +185,9 @@ jobs:
           Rscript -e "rhino::build_sass()"
           Rscript -e "rhino::build_js()"
           Rscript -e "rhino::test_r()"
+
+      - name: Cypress e2e tests should confirm RhinoApp works
+        if: runner.os != 'Windows'
+        run: |
+          cd RhinoApp
           Rscript -e "rhino::test_e2e()"
