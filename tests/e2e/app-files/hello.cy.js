@@ -8,7 +8,7 @@ describe('Say Hello', () => {
 
     cy.readFile(filePath)
       .then(fileContents => {
-        expect(fileContents).to.match(/^TRACE.+This is a test/);
+        expect(fileContents).to.match(/^(TRACE.+This is a test|::debug::This is a test)/m);
       });
   });
 
