@@ -6,6 +6,7 @@
 ^\.Rproj\.user$
 ^pkgdown$
 ^README\.md$
+^AGENTS\.md$
 ^vignettes$
 ^docs$
 ^cran-comments\.md$
