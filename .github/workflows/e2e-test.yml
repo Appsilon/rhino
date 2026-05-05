@@ -51,6 +51,9 @@ jobs:
         with:
           packages: |
             Appsilon/rhino@${{ github.sha }}
+        env:
+          # Avoid pak falling back to its bundled token when resolving GitHub dependencies.
+          GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Setup Node
         uses: actions/setup-node@v3
