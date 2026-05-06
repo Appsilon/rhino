@@ -3,7 +3,7 @@ describe('Say Hello', () => {
     cy.visit('/');
   });
 
-  it('should save trace log in log.txt', () => {
+  it('should save log with proper log level in log.txt', () => {
     const filePath = '../log.txt';
 
     cy.readFile(filePath)
