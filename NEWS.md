@@ -1,6 +1,7 @@
 # rhino (development)
 
 1. Added `AGENTS.md` with repository guidance for AI coding agents.
+2. Fixed: `main.R` template imports functions in alphabetical order.
 
 # [rhino 1.11.0](https://github.com/Appsilon/rhino/releases/tag/v1.11.0)
 

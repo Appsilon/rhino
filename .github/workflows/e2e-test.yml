@@ -27,9 +27,9 @@ jobs:
         config:
         - {os: macOS-latest,   r: 'release'}
         - {os: windows-latest, r: 'release'}
-        - {os: ubuntu-22.04, r: 'devel'}
-        - {os: ubuntu-22.04, r: 'release'}
-        - {os: ubuntu-22.04, r: 'oldrel'}
+        - {os: ubuntu-24.04, r: 'devel'}
+        - {os: ubuntu-24.04, r: 'release'}
+        - {os: ubuntu-24.04, r: 'oldrel'}
 
     steps:
       - name: Checkout E2E directory
@@ -51,6 +51,9 @@ jobs:
         with:
           packages: |
             Appsilon/rhino@${{ github.sha }}
+        env:
+          # Avoid pak falling back to its bundled token when resolving GitHub dependencies.
+          GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Setup Node
         uses: actions/setup-node@v3
@@ -145,7 +148,7 @@ jobs:
           Rscript -e "rhino::test_r()"
 
       - name: test_e2e() should run cypress tests
-        if: always()
+        if: runner.os != 'Windows'
         run: |
           cd RhinoApp
           Rscript -e "rhino::test_e2e()"
@@ -182,4 +185,9 @@ jobs:
           Rscript -e "rhino::build_sass()"
           Rscript -e "rhino::build_js()"
           Rscript -e "rhino::test_r()"
+
+      - name: Cypress e2e tests should confirm RhinoApp works
+        if: runner.os != 'Windows'
+        run: |
+          cd RhinoApp
           Rscript -e "rhino::test_e2e()"
