@@ -5,6 +5,8 @@
 \title{Run a unit test coverage check}
 \usage{
 covr_r(
+  source_files = list.files("app", pattern = "\\\\.[rR]$", full.names = TRUE, recursive =
+    TRUE),
   test_files = list.files("tests/testthat", pattern = "^test-.*\\\\.R", full.names =
     TRUE, recursive = TRUE),
   line_exclusions = NULL,
@@ -12,6 +14,9 @@ covr_r(
 )
 }
 \arguments{
+\item{source_files}{Character vector of source files with function definitions to measure coverage.
+Defaults to all \code{.R} files in the \code{app} tree.}
+
 \item{test_files}{Character vector of test files with code to test the functions. Defaults to
 all test files in \code{tests/testthat} with the \verb{test-<name>.R} filename pattern.}
 

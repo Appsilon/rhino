@@ -185,6 +185,7 @@ jobs:
           Rscript -e "rhino::build_sass()"
           Rscript -e "rhino::build_js()"
           Rscript -e "rhino::test_r()"
+          Rscript -e "rhino::covr_r()"
 
       - name: Cypress e2e tests should confirm RhinoApp works
         if: runner.os != 'Windows'

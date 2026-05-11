@@ -2,6 +2,7 @@
 
 1. Added `AGENTS.md` with repository guidance for AI coding agents.
 2. Fixed: `main.R` template imports functions in alphabetical order.
+3. Added `covr_r()` and `covr_report()` to execute test coverage for Rhino applications using `{covr}`.
 
 # [rhino 1.11.0](https://github.com/Appsilon/rhino/releases/tag/v1.11.0)
 
