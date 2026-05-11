@@ -30,6 +30,7 @@ test_that("build_sass_r builds a minified CSS file out of a Sass file", {
 })
 
 test_that("covr_r runs a coverage test on a rhino app.", {
+  skip_on_covr()
   wd <- getwd()
 
   withr::with_tempdir({
