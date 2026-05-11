@@ -29,10 +29,8 @@ Imports:
   cli,
   config,
   covr,
-  DT,
   fs,
   glue,
-  htmltools,
   lintr (>= 3.0.0),
   logger,
   purrr,
@@ -46,6 +44,8 @@ Imports:
   withr,
   yaml
 Suggests:
+  DT,
+  htmltools,
   knitr,
   lifecycle,
   mockery,

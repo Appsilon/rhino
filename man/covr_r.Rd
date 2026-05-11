@@ -14,8 +14,8 @@ covr_r(
 )
 }
 \arguments{
-\item{source_files}{Character vector of source files with function definitions to measure coverage.
-Defaults to all \code{.R} files in the \code{app} tree.}
+\item{source_files}{Character vector of source files with function definitions to measure
+coverage. Defaults to all \code{.R} files in the \code{app} tree.}
 
 \item{test_files}{Character vector of test files with code to test the functions. Defaults to
 all test files in \code{tests/testthat} with the \verb{test-<name>.R} filename pattern.}
