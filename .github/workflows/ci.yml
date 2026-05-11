@@ -67,7 +67,7 @@ jobs:
           quit(status = warnings_found)
 
       - name: Test coverage
-        if: always()
+        if: ${{ always() && matrix.os == 'ubuntu-24.04' && matrix.r == 'release' }}
         env:
           CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
         shell: Rscript {0}
