@@ -1,0 +1,42 @@
+---
+title: "How-to: Publish Rhino app on Hugging Face"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{How-to: Publish Rhino app on Hugging Face}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+[Hugging Face](https://huggingface.co/) is a platform that allows publishing models, datasets, and web applications.
+Shiny applications (including Rhino) also can be hosted this way, with Hugging Face support for Docker containers as SDK.
+A sample Rhino application can be found [here](https://huggingface.co/spaces/Appsilon/shiny-for-r-rhino).
+
+To publish your application, you will need to provide a `Dockerfile` that defines the container that will be used to host it.
+Such a `Dockerfile` can look like this:
+
+```dockerfile
+FROM rocker/shiny-verse:4.3.0
+
+# Workaround for renv cache
+RUN mkdir /.cache
+RUN chmod 777 /.cache
+
+WORKDIR /code
+
+# Install renv
+RUN install2.r --error \
+    renv
+
+# Copy application code
+COPY . .
+
+# Install dependencies
+RUN Rscript -e 'options(renv.config.cache.enabled = FALSE); renv::restore(prompt = FALSE)'
+
+CMD ["R", "--quiet", "-e", "shiny::runApp(host='0.0.0.0', port=7860)"]
+```
+
+You might need to modify it with e.g. different R version, base Docker image, or some additional dependencies.
+Check [Docker documentation](https://docs.docker.com/engine/reference/builder/)
+and [Hugging Face documentation](https://huggingface.co/docs/hub/spaces-sdks-docker)
+for more details.

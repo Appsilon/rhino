@@ -1,0 +1,170 @@
+---
+title: "Explanation: Rhino style guide"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Explanation: Rhino style guide}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+Rhino follows the [`tidyverse` style guide](https://style.tidyverse.org/),
+with specific additional rules for `box::use` statements to enhance readability and maintainability of code.
+These rules are designed to work alongside `tidyverse` conventions, providing clarity and consistency when using `box` modules.
+
+For more details on how to use `box::use` statements, see [Explanation: Box modules](https://appsilon.github.io/rhino/articles/explanation/box-modules.html).
+
+For more details on how to configure linter rules in the `.lintr` file, see [Configuring linters](https://lintr.r-lib.org/articles/lintr.html#configuring-linters).
+
+# Explicit Import
+
+For clarity and ease of tracking function origins, avoid using `[...]` for imports. Explicitly declare all packages, modules and functions.
+
+```r
+# Good
+box::use(
+  infer[specify],
+  shiny,
+)
+
+# Bad
+box::use(
+  infer[...],
+  shiny[...],
+)
+
+observe() # Is it from {infer} or {shiny}?
+```
+
+# Trailing Commas
+
+Trailing commas in `box::use` statements are encouraged. They simplify line additions and reordering.
+
+```r
+# Good
+box::use(
+  shiny,
+)
+
+# Bad
+box::use(
+  shiny
+)
+```
+
+# Separated Statements for Packages and Modules
+
+Use separate `box::use` statements for importing packages and modules (R scripts) for better structure and readability.
+
+```r
+# Good
+box::use(
+  rhino[log],
+  shiny,
+)
+
+box::use(
+  path/to/module,
+)
+
+# Bad
+box::use(
+  rhino[log],
+  shiny,
+  path/to/module,
+)
+```
+
+# Order of Imports
+
+Order imports alphabetically to ease locating a specific import. This applies to both packages/modules and functions within them.
+
+```r
+# Good
+box::use(
+  rhino,
+  shiny[div, fluidPage],
+)
+
+# Bad
+box::use(
+  shiny[fluidPage, div],
+  rhino,
+)
+```
+
+## Aliases
+
+Aliases can be useful for long package/module and function names. Imports should still follow the alphabetical order of package/module names and function names.
+
+```r
+# Good
+box::use(
+  z_pkg = rhino,
+  shiny[div, a_fun = fluidPage],
+)
+
+# Bad
+box::use(
+  a_pkg = shiny,
+  rhino[a_fun = react_component, log],
+)
+```
+
+# Number of Imports
+
+Limit the number of functions imported from a module or package to 8.
+If more than 8 functions are needed, import the entire package and reference functions using `package$function`.
+Aliases can be used for convenience. Check [`box::use` documentation](https://klmr.me/box/reference/use.html) for more details.
+
+```r
+# Good
+box::use(
+  rhino[log],
+  shiny,
+)
+
+# Bad
+box::use(
+  rhino[log],
+  shiny[div, fluidPage, navbarPage, sidebarPanel, sidebarLayout, mainPanel, tabPanel, tabsetPanel, titlePanel],
+)
+```
+
+# Automated Styling of `box::use()` calls
+
+As of Rhino version 1.10.0, `format_r()` includes styling for `box::use()` calls. This is provided by [`{box.linters}`](https://appsilon.github.io/box.linters/) version >= 0.10.4. As with [`{styler}`](https://styler.r-lib.org/), carefully examine the styling results after performing automated styling on your code.
+
+Automated styling covers some of the topics described above such as:
+
+* Separating `box::use()` calls for packages and local modules
+* Alphabetically sorting packages, modules, and functions.
+* Adding trailing commas
+
+```r
+# Original
+box::use(stringr[str_trim, str_pad], dplyr, app/logic/table)
+
+# Styled
+box::use(
+  dplyr,
+  stringr[str_pad, str_trim],
+)
+
+box::use(
+  app/logic/table
+)
+```
+
+## Requirements
+
+* R version >= 4.3.0
+* `box.linters` version >= 0.10.4
+* `treesitter` package
+* `treesitter.r` package
+
+## How to use
+
+1. `box::use()` call styling is included when running `format_r()`.
+2. It can also be separately executed by running one of the [`box.linters::style_*`](https://appsilon.github.io/box.linters/reference/index.html#box-styling) functions.
+
+For more information on the abilities of `{{box.linters}}` styling functions refer to the styling functions [documentation](https://appsilon.github.io/box.linters/reference/style_box_use_text.html).

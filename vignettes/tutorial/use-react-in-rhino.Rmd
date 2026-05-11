@@ -1,0 +1,209 @@
+---
+title: "Tutorial: Use React in Rhino"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Tutorial: Use React in Rhino}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+This tutorial will show you how to seamlessly use React components in your Rhino application.
+It assumes that you already have some experience with [React](https://react.dev/),
+the popular JavaScript library for creating web interfaces.
+
+Familiarity with [`shiny.react`](https://github.com/Appsilon/shiny.react),
+or with packages based on it ([`shiny.fluent`](https://github.com/Appsilon/shiny.fluent),
+[`shiny.blueprint`](https://github.com/Appsilon/shiny.blueprint)) will be helpful,
+but it is not a requirement.
+
+Before starting make sure that you have installed:
+
+1. Rhino 1.4 or later.
+You can install the latest version with `install.packages("rhino")`.
+2. Node.js v16 or later.
+You can download the latest version from [nodejs.org](https://nodejs.org/en/download).
+
+
+# Starting off
+
+To start off, let's initialize a fresh Rhino application.
+Launch the R console in an empty directory and run:
+
+```r
+rhino::init()
+```
+
+To use React in Rhino we need to add
+the [`shiny.react`](https://github.com/Appsilon/shiny.react) package
+to our [project dependencies](https://appsilon.github.io/rhino/reference/dependencies.html):
+
+```r
+rhino::pkg_install("shiny.react")
+```
+
+Now, there are three steps to add a React component to your Rhino application:
+
+1. Define the component using [JSX](https://react.dev/learn/writing-markup-with-jsx).
+2. Declare the component in R.
+3. Use the component in your application.
+
+Let's go through these steps to add a simple `Reveal` component to our app.
+
+# Defining the component
+
+We will use [JSX](https://react.dev/learn/writing-markup-with-jsx),
+a syntax extension for JavaScript, to define our component.
+Create a `Reveal.jsx` file in the `app/js` directory with the following content:
+
+```jsx
+const { useState } = React;
+
+export default function Reveal({ id, children }) {
+  const [visible, setVisible] = useState(false);
+  return (
+    <div id={id}>
+      <button type="button" onClick={() => setVisible(!visible)}>
+        {visible ? 'Hide' : 'Show'}
+      </button>
+      {visible && children}
+    </div>
+  );
+}
+```
+
+The `Reveal` component is just a `<div>` with the provided ID,
+and a button which can be used to show or hide its children.
+
+To make this component available for Rhino, we need to register it.
+Edit the `app/js/index.js` file like so:
+
+```js
+import Reveal from './Reveal';
+
+Rhino.registerReactComponents({ Reveal });
+```
+
+`Rhino` is a global variable which can be used without any declaration, similar to `Shiny`.
+The `registerReactComponents()` function takes an object
+mapping component names to their definitions
+(`{ Reveal }` is a shorthand for `{ Reveal: Reveal }`).
+
+Lastly, we need to build our JavaScript:
+
+```r
+rhino::build_js()
+```
+
+This will create the `app/static/js/app.min.js` file
+which will be automatically included by Rhino.
+
+# Declaring the component
+
+Declaring the component simply means creating a function
+which will allow us to use the component in R.
+Let's create a new `react.R` file in the `app/view` directory:
+
+```r
+box::use(
+  rhino[react_component],
+)
+
+#' @export
+Reveal <- react_component("Reveal")
+```
+
+The name passed to `rhino::react_component()`
+has to match the name used in the call to `registerReactComponents()` in the previous step.
+
+# Using the component
+
+Let's use our `Reveal` component to wrap the entire UI of our application.
+Edit the `app/main.R` file like so:
+
+```r
+box::use(
+  shiny[bootstrapPage, div, moduleServer, NS, renderUI, tags, uiOutput],
+)
+box::use(
+  app/view/react[Reveal], # Import the component.
+)
+
+#' @export
+ui <- function(id) {
+  ns <- NS(id)
+  bootstrapPage(
+    # Use the component.
+    Reveal(
+      # Named arguments become props.
+      id = ns("reveal"),
+      # Unnamed arguments become children.
+      uiOutput(ns("message"))
+    )
+  )
+}
+
+#' @export
+server <- function(id) {
+  moduleServer(id, function(input, output, session) {
+    output$message <- renderUI({
+      div(
+        style = "display: flex; justify-content: center; align-items: center; height: 100vh;",
+        tags$h1(
+          tags$a("Check out Rhino docs!", href = "https://appsilon.github.io/rhino/")
+        )
+      )
+    })
+  })
+}
+```
+
+`Reveal` is a function representing our component.
+Named arguments will be passed to the component as props,
+while unnamed arguments will become its children.
+
+The return value of the `Reveal` function is a `shiny.tag` object.
+It can be used in the UI definition of your application,
+or rendered dynamically using either `shiny::renderUI()` or `shiny.react::renderReact()`.
+This object behaves much like vanilla Shiny components and can be freely mixed with them,
+as the example illustrates.
+
+We can now run the application and see our component in action:
+
+```r
+shiny::runApp()
+```
+
+# Testing the component
+
+As a bonus, let's write a Cypress end-to-end test to check if our component works as expected.
+Edit the `tests/cypress/e2e/app.cy.js` file as follows:
+
+```js
+describe('app', () => {
+  beforeEach(() => {
+    cy.visit('/')
+  })
+
+  it('works with React components', () => {
+    cy.get('#app-reveal button').click();
+    cy.get('#app-reveal').contains('Check out Rhino docs!');
+  })
+})
+```
+
+This code tells Cypress to click the button found in the element with ID `#app-reveal`,
+and then to verify that it contains a `Check out Rhino docs!` string.
+To run this test we can use:
+
+```r
+rhino::test_e2e()
+```
+
+You can learn more about Cypress tests in our
+[Tutorial: Write end-to-end tests with Cypress](https://appsilon.github.io/rhino/articles/tutorial/write-end-to-end-tests-with-cypress.html).
+
+# Summary
+
+After this tutorial you should know how to add React components to your Rhino application.
+To get a deeper understanding of the underlying mechanism,
+take a look at [`shiny.react` tutorial](https://appsilon.github.io/shiny.react/articles/shiny-react.html).

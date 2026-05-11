@@ -146,7 +146,7 @@ There are two functionalities that we are going to test:
 # How to run Cypress tests?
 
 If you check the project structure, you will find `tests/cypress/` directory
-with an initial test in `tests/cypress/integration/app.spec.js` ready to use.
+with an initial test in `tests/cypress/e2e/app.cy.js` ready to use.
 
 It contains a simple test that just starts the application.
 If your app can start, it will pass, no matter if it crashes a few seconds later.
@@ -172,12 +172,12 @@ clicking the button with "Show message" label will show the message.
 
 ## Test file structure
 
-The first thing to do is to create a test file: `tests/cypress/integration/message.spec.js`.
+The first thing to do is to create a test file: `tests/cypress/e2e/message.cy.js`.
 
 Inside, provide a structure and description for tests using `describe` and `it`:
 
 ```js
-// tests/cypress/integration/message.spec.js
+// tests/cypress/e2e/message.cy.js
 
 describe("Show message", () => {
   it("'Show message' button exists", () => {
@@ -198,7 +198,7 @@ Now, let's make sure that in the beginning, Cypress will open the application.
 To achieve that, add `beforeEach` statement at the beginning:
 
 ```js
-// tests/cypress/integration/message.spec.js
+// tests/cypress/e2e/message.cy.js
 
 describe("Show message", () => {
   beforeEach(() => {
@@ -239,7 +239,7 @@ From this view, you can see that we can ask for example for a `button` (HTML tag
 inside an element of class `message`. Let's pass this selector to Cypress `get` command:
 
 ```js
-// tests/cypress/integration/message.spec.js
+// tests/cypress/e2e/message.cy.js
 
 describe("Show message", () => {
   beforeEach(() => {
@@ -260,7 +260,7 @@ describe("Show message", () => {
 The next step is to check if this button has a proper label:
 
 ```js
-// tests/cypress/integration/message.spec.js
+// tests/cypress/e2e/message.cy.js
 
 describe("Show message", () => {
   beforeEach(() => {
@@ -289,7 +289,7 @@ Cypress comes with a command called `click` (who would expect that?!).
 Use it in the second test to click the button:
 
 ```js
-// tests/cypress/integration/message.spec.js
+// tests/cypress/e2e/message.cy.js
 
 describe("Show message", () => {
   beforeEach(() => {
@@ -321,7 +321,7 @@ and "message_text" is the id of our `textOutput`.
 Ok, let's use it and check if the message element has a correct text inside:
 
 ```js
-// tests/cypress/integration/message.spec.js
+// tests/cypress/e2e/message.cy.js
 
 describe("Show message", () => {
   beforeEach(() => {
@@ -347,11 +347,11 @@ Run tests again and you should see that again, all passed:
 # Test counting clicks functionality
 
 As previously, we need to start with creating a file and providing the test structure.
-Create `tests/cypress/integration/clicks.spec.js` and fill it with the skeleton
+Create `tests/cypress/e2e/clicks.cy.js` and fill it with the skeleton
 similar to the first test file:
 
 ```js
-// tests/cypress/integration/clicks.spec.js
+// tests/cypress/e2e/clicks.cy.js
 
 describe("Counting clicks", () => {
   beforeEach(() => {
@@ -374,7 +374,7 @@ First, we want to make sure the button exists. We will follow the example from
 the message module:
 
 ```js
-// tests/cypress/integration/clicks.spec.js
+// tests/cypress/e2e/clicks.cy.js
 
 describe("Counting clicks", () => {
   beforeEach(() => {
@@ -406,7 +406,7 @@ we will use an [alias](https://docs.cypress.io/guides/core-concepts/variables-an
 To do that, we will utilize another Cypress command: `as`:
 
 ```js
-// tests/cypress/integration/clicks.spec.js
+// tests/cypress/e2e/clicks.cy.js
 
 describe("Counting clicks", () => {
   beforeEach(() => {
@@ -426,7 +426,7 @@ describe("Counting clicks", () => {
 Now, we can access the button using `@button`. So let's click it 5 times:
 
 ```js
-// tests/cypress/integration/clicks.spec.js
+// tests/cypress/e2e/clicks.cy.js
 
 describe("Counting clicks", () => {
   beforeEach(() => {
@@ -451,7 +451,7 @@ Finally, we need to check if the counter has the correct value
 (you already know how to look for its id to pass to `get` command):
 
 ```js
-// tests/cypress/integration/clicks.spec.js
+// tests/cypress/e2e/clicks.cy.js
 
 describe("Counting clicks", () => {
   beforeEach(() => {

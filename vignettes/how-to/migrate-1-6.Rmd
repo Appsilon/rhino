@@ -1,0 +1,77 @@
+---
+title: "How-to: Rhino 1.6 Migration Guide"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{How-to: Rhino 1.6 Migration Guide}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+Transition your project to Rhino version 1.6 with this comprehensive guide. The latest version includes Node module updates to enhance your development workflow.
+
+# Prerequisites
+
+- Back up your project data.
+- Ensure Node.js is up-to-date on your machine.
+
+# Installation of Rhino 1.6
+
+Choose one of the following methods to install Rhino 1.6:
+
+## Option 1: Using `renv`
+
+Install Rhino using renv and then take a snapshot of your project dependencies:
+
+```r
+renv::install("rhino")
+renv::snapshot()
+```
+
+## Option 2: Using `rhino::pkg_install` (for Rhino v1.4+)
+
+For newer versions of Rhino, you can use the built-in package installation function:
+
+```r
+rhino::pkg_install("rhino")
+```
+
+After the installation, restart your R session to ensure all changes take effect.
+
+# Migration Steps
+
+## Step 1: Remove the `.rhino` Directory
+
+Locate and remove the `.rhino` directory from the root of your project. This directory contains configuration settings from the previous version of Rhino.
+
+```bash
+rm -rf .rhino
+```
+
+## Step 2: Run Node Tool Functions
+
+Invoke one of the following commands to run Node tools. This action will regenerate the `.rhino` directory with a new configuration, including updated Node modules.
+
+```r
+rhino::build_sass()
+rhino::lint_sass()
+rhino::build_js()
+rhino::lint_js()
+```
+
+## Step 3: Migrate Cypress End-to-End Tests
+
+If your project includes Cypress end-to-end tests, initiate the migration wizard with:
+
+```r
+rhino::test_e2e(interactive = TRUE)
+```
+
+Follow the prompts in the migration wizard to update your end-to-end tests.
+
+## Step 4: Test Your Project
+
+Conduct extensive testing to confirm that all components of your project function properly after the migration.
+
+# Final Steps
+
+If you encounter any issues or have further questions after migrating to Rhino 1.6, please consult the GitHub discussions for Rhino for community and developer support.

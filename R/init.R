@@ -89,27 +89,9 @@ handle_old_rprofile <- function() {
   }
 }
 
-write_dependencies <- function() {
-  deps <- "rhino"
-  if (fs::file_exists("dependencies.R")) {
-    cli::cli_alert_info("Updating existing 'dependencies.R'.")
-    deps <- c(deps, renv::dependencies("dependencies.R")$Package)
-  } else if (fs::dir_exists("app")) {
-    cli::cli_alert_info("Generating 'dependencies.R' based on 'app' directory.")
-    deps <- c(deps, renv::dependencies("app")$Package)
-  }
-  deps <- sort(unique(deps))
-  deps <- purrr::map_chr(deps, function(name) glue::glue("library({name})"))
-  deps <- c(
-    "# This file allows packrat (used by rsconnect during deployment) to pick up dependencies.",
-    deps
-  )
-  writeLines(deps, "dependencies.R")
-}
-
 init_renv <- function(rhino_version) {
   handle_old_rprofile()
-  write_dependencies()
+  write_dependencies(read_dependencies())
   copy_template("renv")
   if (fs::file_exists("renv.lock")) {
     renv::load()

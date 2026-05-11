@@ -18,6 +18,10 @@ defined in the \code{tests/cypress} directory.
 Requires Node.js to be available on the system.
 }
 \details{
+Check out:
+\href{https://appsilon.github.io/rhino/articles/tutorial/write-end-to-end-tests-with-cypress.html}{Tutorial: Write end-to-end tests with Cypress}
+to learn how to write end-to-end tests for your Rhino app.
+
 If you want to write end-to-end tests with \code{{shinytest2}}, see our
 \href{https://appsilon.github.io/rhino/articles/how-to/use-shinytest2.html}{How-to: Use shinytest2}
 guide.

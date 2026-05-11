@@ -1,0 +1,51 @@
+---
+title: "How-to: Rhino 1.7 Migration Guide"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{How-to: Rhino 1.7 Migration Guide}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+Follow the steps outlined in this guide to migrate your project to Rhino 1.7.
+Before starting, ensure your Git working tree is clean, or back up your project if not using Git.
+
+This guide assumes you are migrating from Rhino 1.6.
+If you are currently using an older version of Rhino,
+please start with
+[Rhino 1.6 Migration Guide](https://appsilon.github.io/rhino/articles/how-to/migrate-1-6.html).
+
+# Step 1: Install Rhino 1.7
+
+Use the following command to install Rhino 1.7 and update your `renv.lock` file:
+
+```r
+rhino::pkg_install("rhino@1.7.0")
+```
+
+After the installation, restart your R session to ensure all changes take effect.
+
+# Step 2: Update your linter rules
+
+Edit the `.lintr` file in your project so it includes the following rules:
+
+```r
+linters:
+  linters_with_defaults(
+    box_func_import_count_linter = rhino::box_func_import_count_linter(),
+    box_separate_calls_linter = rhino::box_separate_calls_linter(),
+    box_trailing_commas_linter = rhino::box_trailing_commas_linter(),
+    box_universal_import_linter = rhino::box_universal_import_linter(),
+    line_length_linter = line_length_linter(100),
+    object_usage_linter = NULL  # Does not work with `box::use()`.
+  )
+```
+
+# Step 3: Test your project
+
+Test your project thoroughly to ensure everything works properly after the migration.
+In particular, run `rhino::lint_r()` and fix the problems it reports.
+
+If you encounter any issues or have further questions,
+don't hesitate to reach out to us via
+[GitHub Discussions](https://github.com/Appsilon/rhino/discussions).

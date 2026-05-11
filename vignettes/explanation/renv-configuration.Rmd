@@ -7,6 +7,10 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 ---
 
+This article explains the internals of R dependency management in Rhino.
+Practical instructions for adding, removing and updating dependencies
+can be found in the documentation of `rhino::pkg_install()` and `rhino::pkg_remove()`.
+
 Rhino relies on `{renv}` to manage the R package dependencies of your project.
 With `{renv}` you can create an isolated package library for each application
 and easily restore it on a different machine using the exact same package versions.
@@ -36,6 +40,39 @@ Instead, Rhino uses the following setup:
 This solution offers us the benefits of explicit snapshots (fine control, efficiency)
 and works well in deployment.
 
-For practical instructions on managing R package dependencies in Rhino
-check out the [How-to: Manage R dependencies](https://appsilon.github.io/rhino/articles/how-to/manage-r-dependencies.html)
-article.
+# Manual dependency management
+
+In most cases the only functions you will need are `rhino::pkg_install()` and `rhino::pkg_remove()`.
+However it is still possible to manage dependencies
+using the underlying `{renv}` functions directly.
+This can be helpful in some unusual situations
+(e.g. broken lockfile, installing a specific package version).
+
+`{renv}` will only save to the lockfile the packages which are installed in the local library,
+and it will remove the packages which are not installed.
+Thus you should always run `renv::restore(clean = TRUE)` before performing the steps below.
+
+## Add a dependency
+
+1. Add a `library(package)` line to `dependencies.R`.
+1. Call `renv::install("package")`.
+1. Call `renv::snapshot()`.
+
+## Update a dependency
+
+1. Call `renv::update("package")`.
+1. Call `renv::snapshot()`.
+
+Calling `renv::install("package")` instead of `renv::update("package")` will have the same effect.
+
+## Remove a dependency
+
+1. Remove the `library(package)` line from `dependencies.R`.
+1. Call `renv::snapshot()`.
+1. Call `renv::restore(clean = TRUE)`.
+
+It is not recommended to use the `renv::remove()` function,
+as it will remove a package from the local library even if it is still required by other packages.
+For example, `renv::remove("glue")` followed by `renv::snapshot()`
+will leave you without the `{glue}` package in your lockfile,
+even though it is required by `{shiny}`.

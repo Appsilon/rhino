@@ -1,0 +1,82 @@
+---
+title: "How-to: Use polished"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{How-to: Use polished}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+Rhino puts a strong emphasis on modularization
+and for consistency, even the outermost UI and server are defined as a Shiny module.
+Unfortunately, this approach is not compatible with the authentication mechanism implemented
+in [`polished` package](https://github.com/Tychobra/polished).
+
+
+To overcome this you can setup a [legacy entrypoint](https://appsilon.github.io/rhino/reference/app.html#legacy-entrypoint)
+in your `rhino.yml`.
+Please be aware that it is a workaround and not a setting recommended for all cases:
+
+```yml
+legacy_entrypoint: box_top_level
+```
+
+After adding `polished` to your [dependencies](https://appsilon.github.io/rhino/articles/how-to/manage-r-dependencies.html)
+you can use it in `app/main.R` as follows:
+
+```r
+box::use(
+  polished,
+  shiny,
+)
+
+polished$polished_config(
+  app_name = "rhino_app", # the name of your application
+  api_key = Sys.getenv("API_KEY") # API key obtained from polished.tech
+)
+
+#' @export
+ui <- polished$secure_ui(
+  shiny$fluidPage(
+    shiny$fluidRow(
+      shiny$column(
+        6,
+        shiny$h1("Hello Shiny!")
+      ),
+      shiny$column(
+        6,
+        shiny$br(),
+        shiny$actionButton(
+          "sign_out",
+          "Sign Out",
+          icon = shiny$icon("sign-out-alt"),
+          class = "pull-right"
+        )
+      ),
+      shiny$column(
+        12,
+        shiny$verbatimTextOutput("user_out")
+      )
+    )
+  )
+)
+
+
+#' @export
+server <- polished$secure_server(
+  function(input, output, session) {
+    output$user_out <- shiny$renderPrint({
+      session$userData$user()
+    })
+
+    shiny$observeEvent(input$sign_out, {
+      polished$sign_out_from_shiny()
+      session$reload()
+    })
+  }
+)
+
+
+```
+
+The guide on how to configure Polished Authentication with your Shiny app can be found [here](https://polished.tech/docs/01-get-started).

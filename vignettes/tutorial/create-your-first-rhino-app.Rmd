@@ -22,7 +22,7 @@ install.packages("rhino")
 This tutorial uses the native pipe operator (`|>`) introduced in R 4.1 release. If you use an earlier R version, then you can use the `%>%` pipe operator found in `{magrittr}` and `{dplyr}` packages instead.
 
 To use the state of the art JavaScript and Sass development tools provided by Rhino,
-you'll need to [install Node.js](https://nodejs.org/en/download/) (v12 or later) on your system.
+you'll need to [install Node.js](https://nodejs.org/en/download/) (v16 or later) on your system.
 
 Rhino will still work without Node.js but with some limitations
 (described in [JavaScript](#add-javascript-code) and [Sass](#add-custom-styles) sections).
@@ -79,8 +79,8 @@ A result of both paths will be an initial Rhino application with the following s
 │   └── main.R
 ├── tests
 │   ├── cypress
-│   │   └── integration
-│   │       └── app.spec.js
+│   │   └── e2e
+│   │       └── app.cy.js
 │   ├── testthat
 │   │   └── test-main.R
 │   └── cypress.json
@@ -194,39 +194,19 @@ Now is the time to start adding something to your new module. What can we add to
 
 First, we need to install a library for visualizations - for that, we will go with [`echarts4r`](https://echarts4r.john-coene.com/).
 
-Rhino relies on the [`renv` package](https://rstudio.github.io/renv/index.html) for dependency management. To add this package to your project, first, you need to install it. We will be using a total of 5 packages for this application. To save us time in the tutorial we will install them all here. Please note that for every new package you add, you will need to install, add to dependencies.R, and re-run `renv::snapshot()`.
+We will be using a total of 5 packages for this application.
+To save us time in the tutorial we will install them all here.
 
 ```r
 # In R console
-renv::install(c("dplyr", "echarts4r", "htmlwidgets", "reactable", "tidyr"))
+rhino::pkg_install(c("dplyr", "echarts4r", "htmlwidgets", "reactable", "tidyr"))
 ```
 
-**Note:** *Package `htmlwidgets` is already installed since it is a dependency for `shiny`, but we still should add it to the `dependencies.R` file.*
+This function will install the packages,
+and update `dependencies.R` and `renv.lock` files accordingly.
 
-The second step is to add them to the `dependencies.R` file. This file is a single source of truth when it comes to R packages used by the application. `renv` is going to check dependencies only in this file.
-
-Add `library` calls to it:
-
-```r
-# dependencies.R
-
-# This file allows packrat (used by rsconnect during deployment) to pick up dependencies.
-library(dplyr)
-library(echarts4r)
-library(htmlwidgets)
-library(reactable)
-library(rhino)
-library(tidyr)
-```
-
-Finally, you need to update your `renv.lock` file:
-
-```r
-# in R console
-renv::snapshot()
-```
-
-If you check the `renv.lock` file, you will see that it was updated with `echarts4r` and all its dependencies.
+**Note:** *Package `htmlwidgets` is already installed since it is a dependency for `shiny`,
+but we still should add it to the `dependencies.R` file.*
 
 ### Add dependencies to the module
 
@@ -253,6 +233,7 @@ Add `echarts4r` render to the server part of the module and output part to its U
 box::use(
   echarts4r,
   shiny[h3, moduleServer, NS, tagList],
+  rhino[rhinos],
 )
 
 #' @export
@@ -269,9 +250,7 @@ ui <- function(id) {
 server <- function(id) {
   moduleServer(id, function(input, output, session) {
     output$chart <- echarts4r$renderEcharts4r(
-      # Datasets are the only case when you need to use :: in `box`.
-      # This issue should be solved in the next `box` release.
-      rhino::rhinos |>
+      rhinos |>
         echarts4r$group_by(Species) |>
         echarts4r$e_chart(x = Year) |>
         echarts4r$e_line(Population) |>
@@ -365,6 +344,7 @@ We want to use the same dataset in both modules, so instead of calling it twice,
 
 box::use(
   shiny[bootstrapPage, moduleServer, NS],
+  rhino[rhinos],
 )
 box::use(
   app/view/chart,
@@ -384,9 +364,7 @@ ui <- function(id) {
 #' @export
 server <- function(id) {
   moduleServer(id, function(input, output, session) {
-    # Datasets are the only case when you need to use :: in `box`.
-    # This issue should be solved in the next `box` release.
-    data <- rhino::rhinos
+    data <- rhinos
 
     table$server("table", data = data)
     chart$server("chart", data = data)
@@ -667,6 +645,7 @@ Adjusting application style can be done by providing custom styles in the `app/s
 
 box::use(
   shiny[bootstrapPage, div, moduleServer, NS],
+  rhino[rhinos],
 )
 box::use(
   app/view/chart,
@@ -689,9 +668,7 @@ ui <- function(id) {
 #' @export
 server <- function(id) {
   moduleServer(id, function(input, output, session) {
-    # Datasets are the only case when you need to use :: in `box`.
-    # This issue should be solved in the next `box` release.
-    data <- rhino::rhinos
+    data <- rhinos
 
     table$server("table", data = data)
     chart$server("chart", data = data)
