@@ -28,7 +28,7 @@ Imports:
   callr,
   cli,
   config,
-  covr,
+  covr (>= 3.6.5),
   fs,
   glue,
   lintr (>= 3.0.0),
