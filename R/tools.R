@@ -552,8 +552,8 @@ test_e2e <- function(interactive = FALSE) {
 #' Uses the `{covr}` package to produce unit test coverage reports.
 #' Uses the `{testhat}` package to run all unit tests in `tests/testthat` directory.
 #'
-#' @param source_files Character vector of source files with function definitions to measure coverage.
-#'   Defaults to all `.R` files in the `app` tree.
+#' @param source_files Character vector of source files with function definitions to measure
+#' coverage. Defaults to all `.R` files in the `app` tree.
 #' @param test_files Character vector of test files with code to test the functions. Defaults to
 #'   all test files in `tests/testthat` with the `test-<name>.R` filename pattern.
 #' @param line_exclusions passed to `covr::file_coverage`
@@ -579,7 +579,7 @@ covr_r <- function(
                             recursive = TRUE),
     line_exclusions = NULL,
     function_exclusions = NULL) {
-  
+
   withr::with_file("box_loader.R", {
     module_list <- sub(
       "__init__",
@@ -599,7 +599,7 @@ covr_r <- function(
     )
   })
 
-  return(coverage)
+  coverage
 }
 
 #' Display rhino test coverage results using a standalone report

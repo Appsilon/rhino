@@ -31,30 +31,30 @@ test_that("build_sass_r builds a minified CSS file out of a Sass file", {
 
 test_that("covr_r runs a coverage test on a rhino app.", {
   wd <- getwd()
-  
+
   withr::with_tempdir({
     fs::dir_create("app")
     fs::dir_create("app", "logic")
     fs::dir_create("tests", "testthat")
-    
+
     fs::file_copy(
       fs::path(wd, "helpers", "main.R"),
       fs::path("app", "main.R")
     )
-    
+
     fs::file_copy(
       fs::path(wd, "helpers", "hello.R"),
       fs::path("app", "logic", "hello.R")
     )
-    
+
     fs::file_copy(
       fs::path(wd, "helpers", "test-hello.R"),
       fs::path("tests", "testthat", "test-hello.R")
     )
-    
+
     box::purge_cache()
     configure_box()
-    
+
     expect_no_error(covr_r())
     expect_no_error(covr_report())
   })

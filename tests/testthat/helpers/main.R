@@ -1,3 +1,4 @@
+# nolint start
 box::use(
   shiny[NS, bootstrapPage, div, moduleServer, renderUI, tags, uiOutput],
 )
@@ -30,3 +31,4 @@ server <- function(id) {
     })
   })
 }
+# nolint end
