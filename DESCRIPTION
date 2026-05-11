@@ -44,9 +44,6 @@ Imports:
   withr,
   yaml
 Suggests:
-  covr,
-  DT,
-  htmltools,
   knitr,
   lifecycle,
   mockery,
