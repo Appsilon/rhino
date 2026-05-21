@@ -16,6 +16,8 @@
 #'
 #' @param dir Name of the directory to create application in.
 #' @param github_actions_ci Should the GitHub Actions CI be added?
+#' @param agents_instructions Should an `AGENTS.md` file with guidance
+#' for AI coding agents be added?
 #' @param rhino_version When using an existing `renv.lock` file,
 #' Rhino will install itself using `renv::install(rhino_version)`.
 #' You can provide this argument to use a specific version / source, e.g.`"Appsilon/rhino@v0.4.0"`.
@@ -27,6 +29,7 @@
 init <- function(
   dir = ".",
   github_actions_ci = TRUE,
+  agents_instructions = TRUE,
   rhino_version = "rhino",
   force = FALSE
 )  {
@@ -36,6 +39,7 @@ init <- function(
     init_impl(
       dir = dir,
       github_actions_ci = github_actions_ci,
+      agents_instructions = agents_instructions,
       rhino_version = rhino_version,
       new_project_wizard = FALSE
     )
@@ -53,6 +57,7 @@ init <- function(
 init_rstudio <- function(
   dir = ".",
   github_actions_ci = TRUE,
+  agents_instructions = TRUE,
   rhino_version = "rhino"
 ) {
   init_impl(
@@ -60,6 +65,7 @@ init_rstudio <- function(
     # because RStudio's new project wizard always creates a new directory.
     dir = dir,
     github_actions_ci = github_actions_ci,
+    agents_instructions = agents_instructions,
     rhino_version = rhino_version,
     new_project_wizard = TRUE
   )
@@ -68,6 +74,7 @@ init_rstudio <- function(
 init_impl <- function(
   dir,
   github_actions_ci,
+  agents_instructions,
   rhino_version,
   new_project_wizard
 ) {
@@ -79,6 +86,7 @@ init_impl <- function(
     create_unit_tests_structure()
     create_e2e_tests_structure()
     if (isTRUE(github_actions_ci)) add_github_actions_ci()
+    if (isTRUE(agents_instructions)) use_agents_md()
   })
 }
 
@@ -131,6 +139,27 @@ create_unit_tests_structure <- function() {
 create_e2e_tests_structure <- function() {
   copy_template("e2e_tests")
   cli::cli_alert_success("E2E tests structure created.")
+}
+
+#' Add AGENTS.md
+#'
+#' Adds an `AGENTS.md` file with guidance for AI coding agents
+#' (e.g. GitHub Copilot, Claude Code) to a Rhino application.
+#'
+#' This file is added automatically by [init()] unless `agents_instructions = FALSE`.
+#' Use this function to add it to an existing Rhino project.
+#'
+#' @return None. This function is called for side effects.
+#'
+#' @examples
+#' if (interactive()) {
+#'   # Add AGENTS.md to the current Rhino project.
+#'   use_agents_md()
+#' }
+#' @export
+use_agents_md <- function() {
+  copy_template("agents_md")
+  cli::cli_alert_success("AGENTS.md added.")
 }
 
 is_dir_home <- function(dir) {
