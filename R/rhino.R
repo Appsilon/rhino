@@ -52,7 +52,9 @@ system_cmd_version <- function(cmd, throw_error = FALSE) {
   tryCatch(
     system2(cmd, "--version", stdout = TRUE, stderr = TRUE),
     error = function(e) {
-      if (isTRUE(throw_error)) cli::cli_abort(e)
+      if (isTRUE(throw_error)) {
+        cli::cli_abort(e)
+      }
 
       e$message
     }

@@ -16,6 +16,11 @@ Adds an \code{AGENTS.md} file with guidance for AI coding agents
 \details{
 This file is added automatically by \code{\link[=init]{init()}} unless \code{agents_instructions = FALSE}.
 Use this function to add it to an existing Rhino project.
+
+If \code{AGENTS.md} already exists in an interactive session, you will be prompted
+to either abort (the default) or back up the existing file as \code{AGENTS.md.bak}
+(with a numeric suffix if \code{AGENTS.md.bak} is also taken) and create a new one.
+In non-interactive sessions the function aborts with an error.
 }
 \examples{
 if (interactive()) {
