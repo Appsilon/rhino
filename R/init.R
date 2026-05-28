@@ -163,54 +163,11 @@ create_e2e_tests_structure <- function() {
 #' }
 #' @export
 use_agents_md <- function() {
-  if (fs::file_exists("AGENTS.md") && !handle_existing_agents_md()) {
+  if (fs::file_exists("AGENTS.md") && !handle_existing_file("AGENTS.md")) {
     return(invisible())
   }
   copy_template("agents_md")
   cli::cli_alert_success("AGENTS.md added.")
-}
-
-handle_existing_agents_md <- function() {
-  choice <- prompt_agents_md_conflict()
-
-  if (choice != 2) {
-    cli::cli_alert_info("Aborted. {.file AGENTS.md} was not changed.")
-    return(FALSE)
-  }
-
-  backup <- next_backup_path("AGENTS.md")
-  fs::file_move("AGENTS.md", backup)
-  cli::cli_alert_info("Existing {.file AGENTS.md} backed up as {.file {backup}}.")
-  TRUE
-}
-
-prompt_agents_md_conflict <- function() {
-  if (!interactive()) {
-    cli::cli_abort(
-      c(
-        "{.file AGENTS.md} already exists.",
-        i = "Remove or rename it before running {.code use_agents_md()}."
-      ),
-      call = NULL
-    )
-  }
-  utils::menu(
-    choices = c(
-      "Abort",
-      "Back up existing AGENTS.md and create a new one"
-    ),
-    title = "AGENTS.md already exists. What would you like to do?"
-  )
-}
-
-next_backup_path <- function(path) {
-  candidate <- paste0(path, ".bak")
-  i <- 1
-  while (fs::file_exists(candidate)) {
-    candidate <- sprintf("%s.bak.%d", path, i)
-    i <- i + 1
-  }
-  candidate
 }
 
 is_dir_home <- function(dir) {
