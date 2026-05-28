@@ -8,7 +8,7 @@ There can be two `box::use` statements per file. First one should include only R
 
 Imports in `box::use` should be sorted alphabetically.
 
-Using `[...]` is forbidden.
+Using `pkg[...]` (importing all exports) is forbidden.
 
 All external functions in a script should be imported. This includes operators, like `%>%`.
 
