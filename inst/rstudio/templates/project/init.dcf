@@ -6,3 +6,8 @@ Parameter: github_actions_ci
 Widget: CheckboxInput
 Label: Github Actions CI
 Default: On
+
+Parameter: agents_instructions
+Widget: CheckboxInput
+Label: AGENTS.md for AI coding agents
+Default: On

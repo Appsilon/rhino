@@ -32,6 +32,49 @@ copy_template <- function(src, dst = ".") {
   )
 }
 
+handle_existing_file <- function(path) {
+  choice <- prompt_file_conflict(path)
+
+  if (choice != 2) {
+    cli::cli_alert_info("Aborted. {.file {path}} was not changed.")
+    return(FALSE)
+  }
+
+  backup <- next_backup_path(path)
+  fs::file_move(path, backup)
+  cli::cli_alert_info("Existing {.file {path}} backed up as {.file {backup}}.")
+  TRUE
+}
+
+prompt_file_conflict <- function(path) {
+  if (!interactive()) {
+    cli::cli_abort(
+      c(
+        "{.file {path}} already exists.",
+        i = "Remove or rename it before running this command."
+      ),
+      call = NULL
+    )
+  }
+  utils::menu(
+    choices = c(
+      "Abort",
+      sprintf("Back up existing %s and create a new one", path)
+    ),
+    title = sprintf("%s already exists. What would you like to do?", path)
+  )
+}
+
+next_backup_path <- function(path) {
+  candidate <- paste0(path, ".bak")
+  i <- 1
+  while (fs::file_exists(candidate)) {
+    candidate <- sprintf("%s.bak.%d", path, i)
+    i <- i + 1
+  }
+  candidate
+}
+
 rproj_exists <- function() {
   length(fs::dir_ls(type = "file", glob = "*.Rproj")) > 0
 }
@@ -52,7 +95,9 @@ system_cmd_version <- function(cmd, throw_error = FALSE) {
   tryCatch(
     system2(cmd, "--version", stdout = TRUE, stderr = TRUE),
     error = function(e) {
-      if (isTRUE(throw_error)) cli::cli_abort(e)
+      if (isTRUE(throw_error)) {
+        cli::cli_abort(e)
+      }
 
       e$message
     }
