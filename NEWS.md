@@ -3,6 +3,7 @@
 1. Added `AGENTS.md` with repository guidance for AI coding agents.
 2. Fixed: `main.R` template imports functions in alphabetical order.
 3. Added `use_agents_md()` and an `agents_instructions` parameter to `init()` for scaffolding an `AGENTS.md` file with guidance for AI coding agents in a Rhino app.
+4. Added `use_github_actions_ci()` for scaffolding the Rhino GitHub Actions CI workflow into an existing Rhino project. The `github_actions_ci` parameter on `init()` is unchanged.
 
 # [rhino 1.11.0](https://github.com/Appsilon/rhino/releases/tag/v1.11.0)
 
