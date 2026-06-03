@@ -142,6 +142,9 @@ reference:
   contents:
   - app
   - init
+  - use_agents_md
+  - use_e2e_tests
+  - use_github_actions_ci
 
 - title: R development
   contents:
