@@ -11,3 +11,8 @@ Parameter: agents_instructions
 Widget: CheckboxInput
 Label: AGENTS.md for AI coding agents
 Default: On
+
+Parameter: e2e_tests
+Widget: CheckboxInput
+Label: Cypress end-to-end tests
+Default: On

@@ -18,6 +18,7 @@
 #' @param github_actions_ci Should the GitHub Actions CI be added?
 #' @param agents_instructions Should an `AGENTS.md` file with guidance
 #' for AI coding agents be added?
+#' @param e2e_tests Should the Cypress end-to-end test structure be added?
 #' @param rhino_version When using an existing `renv.lock` file,
 #' Rhino will install itself using `renv::install(rhino_version)`.
 #' You can provide this argument to use a specific version / source, e.g.`"Appsilon/rhino@v0.4.0"`.
@@ -30,6 +31,7 @@ init <- function(
   dir = ".",
   github_actions_ci = TRUE,
   agents_instructions = TRUE,
+  e2e_tests = TRUE,
   rhino_version = "rhino",
   force = FALSE
 )  {
@@ -40,6 +42,7 @@ init <- function(
       dir = dir,
       github_actions_ci = github_actions_ci,
       agents_instructions = agents_instructions,
+      e2e_tests = e2e_tests,
       rhino_version = rhino_version,
       new_project_wizard = FALSE
     )
@@ -58,6 +61,7 @@ init_rstudio <- function(
   dir = ".",
   github_actions_ci = TRUE,
   agents_instructions = TRUE,
+  e2e_tests = TRUE,
   rhino_version = "rhino"
 ) {
   init_impl(
@@ -66,6 +70,7 @@ init_rstudio <- function(
     dir = dir,
     github_actions_ci = github_actions_ci,
     agents_instructions = agents_instructions,
+    e2e_tests = e2e_tests,
     rhino_version = rhino_version,
     new_project_wizard = TRUE
   )
@@ -75,6 +80,7 @@ init_impl <- function(
   dir,
   github_actions_ci,
   agents_instructions,
+  e2e_tests,
   rhino_version,
   new_project_wizard
 ) {
@@ -84,7 +90,7 @@ init_impl <- function(
     init_renv(rhino_version)
     create_app_structure()
     create_unit_tests_structure()
-    use_e2e_tests()
+    if (isTRUE(e2e_tests)) use_e2e_tests()
     if (isTRUE(github_actions_ci)) use_github_actions_ci()
     if (isTRUE(agents_instructions)) use_agents_md()
   })
