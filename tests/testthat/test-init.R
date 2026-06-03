@@ -29,6 +29,48 @@ test_that("use_github_actions_ci() errors when the workflow exists in non-intera
   withr::with_tempdir({
     fs::dir_create(fs::path(".github", "workflows"))
     fs::file_create(fs::path(".github", "workflows", "rhino-test.yml"))
-    expect_error(use_github_actions_ci(), regexp = "already exists")
+    expect_error(use_github_actions_ci(), regexp = "already exist")
+  })
+})
+
+test_that("use_e2e_tests() creates the Cypress structure", {
+  withr::with_tempdir({
+    use_e2e_tests()
+
+    expect_true(fs::file_exists(fs::path("tests", "cypress.config.js")))
+    expect_true(fs::file_exists(fs::path("tests", "cypress", "e2e", "app.cy.js")))
+  })
+})
+
+test_that("use_e2e_tests() errors when the structure exists in non-interactive mode", {
+  withr::with_tempdir({
+    fs::dir_create(fs::path("tests", "cypress"))
+    expect_error(use_e2e_tests(), regexp = "already exist")
+  })
+})
+
+test_that("use_e2e_tests() backs up an existing structure and writes a fresh one", {
+  withr::with_tempdir({
+    fs::dir_create(fs::path("tests", "cypress", "e2e"))
+    writeLines("old spec", fs::path("tests", "cypress", "e2e", "app.cy.js"))
+    writeLines("old config", fs::path("tests", "cypress.config.js"))
+
+    testthat::with_mocked_bindings(
+      prompt_conflict = function(paths) 2L,
+      use_e2e_tests()
+    )
+
+    # Old content preserved in the backups (directory moved aside wholesale).
+    expect_equal(
+      readLines(fs::path("tests", "cypress.bak", "e2e", "app.cy.js")),
+      "old spec"
+    )
+    expect_equal(readLines(fs::path("tests", "cypress.config.js.bak")), "old config")
+
+    # Fresh template written in place.
+    expect_true(fs::file_exists(fs::path("tests", "cypress", "e2e", "app.cy.js")))
+    expect_false(
+      identical(readLines(fs::path("tests", "cypress", "e2e", "app.cy.js")), "old spec")
+    )
   })
 })
