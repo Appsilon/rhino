@@ -7,6 +7,7 @@
 init(
   dir = ".",
   github_actions_ci = TRUE,
+  agents_instructions = TRUE,
   rhino_version = "rhino",
   force = FALSE
 )
@@ -15,6 +16,9 @@ init(
 \item{dir}{Name of the directory to create application in.}
 
 \item{github_actions_ci}{Should the GitHub Actions CI be added?}
+
+\item{agents_instructions}{Should an \code{AGENTS.md} file with guidance
+for AI coding agents be added?}
 
 \item{rhino_version}{When using an existing \code{renv.lock} file,
 Rhino will install itself using \code{renv::install(rhino_version)}.

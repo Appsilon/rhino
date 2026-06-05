@@ -16,6 +16,8 @@
 #'
 #' @param dir Name of the directory to create application in.
 #' @param github_actions_ci Should the GitHub Actions CI be added?
+#' @param agents_instructions Should an `AGENTS.md` file with guidance
+#' for AI coding agents be added?
 #' @param rhino_version When using an existing `renv.lock` file,
 #' Rhino will install itself using `renv::install(rhino_version)`.
 #' You can provide this argument to use a specific version / source, e.g.`"Appsilon/rhino@v0.4.0"`.
@@ -27,6 +29,7 @@
 init <- function(
   dir = ".",
   github_actions_ci = TRUE,
+  agents_instructions = TRUE,
   rhino_version = "rhino",
   force = FALSE
 )  {
@@ -36,6 +39,7 @@ init <- function(
     init_impl(
       dir = dir,
       github_actions_ci = github_actions_ci,
+      agents_instructions = agents_instructions,
       rhino_version = rhino_version,
       new_project_wizard = FALSE
     )
@@ -53,6 +57,7 @@ init <- function(
 init_rstudio <- function(
   dir = ".",
   github_actions_ci = TRUE,
+  agents_instructions = TRUE,
   rhino_version = "rhino"
 ) {
   init_impl(
@@ -60,6 +65,7 @@ init_rstudio <- function(
     # because RStudio's new project wizard always creates a new directory.
     dir = dir,
     github_actions_ci = github_actions_ci,
+    agents_instructions = agents_instructions,
     rhino_version = rhino_version,
     new_project_wizard = TRUE
   )
@@ -68,6 +74,7 @@ init_rstudio <- function(
 init_impl <- function(
   dir,
   github_actions_ci,
+  agents_instructions,
   rhino_version,
   new_project_wizard
 ) {
@@ -78,7 +85,8 @@ init_impl <- function(
     create_app_structure()
     create_unit_tests_structure()
     create_e2e_tests_structure()
-    if (isTRUE(github_actions_ci)) add_github_actions_ci()
+    if (isTRUE(github_actions_ci)) use_github_actions_ci()
+    if (isTRUE(agents_instructions)) use_agents_md()
   })
 }
 
@@ -118,11 +126,6 @@ create_app_structure <- function() {
   cli::cli_alert_success("Application structure created.")
 }
 
-add_github_actions_ci <- function() {
-  copy_template("github_ci")
-  cli::cli_alert_success("Github Actions CI added.")
-}
-
 create_unit_tests_structure <- function() {
   copy_template("unit_tests")
   cli::cli_alert_success("Unit tests structure created.")
@@ -131,6 +134,66 @@ create_unit_tests_structure <- function() {
 create_e2e_tests_structure <- function() {
   copy_template("e2e_tests")
   cli::cli_alert_success("E2E tests structure created.")
+}
+
+#' Add GitHub Actions CI
+#'
+#' Adds the Rhino GitHub Actions CI workflow (`.github/workflows/rhino-test.yml`)
+#' to a Rhino application.
+#'
+#' This workflow is added automatically by [init()] unless `github_actions_ci = FALSE`.
+#' Use this function to add it to an existing Rhino project.
+#'
+#' If `.github/workflows/rhino-test.yml` already exists in an interactive session,
+#' you will be prompted to either abort (the default) or back up the existing file
+#' as `rhino-test.yml.bak` (with a numeric suffix if `rhino-test.yml.bak` is also
+#' taken) and create a new one. In non-interactive sessions the function aborts
+#' with an error.
+#'
+#' @return None. This function is called for side effects.
+#'
+#' @examples
+#' if (interactive()) {
+#'   # Add the GitHub Actions CI workflow to the current Rhino project.
+#'   use_github_actions_ci()
+#' }
+#' @export
+use_github_actions_ci <- function() {
+  workflow <- fs::path(".github", "workflows", "rhino-test.yml")
+  if (fs::file_exists(workflow) && !handle_existing_file(workflow)) {
+    return(invisible())
+  }
+  copy_template("github_ci")
+  cli::cli_alert_success("GitHub Actions CI added.")
+}
+
+#' Add AGENTS.md
+#'
+#' Adds an `AGENTS.md` file with guidance for AI coding agents
+#' (e.g. GitHub Copilot, Claude Code) to a Rhino application.
+#'
+#' This file is added automatically by [init()] unless `agents_instructions = FALSE`.
+#' Use this function to add it to an existing Rhino project.
+#'
+#' If `AGENTS.md` already exists in an interactive session, you will be prompted
+#' to either abort (the default) or back up the existing file as `AGENTS.md.bak`
+#' (with a numeric suffix if `AGENTS.md.bak` is also taken) and create a new one.
+#' In non-interactive sessions the function aborts with an error.
+#'
+#' @return None. This function is called for side effects.
+#'
+#' @examples
+#' if (interactive()) {
+#'   # Add AGENTS.md to the current Rhino project.
+#'   use_agents_md()
+#' }
+#' @export
+use_agents_md <- function() {
+  if (fs::file_exists("AGENTS.md") && !handle_existing_file("AGENTS.md")) {
+    return(invisible())
+  }
+  copy_template("agents_md")
+  cli::cli_alert_success("AGENTS.md added.")
 }
 
 is_dir_home <- function(dir) {
