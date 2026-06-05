@@ -49,8 +49,18 @@ test_that("covr_r runs a coverage test on a rhino app.", {
     )
 
     fs::file_copy(
+      fs::path(wd, "helpers", "say_hello_module.R"),
+      fs::path("app", "logic", "say_hello_module.R")
+    )
+
+    fs::file_copy(
       fs::path(wd, "helpers", "test-hello.R"),
       fs::path("tests", "testthat", "test-hello.R")
+    )
+
+    fs::file_copy(
+      fs::path(wd, "helpers", "test-say_hello_module.R"),
+      fs::path("tests", "testthat", "test-say_hello_module.R")
     )
 
     box::purge_cache()
