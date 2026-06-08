@@ -3,8 +3,8 @@ Title: A Framework for Enterprise Shiny Applications
 Version: 1.11.0.9003
 Authors@R:
   c(
-    person("Kamil", "Żyła", role = c("aut", "cre"), email = "opensource+kamil@appsilon.com"),
-    person("Jakub", "Nowicki", role = "aut", email = "kuba@appsilon.com"),
+    person("Jakub", "Nowicki", role = c("aut", "cre"), email = "opensource+kuba@appsilon.com"),
+    person("Kamil", "Żyła", role = "aut", email = "kamil@appsilon.com"),
     person("Leszek", "Siemiński", role = "aut", email = "leszek.sieminski@appsilon.com"),
     person("Marek", "Rogala", role = "aut", email = "marek@appsilon.com"),
     person("Recle", "Vibal", role = "aut", email = "recle.vibal@appsilon.com"),
@@ -28,6 +28,7 @@ Imports:
   callr,
   cli,
   config,
+  covr (>= 3.6.5),
   fs,
   glue,
   lintr (>= 3.0.0),
@@ -43,7 +44,8 @@ Imports:
   withr,
   yaml
 Suggests:
-  covr,
+  DT,
+  htmltools,
   knitr,
   lifecycle,
   mockery,

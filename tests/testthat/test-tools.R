@@ -28,3 +28,45 @@ test_that("build_sass_r builds a minified CSS file out of a Sass file", {
     ".components-container{display:inline-grid;grid-template-columns:1fr 1fr;width:100%}.components-container .component-box{padding:10px;margin:10px}" # nolint: line_length_linter
   )
 })
+
+test_that("covr_r runs a coverage test on a rhino app.", {
+  skip_on_covr()
+  wd <- getwd()
+
+  withr::with_tempdir({
+    fs::dir_create("app")
+    fs::dir_create("app", "logic")
+    fs::dir_create("tests", "testthat")
+
+    fs::file_copy(
+      fs::path(wd, "helpers", "main.R"),
+      fs::path("app", "main.R")
+    )
+
+    fs::file_copy(
+      fs::path(wd, "helpers", "hello.R"),
+      fs::path("app", "logic", "hello.R")
+    )
+
+    fs::file_copy(
+      fs::path(wd, "helpers", "say_hello_module.R"),
+      fs::path("app", "logic", "say_hello_module.R")
+    )
+
+    fs::file_copy(
+      fs::path(wd, "helpers", "test-hello.R"),
+      fs::path("tests", "testthat", "test-hello.R")
+    )
+
+    fs::file_copy(
+      fs::path(wd, "helpers", "test-say_hello_module.R"),
+      fs::path("tests", "testthat", "test-say_hello_module.R")
+    )
+
+    box::purge_cache()
+    configure_box()
+
+    expect_no_error(covr_r())
+    expect_no_error(covr_report())
+  })
+})
