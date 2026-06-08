@@ -32,36 +32,46 @@ copy_template <- function(src, dst = ".") {
   )
 }
 
-handle_existing_file <- function(path) {
-  choice <- prompt_file_conflict(path)
+# Resolve conflicts for `use_*` helpers that scaffold files or directories.
+# `paths` may name files and/or directories (a single value or a vector).
+# Each existing path is moved aside to a fresh `.bak` path after a single
+# confirmation. Returns TRUE if the caller should proceed (nothing existed, or
+# everything was backed up) and FALSE if the user aborted. Errors in
+# non-interactive sessions.
+handle_existing_paths <- function(paths) {
+  existing <- paths[fs::file_exists(paths)]
+  if (length(existing) == 0) {
+    return(TRUE)
+  }
 
-  if (choice != 2) {
-    cli::cli_alert_info("Aborted. {.file {path}} was not changed.")
+  if (prompt_conflict(existing) != 2) {
+    cli::cli_alert_info("Aborted. {.path {existing}} {?was/were} not changed.")
     return(FALSE)
   }
 
-  backup <- next_backup_path(path)
-  fs::file_move(path, backup)
-  cli::cli_alert_info("Existing {.file {path}} backed up as {.file {backup}}.")
+  for (path in existing) {
+    backup <- next_backup_path(path)
+    fs::file_move(path, backup)
+    cli::cli_alert_info("Existing {.path {path}} backed up as {.path {backup}}.")
+  }
   TRUE
 }
 
-prompt_file_conflict <- function(path) {
+prompt_conflict <- function(paths) {
   if (!interactive()) {
     cli::cli_abort(
       c(
-        "{.file {path}} already exists.",
-        i = "Remove or rename it before running this command."
+        "{.path {paths}} already {?exists/exist}.",
+        i = "Remove or rename {cli::qty(paths)}{?it/them} before running this command."
       ),
       call = NULL
     )
   }
   utils::menu(
-    choices = c(
-      "Abort",
-      sprintf("Back up existing %s and create a new one", path)
-    ),
-    title = sprintf("%s already exists. What would you like to do?", path)
+    choices = c("Abort", "Back up and create new"),
+    title = cli::format_inline(
+      "{.path {paths}} already {?exists/exist}. What would you like to do?"
+    )
   )
 }
 

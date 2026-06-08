@@ -4,7 +4,8 @@
 2. Fixed: `main.R` template imports functions in alphabetical order.
 3. Added `use_agents_md()` and an `agents_instructions` parameter to `init()` for scaffolding an `AGENTS.md` file with guidance for AI coding agents in a Rhino app.
 4. Added `use_github_actions_ci()` for scaffolding the Rhino GitHub Actions CI workflow into an existing Rhino project. The `github_actions_ci` parameter on `init()` is unchanged.
-5. Added `covr_r()` and `covr_report()` to execute test coverage for Rhino applications using `{covr}`.
+5. Added `use_e2e_tests()` and an `e2e_tests` parameter to `init()` for scaffolding the Cypress end-to-end test structure. The backup-on-conflict mechanism now handles directories as well as single files.
+6. Added `covr_r()` and `covr_report()` to execute test coverage for Rhino applications using `{covr}`.
 
 # [rhino 1.11.0](https://github.com/Appsilon/rhino/releases/tag/v1.11.0)
 

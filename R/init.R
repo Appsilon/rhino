@@ -18,6 +18,7 @@
 #' @param github_actions_ci Should the GitHub Actions CI be added?
 #' @param agents_instructions Should an `AGENTS.md` file with guidance
 #' for AI coding agents be added?
+#' @param e2e_tests Should the Cypress end-to-end test structure be added?
 #' @param rhino_version When using an existing `renv.lock` file,
 #' Rhino will install itself using `renv::install(rhino_version)`.
 #' You can provide this argument to use a specific version / source, e.g.`"Appsilon/rhino@v0.4.0"`.
@@ -30,6 +31,7 @@ init <- function(
   dir = ".",
   github_actions_ci = TRUE,
   agents_instructions = TRUE,
+  e2e_tests = TRUE,
   rhino_version = "rhino",
   force = FALSE
 )  {
@@ -40,6 +42,7 @@ init <- function(
       dir = dir,
       github_actions_ci = github_actions_ci,
       agents_instructions = agents_instructions,
+      e2e_tests = e2e_tests,
       rhino_version = rhino_version,
       new_project_wizard = FALSE
     )
@@ -58,6 +61,7 @@ init_rstudio <- function(
   dir = ".",
   github_actions_ci = TRUE,
   agents_instructions = TRUE,
+  e2e_tests = TRUE,
   rhino_version = "rhino"
 ) {
   init_impl(
@@ -66,6 +70,7 @@ init_rstudio <- function(
     dir = dir,
     github_actions_ci = github_actions_ci,
     agents_instructions = agents_instructions,
+    e2e_tests = e2e_tests,
     rhino_version = rhino_version,
     new_project_wizard = TRUE
   )
@@ -75,6 +80,7 @@ init_impl <- function(
   dir,
   github_actions_ci,
   agents_instructions,
+  e2e_tests,
   rhino_version,
   new_project_wizard
 ) {
@@ -84,7 +90,7 @@ init_impl <- function(
     init_renv(rhino_version)
     create_app_structure()
     create_unit_tests_structure()
-    create_e2e_tests_structure()
+    if (isTRUE(e2e_tests)) use_e2e_tests()
     if (isTRUE(github_actions_ci)) use_github_actions_ci()
     if (isTRUE(agents_instructions)) use_agents_md()
   })
@@ -131,7 +137,35 @@ create_unit_tests_structure <- function() {
   cli::cli_alert_success("Unit tests structure created.")
 }
 
-create_e2e_tests_structure <- function() {
+#' Add end-to-end tests
+#'
+#' Adds the Rhino Cypress end-to-end test structure to a Rhino application:
+#' the `tests/cypress.config.js` file and the `tests/cypress/` directory.
+#'
+#' This structure is added automatically by [init()].
+#' Use this function to add it to an existing Rhino project.
+#'
+#' If `tests/cypress.config.js` or the `tests/cypress/` directory already exist
+#' in an interactive session, you will be prompted to either abort (the default)
+#' or back up the existing paths (each moved to a `.bak` path) and create new
+#' ones. In non-interactive sessions the function aborts with an error.
+#'
+#' @return None. This function is called for side effects.
+#'
+#' @examples
+#' if (interactive()) {
+#'   # Add the end-to-end test structure to the current Rhino project.
+#'   use_e2e_tests()
+#' }
+#' @export
+use_e2e_tests <- function() {
+  conflicts <- c(
+    fs::path("tests", "cypress"),
+    fs::path("tests", "cypress.config.js")
+  )
+  if (!handle_existing_paths(conflicts)) {
+    return(invisible())
+  }
   copy_template("e2e_tests")
   cli::cli_alert_success("E2E tests structure created.")
 }
@@ -160,7 +194,7 @@ create_e2e_tests_structure <- function() {
 #' @export
 use_github_actions_ci <- function() {
   workflow <- fs::path(".github", "workflows", "rhino-test.yml")
-  if (fs::file_exists(workflow) && !handle_existing_file(workflow)) {
+  if (!handle_existing_paths(workflow)) {
     return(invisible())
   }
   copy_template("github_ci")
@@ -189,7 +223,7 @@ use_github_actions_ci <- function() {
 #' }
 #' @export
 use_agents_md <- function() {
-  if (fs::file_exists("AGENTS.md") && !handle_existing_file("AGENTS.md")) {
+  if (!handle_existing_paths("AGENTS.md")) {
     return(invisible())
   }
   copy_template("agents_md")
