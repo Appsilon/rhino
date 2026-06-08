@@ -154,6 +154,8 @@ reference:
   - lint_r
   - test_r
   - auto_test_r
+  - covr_r
+  - covr_report
 
 - title: JavaScript & Sass development
   contents:
