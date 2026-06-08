@@ -166,7 +166,10 @@ CRAN release: 2023-05-12
     run. This removes the need for
     [`box::reload()`](https://klmr.me/box/reference/unload.html) calls
     in tests.
+
 2.  Added support for `shinymanager`.
+
+3.  Adds `covr` support for `rhino` apps.
 
 ## [rhino 1.3.0](https://github.com/Appsilon/rhino/releases/tag/v1.3.0)
 

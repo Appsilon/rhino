@@ -48,6 +48,8 @@
 <url><loc>https://appsilon.github.io/rhino/dev/reference/auto_test_r.html</loc></url>
 <url><loc>https://appsilon.github.io/rhino/dev/reference/build_js.html</loc></url>
 <url><loc>https://appsilon.github.io/rhino/dev/reference/build_sass.html</loc></url>
+<url><loc>https://appsilon.github.io/rhino/dev/reference/covr_r.html</loc></url>
+<url><loc>https://appsilon.github.io/rhino/dev/reference/covr_report.html</loc></url>
 <url><loc>https://appsilon.github.io/rhino/dev/reference/dependencies.html</loc></url>
 <url><loc>https://appsilon.github.io/rhino/dev/reference/devmode.html</loc></url>
 <url><loc>https://appsilon.github.io/rhino/dev/reference/diagnostics.html</loc></url>
@@ -65,5 +67,8 @@
 <url><loc>https://appsilon.github.io/rhino/dev/reference/rhinos.html</loc></url>
 <url><loc>https://appsilon.github.io/rhino/dev/reference/test_e2e.html</loc></url>
 <url><loc>https://appsilon.github.io/rhino/dev/reference/test_r.html</loc></url>
+<url><loc>https://appsilon.github.io/rhino/dev/reference/use_agents_md.html</loc></url>
+<url><loc>https://appsilon.github.io/rhino/dev/reference/use_e2e_tests.html</loc></url>
+<url><loc>https://appsilon.github.io/rhino/dev/reference/use_github_actions_ci.html</loc></url>
 </urlset>
 

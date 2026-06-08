@@ -6,6 +6,12 @@
   Rhino application
 - [`init()`](https://appsilon.github.io/rhino/dev/reference/init.md) :
   Create Rhino application
+- [`use_agents_md()`](https://appsilon.github.io/rhino/dev/reference/use_agents_md.md)
+  : Add AGENTS.md
+- [`use_e2e_tests()`](https://appsilon.github.io/rhino/dev/reference/use_e2e_tests.md)
+  : Add end-to-end tests
+- [`use_github_actions_ci()`](https://appsilon.github.io/rhino/dev/reference/use_github_actions_ci.md)
+  : Add GitHub Actions CI
 
 ## R development
 
@@ -22,6 +28,10 @@
   : Run R unit tests
 - [`auto_test_r()`](https://appsilon.github.io/rhino/dev/reference/auto_test_r.md)
   : Watch and automatically run R tests
+- [`covr_r()`](https://appsilon.github.io/rhino/dev/reference/covr_r.md)
+  : Run a unit test coverage check
+- [`covr_report()`](https://appsilon.github.io/rhino/dev/reference/covr_report.md)
+  : Display rhino test coverage results using a standalone report
 
 ## JavaScript & Sass development
 

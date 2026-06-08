@@ -10,6 +10,8 @@ created without Rhino.
 init(
   dir = ".",
   github_actions_ci = TRUE,
+  agents_instructions = TRUE,
+  e2e_tests = TRUE,
   rhino_version = "rhino",
   force = FALSE
 )
@@ -24,6 +26,15 @@ init(
 - github_actions_ci:
 
   Should the GitHub Actions CI be added?
+
+- agents_instructions:
+
+  Should an `AGENTS.md` file with guidance for AI coding agents be
+  added?
+
+- e2e_tests:
+
+  Should the Cypress end-to-end test structure be added?
 
 - rhino_version:
 
