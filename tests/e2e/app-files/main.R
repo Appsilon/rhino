@@ -1,3 +1,4 @@
+# nolint start
 box::use(
   rhino[log, react_component],
   shiny,
@@ -23,3 +24,4 @@ server <- function(id) {
     hello$server("hello")
   })
 }
+# nolint end

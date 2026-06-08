@@ -4,6 +4,7 @@
 2. Fixed: `main.R` template imports functions in alphabetical order.
 3. Added `use_agents_md()` and an `agents_instructions` parameter to `init()` for scaffolding an `AGENTS.md` file with guidance for AI coding agents in a Rhino app.
 4. Added `use_github_actions_ci()` for scaffolding the Rhino GitHub Actions CI workflow into an existing Rhino project. The `github_actions_ci` parameter on `init()` is unchanged.
+5. Added `covr_r()` and `covr_report()` to execute test coverage for Rhino applications using `{covr}`.
 
 # [rhino 1.11.0](https://github.com/Appsilon/rhino/releases/tag/v1.11.0)
 
@@ -95,6 +96,8 @@ to allow using `npm` alternatives like `bun` and `pnpm`.
 1. `test_r()` now clears the environment of loaded box modules before tests are run.
 This removes the need for `box::reload()` calls in tests.
 2. Added support for `shinymanager`.
+
+1. Adds `covr` support for `rhino` apps.
 
 # [rhino 1.3.0](https://github.com/Appsilon/rhino/releases/tag/v1.3.0)
 
