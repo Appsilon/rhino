@@ -41,6 +41,9 @@ testthat::expect_false(identical(bundle, "var App;App={};"))
 # JSX was transpiled by @babel/preset-react (classic runtime emits React.createElement).
 testthat::expect_match(bundle, "createElement", fixed = TRUE)
 # Optional chaining was lowered by @babel/preset-env (no `?.` survives in the output).
+# The template configures no `targets`/Browserslist, so preset-env down-levels all
+# modern syntax regardless of caniuse-lite updates. If a Browserslist config is ever
+# added to the Node template, revisit this assertion.
 testthat::expect_false(grepl("?.", bundle, fixed = TRUE))
 # The imported module was resolved and bundled (its string literal is present).
 testthat::expect_match(bundle, "Hi ", fixed = TRUE)
