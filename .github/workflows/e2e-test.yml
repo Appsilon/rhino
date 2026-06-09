@@ -189,6 +189,14 @@ jobs:
           Rscript -e "rhino::test_r()"
           Rscript -e "rhino::covr_r()"
 
+      # `test_e2e()` (above) starts the app via `start-server-and-test`, which stops the
+      # server with SIGINT. A non-interactive `Rscript -e "shiny::runApp()"` ignores SIGINT,
+      # so the Shiny process is orphaned and keeps holding port 3333. Free it before the next
+      # `test_e2e()` run, otherwise the new server cannot bind and Cypress hits the stale app.
+      - name: Stop any leftover app server before re-running e2e
+        if: always() && runner.os != 'Windows'
+        run: pkill -f "shiny::runApp" || true
+
       - name: Cypress e2e tests should confirm RhinoApp works
         if: runner.os != 'Windows'
         run: |
