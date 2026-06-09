@@ -1,21 +1,55 @@
+# Verifies `build_js()` drives the full webpack + babel toolchain, not just that it runs:
+# - ES module `import` resolution and multi-file bundling (webpack),
+# - JSX transpilation (@babel/preset-react -> `React.createElement`),
+# - modern-JS transpilation (@babel/preset-env lowers optional chaining `?.`).
+# These are the capabilities a dependency bump is most likely to break.
+
 min_js_path <- fs::path("app", "static", "js", "app.min.js")
 index_js_path <- fs::path("app", "js", "index.js")
+greeting_js_path <- fs::path("app", "js", "greeting.js")
+widget_jsx_path <- fs::path("app", "js", "Widget.jsx")
 
-# Create minimal css and check app.min.css output
+# A realistic entry: imports a helper module and a JSX component, and uses
+# optional chaining so we can assert preset-env actually transpiled it.
 cat(
-  "function sayHello() { console.log('Hello'); } export { sayHello };\n",
+  "const greeting = (name) => `Hi ${name}`;\nexport { greeting };\n",
+  file = greeting_js_path
+)
+cat(
+  paste0(
+    "export default function Widget({ label }) {\n",
+    "  return <div className=\"widget\">{label}</div>;\n",
+    "}\n"
+  ),
+  file = widget_jsx_path
+)
+cat(
+  paste0(
+    "import { greeting } from './greeting';\n",
+    "import Widget from './Widget';\n\n",
+    "const message = greeting('Rhino');\n",
+    "const upper = message?.toUpperCase();\n\n",
+    "export { Widget, message, upper };\n"
+  ),
   file = index_js_path
 )
 rhino::build_js()
-# Checks if the built js file is not a result of an empty index.js
-# The main test to see if build_js() work should be in the Cypress test
-testthat::expect_true(readLines(min_js_path) != "var App;App={};")
+bundle <- paste(readLines(min_js_path, warn = FALSE), collapse = "\n")
 
-# Revert to empty script and check otuput
-cat(
-  "\n",
-  file = index_js_path
-)
+# Not the empty-input bundle (something was actually built).
+testthat::expect_false(identical(bundle, "var App;App={};"))
+# JSX was transpiled by @babel/preset-react (classic runtime emits React.createElement).
+testthat::expect_match(bundle, "createElement", fixed = TRUE)
+# Optional chaining was lowered by @babel/preset-env (no `?.` survives in the output).
+testthat::expect_false(grepl("?.", bundle, fixed = TRUE))
+# The imported module was resolved and bundled (its string literal is present).
+testthat::expect_match(bundle, "Hi ", fixed = TRUE)
+
+# Clean up the extra modules so later workflow steps operate on a clean app.
+file.remove(greeting_js_path, widget_jsx_path)
+
+# Revert to an empty entry and check the resulting (empty) bundle.
+cat("\n", file = index_js_path)
 rhino::build_js()
 testthat::expect_identical(
   readLines(min_js_path, warn = FALSE),
