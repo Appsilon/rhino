@@ -12,8 +12,9 @@ testthat::expect_error(rhino::lint_sass())
 file.remove(bad_id_path)
 
 # An scss-namespaced rule from stylelint-config-standard-scss is enforced.
+# The camelCase variable name violates scss/dollar-variable-pattern.
 bad_scss_path <- fs::path("app", "styles", "bad-scss.scss")
-cat("$myVar: 10px;\n\n.a {\n  width: $myVar;\n}\n", file = bad_scss_path) # scss/dollar-variable-pattern
+cat("$myVar: 10px;\n\n.a {\n  width: $myVar;\n}\n", file = bad_scss_path)
 testthat::expect_error(rhino::lint_sass())
 file.remove(bad_scss_path)
 
