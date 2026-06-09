@@ -1,29 +1,11 @@
-# Verifies `lint_js()` actually enforces the eslint + airbnb ruleset and that
-# @babel/eslint-parser still parses modern JS and JSX. A dependency bump could either
-# break JSX parsing (valid code would then error) or silently stop enforcing rules
-# (bad code would then pass) - both are guarded below.
+# Verifies `lint_js()` enforces the eslint + airbnb ruleset, and that `fix = TRUE` works.
+# A dependency bump could silently stop enforcing a rule (bad code would then pass) -
+# guarded below. Note: `lint_js()` only lints `.js` files (eslint is invoked on the
+# `app/js` directory without `--ext`), so JSX linting is intentionally not covered here;
+# JSX transpilation is guarded in `test-build-js.R`.
 
 # The default scaffolded app lints clean.
 rhino::lint_js()
-
-# @babel/eslint-parser parses JSX: a clean component lints without error.
-clean_jsx_path <- fs::path("app", "js", "CleanWidget.jsx")
-cat(
-  paste0(
-    "const { useState } = React;\n\n",
-    "export default function CleanWidget({ label }) {\n",
-    "  const [on, setOn] = useState(false);\n",
-    "  return (\n",
-    "    <button type=\"button\" onClick={() => setOn(!on)}>\n",
-    "      {on ? label : 'off'}\n",
-    "    </button>\n",
-    "  );\n",
-    "}\n"
-  ),
-  file = clean_jsx_path
-)
-testthat::expect_no_error(rhino::lint_js())
-file.remove(clean_jsx_path)
 
 # Representative airbnb rules are enforced (not merely present): each violation errors.
 no_var_path <- fs::path("app", "js", "badVar.js")
