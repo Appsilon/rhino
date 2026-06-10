@@ -1,4 +1,8 @@
-# rhino 1.12.0
+# rhino (development)
+
+# [rhino 1.12.0](https://github.com/Appsilon/rhino/releases/tag/v1.12.0)
+
+See _[How-to: Rhino 1.12 Migration Guide](https://appsilon.github.io/rhino/articles/how-to/migrate-1-12.html)_
 
 1. Added `AGENTS.md` with repository guidance for AI coding agents.
 2. Fixed: `main.R` template imports functions in alphabetical order.
