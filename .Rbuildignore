@@ -10,3 +10,6 @@
 ^vignettes$
 ^docs$
 ^cran-comments\.md$
+^\.agents$
+^\.claude$
+^\.codex$
