@@ -1,0 +1,13 @@
+# How-to: Add internationalization
+
+Internationalization can be introduced in a Rhino application using
+[`shiny.i18n` package](https://appsilon.github.io/shiny.i18n/).
+
+You can achieve that by creating an instance of the
+`shiny.i18n::Translator` class, providing translations as JSON or CSV
+files and wrapping parts of your application that need translating in
+the `translate` method.
+
+A detailed tutorial on how to apply `shiny.i18n` in Rhino applications
+can be found
+[here](https://appsilon.github.io/shiny.i18n/articles/rhino.html).

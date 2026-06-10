@@ -27,6 +27,8 @@
   environments](https://appsilon.github.io/rhino/articles/how-to/manage-secrets-and-environments.md):
 - [How-to: Rhino 1.10 Migration
   Guide](https://appsilon.github.io/rhino/articles/how-to/migrate-1-10.md):
+- [How-to: Rhino 1.12 Migration
+  Guide](https://appsilon.github.io/rhino/articles/how-to/migrate-1-12.md):
 - [How-to: Rhino 1.6 Migration
   Guide](https://appsilon.github.io/rhino/articles/how-to/migrate-1-6.md):
 - [How-to: Rhino 1.7 Migration

@@ -8,10 +8,6 @@ Convenient way to log messages at a desired severity level.
 log
 ```
 
-## Format
-
-An object of class `list` of length 7.
-
 ## Details
 
 The `log` object is a list of logging functions, in order of decreasing

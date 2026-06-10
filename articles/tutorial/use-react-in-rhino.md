@@ -16,7 +16,7 @@ Before starting make sure that you have installed:
 
 1.  Rhino 1.4 or later. You can install the latest version with
     `install.packages("rhino")`.
-2.  Node.js v16 or later. You can download the latest version from
+2.  Node.js v20 or later. You can download the latest version from
     [nodejs.org](https://nodejs.org/en/download).
 
 ## Starting off

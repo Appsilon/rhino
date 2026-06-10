@@ -23,15 +23,18 @@ created without Rhino."><!-- Google tag (gtag.js) --><script async src="https://
 
     <a class="navbar-brand me-2" href="../index.html">rhino</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.11.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.12.0</small>
 
     <div id="version-switcher" class="dropdown">
-  <a href="#" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">1.11</a>
+  <a href="#" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">1.12</a>
   <ul class="dropdown-menu"><li>
-      <a class="dropdown-item" href="https://appsilon.github.io/rhino/dev">1.12.0 (dev)</a>
+      <a class="dropdown-item" href="https://appsilon.github.io/rhino/dev">1.12.0.9000 (dev)</a>
     </li>
     <li>
-      <a class="dropdown-item" href="https://appsilon.github.io/rhino/">1.11</a>
+      <a class="dropdown-item" href="https://appsilon.github.io/rhino/">1.12</a>
+    </li>
+    <li>
+      <a class="dropdown-item" href="https://appsilon.github.io/rhino/v1.11.0%20%20">1.11</a>
     </li>
     <li>
       <a class="dropdown-item" href="https://appsilon.github.io/rhino/v1.10.1">1.10</a>
@@ -128,6 +131,7 @@ created without Rhino."><!-- Google tag (gtag.js) --><script async src="https://
     <li><a class="dropdown-item" href="../articles/how-to/migrate-1-8.html">Migration to Rhino 1.8</a></li>
     <li><a class="dropdown-item" href="../articles/how-to/migrate-1-9.html">Migration to Rhino 1.9</a></li>
     <li><a class="dropdown-item" href="../articles/how-to/migrate-1-10.html">Migration to Rhino 1.10</a></li>
+    <li><a class="dropdown-item" href="../articles/how-to/migrate-1-12.html">Migration to Rhino 1.12</a></li>
   </ul></li>
 <li class="active nav-item"><a class="nav-link" href="../reference/index.html">Reference</a></li>
 <li class="nav-item"><a class="nav-link" href="../news/index.html">Changelog</a></li>
@@ -161,6 +165,8 @@ created without Rhino.</p>
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">init</span><span class="op">(</span></span>
 <span>  dir <span class="op">=</span> <span class="st">"."</span>,</span>
 <span>  github_actions_ci <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  agents_instructions <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  e2e_tests <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  rhino_version <span class="op">=</span> <span class="st">"rhino"</span>,</span>
 <span>  force <span class="op">=</span> <span class="cn">FALSE</span></span>
 <span><span class="op">)</span></span></code></pre></div>
@@ -176,6 +182,15 @@ created without Rhino.</p>
 
 <dt id="arg-github-actions-ci">github_actions_ci<a class="anchor" aria-label="anchor" href="#arg-github-actions-ci"></a></dt>
 <dd><p>Should the GitHub Actions CI be added?</p></dd>
+
+
+<dt id="arg-agents-instructions">agents_instructions<a class="anchor" aria-label="anchor" href="#arg-agents-instructions"></a></dt>
+<dd><p>Should an <code>AGENTS.md</code> file with guidance
+for AI coding agents be added?</p></dd>
+
+
+<dt id="arg-e-e-tests">e2e_tests<a class="anchor" aria-label="anchor" href="#arg-e-e-tests"></a></dt>
+<dd><p>Should the Cypress end-to-end test structure be added?</p></dd>
 
 
 <dt id="arg-rhino-version">rhino_version<a class="anchor" aria-label="anchor" href="#arg-rhino-version"></a></dt>
@@ -210,7 +225,7 @@ Rhino will try to only add the necessary dependencies to your lockfile.</p></li>
 
 
     <footer><div class="pkgdown-footer-left">
-  <p>Developed by Kamil Żyła, Jakub Nowicki, Leszek Siemiński, Marek Rogala, Recle Vibal, Tymoteusz Makowski, Rodrigo Basa.</p>
+  <p>Developed by Jakub Nowicki, Kamil Żyła, Leszek Siemiński, Marek Rogala, Recle Vibal, Tymoteusz Makowski, Rodrigo Basa.</p>
 </div>
 
 <div class="pkgdown-footer-right">

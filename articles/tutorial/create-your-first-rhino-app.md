@@ -20,7 +20,7 @@ pipe operator found in [magrittr](https://magrittr.tidyverse.org) and
 
 To use the state of the art JavaScript and Sass development tools
 provided by Rhino, you’ll need to [install
-Node.js](https://nodejs.org/en/download/) (v16 or later) on your system.
+Node.js](https://nodejs.org/en/download/) (v20 or later) on your system.
 
 Rhino will still work without Node.js but with some limitations
 (described in [JavaScript](#add-javascript-code) and

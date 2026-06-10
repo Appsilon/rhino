@@ -39,16 +39,19 @@
 
     <a class="navbar-brand me-2" href="../../index.html">rhino</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.11.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.12.0</small>
 
     <div id="version-switcher" class="dropdown">
-  <a href="#" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">1.11</a>
+  <a href="#" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">1.12</a>
   <ul class="dropdown-menu">
 <li>
-      <a class="dropdown-item" href="https://appsilon.github.io/rhino/dev">1.12.0 (dev)</a>
+      <a class="dropdown-item" href="https://appsilon.github.io/rhino/dev">1.12.0.9000 (dev)</a>
     </li>
     <li>
-      <a class="dropdown-item" href="https://appsilon.github.io/rhino/">1.11</a>
+      <a class="dropdown-item" href="https://appsilon.github.io/rhino/">1.12</a>
+    </li>
+    <li>
+      <a class="dropdown-item" href="https://appsilon.github.io/rhino/v1.11.0%20%20">1.11</a>
     </li>
     <li>
       <a class="dropdown-item" href="https://appsilon.github.io/rhino/v1.10.1">1.10</a>
@@ -152,6 +155,7 @@
     <li><a class="dropdown-item" href="../../articles/how-to/migrate-1-8.html">Migration to Rhino 1.8</a></li>
     <li><a class="dropdown-item" href="../../articles/how-to/migrate-1-9.html">Migration to Rhino 1.9</a></li>
     <li><a class="dropdown-item" href="../../articles/how-to/migrate-1-10.html">Migration to Rhino 1.10</a></li>
+    <li><a class="dropdown-item" href="../../articles/how-to/migrate-1-12.html">Migration to Rhino 1.12</a></li>
   </ul>
 </li>
 <li class="nav-item"><a class="nav-link" href="../../reference/index.html">Reference</a></li>
@@ -188,162 +192,49 @@
     
     
 <p>LLM tools like <a href="https://github.com/features/copilot" class="external-link">GitHub
-Copilot</a> can be extremely helpful when building apps with Rhino.
-However, the unique project structure and the use of the box package for
-module imports can make it harder for these tools to understand and
-assist effectively. The good news is that their performance can be
-significantly improved by providing custom instructions.</p>
+Copilot</a> and <a href="https://www.claude.com/product/claude-code" class="external-link">Claude Code</a> can be
+extremely helpful when building apps with Rhino. However, the unique
+project structure and the use of the box package for module imports can
+make it harder for these tools to understand and assist effectively. The
+good news is that their performance can be significantly improved by
+providing custom instructions.</p>
 <div class="section level2">
-<h2 id="custom-instructions-for-github-copilot">Custom instructions for GitHub Copilot<a class="anchor" aria-label="anchor" href="#custom-instructions-for-github-copilot"></a>
+<h2 id="agents-md">AGENTS.md<a class="anchor" aria-label="anchor" href="#agents-md"></a>
 </h2>
-<p>To optimize GitHub Copilot for working with Rhino projects, you can
-create a file named <code>copilot-instructions.md</code> in the
-<code>.github/</code> directory of your repository. To see instructions
-below as markdown <a href="https://github.com/Appsilon/rhino/blob/main/vignettes/how-to/build-rhino-apps-with-llm-tools.Rmd" class="external-link">visit
-vignette source</a>.</p>
-<p>Example instructions:</p>
-<div class="p-3 border rounded bg-secondary-subtle">
-<div class="section level3">
-<h3 id="importing-and-exporting">Importing and exporting<a class="anchor" aria-label="anchor" href="#importing-and-exporting"></a>
-</h3>
-<p>Use only <code><a href="https://klmr.me/box/reference/use.html" class="external-link">box::use</a></code> for imports. Using
-<code>library</code> and <code>::</code> is forbidden.</p>
-<p><code><a href="https://klmr.me/box/reference/use.html" class="external-link">box::use</a></code> statement (if needed) should be located at the
-top of the file.</p>
-<p>There can be two <code><a href="https://klmr.me/box/reference/use.html" class="external-link">box::use</a></code> statements per file. First one
-should include only R packages, second should only import other
-scripts.</p>
-<p>Imports in <code><a href="https://klmr.me/box/reference/use.html" class="external-link">box::use</a></code> should be sorted alphabetically.</p>
-<p>Using <code>[...]</code> is forbidden.</p>
-<p>All external functions in a script should be imported. This includes
-operators, like <code>%&gt;%</code>.</p>
-<p>A script should only import functions that it uses.</p>
-<div class="section level4">
-<h4 id="ways-of-importing">Ways of importing<a class="anchor" aria-label="anchor" href="#ways-of-importing"></a>
-</h4>
-<p>There are two ways a package or a script can be imported:</p>
-<ol style="list-style-type: decimal">
-<li>List imported functions - functions imported are listed in []</li>
-</ol>
-<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">box</span><span class="fu">::</span><span class="fu"><a href="https://klmr.me/box/reference/use.html" class="external-link">use</a></span><span class="op">(</span></span>
-<span>  <span class="va">dplyr</span><span class="op">[</span><span class="va">filter</span><span class="op">]</span>,</span>
-<span><span class="op">)</span></span>
-<span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/stats/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">mtcars</span>, <span class="va">cyl</span> <span class="op">&gt;</span> <span class="fl">4</span><span class="op">)</span></span></code></pre></div>
-<p>Use it if there are no more than 8 functions imported from this
-package/script.</p>
-<ol start="2" style="list-style-type: decimal">
-<li>Import package and access functions with <code>$</code>
+<p>Many AI coding tools (including Claude Code, Cursor, and others) read
+an <a href="https://agents.md" class="external-link"><code>AGENTS.md</code></a> file at the
+project root for repository-specific guidance. Rhino ships a curated <a href="https://github.com/Appsilon/rhino/blob/main/inst/templates/agents_md/AGENTS.md" class="external-link"><code>AGENTS.md</code>
+template</a> tailored to Rhino projects, covering <code>box</code>
+imports, the Rhino module layout, unit-test conventions, and code
+style.</p>
+<ul>
+<li>
+<code><a href="../../reference/init.html">rhino::init()</a></code> adds it by default. Set
+<code>agents_instructions = FALSE</code> to opt out.</li>
+<li>To add it to an existing Rhino project, run
+<code><a href="../../reference/use_agents_md.html">rhino::use_agents_md()</a></code>. If <code>AGENTS.md</code> already
+exists you will be prompted to either abort or back up the existing file
+as <code>AGENTS.md.bak</code>.</li>
+</ul>
+</div>
+<div class="section level2">
+<h2 id="tool-specific-instruction-files">Tool-specific instruction files<a class="anchor" aria-label="anchor" href="#tool-specific-instruction-files"></a>
+</h2>
+<p>Some AI coding tools read instructions from their own dedicated file
+rather than <code>AGENTS.md</code>. If the tool you use does not pick up
+<code>AGENTS.md</code> automatically, copy the content of the <a href="https://github.com/Appsilon/rhino/blob/main/inst/templates/agents_md/AGENTS.md" class="external-link">Rhino
+<code>AGENTS.md</code> template</a> into the file that tool expects, for
+example:</p>
+<ul>
+<li>GitHub Copilot: <code>.github/copilot-instructions.md</code>
 </li>
-</ol>
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">box</span><span class="fu">::</span><span class="fu"><a href="https://klmr.me/box/reference/use.html" class="external-link">use</a></span><span class="op">(</span></span>
-<span>  <span class="va">dplyr</span>,</span>
-<span><span class="op">)</span></span>
-<span><span class="va">dplyr</span><span class="op">$</span><span class="fu">filter</span><span class="op">(</span><span class="va">mtcars</span>, <span class="va">cyl</span> <span class="op">&gt;</span> <span class="fl">4</span><span class="op">)</span></span></code></pre></div>
-<p>When moving function into a different script, remember to adjust
-imports in <code><a href="https://klmr.me/box/reference/use.html" class="external-link">box::use</a></code>:</p>
-<ol style="list-style-type: decimal">
-<li>Add import for all required functions to the file where you moved
-the function.</li>
-<li>Make sure to follow the correct way of importing (direct or using $)
-in the new file. Modify it if needed.</li>
-<li>Remove redundant imports from the original file.</li>
-<li>Import the moved function in the original file.</li>
-</ol>
-<p>Use it if there are more than 8 functions imported from this
-package/script.</p>
-</div>
-<div class="section level4">
-<h4 id="exporting">Exporting<a class="anchor" aria-label="anchor" href="#exporting"></a>
-</h4>
-<p>If a function is used only inside a script, it should not be
-exported.</p>
-<p>If a function is used by other scripts, it should be exported by
-adding <code>#' @export</code> before the function.</p>
-</div>
-</div>
-<div class="section level3">
-<h3 id="rhino-modules">Rhino modules<a class="anchor" aria-label="anchor" href="#rhino-modules"></a>
-</h3>
-<p>When creating a new module in <code>app/view</code>, use the
-template:</p>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">box</span><span class="fu">::</span><span class="fu"><a href="https://klmr.me/box/reference/use.html" class="external-link">use</a></span><span class="op">(</span></span>
-<span>  <span class="va">shiny</span><span class="op">[</span><span class="va">moduleServer</span>, <span class="va">NS</span><span class="op">]</span></span>
-<span><span class="op">)</span></span>
-<span></span>
-<span><span class="co">#' @export</span></span>
-<span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">id</span><span class="op">)</span> <span class="op">{</span></span>
-<span>  <span class="va">ns</span> <span class="op">&lt;-</span> <span class="fu">NS</span><span class="op">(</span><span class="va">id</span><span class="op">)</span></span>
-<span></span>
-<span><span class="op">}</span></span>
-<span></span>
-<span><span class="co">#' @export</span></span>
-<span><span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">id</span><span class="op">)</span> <span class="op">{</span></span>
-<span>  <span class="fu">moduleServer</span><span class="op">(</span><span class="va">id</span>, <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span></span>
-<span></span>
-<span>  <span class="op">}</span><span class="op">)</span></span>
-<span><span class="op">}</span></span></code></pre></div>
-</div>
-<div class="section level3">
-<h3 id="unit-tests">Unit tests<a class="anchor" aria-label="anchor" href="#unit-tests"></a>
-</h3>
-<p>All R unit tests are located in <code>tests/testthat</code>.</p>
-<p>There should be only one test file per script, named
-<code>test-{script name}.R</code>.</p>
-<p>If testing private functions (ones that are not exported), use this
-pattern:</p>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">box</span><span class="fu">::</span><span class="fu"><a href="https://klmr.me/box/reference/use.html" class="external-link">use</a></span><span class="op">(</span><span class="va">app</span><span class="op">/</span><span class="va">logic</span><span class="op">/</span><span class="va">mymod</span><span class="op">)</span></span>
-<span></span>
-<span><span class="va">impl</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/attr.html" class="external-link">attr</a></span><span class="op">(</span><span class="va">mymod</span>, <span class="st">"namespace"</span><span class="op">)</span></span>
-<span></span>
-<span><span class="fu">test_that</span><span class="op">(</span><span class="st">'{test description}'</span>, <span class="op">{</span></span>
-<span>    <span class="fu">expect_true</span><span class="op">(</span><span class="va">impl</span><span class="op">$</span><span class="fu">this_works</span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="op">}</span><span class="op">)</span></span></code></pre></div>
-<div class="section level4">
-<h4 id="testing-exported-and-non-exported-functions">Testing exported and non-exported functions<a class="anchor" aria-label="anchor" href="#testing-exported-and-non-exported-functions"></a>
-</h4>
-<p>When testing a box module that contains both exported and
-non-exported functions:</p>
-<ol style="list-style-type: decimal">
-<li>Import the entire module without specifying individual
-functions:</li>
-</ol>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">box</span><span class="fu">::</span><span class="fu"><a href="https://klmr.me/box/reference/use.html" class="external-link">use</a></span><span class="op">(</span></span>
-<span>  <span class="va">app</span><span class="op">/</span><span class="va">logic</span><span class="op">/</span><span class="va">mymodule</span>,</span>
-<span><span class="op">)</span></span></code></pre></div>
-<ol start="2" style="list-style-type: decimal">
-<li>Access exported functions using the module name with
-<code>$</code>:</li>
-</ol>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">test_that</span><span class="op">(</span><span class="st">"exported function works"</span>, <span class="op">{</span></span>
-<span>  <span class="fu">expect_equal</span><span class="op">(</span><span class="va">mymodule</span><span class="op">$</span><span class="fu">exported_function</span><span class="op">(</span><span class="fl">1</span><span class="op">)</span>, <span class="fl">2</span><span class="op">)</span></span>
-<span><span class="op">}</span><span class="op">)</span></span></code></pre></div>
-<ol start="3" style="list-style-type: decimal">
-<li>For testing non-exported functions, get the module’s namespace at
-the start of the test file:</li>
-</ol>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">impl</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/attr.html" class="external-link">attr</a></span><span class="op">(</span><span class="va">mymodule</span>, <span class="st">"namespace"</span><span class="op">)</span></span>
-<span></span>
-<span><span class="fu">test_that</span><span class="op">(</span><span class="st">"non-exported function works"</span>, <span class="op">{</span></span>
-<span>  <span class="fu">expect_equal</span><span class="op">(</span><span class="va">impl</span><span class="op">$</span><span class="fu">internal_function</span><span class="op">(</span><span class="fl">1</span><span class="op">)</span>, <span class="fl">2</span><span class="op">)</span></span>
-<span><span class="op">}</span><span class="op">)</span></span></code></pre></div>
-<p>This pattern allows testing both public and private functions while
-maintaining proper encapsulation.</p>
-</div>
-</div>
-<div class="section level3">
-<h3 id="code-style">Code style<a class="anchor" aria-label="anchor" href="#code-style"></a>
-</h3>
-<p>The maximum line length is 100 characters.</p>
-</div>
-</div>
+<li>Claude Code: <code>CLAUDE.md</code>
+</li>
+<li>Cursor: <code>.cursor/rules/</code> or
+<code>.cursorrules</code>
+</li>
+</ul>
+<p>Refer to your tool’s documentation for the exact path it reads.</p>
 </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside>
@@ -352,7 +243,7 @@ maintaining proper encapsulation.</p>
 
 
     <footer><div class="pkgdown-footer-left">
-  <p>Developed by Kamil Żyła, Jakub Nowicki, Leszek Siemiński, Marek Rogala, Recle Vibal, Tymoteusz Makowski, Rodrigo Basa.</p>
+  <p>Developed by Jakub Nowicki, Kamil Żyła, Leszek Siemiński, Marek Rogala, Recle Vibal, Tymoteusz Makowski, Rodrigo Basa.</p>
 </div>
 
 <div class="pkgdown-footer-right">

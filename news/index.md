@@ -1,6 +1,52 @@
 # Changelog
 
-## rhino 1.11.0
+## rhino 1.12.0
+
+CRAN release: 2026-06-10
+
+1.  Added `AGENTS.md` with repository guidance for AI coding agents.
+2.  Fixed: `main.R` template imports functions in alphabetical order.
+3.  Added
+    [`use_agents_md()`](https://appsilon.github.io/rhino/reference/use_agents_md.md)
+    and an `agents_instructions` parameter to
+    [`init()`](https://appsilon.github.io/rhino/reference/init.md) for
+    scaffolding an `AGENTS.md` file with guidance for AI coding agents
+    in a Rhino app.
+4.  Added
+    [`use_github_actions_ci()`](https://appsilon.github.io/rhino/reference/use_github_actions_ci.md)
+    for scaffolding the Rhino GitHub Actions CI workflow into an
+    existing Rhino project. The `github_actions_ci` parameter on
+    [`init()`](https://appsilon.github.io/rhino/reference/init.md) is
+    unchanged.
+5.  Added
+    [`use_e2e_tests()`](https://appsilon.github.io/rhino/reference/use_e2e_tests.md)
+    and an `e2e_tests` parameter to
+    [`init()`](https://appsilon.github.io/rhino/reference/init.md) for
+    scaffolding the Cypress end-to-end test structure. The
+    backup-on-conflict mechanism now handles directories as well as
+    single files.
+6.  Added
+    [`covr_r()`](https://appsilon.github.io/rhino/reference/covr_r.md)
+    and
+    [`covr_report()`](https://appsilon.github.io/rhino/reference/covr_report.md)
+    to execute test coverage for Rhino applications using
+    [covr](https://covr.r-lib.org).
+7.  Updated Node.js dependencies to address security vulnerabilities
+    reported by automated scanning.
+8.  Strengthened the end-to-end tests for the Node-based tools
+    ([`build_js()`](https://appsilon.github.io/rhino/reference/build_js.md),
+    [`build_sass()`](https://appsilon.github.io/rhino/reference/build_sass.md),
+    [`lint_js()`](https://appsilon.github.io/rhino/reference/lint_js.md),
+    [`lint_sass()`](https://appsilon.github.io/rhino/reference/lint_sass.md),
+    [`format_js()`](https://appsilon.github.io/rhino/reference/format_js.md),
+    [`format_sass()`](https://appsilon.github.io/rhino/reference/format_sass.md))
+    to exercise the underlying toolchain capabilities (JSX and modern-JS
+    transpilation, Sass `@use`/mixins/math, lint rule enforcement), so
+    dependency updates are validated.
+9.  The minimum supported Node.js version is now 20, in line with the
+    updated Node dependencies.
+
+## [rhino 1.11.0](https://github.com/Appsilon/rhino/releases/tag/v1.11.0)
 
 CRAN release: 2025-04-02
 
@@ -166,7 +212,10 @@ CRAN release: 2023-05-12
     run. This removes the need for
     [`box::reload()`](https://klmr.me/box/reference/unload.html) calls
     in tests.
+
 2.  Added support for `shinymanager`.
+
+3.  Adds `covr` support for `rhino` apps.
 
 ## [rhino 1.3.0](https://github.com/Appsilon/rhino/releases/tag/v1.3.0)
 

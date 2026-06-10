@@ -1,5 +1,6 @@
 <urlset xmlns = 'http://www.sitemaps.org/schemas/sitemap/0.9'>
 <url><loc>https://appsilon.github.io/rhino/404.html</loc></url>
+<url><loc>https://appsilon.github.io/rhino/AGENTS.html</loc></url>
 <url><loc>https://appsilon.github.io/rhino/CONTRIBUTING.html</loc></url>
 <url><loc>https://appsilon.github.io/rhino/articles/explanation/application-structure.html</loc></url>
 <url><loc>https://appsilon.github.io/rhino/articles/explanation/box-modules.html</loc></url>
@@ -18,6 +19,7 @@
 <url><loc>https://appsilon.github.io/rhino/articles/how-to/keep-multiple-apps-in-a-single-repository.html</loc></url>
 <url><loc>https://appsilon.github.io/rhino/articles/how-to/manage-secrets-and-environments.html</loc></url>
 <url><loc>https://appsilon.github.io/rhino/articles/how-to/migrate-1-10.html</loc></url>
+<url><loc>https://appsilon.github.io/rhino/articles/how-to/migrate-1-12.html</loc></url>
 <url><loc>https://appsilon.github.io/rhino/articles/how-to/migrate-1-6.html</loc></url>
 <url><loc>https://appsilon.github.io/rhino/articles/how-to/migrate-1-7.html</loc></url>
 <url><loc>https://appsilon.github.io/rhino/articles/how-to/migrate-1-8.html</loc></url>
@@ -47,6 +49,8 @@
 <url><loc>https://appsilon.github.io/rhino/reference/auto_test_r.html</loc></url>
 <url><loc>https://appsilon.github.io/rhino/reference/build_js.html</loc></url>
 <url><loc>https://appsilon.github.io/rhino/reference/build_sass.html</loc></url>
+<url><loc>https://appsilon.github.io/rhino/reference/covr_r.html</loc></url>
+<url><loc>https://appsilon.github.io/rhino/reference/covr_report.html</loc></url>
 <url><loc>https://appsilon.github.io/rhino/reference/dependencies.html</loc></url>
 <url><loc>https://appsilon.github.io/rhino/reference/devmode.html</loc></url>
 <url><loc>https://appsilon.github.io/rhino/reference/diagnostics.html</loc></url>
@@ -64,5 +68,8 @@
 <url><loc>https://appsilon.github.io/rhino/reference/rhinos.html</loc></url>
 <url><loc>https://appsilon.github.io/rhino/reference/test_e2e.html</loc></url>
 <url><loc>https://appsilon.github.io/rhino/reference/test_r.html</loc></url>
+<url><loc>https://appsilon.github.io/rhino/reference/use_agents_md.html</loc></url>
+<url><loc>https://appsilon.github.io/rhino/reference/use_e2e_tests.html</loc></url>
+<url><loc>https://appsilon.github.io/rhino/reference/use_github_actions_ci.html</loc></url>
 </urlset>
 
