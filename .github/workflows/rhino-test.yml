@@ -1,0 +1,80 @@
+name: Rhino Test
+on:
+  # Run on pushes to 'main' branch
+  push:
+    branches:
+      - main
+  # Run on any opened pull request
+  pull_request:
+  # Run manually via GitHub Actions website
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  main:
+    name: Run linters and tests
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Setup system dependencies
+        run: |
+          packages=(
+            # List each package on a separate line.
+          )
+          sudo apt-get update
+          sudo apt-get install --yes "${packages[@]}"
+
+      - name: Setup R
+        uses: r-lib/actions/setup-r@v2
+        with:
+          r-version: renv
+
+      - name: Setup R dependencies
+        uses: r-lib/actions/setup-renv@v2
+
+      - name: Setup Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 20
+
+      - name: Lint R
+        if: always()
+        shell: Rscript {0}
+        run: rhino::lint_r()
+
+      - name: Lint JavaScript
+        if: always()
+        shell: Rscript {0}
+        run: rhino::lint_js()
+
+      - name: Lint Sass
+        if: always()
+        shell: Rscript {0}
+        run: rhino::lint_sass()
+
+      - name: Build JavaScript
+        if: always()
+        shell: Rscript {0}
+        run: rhino::build_js()
+
+      - name: Build Sass
+        if: always()
+        shell: Rscript {0}
+        run: rhino::build_sass()
+
+      - name: Run R unit tests
+        if: always()
+        shell: Rscript {0}
+        run: rhino::test_r()
+
+      - name: Run Cypress end-to-end tests
+        if: always()
+        uses: cypress-io/github-action@v6
+        with:
+          working-directory: .rhino # Created by earlier commands which use Node.js
+          start: npm run run-app
+          project: ../tests
+          wait-on: 'http://localhost:3333/'
+          wait-on-timeout: 60
