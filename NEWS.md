@@ -6,6 +6,9 @@
 4. Added `use_github_actions_ci()` for scaffolding the Rhino GitHub Actions CI workflow into an existing Rhino project. The `github_actions_ci` parameter on `init()` is unchanged.
 5. Added `use_e2e_tests()` and an `e2e_tests` parameter to `init()` for scaffolding the Cypress end-to-end test structure. The backup-on-conflict mechanism now handles directories as well as single files.
 6. Added `covr_r()` and `covr_report()` to execute test coverage for Rhino applications using `{covr}`.
+7. Updated Node.js dependencies to address security vulnerabilities reported by automated scanning.
+8. Strengthened the end-to-end tests for the Node-based tools (`build_js()`, `build_sass()`, `lint_js()`, `lint_sass()`, `format_js()`, `format_sass()`) to exercise the underlying toolchain capabilities (JSX and modern-JS transpilation, Sass `@use`/mixins/math, lint rule enforcement), so dependency updates are validated.
+9. The minimum supported Node.js version is now 20, in line with the updated Node dependencies.
 
 # [rhino 1.11.0](https://github.com/Appsilon/rhino/releases/tag/v1.11.0)
 
