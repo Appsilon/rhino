@@ -25,7 +25,7 @@ starts_with <- function(string, prefix) {
 }
 
 check_if_includes_r_files <- function(path) {
-  r_files <- fs::dir_ls(path, recurse = TRUE, regexp = "*.[Rr]$")
+  r_files <- fs::dir_ls(path, recurse = TRUE, regexp = "\\.[Rr]$")
 
   if (length(r_files) > 0) {
     return(normalizePath(path))

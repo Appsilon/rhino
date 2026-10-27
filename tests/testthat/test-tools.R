@@ -1,3 +1,18 @@
+test_that("check_if_includes_r_files finds R and r files", {
+  withr::with_tempdir({
+    for (extension in c("R", "r")) {
+      path <- fs::path("app", extension)
+      fs::dir_create(path)
+      fs::file_create(fs::path(path, paste0("module.", extension)))
+      expect_equal(check_if_includes_r_files(path), normalizePath(path))
+    }
+
+    fs::dir_create("app/no_r")
+    fs::file_create("app/no_r/readme.txt")
+    expect_null(check_if_includes_r_files("app/no_r"))
+  })
+})
+
 test_that("starts_with is able to detect paths that start with a given prefix", {
   expect_true(starts_with("app/logic/utils.R", "app/logic"))
   expect_true(starts_with("app/main.R", "app"))
